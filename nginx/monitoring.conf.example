@@ -1,0 +1,47 @@
+# =============================================================================
+# monitoring.conf — Virtual host nginx pour le dashboard SOC
+# =============================================================================
+# Copier dans /etc/nginx/sites-available/monitoring
+# Adapter VOTRE_LAN_SUBNET et PORT selon votre infrastructure
+# =============================================================================
+
+server {
+    listen 8080;
+    server_name _;
+
+    root /var/www/monitoring;
+    index index.html;
+
+    # ── Restriction d'accès LAN uniquement ────────────────────────────────────
+    # Remplacer par votre sous-réseau LAN
+    allow 192.168.x.0/24;
+    deny  all;
+
+    # ── Dashboard principal ───────────────────────────────────────────────────
+    location / {
+        try_files $uri $uri/ =404;
+        add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-Content-Type-Options "nosniff";
+    }
+
+    # ── JSONs de données — pas de cache ───────────────────────────────────────
+    location ~* \.json$ {
+        add_header Cache-Control "no-cache, no-store, must-revalidate";
+        add_header Pragma "no-cache";
+        add_header Expires "0";
+        try_files $uri =404;
+    }
+
+    # ── Compression Gzip ──────────────────────────────────────────────────────
+    gzip on;
+    gzip_types text/html text/css application/javascript application/json;
+    gzip_min_length 1024;
+
+    # ── Logs dédiés ───────────────────────────────────────────────────────────
+    access_log /var/log/nginx/monitoring-access.log;
+    error_log  /var/log/nginx/monitoring-error.log warn;
+
+    # ── Sécurité headers ──────────────────────────────────────────────────────
+    add_header Referrer-Policy "no-referrer";
+    server_tokens off;
+}

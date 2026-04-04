@@ -1,0 +1,26 @@
+# Fichiers sensibles — NE JAMAIS versionner
+alert.conf
+*.json
+*.key
+*.pem
+.proxmox_pass
+freebox_token.txt
+authorized_keys
+
+# Fichiers de configuration avec données réelles
+nginx/monitoring.conf
+config/alert.conf
+
+# Logs
+*.log
+*.log.*
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.env
+
+# OS
+.DS_Store
+Thumbs.db

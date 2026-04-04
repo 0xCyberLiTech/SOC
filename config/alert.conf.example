@@ -1,0 +1,38 @@
+# =============================================================================
+# alert.conf — Configuration des alertes SOC
+# =============================================================================
+# Copier ce fichier en alert.conf et adapter les valeurs.
+# NE PAS versionner alert.conf (contient des données sensibles).
+# =============================================================================
+
+[mail]
+# Notifications par e-mail
+enabled     = false
+smtp_host   = smtp.votredomaine.com
+smtp_port   = 587
+smtp_user   = alertes@votredomaine.com
+smtp_pass   = VOTRE_MOT_DE_PASSE_SMTP
+from_addr   = soc-alertes@votredomaine.com
+to_addr     = admin@votredomaine.com
+
+[thresholds]
+# Seuil de bans CrowdSec/heure pour déclencher une alerte
+crowdsec_bans_hour  = 50
+
+# Seuil d'alertes Suricata sév.1 pour déclencher une alerte
+suricata_sev1       = 5
+
+# Seuil de tentatives SSH/heure
+ssh_attempts_hour   = 20
+
+# Score de menace minimum pour alerte
+threat_score_alert  = 60
+threat_score_crit   = 80
+
+[autoban]
+# Ban automatique si dépassement du seuil (via CrowdSec)
+enabled             = true
+# Durée de ban automatique (secondes)
+ban_duration        = 86400
+# Nombre de décisions/heure avant ban auto
+decisions_threshold = 100
