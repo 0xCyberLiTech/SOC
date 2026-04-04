@@ -3,7 +3,7 @@
   <br></br>
 
   <a href="https://github.com/0xCyberLiTech">
-    <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=50&duration=6000&pause=1000000000&color=FF0048&center=true&vCenter=true&width=1100&lines=%3ESOC_" alt="Titre dynamique SOC" />
+    <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=50&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=1100&lines=%3ESOC_" alt="Titre dynamique SOC" />
   </a>
 
   <br></br>
