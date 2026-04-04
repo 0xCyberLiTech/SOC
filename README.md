@@ -86,33 +86,27 @@
 
 ## Architecture
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    CLIENT (navigateur LAN)                   │
-│              http://VOTRE_IP:8080 — Dashboard SOC            │
-└──────────────────────────┬──────────────────────────────────┘
-                           │ LAN
-┌──────────────────────────▼──────────────────────────────────┐
-│               Serveur principal (Debian 13)                   │
-│                                                              │
-│  Internet → nginx (80/443)                                   │
-│              ↓                                               │
-│  CrowdSec AppSec WAF  ← bloque exploits CVE (~150 vPatch)    │
-│  CrowdSec IPS (nftables) ← bloque IPs malveillantes          │
-│  Suricata IDS ← alerte sur le trafic réseau                  │
-│  fail2ban ← bloque brute force SSH/web                       │
-│  UFW ← politique deny par défaut                             │
-│              ↓                                               │
-│  monitoring_gen.py (cron 5 min) → monitoring.json            │
-│              ↓                                               │
-│  nginx → /var/www/monitoring/ → Dashboard HTML               │
-└─────────────────────────────────────────────────────────────┘
-         ↑ SSH (paramiko)
-┌────────┴─────────────────────┐
-│  Hôtes secondaires            │
-│  clt · pa85 · Proxmox VE     │
-│  fail2ban remote stats        │
-└──────────────────────────────┘
+```mermaid
+flowchart TD
+    A["🖥️ CLIENT — navigateur LAN\nhttp://VOTRE_IP:8080"]
+
+    A -->|LAN| B
+
+    subgraph B["🖥️ Serveur principal — Debian 13"]
+        direction TB
+        N["nginx — :80 / :443"]
+        W["CrowdSec AppSec WAF\n~150 vPatch CVE"]
+        I["CrowdSec IPS nftables\nban IPs malveillantes"]
+        S["Suricata IDS\n90 000+ signatures réseau"]
+        F["fail2ban\nSSH · nginx · CVE jails"]
+        U["UFW\npolitique deny par défaut"]
+        G["monitoring_gen.py\ncron 5 min → monitoring.json"]
+        D["nginx → /var/www/monitoring/\nDashboard HTML"]
+        N --> W --> I --> S --> F --> U --> G --> D
+    end
+
+    H["Hôtes secondaires\nclt · pa85 · Proxmox VE\nfail2ban remote stats"]
+    H -->|SSH paramiko| B
 ```
 
 ---
