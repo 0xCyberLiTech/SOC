@@ -358,5 +358,5 @@ Le dashboard SOC s'intègre avec [JARVIS](https://github.com/0xCyberLiTech/JARVI
 </div>
 
 <div align="center">
-  <b>🔒 Un guide proposé par <a href="https://0xcyberlitech.com/">0xCyberLiTech</a> • Pour des tutoriels accessibles à tous. 🔒</b>
+  <b>🔒 Un projet proposé par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> • Développé en collaboration avec <a href="https://claude.ai">Claude AI</a> (Anthropic) 🔒</b>
 </div>
