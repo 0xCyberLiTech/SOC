@@ -47,6 +47,29 @@
 
 ---
 
+<div align="center">
+
+## À propos & Objectifs.
+
+</div>
+
+Passionné de cybersécurité défensive et d'automatisation système, j'ai construit ce tableau de bord SOC pour surveiller mon infrastructure homelab en conditions réelles — **24/7, en production**, depuis plusieurs mois.
+
+Ce n'est pas un projet de démonstration. C'est un SOC opérationnel face à de vraies attaques quotidiennes : scans massifs, tentatives d'intrusion SSH, exploits web automatisés. Chaque tuile, chaque alerte, chaque graphique est le fruit d'itérations successives confrontées à la réalité du terrain.
+
+L'infrastructure repose sur un hyperviseur **Proxmox VE** hébergeant plusieurs VMs Debian 13 — nginx en reverse proxy, **CrowdSec AppSec WAF** (~150 vPatch CVE actifs), **Suricata IDS** (90 000+ signatures), **fail2ban** sur 4 hôtes, UFW en politique deny-default. Le tout supervisé par un dashboard monolithique HTML/CSS/JS de **27 tuiles**, sans aucune dépendance externe.
+
+> **Ce projet a été conçu et développé en collaboration avec [Claude AI](https://claude.ai) (Anthropic) — Claude Code.**
+> De l'architecture initiale aux algorithmes de détection de pics réseau, des scripts de déploiement automatisé aux 27 tuiles de surveillance — l'IA a joué le rôle de co-développeur à chaque étape. Cette collaboration homme-IA illustre ce que l'on peut construire seul, rapidement, à un niveau professionnel.
+
+Le contenu est structuré pour répondre aux besoins de :
+- 🛡️ **Professionnels IT & Sysadmins** — déployer une stack sécurité complète et opérationnelle
+- 🎓 **Étudiants en cybersécurité** — comprendre la chaîne défensive de bout en bout
+- 🔍 **Passionnés de homelab** — aller au-delà des tutos, construire du réel
+- 🤖 **Explorateurs IA** — voir comment Claude AI accélère le développement technique
+
+---
+
 ## Sommaire
 
 <div align="center">
