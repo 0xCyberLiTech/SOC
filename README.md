@@ -136,15 +136,6 @@ flowchart TD
 
 ## Screenshots
 
-### Carte mondiale des attaques
-
-<div align="center">
-  <img src="./images/soc-01.jpg" alt="Carte mondiale des attaques en temps réel" width="95%" />
-  <br/><sub>Tuile <b>CARTE MONDIALE</b> — géolocalisation des IPs bannies, arcs d'attaque, clustering par pays</sub>
-</div>
-
-<br/>
-
 ### CrowdSec & Activité 24h
 
 <table border="0" cellspacing="0" cellpadding="8">
