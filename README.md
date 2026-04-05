@@ -42,7 +42,7 @@
 
 <div align="center">
   <br/>
-  <img src="./images/soc-01.jpg" alt="SOC — Carte mondiale des attaques" width="95%" />
+  <img src="./images/soc-geoip.jpg" alt="SOC — Carte mondiale des attaques" width="95%" />
 </div>
 
 ---
