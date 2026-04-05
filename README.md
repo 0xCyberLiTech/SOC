@@ -99,7 +99,7 @@ Le contenu est structuré pour répondre aux besoins de :
 |----------|--------|
 | **Périmètre** | CrowdSec AppSec WAF (~150 vPatch CVE) + IPS nftables |
 | **IDS** | Suricata — 90 000+ signatures, alertes classées par sévérité |
-| **Brute Force** | fail2ban — 4 hôtes (srv-ngix, clt, pa85, Proxmox) |
+| **Brute Force** | fail2ban — 4 hôtes (srv-ngix, site-01, site-02, Proxmox) |
 | **Firewall** | UFW — politique deny par défaut, matrice de règles |
 | **Kill Chain** | MITRE ATT&CK — IPs actives par stage d'attaque |
 | **Dashboard** | 27 tuiles — HTML/CSS/JS monolithique — zéro dépendance externe |
@@ -128,7 +128,7 @@ flowchart TD
         N --> W --> I --> S --> F --> U --> G --> D
     end
 
-    H["Hôtes secondaires\nclt · pa85 · Proxmox VE\nfail2ban remote stats"]
+    H["Hôtes secondaires\nsite-01 · site-02 · Proxmox VE\nfail2ban remote stats"]
     H -->|SSH paramiko| B
 ```
 
