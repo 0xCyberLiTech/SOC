@@ -70,7 +70,11 @@ Le contenu est structuré pour répondre aux besoins de :
 
 ---
 
+<div align="center">
+
 ## Sommaire
+
+</div>
 
 <div align="center">
 <table border="0" width="700">
@@ -91,9 +95,15 @@ Le contenu est structuré pour répondre aux besoins de :
 
 ---
 
+<div align="center">
+
 ## Vue d'ensemble
 
+</div>
+
 **SOC Dashboard** est un tableau de bord de sécurité complet, opérationnel en production 24/7.
+
+<div align="center">
 
 | Capacité | Détail |
 |----------|--------|
@@ -105,9 +115,15 @@ Le contenu est structuré pour répondre aux besoins de :
 | **Dashboard** | 27 tuiles — HTML/CSS/JS monolithique — zéro dépendance externe |
 | **IA** | JARVIS intégré — analyse LLM, ban auto, alertes vocales |
 
+</div>
+
 ---
 
+<div align="center">
+
 ## Architecture
+
+</div>
 
 ```mermaid
 flowchart TD
@@ -134,10 +150,19 @@ flowchart TD
 
 ---
 
+<div align="center">
+
 ## Screenshots
+
+</div>
+
+<div align="center">
 
 ### CrowdSec & Activité 24h
 
+</div>
+
+<div align="center">
 <table border="0" cellspacing="0" cellpadding="8">
   <tr>
     <td width="42%">
@@ -150,9 +175,15 @@ flowchart TD
     </td>
   </tr>
 </table>
+</div>
+
+<div align="center">
 
 ### Threat Score & Flux live
 
+</div>
+
+<div align="center">
 <table border="0" cellspacing="0" cellpadding="8">
   <tr>
     <td width="55%">
@@ -165,9 +196,15 @@ flowchart TD
     </td>
   </tr>
 </table>
+</div>
+
+<div align="center">
 
 ### Intégration JARVIS IA
 
+</div>
+
+<div align="center">
 <table border="0" cellspacing="0" cellpadding="8">
   <tr>
     <td width="50%">
@@ -180,8 +217,13 @@ flowchart TD
     </td>
   </tr>
 </table>
+</div>
+
+<div align="center">
 
 ### GPU — Intelligence Artificielle
+
+</div>
 
 <div align="center">
   <img src="./images/soc-08.jpg" alt="GPU Intelligence Artificielle RTX 5080" width="95%" />
@@ -190,8 +232,13 @@ flowchart TD
 
 ---
 
+<div align="center">
+
 ## Guide d'installation — étape par étape
 
+</div>
+
+<div align="center">
 <table>
   <tr>
     <th>Étape</th>
@@ -234,10 +281,15 @@ flowchart TD
     <td><a href="./docs/07-DASHBOARD.md">→ Dashboard</a></td>
   </tr>
 </table>
+</div>
 
 ---
 
+<div align="center">
+
 ## Déploiement rapide
+
+</div>
 
 ```bash
 # 1. Cloner
@@ -257,12 +309,18 @@ scp -P 2222 dashboard/monitoring-index.html user@VOTRE_IP:/var/www/monitoring/in
 
 ---
 
+<div align="center">
+
 ## 27 Tuiles de surveillance
+
+</div>
 
 <details>
 <summary>Voir toutes les tuiles</summary>
 
 <br/>
+
+<div align="center">
 
 | # | Tuile | Données surveillées |
 |---|-------|---------------------|
@@ -294,11 +352,17 @@ scp -P 2222 dashboard/monitoring-index.html user@VOTRE_IP:/var/www/monitoring/in
 | 26 | **GeoIP TOP** | Top pays attaquants sur 24h |
 | 27 | **HISTORIQUE** | Graphes CPU/RAM/réseau sur 24h |
 
+</div>
+
 </details>
 
 ---
 
+<div align="center">
+
 ## Stack technique
+
+</div>
 
 <div align="center">
 
@@ -318,7 +382,11 @@ scp -P 2222 dashboard/monitoring-index.html user@VOTRE_IP:/var/www/monitoring/in
 
 ---
 
+<div align="center">
+
 ## Intégration JARVIS IA
+
+</div>
 
 Le dashboard SOC s'intègre avec [JARVIS](https://github.com/0xCyberLiTech/JARVIS) pour :
 
@@ -330,7 +398,11 @@ Le dashboard SOC s'intègre avec [JARVIS](https://github.com/0xCyberLiTech/JARVI
 
 ---
 
+<div align="center">
+
 ## Sécurité — ce qui n'est pas dans ce dépôt
+
+</div>
 
 ```
 ✔  Aucune IP réelle — VOTRE_IP dans tous les exemples
