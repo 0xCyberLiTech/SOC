@@ -280,6 +280,11 @@ flowchart TD
     <td>Dashboard HTML + déploiement final</td>
     <td><a href="./docs/07-DASHBOARD.md">→ Dashboard</a></td>
   </tr>
+  <tr>
+    <td align="center"><b>08</b></td>
+    <td>Positionnement — analyse comparative vs outils existants</td>
+    <td><a href="./docs/08-POSITIONNEMENT.md">→ Positionnement</a></td>
+  </tr>
 </table>
 </div>
 
