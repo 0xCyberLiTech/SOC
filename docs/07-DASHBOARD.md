@@ -1,219 +1,198 @@
 # Étape 7 — Dashboard et déploiement final
 
 ## Objectif
-Le dashboard SOC est un **fichier HTML/CSS/JS unique** (~12 300 lignes).  
+
+Le dashboard SOC est une **architecture modulaire** : `index.html` + `css/monitoring.css` + **22 modules JavaScript**.  
 Aucune dépendance externe, aucun framework — tout est auto-contenu.  
-Il se déploie par un simple `scp`.
+Il se déploie fichier par fichier par `scp`.
 
 ---
 
 ## Architecture du dashboard
 
 ```
-monitoring-index.html
-├── <head>
-│   └── <style> — ~700 lignes CSS (thème dark, glassmorphism, animations)
-├── <body>
-│   ├── Header fixe (version, actions rapides, score menace global)
-│   ├── Grille de tuiles (27 tuiles, responsive)
-│   └── Modals de détail (1 par tuile)
-└── <script>
-    ├── Collecte données (fetch monitoring.json toutes les 30s)
-    ├── Rendu de chaque tuile (fonctions buildXxx)
-    ├── Modals (openXxxModal)
-    ├── computeThreatScore() — score global 0-100
-    ├── Graphiques Canvas (sparklines, donut, histogrammes)
-    └── Intégration JARVIS (actions SOC, alertes vocales)
+dashboard/
+├── index.html                  ← structure HTML + chargement des 22 modules
+├── css/
+│   └── monitoring.css          ← thème dark, variables CSS, animations
+└── js/
+    ├── 01-utils.js             ← esc(), fmt(), fmtB(), constantes SOC_INFRA
+    ├── 02-canvas-kc.js         ← Kill Chain canvas (hexagones, IPs par stage)
+    ├── 03-canvas-kci.js        ← Kill Chain Investigation mini-chain
+    ├── 04-canvas-misc.js       ← Sparklines, latence, graphes trafic
+    ├── 05-canvas-leaflet.js    ← Carte Leaflet interactive + computeThreatScore()
+    ├── 06-canvas-geomap.js     ← Canvas geomap world polygons
+    ├── 07-render.js            ← Rendu principal + orchestrateur tuiles
+    ├── 08-modals-fbx.js        ← Modals AUTO-BAN, Freebox, Mises à jour
+    ├── 09-modals-core.js       ← Modals Proxmox, Suricata, CrowdSec, fail2ban
+    ├── 10-modals-win.js        ← Modals Windows, GPU, Sauvegardes
+    ├── 11-bind.js              ← Event bindings + click handlers tuiles
+    ├── 12-router.js            ← Modal Routeur + graphes
+    ├── 13-fw-fetch.js          ← Firewall fetch + matrix rendu
+    ├── 14-modal-firewall.js    ← Modal Firewall
+    ├── 15-modal-traffic.js     ← Modal analyse trafic
+    ├── 16-soc-enhancements.js  ← Strip alertes, freshness, mode projection
+    ├── 16b-defense-chain.js    ← CHAÎNE DE DÉFENSE (tuile interactive)
+    ├── 17-fetch.js             ← Boucle fetch principale (30s)
+    ├── 18-jarvis-ui.js         ← JARVIS interface (onglets, journal)
+    ├── 18-jarvis-chat.js       ← JARVIS Chat (streaming LLM)
+    ├── 18-jarvis-engine.js     ← JARVIS Engine SOC (boucle autonome 60s)
+    └── 19-xdr.js               ← XDR Correlation Engine
 ```
 
 ---
 
-## Structure JavaScript — pattern de base
+## Modules clés
 
-Chaque source de données suit le même pattern :
+### `07-render.js` — Orchestrateur principal
+
+Appelé à chaque refresh (fetch `monitoring.json` toutes les 30s).  
+Délègue à chaque `_renderXxx(d, g)` — `d` = données JSON, `g` = élément grid.
 
 ```javascript
-// 1. Récupération (fetch toutes les 30s)
-function fetchData() {
-    var ts = Date.now();
-    fetch('/monitoring.json?t=' + ts)
-        .then(function(r) { return r.ok ? r.json() : null; })
-        .then(function(data) {
-            if (!data) return;
-            window._lastData = data;
-            renderAll(data);
-        })
-        .catch(function() { /* fail silencieux */ });
-}
-
-// 2. Rendu (appelé à chaque refresh)
-function renderAll(data) {
-    buildTrafficTile(data.traffic);
-    buildCrowdSecTile(data.crowdsec);
-    buildSuricataTile(data.suricata);
-    buildFail2banTile(data.fail2ban);
-    // ...
-    computeThreatScore(data);
-}
-
-// 3. Exemple : tuile simple
-function buildSuricataTile(sur) {
-    var el = document.getElementById('suricata-tile');
-    if (!el || !sur || !sur.available) return;
-
-    var sev1 = sur.sev1 || 0;
-    var sev2 = sur.sev2 || 0;
-    var color = sev1 > 0 ? 'var(--red)' : sev2 > 0 ? 'var(--amber)' : 'var(--green)';
-
-    el.innerHTML =
-        '<div class="ct" style="color:' + color + '">◈ SURICATA IDS</div>' +
-        '<div class="stat-box">' +
-            '<div class="sval" style="color:' + color + '">' + sev1 + '</div>' +
-            '<div class="slbl">CRITIQUE sév.1</div>' +
-        '</div>';
+// Pattern de base — rendu modulaire
+function _renderSuricata(d, g) {
+    var sur = d.suricata || {};
+    var sev1 = sur.sev1_24h || 0;
+    var col = sev1 > 0 ? 'var(--red)' : 'var(--green)';
+    var h = '<div class="card" id="sur-tile">'
+        + '<div class="card-inner">'
+        + '<div class="ct" style="color:' + col + '">◈ SURICATA IDS</div>'
+        + '<div class="sval" style="color:' + col + '">' + esc(String(sev1)) + '</div>'
+        + '</div></div>';
+    g.insertAdjacentHTML('beforeend', h);
 }
 ```
 
----
+### `05-canvas-leaflet.js` — ThreatScore + Carte
 
-## computeThreatScore — Score global
+`computeThreatScore(data)` — score 0–100 sur **20 briques** avec **5 règles anti-doublons** :
 
-```javascript
-/**
- * Calcule un score de menace 0-100 à partir de toutes les sources.
- * Chaque source contribue un nombre de points, plafonné.
- *
- * Sources :
- *   CrowdSec décisions, scénarios, AppSec
- *   fail2ban bans (4 hôtes)
- *   Suricata sev1/sev2
- *   UFW anomalies
- *   Services DOWN
- *   Routeur (WAN flood, conntrack, FW drops)
- */
-function computeThreatScore(data) {
-    var score = 0;
+| Anti-doublon | Description |
+|-------------|-------------|
+| `exploitUnblocked` | Pivot central — Kill Chain + CS EXPLOIT + Suricata simultanément |
+| Kill Rate | `_kcNeutralized` = csD + satellites F2B — srv-ngix F2B exclu (dans csD via crowdsec-sync) |
+| F2B satellites | `totalBansAll` = proxmox + site-01 + site-02 — srv-ngix exclu |
+| nginx-botsearch | `tot_failed` uniquement — `cur_banned` exclu (dans csD) |
+| Escalade Suricata | Supprimée si CS auto-ban actif et EXPLOIT neutralisé |
 
-    // CrowdSec — max 20 pts
-    var cs = data.crowdsec || {};
-    if (cs.active_decisions > 100) score += 8;
-    else if (cs.active_decisions > 50) score += 5;
-    else if (cs.active_decisions > 10) score += 2;
+### `16b-defense-chain.js` — CHAÎNE DE DÉFENSE
 
-    // fail2ban — max 12 pts (3 pts × 4 hôtes)
-    var f2b = data.fail2ban || {};
-    var allBanned = (f2b.total_banned || 0);
-    if (allBanned > 50) score += 12;
-    else if (allBanned > 20) score += 8;
-    else if (allBanned > 5)  score += 4;
+Tuile interactive affichant l'état temps réel de chaque couche défensive.
 
-    // Suricata — max 15 pts
-    var sur = data.suricata || {};
-    if ((sur.sev1 || 0) > 10) score += 15;
-    else if ((sur.sev1 || 0) > 0) score += 8;
-    if ((sur.sev2 || 0) > 50) score += 5;
+**7 nœuds principaux** (ordre flux) :
 
-    // Services DOWN — max 20 pts
-    var services = data.services || [];
-    var downCount = services.filter(function(s) {
-        return s.status !== 'active';
-    }).length;
-    score += Math.min(downCount * 5, 20);
+| Nœud | Rôle |
+|------|------|
+| UFW + nftables | 1ère ligne — ports, stateless drop |
+| GeoIP Block | Filtrage géographique nginx |
+| AppSec WAF | CrowdSec WAF ~207 vPatch CVE |
+| CrowdSec IDS/IPS | Détection comportementale + ban nftables |
+| Suricata IDS | DPI ~90k règles — sév.1 → ban 168h |
+| fail2ban | 4 hôtes — logs nginx/SSH/Apache |
+| nginx | Reverse proxy + bouncer natif |
 
-    // Plafonner à 100
-    score = Math.min(score, 100);
+**3 branches terminales** (couverture hôtes) :
 
-    // Affichage
-    var level = score >= 70 ? 'CRITIQUE' :
-                score >= 40 ? 'ÉLEVÉ'    :
-                score >= 20 ? 'MODÉRÉ'   : 'NOMINAL';
+| Branche | Briques |
+|---------|---------|
+| Serveur principal | AppArmor enforce (workers nginx) |
+| Site-01 | AppArmor enforce + ModSecurity OWASP CRS |
+| Site-02 | AppArmor enforce + ModSecurity OWASP CRS |
+| JARVIS | IA locale — boucle autonome 60s |
 
-    document.getElementById('threat-score').textContent = score;
-    document.getElementById('threat-level').textContent = level;
+Clic sur un nœud → popup avec métriques temps réel (état, compteurs, mode).
 
-    return { score: score, level: level };
-}
+### `19-xdr.js` — XDR Correlation Engine
+
+Moteur de corrélation multi-sources en 4 étapes : **COLLECT → NORMALIZE → CORRELATE → EXPOSE**.
+
+**Sources collectées :**
+
+| Source | Données |
+|--------|---------|
+| fail2ban | Bans multi-hôtes |
+| UFW | Drops stateless |
+| AppArmor | Denials enforce |
+| ModSecurity site-01/site-02 | Blocs WAF OWASP |
+| Suricata IDS | Alertes réseau |
+| AUTOBAN | Bans automatiques monitoring_gen.py |
+| NGX DROP | Drops nginx |
+
+**Pipeline de corrélation :**
+
+```
+COLLECT     → normalisation des événements bruts de chaque source
+NORMALIZE   → log parser (26 evt), GEO/IP (344 geo-bloqués), IOC/CTI (32 actifs)
+CORRELATE   → score de corrélation, MITRE ATT&CK mapping (Y1110, 91595)
+EXPOSE      → CrowdSec BAN (IPs bannies), fail2ban (multi-hôtes), JARVIS agent
 ```
 
 ---
 
 ## Déploiement
 
-### Depuis Linux/Mac
-```bash
-scp -P 2222 monitoring-index.html socadmin@VOTRE_IP:/var/www/monitoring/index.html
-```
-
-### Depuis Windows (PowerShell)
-```powershell
-scp -i ~/.ssh/id_soc -P 2222 `
-    "C:\Projets\SOC\dashboard\monitoring-index.html" `
-    socadmin@VOTRE_IP:/var/www/monitoring/index.html
-```
-
-### Vérification post-déploiement
-```bash
-# Code HTTP 200 ?
-curl -s -o /dev/null -w "%{http_code}" http://VOTRE_IP:8080/
-
-# Version dans le fichier ?
-head -1 /var/www/monitoring/index.html | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+'
-```
-
----
-
-## Script de déploiement complet (optionnel)
+### Script complet (depuis Windows Git Bash)
 
 ```bash
 #!/usr/bin/env bash
-# deploy.sh — Déploiement rapide du dashboard SOC
-
-set -euo pipefail
+# deploy-soc.sh — Déploiement complet dashboard SOC
 
 SSH_KEY="$HOME/.ssh/id_soc"
 SSH_HOST="socadmin@VOTRE_IP"
 SSH_PORT="2222"
-SOURCE="./dashboard/monitoring-index.html"
-REMOTE="/var/www/monitoring/index.html"
+DASHBOARD="./dashboard"
+REMOTE="/var/www/monitoring"
 
-echo "Déploiement en cours..."
+echo "Déploiement index.html + CSS..."
+scp -i "$SSH_KEY" -P "$SSH_PORT" -o IdentitiesOnly=yes \
+    "$DASHBOARD/index.html" \
+    "$DASHBOARD/css/monitoring.css" \
+    "$SSH_HOST:$REMOTE/"
 
-scp -i "$SSH_KEY" -P "$SSH_PORT" \
-    -o IdentitiesOnly=yes \
-    -o StrictHostKeyChecking=no \
-    "$SOURCE" "$SSH_HOST:$REMOTE"
+echo "Déploiement modules JS..."
+scp -i "$SSH_KEY" -P "$SSH_PORT" -o IdentitiesOnly=yes \
+    $DASHBOARD/js/*.js \
+    "$SSH_HOST:$REMOTE/js/"
 
 # Vérification
-HTTP=$(ssh -i "$SSH_KEY" -p "$SSH_PORT" "$SSH_HOST" \
-    "curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/")
+HTTP=$(curl -s -o /dev/null -w "%{http_code}" http://VOTRE_IP:8080/)
+echo "[HTTP $HTTP] Dashboard $([ "$HTTP" = "200" ] && echo OK || echo ERR)"
+```
 
-if [[ "$HTTP" == "200" ]]; then
-    echo "[OK] Dashboard déployé — HTTP $HTTP"
-else
-    echo "[ERR] Vérifier nginx — HTTP $HTTP"
-    exit 1
-fi
+### Vérification post-déploiement
+
+```bash
+# Version déployée
+curl -s http://VOTRE_IP:8080/ | head -1 | grep -o 'v[0-9]\+\.[0-9]\+\.[0-9]\+'
+
+# Nombre de modules JS chargés (attendu : 22)
+curl -s http://VOTRE_IP:8080/ | grep -c 'src="js/'
 ```
 
 ---
 
-## Résumé de la stack complète
+## Stack défensive complète
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
 │  INTERNET                                                        │
 │      ↓                                                           │
-│  nginx (port 80/443)                                             │
+│  UFW + nftables      → ports non autorisés rejetés              │
+│  GeoIP Block         → pays à risque bloqués (nginx)            │
+│  AppSec WAF          → ~207 vPatch CVE (CrowdSec bouncer)       │
+│  CrowdSec IDS/IPS    → détection comportementale + ban          │
+│  Suricata IDS        → DPI ~90k règles — sév.1 → ban CS 168h   │
+│  fail2ban            → 4 hôtes — logs nginx/SSH/Apache          │
+│  nginx               → reverse proxy + TLS + bouncer natif      │
 │      ↓                                                           │
-│  CrowdSec AppSec WAF → bloque exploits CVE avant nginx           │
-│  CrowdSec IPS → bloque IPs malveillantes (nftables)             │
-│  Suricata IDS → alerte sur le trafic réseau                      │
-│  fail2ban → bloque brute force SSH/web                           │
-│  UFW → pare-feu réseau (politique deny)                          │
+│  AppArmor enforce    → workers nginx/Apache confinés            │
+│  ModSecurity CRS     → OWASP Layer-7 sur Apache (site-01/02)   │
+│  JARVIS IA           → boucle autonome 60s — ban/restart/TTS   │
 │      ↓                                                           │
-│  monitoring_gen.py (cron 5 min)                                  │
-│      ↓                                                           │
-│  monitoring.json → Dashboard HTML → Navigateur LAN               │
+│  monitoring_gen.py   → cron 5 min → monitoring.json             │
+│  Dashboard SOC       → 22 modules JS — 34 tuiles — LAN only    │
+│  XDR Engine          → corrélation multi-sources temps réel     │
 └─────────────────────────────────────────────────────────────────┘
 ```
 

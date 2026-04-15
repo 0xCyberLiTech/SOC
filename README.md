@@ -57,10 +57,10 @@ Passionné de cybersécurité défensive et d'automatisation système, j'ai cons
 
 Ce n'est pas un projet de démonstration. C'est un SOC opérationnel face à de vraies attaques quotidiennes : scans massifs, tentatives d'intrusion SSH, exploits web automatisés. Chaque tuile, chaque alerte, chaque graphique est le fruit d'itérations successives confrontées à la réalité du terrain.
 
-L'infrastructure repose sur un hyperviseur **Proxmox VE** hébergeant plusieurs VMs Debian 13 — nginx en reverse proxy, **CrowdSec AppSec WAF** (~150 vPatch CVE actifs), **Suricata IDS** (90 000+ signatures), **fail2ban** sur 4 hôtes, UFW en politique deny-default. Le tout supervisé par un dashboard monolithique HTML/CSS/JS de **27 tuiles**, sans aucune dépendance externe.
+L'infrastructure repose sur un hyperviseur **Proxmox VE** hébergeant plusieurs VMs Debian 13 — nginx en reverse proxy, **CrowdSec AppSec WAF** (~207 vPatch CVE actifs), **Suricata IDS** (90 000+ signatures), **fail2ban** sur 4 hôtes, UFW en politique deny-default, **ModSecurity OWASP CRS** sur les serveurs Apache. Le tout supervisé par un dashboard **modulaire 22 modules JS** de **34 tuiles**, sans aucune dépendance externe.
 
 > **Ce projet a été conçu et développé en collaboration avec [Claude AI](https://claude.ai) (Anthropic) — Claude Code.**
-> De l'architecture initiale aux algorithmes de détection de pics réseau, des scripts de déploiement automatisé aux 27 tuiles de surveillance — l'IA a joué le rôle de co-développeur à chaque étape. Cette collaboration homme-IA illustre ce que l'on peut construire seul, rapidement, à un niveau professionnel.
+> De l'architecture initiale aux algorithmes de détection de pics réseau, des scripts de déploiement automatisé aux 34 tuiles de surveillance — l'IA a joué le rôle de co-développeur à chaque étape. Cette collaboration homme-IA illustre ce que l'on peut construire seul, rapidement, à un niveau professionnel.
 
 Le contenu est structuré pour répondre aux besoins de :
 - 🛡️ **Professionnels IT & Sysadmins** — déployer une stack sécurité complète et opérationnelle
@@ -107,12 +107,14 @@ Le contenu est structuré pour répondre aux besoins de :
 
 | Capacité | Détail |
 |----------|--------|
-| **Périmètre** | CrowdSec AppSec WAF (~150 vPatch CVE) + IPS nftables |
+| **Périmètre** | CrowdSec AppSec WAF (~207 vPatch CVE) + IPS nftables + ModSecurity OWASP CRS |
 | **IDS** | Suricata — 90 000+ signatures, alertes classées par sévérité |
-| **Brute Force** | fail2ban — 4 hôtes (srv-ngix, site-01, site-02, Proxmox) |
+| **Brute Force** | fail2ban — 4 hôtes (serveur principal, site-01, site-02, Proxmox) |
 | **Firewall** | UFW — politique deny par défaut, matrice de règles |
 | **Kill Chain** | MITRE ATT&CK — IPs actives par stage d'attaque |
-| **Dashboard** | 27 tuiles — HTML/CSS/JS monolithique — zéro dépendance externe |
+| **Chaîne défense** | Tuile interactive — état temps réel de chaque couche défensive |
+| **XDR** | Corrélation multi-sources — timeline IP, scoring, moteur de corrélation |
+| **Dashboard** | 34 tuiles — architecture modulaire 22 modules JS — zéro dépendance externe |
 | **IA** | JARVIS intégré — analyse LLM, ban auto, alertes vocales |
 
 </div>
@@ -373,13 +375,13 @@ scp -P 2222 dashboard/monitoring-index.html user@VOTRE_IP:/var/www/monitoring/in
 
 | Couche | Technologie | Rôle |
 |--------|------------|------|
-| Sécurité périmètre | CrowdSec AppSec + IPS | WAF ~150 vPatch CVE + ban IPs nftables |
+| Sécurité périmètre | CrowdSec AppSec + IPS | WAF ~207 vPatch CVE + ban IPs nftables |
 | IDS | Suricata | 90 000+ signatures réseau |
 | Brute Force | fail2ban | SSH/nginx/CVE — 4 hôtes |
 | Firewall | UFW | Politique deny par défaut |
 | Reverse proxy | nginx | TLS, rate limiting, GeoIP |
 | Collecte | Python 3.11 — monitoring_gen.py | Cron 5 min → monitoring.json |
-| Frontend | HTML/CSS/JS monolithique | Zéro dépendance externe |
+| Frontend | Architecture modulaire — 22 modules JS + CSS | Zéro dépendance externe |
 | Virtualisation | Proxmox VE | Hyperviseur VMs |
 | IA | JARVIS (Ollama local) | Analyse LLM, ban auto, alertes vocales |
 
