@@ -1,0 +1,135 @@
+<!-- monitoring-index.html — v3.93.2 Date: 2026-04-15  Changelog: v3.93.2 — Audit 16b : A1 .dc-node:hover doublon CSS supprimé · A2 .75rem→var(--fs-xs) dc-branch-ico | v3.93.1 — CHAÎNE DE DÉFENSE : modal SOC restauré — suppression de tous les blocages (data-no-modal + guards) | v3.92.9 — Audit passe 16 : F4 font-size:.95rem→var(--fs-md) 16b-defense-chain · score 10/10 | v3.92.8 — CHAÎNE DE DÉFENSE : suppression modal principal + popup nœuds (11-bind + 16b) | v3.92.7 — Suppression popup nœuds CHAÎNE DE DÉFENSE (16b) | v3.92.7 — Audit passe 15 : F3 font-size:9px→calc(var(--fs-xs)-2px) 18-jarvis-engine ×2 · X3 esc(getVal) 16b-defense-chain · score 10/10 | v3.92.7 — ModSec enrichi : mode BLOCAGE/DÉTECTION + blocs 1h/24h + attaques/FP dans chaîne défense + tuile protection (monitoring_gen.py v3.6.0) | v3.92.7 — Audit passe 14 : XSS esc(model) 19-xdr · font-size var(--fs-*) 19-xdr+16b · onclick→data-* 19-xdr · esc(m.v) 16b popup · cache-busters uniformes | v3.92.7 — DT-C 02-canvas-kc · TTS fix dedup · map gzip+cache | v3.91.3 — DT-E · DT-F · dead code | v3.91.2 — DT-A JV_URL · DT-B 13×AbortSignal | v3.91.1 — BUG fixes NDT-99 | v3.91.0 — NDT-95→98 | v3.90.0→v3.90.8 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<title>0xCyberLiTech — SOC Monitor</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/monitoring.css?v=3.93.2">
+<link id="leaflet-css" rel="stylesheet" href="" data-src="/libs/leaflet/leaflet.css" disabled>
+</head>
+<body>
+<div class="scanlines"></div>
+<!-- ── LEAFLET FULLSCREEN OVERLAY (hors tuile, jamais détruit par les refreshs) ── -->
+<div id="lf-fullscreen">
+  <div id="lf-topbar">
+    <div id="lf-topbar-left">
+      <span id="lf-live-dot"></span>
+      <span id="lf-topbar-title">&#9670; SOC MAP</span>
+      <span id="lf-ip-count"></span>
+      <span id="lf-refresh-at" style="font:var(--fs-xs) 'Courier New';color:rgba(0,255,136,.35)"></span>
+    </div>
+    <div id="lf-threat-bar"></div>
+    <div id="lf-topbar-right">
+      <span id="lf-time"></span>
+      <button id="lf-close-btn">ESC &nbsp;&#10005;</button>
+    </div>
+  </div>
+  <div id="lf-map-container"></div>
+  <div id="lf-bottombar"></div>
+</div>
+<div class="page">
+
+<div class="header">
+  <div class="header-left">
+    <div>
+      <div class="logo-text"><span class="logo-bracket">[</span> 0xCyberLiTech <span class="logo-bracket">]</span></div>
+      <div class="logo-sub">SOC MONITORING DASHBOARD — votre-serveur</div>
+    </div>
+    <div class="status-pill"><span class="status-dot-sm"></span>ONLINE</div>
+  </div>
+  <div class="header-center">
+    <button class="fw-btn hdr-btn" id="fw-btn">&#9632; FIREWALL</button>
+    <button class="tr-btn hdr-btn" id="tr-btn">&#9672; TRAFIC</button>
+    <button class="rpt-btn hdr-btn" id="rpt-btn" title="Envoyer le rapport SOC maintenant [E]">&#9993; RAPPORT</button>
+    <button class="hdr-btn" id="pro-ping-btn" style="border-color:rgba(0,255,136,0.3);color:rgba(0,255,136,0.8);background:rgba(0,255,136,0.04)">&#11042; PING JARVIS</button>
+    <button class="fs-btn" id="fs-btn" title="Mode projection SOC [Z]">&#9633;</button>
+  </div>
+  <div class="header-right">
+    <div class="header-clock">
+      <div class="soc-clock" id="soc-clock">--:--:--</div>
+      <div class="gen-time">LAST UPDATE <span id="gen-at">—</span></div>
+      <div class="refresh-track"><div class="refresh-fill" id="fill"></div></div>
+    </div>
+    <div id="hdr-jarvis"></div>
+  </div>
+</div>
+
+<div class="as-strip ok" id="as-strip">
+  <span class="as-lbl ok" id="as-lbl">◉ NOMINAL</span>
+  <span id="as-items"><span class="as-tag as-ok">✓ EN ATTENTE DES DONNÉES...</span></span>
+  <div class="as-r">
+    <span class="fr-dot" id="fr-dot"></span>
+    <span id="as-age">—</span>
+  </div>
+</div>
+<div class="summary" id="summary"></div>
+<div class="grid" id="grid">
+  <div class="card wide loading-card">INITIALISATION...</div>
+</div>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="overlay">
+  <div class="modal-card" id="modal-card">
+    <div class="corner bl"></div><div class="corner br"></div>
+    <div class="modal-header">
+      <span class="modal-header-title" id="modal-header-title">// DÉTAIL</span>
+      <button class="modal-close" id="modal-close" title="Fermer [Esc]">&#215; ESC</button>
+    </div>
+    <div class="modal-body-inner" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-left">votre-serveur &mdash; 192.168.x.x:8080 &mdash; LAN ONLY &mdash; 192.168.x.0/24</div>
+  <a class="goa-btn" href="/goaccess.html" target="_blank">&#62; RAPPORT GOACCESS</a>
+</div>
+
+</div>
+
+<div class="map-tooltip" id="map-tip"></div>
+<div id="ip-hud">
+  <div class="ih-corner tl"></div><div class="ih-corner tr"></div>
+  <div class="ih-corner bl"></div><div class="ih-corner br"></div>
+  <div class="ih-hdr">
+    <div><span class="ih-ip" id="ih-ip-val">—</span><span class="ih-cc" id="ih-cc-val"></span></div>
+    <div class="ih-close" id="ih-close">✕</div>
+  </div>
+  <div class="ih-body" id="ih-body"></div>
+</div>
+
+<script src="js/01-utils.js?v=3.93.2"></script>
+<script src="js/02-canvas-kc.js?v=3.93.2"></script>
+<script src="js/03-canvas-kci.js?v=3.93.2"></script>
+<script src="js/04-canvas-misc.js?v=3.93.2"></script>
+<script src="js/05-canvas-leaflet.js?v=3.93.2"></script>
+<script src="js/06-canvas-geomap.js?v=3.93.2"></script>
+<script src="js/07-render.js?v=3.93.2"></script>
+<script src="js/08-modals-fbx.js?v=3.93.2"></script>
+<script src="js/09-modals-core.js?v=3.93.2"></script>
+<script src="js/10-modals-win.js?v=3.93.2"></script>
+<script src="js/11-bind.js?v=3.93.2"></script>
+<script src="js/12-router.js?v=3.93.2"></script>
+<script src="js/13-fw-fetch.js?v=3.93.2"></script>
+<script src="js/14-modal-firewall.js?v=3.93.2"></script>
+<script src="js/15-modal-traffic.js?v=3.93.2"></script>
+<script src="js/16-soc-enhancements.js?v=3.93.2"></script>
+<script src="js/16b-defense-chain.js?v=3.93.2"></script>
+<script src="js/19-xdr.js?v=3.93.2"></script>
+<script src="js/17-fetch.js?v=3.93.2"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     JARVIS AI EXTENSION — v1.1.0 — DT-09 : 3 modules (ui/chat/engine)
+     Extension optionnelle : SOC reste 100% opérationnel sans JARVIS
+     Activation : toggle dans l'en-tête  |  État : localStorage 'soc_ai'
+     JARVIS URL : http://localhost:5000 (Windows local, RTX 5080)
+     TTS : /api/speak — lecture vocale des réponses sur haut-parleurs Windows
+     ═══════════════════════════════════════════════════════════════════ -->
+<!-- DT-09 : 18-jarvis.js splitté en 3 modules — ordre impératif, pas de async/defer -->
+<script src="js/18-jarvis-ui.js?v=3.93.2"></script>
+<script src="js/18-jarvis-chat.js?v=3.93.2"></script>
+<script src="js/18-jarvis-engine.js?v=3.93.2"></script>
+</body>
+</html>

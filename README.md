@@ -129,25 +129,28 @@ Le contenu est structuré pour répondre aux besoins de :
 
 ```mermaid
 flowchart TD
-    A["🖥️ CLIENT — navigateur LAN\nhttp://VOTRE_IP:8080"]
+    INET["🌐 INTERNET"]
 
-    A -->|LAN| B
+    INET -->|trafic entrant| B
 
     subgraph B["🖥️ Serveur principal — Debian 13"]
         direction TB
-        N["nginx — :80 / :443"]
-        W["CrowdSec AppSec WAF\n~150 vPatch CVE"]
-        I["CrowdSec IPS nftables\nban IPs malveillantes"]
+        U["UFW + nftables\n1ère ligne — politique deny par défaut"]
+        N["nginx — :80 / :443\nGeoIP Block · TLS · reverse proxy"]
+        W["CrowdSec AppSec WAF\n~207 vPatch CVE actifs"]
+        I["CrowdSec IPS nftables\nbans comportementaux partagés"]
         S["Suricata IDS\n90 000+ signatures réseau"]
-        F["fail2ban\nSSH · nginx · CVE jails"]
-        U["UFW\npolitique deny par défaut"]
+        F["fail2ban\nSSH · nginx · CVE jails — 4 hôtes"]
         G["monitoring_gen.py\ncron 5 min → monitoring.json"]
-        D["nginx → /var/www/monitoring/\nDashboard HTML"]
-        N --> W --> I --> S --> F --> U --> G --> D
+        D["Dashboard SOC\n/var/www/monitoring/ — 22 modules JS"]
+        U --> N --> W --> I --> S --> F --> G --> D
     end
 
+    A["🖥️ CLIENT — navigateur LAN\nhttp://VOTRE_IP:8080"]
     H["Hôtes secondaires\nsite-01 · site-02 · Proxmox VE\nfail2ban remote stats"]
-    H -->|SSH paramiko| B
+
+    A -->|LAN| D
+    H -->|SSH paramiko| G
 ```
 
 ---
@@ -259,7 +262,7 @@ flowchart TD
   </tr>
   <tr>
     <td align="center"><b>03</b></td>
-    <td>CrowdSec IPS + AppSec WAF (~150 vPatch CVE)</td>
+    <td>CrowdSec IPS + AppSec WAF (~207 vPatch CVE)</td>
     <td><a href="./docs/03-CROWDSEC.md">→ CrowdSec</a></td>
   </tr>
   <tr>
@@ -286,6 +289,11 @@ flowchart TD
     <td align="center"><b>08</b></td>
     <td>Positionnement — analyse comparative vs outils existants</td>
     <td><a href="./docs/08-POSITIONNEMENT.md">→ Positionnement</a></td>
+  </tr>
+  <tr>
+    <td align="center"><b>09</b></td>
+    <td>Schémas — CHAÎNE DE DÉFENSE & XDR Correlation Engine</td>
+    <td><a href="./docs/09-SCHEMAS.md">→ Schémas</a></td>
   </tr>
 </table>
 </div>
