@@ -62,7 +62,7 @@ Internet
   ▼ nginx                  — reverse proxy + bouncer CrowdSec natif
   │
   ▼ AppArmor               — workers nginx/Apache confinés (enforce)
-     ModSecurity           — OWASP CRS sur CLT + PA85 (BLOCAGE)
+     ModSecurity           — OWASP CRS sur site-01 + site-02 (BLOCAGE)
      JARVIS IA             — boucle autonome 60s
 ```
 
@@ -75,7 +75,7 @@ Internet
 | Pas scalable multi-site | Conçu pour un homelab mono-site — une seule instance |
 | Pas de ticketing formel multi-opérateur | Conçu pour un opérateur unique — pas de workflow Jira/TheHive |
 | Pas de conformité certifiée | SOC2, ISO 27001... hors scope homelab |
-| Pas d'agent distribué | Collecte centralisée via SSH depuis srv-ngix |
+| Pas d'agent distribué | Collecte centralisée via SSH depuis le serveur principal |
 
 ---
 
