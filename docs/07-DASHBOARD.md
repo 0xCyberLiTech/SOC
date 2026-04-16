@@ -176,22 +176,22 @@ curl -s http://VOTRE_IP:8080/ | grep -c 'src="js/'
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
-│  INTERNET                                                        │
-│      ↓                                                           │
+│  INTERNET                                                       │
+│      ↓                                                          │
 │  UFW + nftables      → ports non autorisés rejetés              │
 │  GeoIP Block         → pays à risque bloqués (nginx)            │
 │  AppSec WAF          → ~207 vPatch CVE (CrowdSec bouncer)       │
 │  CrowdSec IDS/IPS    → détection comportementale + ban          │
-│  Suricata IDS        → DPI ~90k règles — sév.1 → ban CS 168h   │
+│  Suricata IDS        → DPI ~90k règles — sév.1 → ban CS 168h    │
 │  fail2ban            → 4 hôtes — logs nginx/SSH/Apache          │
 │  nginx               → reverse proxy + TLS + bouncer natif      │
-│      ↓                                                           │
+│      ↓                                                          │
 │  AppArmor enforce    → workers nginx/Apache confinés            │
-│  ModSecurity CRS     → OWASP Layer-7 sur Apache (site-01/02)   │
-│  JARVIS IA           → boucle autonome 60s — ban/restart/TTS   │
-│      ↓                                                           │
+│  ModSecurity CRS     → OWASP Layer-7 sur Apache (site-01/02)    │
+│  JARVIS IA           → boucle autonome 60s — ban/restart/TTS    │
+│      ↓                                                          │
 │  monitoring_gen.py   → cron 5 min → monitoring.json             │
-│  Dashboard SOC       → 22 modules JS — 34 tuiles — LAN only    │
+│  Dashboard SOC       → 22 modules JS — 34 tuiles — LAN only     │
 │  XDR Engine          → corrélation multi-sources temps réel     │
 └─────────────────────────────────────────────────────────────────┘
 ```
