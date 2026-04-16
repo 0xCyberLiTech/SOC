@@ -7,9 +7,9 @@ que le dashboard lit pour s'afficher.
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│                    monitoring_gen.py                          │
+│                    monitoring_gen.py                         │
 │                                                              │
-│  parse_nginx_logs()    → trafic 24h, GeoIP, top IPs         │
+│  parse_nginx_logs()    → trafic 24h, GeoIP, top IPs          │
 │  get_crowdsec_stats()  → décisions, scénarios, AppSec        │
 │  get_suricata_stats()  → alertes IDS 24h, sev1/sev2          │
 │  get_fail2ban_stats()  → jails, IPs bannies, 4 hôtes         │
@@ -17,8 +17,8 @@ que le dashboard lit pour s'afficher.
 │  get_system_metrics()  → CPU, RAM, disque, charge            │
 │  get_proxmox_stats()   → VMs, CPU, RAM via API               │
 │  get_freebox_stats()   → WAN, SFP, débit via API Freebox     │
-│                    ↓                                          │
-│              monitoring.json                                  │
+│                    ↓                                         │
+│              monitoring.json                                 │
 └──────────────────────────────────────────────────────────────┘
 ```
 
