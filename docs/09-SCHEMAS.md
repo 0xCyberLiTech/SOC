@@ -84,47 +84,47 @@ Implémenté dans `js/19-xdr.js` — accessible depuis la tuile CHAÎNE DE DÉFE
 
 ```
 ┌────────────────────────────────────────────────────────────────────────────────┐
-│                         XDR CORRELATION ENGINE                                  │
-│                                                                                  │
-│  ┌─── COLLECT ──────────────────────────────────────────────────────────────┐   │
-│  │                                                                           │   │
-│  │  fail2ban  ──────────────────────────────────────────────────────────┐   │   │
-│  │  UFW       ──────────────────────────────────────────────────────┐   │   │   │
-│  │  AppArmor  ──────────────────────────────────────────────────┐   │   │   │   │
-│  │  ModSec site-01 ─────────────────────────────────────────┐   │   │   │   │   │
-│  │  ModSec site-02 ─────────────────────────────────────┐   │   │   │   │   │   │
-│  │  Suricata IDS   ─────────────────────────────────┐   │   │   │   │   │   │   │
-│  │  AUTOBAN (monitoring_gen.py) ─────────────────┐  │   │   │   │   │   │   │   │
-│  │  NGX DROP  ───────────────────────────────┐   │  │   │   │   │   │   │   │   │
-│  │                                           ▼   ▼  ▼   ▼   ▼   ▼   ▼   ▼   │   │
-│  └───────────────────────────────────────── AGRÉGATEUR BRUT ──────────────┘   │
-│                                                   │                            │
-│  ┌─── NORMALIZE ─────────────────────────────────▼──────────────────────────┐ │
-│  │                                                                            │ │
-│  │  Log parser        → 26 événements normalisés (type, IP, ts, sévérité)    │ │
-│  │  GEO/IP resolver   → 344 IPs géo-bloquées identifiées                    │ │
-│  │  IOC/CTI matching  → 32 indicateurs de compromission actifs              │ │
-│  │                                                                            │ │
-│  └───────────────────────────────────────────────┬────────────────────────────┘ │
-│                                                   │                              │
-│  ┌─── CORRELATE ─────────────────────────────────▼──────────────────────────┐   │
-│  │                                                                            │   │
-│  │  Score de corrélation   → risque agrégé par IP (multi-sources)            │   │
-│  │  Kill Chain mapping     → RECON / SCAN / BRUTE / EXPLOIT                  │   │
-│  │  MITRE ATT&CK mapping   → T1110 (Brute Force), T1595 (Active Scanning)    │   │
-│  │  Timeline IP            → tous événements chronologiques par entité       │   │
-│  │                                                                            │   │
-│  └───────────────────────────────────────────────┬────────────────────────────┘ │
-│                                                   │                              │
-│  ┌─── EXPOSE ────────────────────────────────────▼──────────────────────────┐   │
-│  │                                                                            │   │
-│  │  CrowdSec BAN   → IPs bannies via `cscli decisions add`                   │   │
-│  │  fail2ban       → bans multi-hôtes synchronisés                           │   │
-│  │  JARVIS agent   → analyse LLM + alerte vocale TTS + ban automatique       │   │
-│  │  Dashboard SOC  → tuile XDR + Kill Chain + ThreatScore (vue unifiée)      │   │
-│  │                                                                            │   │
-│  └────────────────────────────────────────────────────────────────────────────┘  │
-└──────────────────────────────────────────────────────────────────────────────────┘
+│                         XDR CORRELATION ENGINE                                 │
+│                                                                                │
+│  ┌─── COLLECT ──────────────────────────────────────────────────────────────┐  │
+│  │                                                                          │  │
+│  │  fail2ban  ──────────────────────────────────────────────────────────┐   │  │
+│  │  UFW       ──────────────────────────────────────────────────────┐   │   │  │
+│  │  AppArmor  ──────────────────────────────────────────────────┐   │   │   │  │
+│  │  ModSec site-01 ─────────────────────────────────────────┐   │   │   │   │  │
+│  │  ModSec site-02 ─────────────────────────────────────┐   │   │   │   │   │  │
+│  │  Suricata IDS   ─────────────────────────────────┐   │   │   │   │   │   │  │
+│  │  AUTOBAN (monitoring_gen.py) ─────────────────┐  │   │   │   │   │   │   │  │
+│  │  NGX DROP  ───────────────────────────────┐   │  │   │   │   │   │   │   │  │
+│  │                                           ▼   ▼  ▼   ▼   ▼   ▼   ▼   ▼   │  │
+│  └───────────────────────────────────────── AGRÉGATEUR BRUT ────────────────┘  │
+│                                                  │                             │
+│  ┌─── NORMALIZE ─────────────────────────────────▼──────────────────────────┐  │
+│  │                                                                          │  │
+│  │  Log parser        → 26 événements normalisés (type, IP, ts, sévérité)   │  │
+│  │  GEO/IP resolver   → 344 IPs géo-bloquées identifiées                    │  │
+│  │  IOC/CTI matching  → 32 indicateurs de compromission actifs              │  │
+│  │                                                                          │  │
+│  └───────────────────────────────────────────────┬──────────────────────────┘  │
+│                                                  │                             │
+│  ┌─── CORRELATE ─────────────────────────────────▼──────────────────────────┐  │
+│  │                                                                          │  │
+│  │  Score de corrélation   → risque agrégé par IP (multi-sources)           │  │
+│  │  Kill Chain mapping     → RECON / SCAN / BRUTE / EXPLOIT                 │  │
+│  │  MITRE ATT&CK mapping   → T1110 (Brute Force), T1595 (Active Scanning)   │  │
+│  │  Timeline IP            → tous événements chronologiques par entité      │  │
+│  │                                                                          │  │
+│  └───────────────────────────────────────────────┬──────────────────────────┘  │
+│                                                  │                             │
+│  ┌─── EXPOSE ────────────────────────────────────▼──────────────────────────┐  │
+│  │                                                                          │  │
+│  │  CrowdSec BAN   → IPs bannies via `cscli decisions add`                  │  │
+│  │  fail2ban       → bans multi-hôtes synchronisés                          │  │
+│  │  JARVIS agent   → analyse LLM + alerte vocale TTS + ban automatique      │  │
+│  │  Dashboard SOC  → tuile XDR + Kill Chain + ThreatScore (vue unifiée)     │  │
+│  │                                                                          │  │
+│  └──────────────────────────────────────────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 ### Sources XDR détaillées
