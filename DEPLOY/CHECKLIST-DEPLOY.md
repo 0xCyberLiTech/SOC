@@ -96,8 +96,8 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ## BLOC 8 — Scripts Python / Dashboard
 
-- [ ] **monitoring_gen.py** : `python3 /opt/<VM1>/monitoring_gen.py --dry-run` → OK, pas d'erreur
-- [ ] **Cron actif** : `crontab -l` → `*/5 * * * * /opt/<VM1>/monitoring.sh`
+- [ ] **monitoring_gen.py** : `python3 /opt/site-01/monitoring_gen.py --dry-run` → OK, pas d'erreur
+- [ ] **Cron actif** : `crontab -l` → `*/5 * * * * /opt/site-01/monitoring.sh`
 - [ ] **monitoring.json généré** : `ls -la /var/www/monitoring/monitoring.json` → < 5 min
 - [ ] **monitoring.json valide** : `python3 -c "import json; json.load(open('/var/www/monitoring/monitoring.json'))"` → OK
 - [ ] **Dashboard accessible** : `curl http://<SRV-NGIX-IP>:8080/` → HTML complet
@@ -109,9 +109,9 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 - [ ] **rsyslog actif** : `systemctl is-active rsyslog` → active
 - [ ] **Port 514 ouvert** : `ss -ulnp | grep 514` + `ss -tlnp | grep 514` → présent
-- [ ] **Dossier central** : `ls /var/log/central/` → <VM1>/ <VM2>/ pve/ GT-BE98/ srv-ngix/
-- [ ] **Logs <VM1> reçus** : `ls -la /var/log/central/vm1/` → fichier du jour présent
-- [ ] **Logs <VM2> reçus** : `ls -la /var/log/central/vm2/` → fichier du jour présent
+- [ ] **Dossier central** : `ls /var/log/central/` → site-01/ site-02/ pve/ GT-BE98/ srv-ngix/
+- [ ] **Logs site-01 reçus** : `ls -la /var/log/central/site-01/` → fichier du jour présent
+- [ ] **Logs site-02 reçus** : `ls -la /var/log/central/site-02/` → fichier du jour présent
 
 ---
 
@@ -119,7 +119,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 - [ ] **AIDE installé** : `aide --version` → version affichée
 - [ ] **Base de données** : `ls -la /var/lib/aide/aide.db.gz` → présent
-- [ ] **Cron nightly** : `crontab -l | grep aide` → 0 3 * * * /opt/<VM1>/aide-check.sh
+- [ ] **Cron nightly** : `crontab -l | grep aide` → 0 3 * * * /opt/site-01/aide-check.sh
 - [ ] **Dernier rapport** : `ls -la /var/log/aide/aide.log` → présent, < 24h
 
 ---

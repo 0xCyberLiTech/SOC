@@ -95,7 +95,7 @@
 ### scripts/ ✅
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
-| `opt-<VM1>/` | `/opt/<VM1>/` (72 fichiers) | ✅ |
+| `opt-site-01/` | `/opt/site-01/` (72 fichiers) | ✅ |
 | `usr-local-bin/pve-monitor-write` | `/usr/local/bin/pve-monitor-write` | ✅ |
 | `dashboard/` | `/var/www/monitoring/` (HTML+JS+CSS, sans .json live) | ✅ |
 
@@ -103,8 +103,8 @@
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `cron.d/aide-soc` | AIDE vérification 03h00 | ✅ |
-| `cron.d/<VM1>-cve-fetch` | CVE fetch 3x/jour | ✅ |
-| `cron.d/<VM1>-threat-fetch` | Threat fetch 03h00 | ✅ |
+| `cron.d/site-01-cve-fetch` | CVE fetch 3x/jour | ✅ |
+| `cron.d/site-01-threat-fetch` | Threat fetch 03h00 | ✅ |
 | `cron.d/crowdsec-hub-update` | Hub update 03h45 | ✅ |
 | `cron.d/geoipupdate` | GeoIP MaxMind 03h00 | ✅ |
 | `cron.d/monitoring` | Dashboard refresh 1 min | ✅ |
@@ -147,8 +147,8 @@
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `authorized_keys` | `/root/.ssh/authorized_keys` (clé pve-monitor) | ✅ ⚠️ sensible |
-| `id_vm1_sync` + `.pub` | `/root/.ssh/id_vm1_sync` (connexion <VM1>) | ✅ ⚠️ clé privée |
-| `id_vm2_sync` + `.pub` | `/root/.ssh/id_vm2_sync` (connexion <VM2>) | ✅ ⚠️ clé privée |
+| `id_site-01_sync` + `.pub` | `/root/.ssh/id_site-01_sync` (connexion site-01) | ✅ ⚠️ clé privée |
+| `id_site-02_sync` + `.pub` | `/root/.ssh/id_site-02_sync` (connexion site-02) | ✅ ⚠️ clé privée |
 | `id_proxmox_sync` + `.pub` | `/root/.ssh/id_proxmox_sync` (connexion pve) | ✅ ⚠️ clé privée |
 
 ### metadata/ ✅
@@ -169,7 +169,7 @@
 | `crowdsec/local_api_credentials.yaml` | 🔴 Élevée | Token API CrowdSec LAPI |
 | `api-keys/api-keys.conf` | 🔴 Élevée | NVD API Key + AbuseIPDB API Key |
 | `network/exim4/passwd.client` | 🔴 Élevée | Password SMTP laposte.net |
-| `ssh/id_vm1_sync` + autres | 🔴 Élevée | Clés SSH privées (sync vers VMs) |
+| `ssh/id_site-01_sync` + autres | 🔴 Élevée | Clés SSH privées (sync vers VMs) |
 | `geoip/GeoIP.conf` | 🟡 Moyenne | License Key MaxMind |
 | `ssh/authorized_keys` | 🟡 Moyenne | Clé SSH pve-monitor Proxmox |
 

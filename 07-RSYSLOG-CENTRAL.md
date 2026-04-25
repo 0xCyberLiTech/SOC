@@ -5,15 +5,15 @@
 `srv-ngix` est le **récepteur rsyslog central** pour 5 hôtes du homelab.
 
 ```
-<VM1> (<CLT-IP>)   ──→ rsyslog TCP/UDP :514
-<VM2> (<PA85-IP>)  ──→ rsyslog TCP/UDP :514
+site-01 (<CLT-IP>)   ──→ rsyslog TCP/UDP :514
+site-02 (<PA85-IP>)  ──→ rsyslog TCP/UDP :514
 pve (<PROXMOX-IP>)   ──→ rsyslog TCP/UDP :514
 GT-BE98 (<ROUTER-IP>)──→ rsyslog UDP :514
 srv-ngix (local)     ──→ rsyslog fichiers locaux
                            │
                      /var/log/central/
-                     ├── <VM1>/
-                     ├── <VM2>/
+                     ├── site-01/
+                     ├── site-02/
                      ├── pve/
                      ├── GT-BE98/
                      └── srv-ngix/
@@ -35,12 +35,12 @@ input(type="imudp" port="514")
 # Routage par hôte source vers dossier dédié
 if ($fromhost-ip == '<CLT-IP>') then {
     action(type="omfile" dirCreateMode="0755"
-           file="/var/log/central/vm1/%$YEAR%-%$MONTH%-%$DAY%.log")
+           file="/var/log/central/site-01/%$YEAR%-%$MONTH%-%$DAY%.log")
     stop
 }
 if ($fromhost-ip == '<PA85-IP>') then {
     action(type="omfile" dirCreateMode="0755"
-           file="/var/log/central/vm2/%$YEAR%-%$MONTH%-%$DAY%.log")
+           file="/var/log/central/site-02/%$YEAR%-%$MONTH%-%$DAY%.log")
     stop
 }
 if ($fromhost-ip == '<PROXMOX-IP>') then {
@@ -57,10 +57,10 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 
 ---
 
-## Configuration rsyslog émetteur (<VM1> / <VM2>)
+## Configuration rsyslog émetteur (site-01 / site-02)
 
 ```
-# /etc/rsyslog.conf — section émission (<VM1> et <VM2>)
+# /etc/rsyslog.conf — section émission (site-01 et site-02)
 
 # Envoyer tous les logs vers srv-ngix
 *.* @@<SRV-NGIX-IP>:514    # @@ = TCP (fiable)
@@ -94,8 +94,8 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 
 | Hôte | Logs envoyés |
 |------|-------------|
-| **<VM1>** | auth.log, apache2/access.log, apache2/error.log, fail2ban.log, syslog |
-| **<VM2>** | auth.log, apache2/access.log, apache2/error.log, fail2ban.log, syslog |
+| **site-01** | auth.log, apache2/access.log, apache2/error.log, fail2ban.log, syslog |
+| **site-02** | auth.log, apache2/access.log, apache2/error.log, fail2ban.log, syslog |
 | **pve** | syslog, auth.log, pve-firewall.log, task.log (backups VM) |
 | **GT-BE98** | syslog routeur (connexions WAN, DHCP, firewall, trafic sortant) |
 | **srv-ngix** | auth.log, nginx/access.log, nginx/error.log, fail2ban.log, crowdsec.log |
@@ -108,7 +108,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 
 ### Corrélation cross-hôte (XHC)
 
-Une IP est vue dans les logs **nginx (srv-ngix)** ET **apache (<VM1>)** ET **apache (<VM2>)** dans une fenêtre de 15 minutes.
+Une IP est vue dans les logs **nginx (srv-ngix)** ET **apache (site-01)** ET **apache (site-02)** dans une fenêtre de 15 minutes.
 
 → Badge `⊙XHC` dans le Kill Chain dashboard  
 → Score ThreatScore +10
@@ -138,19 +138,19 @@ La même IP source touche **plus de 5 hôtes distincts** dans la fenêtre 15 min
 ## Vérification du fonctionnement
 
 ```bash
-# Sur srv-ngix — vérifier réception logs <VM1>
-ls -la /var/log/central/vm1/
-tail -20 /var/log/central/vm1/$(date +%Y-%m-%d).log
+# Sur srv-ngix — vérifier réception logs site-01
+ls -la /var/log/central/site-01/
+tail -20 /var/log/central/site-01/$(date +%Y-%m-%d).log
 
 # Vérifier le port rsyslog ouvert
 ss -tlnup | grep 514
 
-# Tester envoi depuis <VM1>
-ssh -i ~/.ssh/id_vm1 -p <SSH-PORT> root@<CLT-IP> \
-  "logger -n <SRV-NGIX-IP> -P 514 -T 'TEST rsyslog <VM1>→ngix'"
+# Tester envoi depuis site-01
+ssh -i ~/.ssh/id_site-01 -p <SSH-PORT> root@<CLT-IP> \
+  "logger -n <SRV-NGIX-IP> -P 514 -T 'TEST rsyslog site-01→ngix'"
 
 # Vérifier réception immédiate
-grep 'TEST rsyslog' /var/log/central/vm1/$(date +%Y-%m-%d).log
+grep 'TEST rsyslog' /var/log/central/site-01/$(date +%Y-%m-%d).log
 ```
 
 ---

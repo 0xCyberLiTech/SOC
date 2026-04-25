@@ -105,7 +105,7 @@ Le script restaure dans l'ordre :
 5/13 rsyslog      → config centrale logs
 6/13 AppArmor     → profils nginx + suricata
 7/13 UFW          → règles firewall
-8/13 Scripts      → /opt/<VM1>/, /usr/local/bin/, dashboard
+8/13 Scripts      → /opt/site-01/, /usr/local/bin/, dashboard
 9/13 Crons        → /etc/cron.d/ (11 tâches planifiées)
 10/13 Systemd     → units custom (soc-report-trigger)
 11/13 Compléments → AIDE, logrotate, GeoIP license, API keys, SSH keys

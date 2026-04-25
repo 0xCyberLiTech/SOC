@@ -136,12 +136,12 @@ if ! $DRY_RUN; then
                 /etc/ssh/sshd_config /etc/sysctl.conf /etc/sysctl.d \
                 /etc/nftables.conf /etc/exim4 /etc/hosts.allow /etc/hosts.deny \
                 /etc/nginx /etc/crowdsec /etc/fail2ban /etc/suricata \
-                /etc/rsyslog.conf /etc/rsyslog.d /etc/ufw /opt/<VM1> \
+                /etc/rsyslog.conf /etc/rsyslog.d /etc/ufw /opt/site-01 \
                 /etc/cron.d /etc/systemd/system/soc-report-trigger.service \
                 /etc/systemd/system/sshd.service /etc/aide \
                 /etc/logrotate.d /etc/GeoIP.conf /etc/nginx/api-keys.conf \
-                /root/.ssh/authorized_keys /root/.ssh/id_vm1_sync \
-                /root/.ssh/id_vm2_sync /root/.ssh/id_proxmox_sync; do
+                /root/.ssh/authorized_keys /root/.ssh/id_site-01_sync \
+                /root/.ssh/id_site-02_sync /root/.ssh/id_proxmox_sync; do
         [[ ! -e "$src" ]] && continue
         dest_name=$(echo "$src" | tr '/' '_' | sed 's/^_//')
         if [[ -d "$src" ]]; then
@@ -442,13 +442,13 @@ if run_bloc rsyslog; then
     restore_dir  "$TMPDIR/rsyslog/rsyslog.d"         "/etc/rsyslog.d"              "rsyslog.d"
 
     if ! $DRY_RUN; then
-        for host in <VM1> <VM2> pve GT-BE98 srv-ngix; do
+        for host in site-01 site-02 pve GT-BE98 srv-ngix; do
             mkdir -p "/var/log/central/$host"
             chown syslog:adm "/var/log/central/$host" 2>/dev/null || true
         done
         ok "Dossiers /var/log/central/ recréés"
     else
-        sim "DOSSIERS   : /var/log/central/{<VM1>,<VM2>,pve,GT-BE98,srv-ngix}/ à créer"
+        sim "DOSSIERS   : /var/log/central/{site-01,site-02,pve,GT-BE98,srv-ngix}/ à créer"
     fi
 
     reload_service rsyslog
@@ -510,11 +510,11 @@ fi
 if run_bloc scripts; then
     step "8/13 Scripts Python + usr-local-bin + Dashboard"
 
-    if [[ -d "$TMPDIR/scripts/opt-<VM1>" ]]; then
-        restore_dir "$TMPDIR/scripts/opt-<VM1>" "/opt/<VM1>" "scripts /opt/<VM1>"
+    if [[ -d "$TMPDIR/scripts/opt-site-01" ]]; then
+        restore_dir "$TMPDIR/scripts/opt-site-01" "/opt/site-01" "scripts /opt/site-01"
         if ! $DRY_RUN; then
-            chmod +x /opt/<VM1>/monitoring.sh 2>/dev/null || true
-            chmod +x /opt/<VM1>/*.py 2>/dev/null || true
+            chmod +x /opt/site-01/monitoring.sh 2>/dev/null || true
+            chmod +x /opt/site-01/*.py 2>/dev/null || true
             ok "Permissions scripts restaurées"
         fi
     fi

@@ -30,13 +30,13 @@
 
 ## Résumé exécutif
 
-**0xCyberLiTech SOC** est un système de supervision sécurité homelab autonome protégeant deux sites web (`<VM1>` et `<VM2>`) via une VM nginx (`srv-ngix`) faisant office de reverse proxy, WAF et collecteur de logs centraux.
+**0xCyberLiTech SOC** est un système de supervision sécurité homelab autonome protégeant deux sites web (`site-01` et `site-02`) via une VM nginx (`srv-ngix`) faisant office de reverse proxy, WAF et collecteur de logs centraux.
 
 ### Chiffres clés
 - **Score audit** : 10/10 — dette technique zéro
 - **Couches défense** : 8 (UFW → nftables → CrowdSec → Fail2ban → AppSec WAF → Suricata IDS → AppArmor → SOC/JARVIS)
 - **Règles IDS actives** : 106 789 (Suricata)
-- **Sources log centralisées** : 5 hôtes (<VM1>, <VM2>, pve, routeur GT-BE98, srv-ngix)
+- **Sources log centralisées** : 5 hôtes (site-01, site-02, pve, routeur GT-BE98, srv-ngix)
 - **Score menace** : 24 briques, calcul temps réel, seuils FAIBLE/MOYEN/ÉLEVÉ/CRITIQUE
 - **Réponse autonome** : JARVIS IA locale — ban automatique, TTS alertes, analyse LLM
 
@@ -54,8 +54,8 @@ Dashboard SPA vanilla JS (24 modules) · JARVIS (Ollama phi4-reasoning)
 | Hôte | IP | Rôle |
 |------|----|------|
 | srv-ngix | <SRV-NGIX-IP> | Reverse proxy · nginx · SOC dashboard · CrowdSec · Suricata |
-| <VM1> | <CLT-IP> | Backend Apache · site CLT |
-| <VM2> | <PA85-IP> | Backend Apache · site PA85 |
+| site-01 | <CLT-IP> | Backend Apache · site CLT |
+| site-02 | <PA85-IP> | Backend Apache · site PA85 |
 | Proxmox VE | <PROXMOX-IP> | Hyperviseur (héberge les 3 VMs) |
 | Routeur GT-BE98 | <ROUTER-IP> | Passerelle WAN · source logs rsyslog |
 | JARVIS | <LAN-IP> | IA locale Windows · localhost:5000 |

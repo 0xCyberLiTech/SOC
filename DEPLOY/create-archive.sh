@@ -339,7 +339,7 @@ fi
 # ─── BLOC 8 : Scripts Python + Dashboard ─────────────────────────────────────
 step "8/13 Scripts + Dashboard"
 
-backup_dir  "/opt/<VM1>"                                 "scripts/opt-<VM1>"
+backup_dir  "/opt/site-01"                                 "scripts/opt-site-01"
 
 # /usr/local/bin — scripts système custom (pve-monitor-write etc.)
 if ! $DRY_RUN; then
@@ -471,13 +471,13 @@ else
     if ! $DRY_RUN; then
         mkdir -p "${TMPDIR}/ssh"
         for f in /root/.ssh/authorized_keys \
-                  /root/.ssh/id_vm1_sync     /root/.ssh/id_vm1_sync.pub \
-                  /root/.ssh/id_vm2_sync    /root/.ssh/id_vm2_sync.pub \
+                  /root/.ssh/id_site-01_sync     /root/.ssh/id_site-01_sync.pub \
+                  /root/.ssh/id_site-02_sync    /root/.ssh/id_site-02_sync.pub \
                   /root/.ssh/id_proxmox_sync /root/.ssh/id_proxmox_sync.pub; do
             [[ -f "$f" ]] && cp -p "$f" "${TMPDIR}/ssh/" && ok "$(basename "$f") → ssh/"
         done
     else
-        for f in authorized_keys id_vm1_sync id_vm2_sync id_proxmox_sync; do
+        for f in authorized_keys id_site-01_sync id_site-02_sync id_proxmox_sync; do
             echo -e "  ${YELLOW}[DRY]${NC} /root/.ssh/$f → ssh/"
         done
     fi
@@ -569,8 +569,8 @@ cat ufw/ufw-status-verbose.txt  # lire et recréer les règles manuellement
 ufw enable
 
 # Scripts Python
-cp -rp scripts/opt-<VM1>/. /opt/<VM1>/
-chmod +x /opt/<VM1>/monitoring.sh
+cp -rp scripts/opt-site-01/. /opt/site-01/
+chmod +x /opt/site-01/monitoring.sh
 
 # Crontab
 crontab crons/crontab-root.txt

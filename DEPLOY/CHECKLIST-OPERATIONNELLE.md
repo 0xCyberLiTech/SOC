@@ -80,12 +80,12 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
   "apt-get update -qq && apt list --upgradable 2>/dev/null"
 
-# <VM1>
-ssh -i ~/.ssh/id_vm1 -p <SSH-PORT> root@<CLT-IP> \
+# site-01
+ssh -i ~/.ssh/id_site-01 -p <SSH-PORT> root@<CLT-IP> \
   "apt-get update -qq && apt list --upgradable 2>/dev/null"
 
-# <VM2>
-ssh -i ~/.ssh/id_vm2 -p <SSH-PORT> root@<PA85-IP> \
+# site-02
+ssh -i ~/.ssh/id_site-02 -p <SSH-PORT> root@<PA85-IP> \
   "apt-get update -qq && apt list --upgradable 2>/dev/null"
 ```
 
@@ -162,7 +162,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 ```bash
 # Exécuter le script d'archive depuis srv-ngix
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
-  "/opt/<VM1>/scripts/create-archive.sh"
+  "/opt/site-01/scripts/create-archive.sh"
 ```
 
 - [ ] Archive créée dans `/opt/backup-config/`

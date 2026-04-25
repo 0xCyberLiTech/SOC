@@ -17,8 +17,8 @@
 | Accès | root SSH | root SSH clé publique |
 
 **Backends à protéger :** deux serveurs Apache accessibles depuis srv-ngix
-- `<VM1>` : <CLT-IP>:80
-- `<VM2>` : <PA85-IP>:80
+- `site-01` : <CLT-IP>:80
+- `site-02` : <PA85-IP>:80
 
 ---
 
@@ -72,7 +72,7 @@ SSH_PORT="<SSH-PORT>"
 DOMAIN_COM="0xcyberlitech.com"
 DOMAIN_FR="0xcyberlitech.fr"
 MONITORING_DIR="/var/www/monitoring"
-SCRIPTS_DIR="/opt/<VM1>"
+SCRIPTS_DIR="/opt/site-01"
 GEOIP_ACCOUNT_ID=""         # Renseigner votre MaxMind Account ID
 GEOIP_LICENSE_KEY=""        # Renseigner votre MaxMind License Key
 MAIL_DEST="admin@example.com"
@@ -236,8 +236,8 @@ if step_active "ufw"; then
     run "ufw allow out 443/tcp comment 'HTTPS out'"
     run "ufw allow out 123/udp comment 'NTP'"
     run "ufw allow out 587/tcp comment 'SMTP alertes'"
-    run "ufw allow out to ${CLT_IP} port ${SSH_PORT} proto tcp comment 'SSH sync <VM1>'"
-    run "ufw allow out to ${PA85_IP} port ${SSH_PORT} proto tcp comment 'SSH monitoring <VM2>'"
+    run "ufw allow out to ${CLT_IP} port ${SSH_PORT} proto tcp comment 'SSH sync site-01'"
+    run "ufw allow out to ${PA85_IP} port ${SSH_PORT} proto tcp comment 'SSH monitoring site-02'"
 
     run "ufw --force enable"
     ok "UFW configuré et activé"
@@ -695,7 +695,7 @@ echo ""
 echo "  Étapes manuelles restantes :"
 echo "  1. Copier les scripts Python : monitoring_gen.py soc.py etc."
 echo "  2. Copier les fichiers dashboard (js/ css/ index.html)"
-echo "  3. Configurer les vhosts nginx (<VM1>, <VM2>, monitoring)"
+echo "  3. Configurer les vhosts nginx (site-01, site-02, monitoring)"
 echo "  4. Générer les certificats TLS : certbot --nginx -d ${DOMAIN_COM}"
 echo "  5. Tester : bash deploy-soc.sh --step aide (initialisation AIDE)"
 echo "  6. Consulter la checklist : CHECKLIST-DEPLOY.md"
@@ -709,7 +709,7 @@ echo ""
 ### 1. Vhosts nginx
 
 ```nginx
-# /etc/nginx/sites-available/<VM1>
+# /etc/nginx/sites-available/site-01
 server {
     listen 80;
     server_name 0xcyberlitech.com www.0xcyberlitech.com;
@@ -786,7 +786,7 @@ scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
 ```bash
 scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
   "C:/Users/mmsab/Documents/0xCyberLiTech/SOC/scripts/"*.py \
-  root@<SRV-NGIX-IP>:/opt/<VM1>/
+  root@<SRV-NGIX-IP>:/opt/site-01/
 ```
 
 ### 4. Test final
