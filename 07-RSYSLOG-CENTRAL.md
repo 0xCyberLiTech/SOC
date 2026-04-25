@@ -1,12 +1,32 @@
 <div align="center">
 
-# 📡 rsyslog central — Collecte et corrélation logs
+<br/>
 
-*5 hôtes · réception TCP/UDP · filtres · rétention 7 jours*
+<a href="https://github.com/0xCyberLiTech/SOC">
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=>RSYSLOG_" alt="SOC 0xCyberLiTech" />
+</a>
 
-![Hôtes](https://img.shields.io/badge/Hôtes-5-00D9FF?style=flat-square) ![Rétention](https://img.shields.io/badge/Rétention-7 jours-00FF88?style=flat-square) ![Protocole](https://img.shields.io/badge/Protocole-TCP+UDP-FF8C00?style=flat-square)
+<br/>
 
-[← 06 — ThreatScore](06-THREATSCORE.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [08 — JARVIS →](08-JARVIS-DEFENSE.md)
+<h3>📡 Logs centralisés &nbsp;·&nbsp; 5 hôtes &nbsp;·&nbsp; TCP/UDP &nbsp;·&nbsp; Corrélation cross-host</h3>
+
+<br/>
+
+<p>
+  <a href="https://0xcyberlitech.com">
+    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site web" />
+  </a>
+  &nbsp;
+  <a href="https://github.com/0xCyberLiTech/SOC">
+    <img src="https://img.shields.io/badge/Dépôt-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
+  </a>
+  &nbsp;
+  ![Hôtes](https://img.shields.io/badge/Hôtes-5-00B4D8?style=flat-square) ![Rétention](https://img.shields.io/badge/Rétention-7 jours-00FF88?style=flat-square) ![Protocole](https://img.shields.io/badge/Protocole-TCP+UDP-FF8C00?style=flat-square)
+</p>
+
+<br/>
+
+[← 06 — ThreatScore](06-THREATSCORE.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [08 — JARVIS →](08-JARVIS-DEFENSE.md)
 
 </div>
 
@@ -183,8 +203,43 @@ ufw allow from <ROUTER-SUBNET> to any port 514 proto udp  # <ROUTER>
 
 <div align="center">
 
-[← 06 — ThreatScore](06-THREATSCORE.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [08 — JARVIS →](08-JARVIS-DEFENSE.md)
+<table>
+<tr>
+<td align="center"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
+<td align="center"><b>💻 Développement &amp; Web</b></td>
+<td align="center"><b>🤖 Intelligence Artificielle</b></td>
+</tr>
+<tr>
+<td align="center">
+  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>
+  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>
+  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>
+  <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="40" title="Git" /></a>
+</td>
+<td align="center">
+  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>
+  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>
+  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>
+  <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code" /></a>
+</td>
+<td align="center">
+  <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
+  &nbsp;
+  <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
+</td>
+</tr>
+</table>
 
-*0xCyberLiTech — SOC Homelab · 2026*
+<br/>
+
+<sub>🔒 Projet par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> (Anthropic) 🔒</sub>
+
+</div>
+
+---
+
+<div align="center">
+
+[← 06 — ThreatScore](06-THREATSCORE.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [08 — JARVIS →](08-JARVIS-DEFENSE.md)
 
 </div>

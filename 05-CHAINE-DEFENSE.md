@@ -1,12 +1,32 @@
 <div align="center">
 
-# ⛓️ Chaîne de défense
+<br/>
 
-*Flux attaque → détection → ban · Kill Chain · corrélations cross-source*
+<a href="https://github.com/0xCyberLiTech/SOC">
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=>KILL+CHAIN_" alt="SOC 0xCyberLiTech" />
+</a>
 
-![Kill Chain](https://img.shields.io/badge/Kill Chain-5 stades-FF4444?style=flat-square) ![Réponse](https://img.shields.io/badge/Réponse-automatique-00FF88?style=flat-square) ![XDR](https://img.shields.io/badge/XDR-corrélation-00D9FF?style=flat-square)
+<br/>
 
-[← 04 — Dashboard](04-DASHBOARD-SOC.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [06 — ThreatScore →](06-THREATSCORE.md)
+<h3>⛓️ Flux attaque → détection → ban &nbsp;·&nbsp; Kill Chain &nbsp;·&nbsp; Corrélation XDR</h3>
+
+<br/>
+
+<p>
+  <a href="https://0xcyberlitech.com">
+    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site web" />
+  </a>
+  &nbsp;
+  <a href="https://github.com/0xCyberLiTech/SOC">
+    <img src="https://img.shields.io/badge/Dépôt-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
+  </a>
+  &nbsp;
+  ![Kill Chain](https://img.shields.io/badge/Kill Chain-5 stades-FF4444?style=flat-square) ![Réponse](https://img.shields.io/badge/Réponse-automatique-00FF88?style=flat-square) ![XDR](https://img.shields.io/badge/XDR-corrélation-00B4D8?style=flat-square)
+</p>
+
+<br/>
+
+[← 04 — Dashboard](04-DASHBOARD-SOC.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [06 — ThreatScore →](06-THREATSCORE.md)
 
 </div>
 
@@ -167,8 +187,43 @@ Classification automatique des IPs par phase d'attaque (fenêtre 15 min) :
 
 <div align="center">
 
-[← 04 — Dashboard](04-DASHBOARD-SOC.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [06 — ThreatScore →](06-THREATSCORE.md)
+<table>
+<tr>
+<td align="center"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
+<td align="center"><b>💻 Développement &amp; Web</b></td>
+<td align="center"><b>🤖 Intelligence Artificielle</b></td>
+</tr>
+<tr>
+<td align="center">
+  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>
+  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>
+  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>
+  <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="40" title="Git" /></a>
+</td>
+<td align="center">
+  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>
+  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>
+  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>
+  <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code" /></a>
+</td>
+<td align="center">
+  <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
+  &nbsp;
+  <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
+</td>
+</tr>
+</table>
 
-*0xCyberLiTech — SOC Homelab · 2026*
+<br/>
+
+<sub>🔒 Projet par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> (Anthropic) 🔒</sub>
+
+</div>
+
+---
+
+<div align="center">
+
+[← 04 — Dashboard](04-DASHBOARD-SOC.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [06 — ThreatScore →](06-THREATSCORE.md)
 
 </div>
