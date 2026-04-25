@@ -39,9 +39,9 @@ Actuellement : consultation manuelle AbuseIPDB depuis la tuile IP Deep.
 
 Évolution : `monitoring_gen.py` consulte AbuseIPDB API pour les top 10 IPs actives → score de réputation intégré dans le ThreatScore.
 
-### 5. Détection anomalies DNS (GT-BE98)
+### 5. Détection anomalies DNS (<ROUTER>)
 
-Actuellement : logs GT-BE98 analysés pour C2 sortant.
+Actuellement : logs <ROUTER> analysés pour C2 sortant.
 
 Évolution : détecter les requêtes DNS vers domaines nouveaux/suspects (NXD excessif, DGA patterns).
 

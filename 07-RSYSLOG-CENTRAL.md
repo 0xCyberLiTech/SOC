@@ -8,14 +8,14 @@
 site-01 (<CLT-IP>)   ──→ rsyslog TCP/UDP :514
 site-02 (<PA85-IP>)  ──→ rsyslog TCP/UDP :514
 pve (<PROXMOX-IP>)   ──→ rsyslog TCP/UDP :514
-GT-BE98 (<ROUTER-IP>)──→ rsyslog UDP :514
+<ROUTER> (<ROUTER-IP>)──→ rsyslog UDP :514
 srv-ngix (local)     ──→ rsyslog fichiers locaux
                            │
                      /var/log/central/
                      ├── site-01/
                      ├── site-02/
                      ├── pve/
-                     ├── GT-BE98/
+                     ├── <ROUTER>/
                      └── srv-ngix/
 ```
 
@@ -50,7 +50,7 @@ if ($fromhost-ip == '<PROXMOX-IP>') then {
 }
 if ($fromhost-ip == '<ROUTER-IP>') then {
     action(type="omfile" dirCreateMode="0755"
-           file="/var/log/central/GT-BE98/%$YEAR%-%$MONTH%-%$DAY%.log")
+           file="/var/log/central/router/%$YEAR%-%$MONTH%-%$DAY%.log")
     stop
 }
 ```
@@ -97,7 +97,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 | **site-01** | auth.log, apache2/access.log, apache2/error.log, fail2ban.log, syslog |
 | **site-02** | auth.log, apache2/access.log, apache2/error.log, fail2ban.log, syslog |
 | **pve** | syslog, auth.log, pve-firewall.log, task.log (backups VM) |
-| **GT-BE98** | syslog routeur (connexions WAN, DHCP, firewall, trafic sortant) |
+| **<ROUTER>** | syslog routeur (connexions WAN, DHCP, firewall, trafic sortant) |
 | **srv-ngix** | auth.log, nginx/access.log, nginx/error.log, fail2ban.log, crowdsec.log |
 
 ---
@@ -119,9 +119,9 @@ Une IP présente dans les `active_decisions` CrowdSec tente une connexion SSH su
 
 → Score ThreatScore +8
 
-### Trafic C2 sortant (GT-BE98)
+### Trafic C2 sortant (<ROUTER>)
 
-Le routeur GT-BE98 logue une connexion sortante vers une IP connue (Threat Intel) ou un port C2 caractéristique (IRC 6667, Tor, .onion via DNS).
+Le routeur <ROUTER> logue une connexion sortante vers une IP connue (Threat Intel) ou un port C2 caractéristique (IRC 6667, Tor, .onion via DNS).
 
 → ThreatScore +15  
 → JARVIS alerte TTS + ban automatique IP destination
@@ -161,7 +161,7 @@ grep 'TEST rsyslog' /var/log/central/site-01/$(date +%Y-%m-%d).log
 # Sur srv-ngix — déjà configuré
 ufw allow from <LAN-SUBNET> to any port 514 proto tcp
 ufw allow from <LAN-SUBNET> to any port 514 proto udp
-ufw allow from <ROUTER-SUBNET> to any port 514 proto udp  # GT-BE98
+ufw allow from <ROUTER-SUBNET> to any port 514 proto udp  # <ROUTER>
 ```
 
 ---

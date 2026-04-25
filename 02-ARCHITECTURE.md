@@ -60,7 +60,7 @@ INTERNET
                     └──────────────────────────┘
 
                     ┌──────────────────────┐
-                    │ Routeur GT-BE98      │
+                    │ Routeur <ROUTER>      │
                     │ <ROUTER-IP>         │
                     │ Source logs WAN/DHCP │
                     └──────────────────────┘
@@ -145,7 +145,7 @@ Suricata (AF_PACKET eth0)
 
 rsyslog /var/log/central/
       │
-      ├──→ site-01/  site-02/  pve/  GT-BE98/  srv-ngix/
+      ├──→ site-01/  site-02/  pve/  <ROUTER>/  srv-ngix/
       └──→ monitoring_gen.py (cross-host correlation)
 
 monitoring_gen.py (cron */5 min)
@@ -212,7 +212,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 ├── site-01/
 ├── site-02/
 ├── pve/
-├── GT-BE98/
+├── <ROUTER>/
 └── srv-ngix/
 ```
 

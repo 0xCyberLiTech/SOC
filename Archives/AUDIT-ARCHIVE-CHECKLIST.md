@@ -48,7 +48,7 @@
 
 ### rsyslog — BLOC 5
 - [ ] `/etc/rsyslog.conf` — config receiver UDP 514
-- [ ] `/etc/rsyslog.d/` — règles par hôte (site-01, site-02, pve, GT-BE98)
+- [ ] `/etc/rsyslog.d/` — règles par hôte (site-01, site-02, pve, <ROUTER>)
 
 ### AppArmor — BLOC 6
 - [ ] `/etc/apparmor.d/usr.sbin.nginx` — profil nginx

@@ -109,7 +109,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 - [ ] **rsyslog actif** : `systemctl is-active rsyslog` → active
 - [ ] **Port 514 ouvert** : `ss -ulnp | grep 514` + `ss -tlnp | grep 514` → présent
-- [ ] **Dossier central** : `ls /var/log/central/` → site-01/ site-02/ pve/ GT-BE98/ srv-ngix/
+- [ ] **Dossier central** : `ls /var/log/central/` → site-01/ site-02/ pve/ <ROUTER>/ srv-ngix/
 - [ ] **Logs site-01 reçus** : `ls -la /var/log/central/site-01/` → fichier du jour présent
 - [ ] **Logs site-02 reçus** : `ls -la /var/log/central/site-02/` → fichier du jour présent
 

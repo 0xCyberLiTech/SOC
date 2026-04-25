@@ -76,7 +76,7 @@ while True:
 | 5 | Honeypot BRUTE touché | Ban 24h | `jarvis-autoban-brute-h` |
 | 6 | Alerte Suricata sév.1 < 1h | Ban 24h | `jarvis-suricata-sev1` |
 | 7 | Scan réseau Suricata détecté | Ban 24h | `jarvis-suricata-scan` |
-| 8 | Trafic C2 sortant (rsyslog GT-BE98) | Ban 24h | `jarvis-rsyslog-c2` |
+| 8 | Trafic C2 sortant (rsyslog <ROUTER>) | Ban 24h | `jarvis-rsyslog-c2` |
 | 9 | Recon multi-cibles rsyslog | Ban 24h | `jarvis-rsyslog-recon` |
 | 10 | Service nginx/crowdsec/suricata down | Restart | — |
 | 11 | Score ≥ 75 | Alerte TTS urgence | — |

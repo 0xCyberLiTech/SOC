@@ -48,7 +48,7 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 |---|--------|-------|-------------|
 | 11 | Corrélation cross-hôte (XHC) | +10 | même IP vue nginx + site-01 + site-02 |
 | 12 | Corrélation SSH + ban actif | +8 | IP bannie + tentative SSH |
-| 13 | Trafic sortant C2 potentiel | +15 | rsyslog routeur GT-BE98 pattern C2 |
+| 13 | Trafic sortant C2 potentiel | +15 | rsyslog routeur <ROUTER> pattern C2 |
 | 14 | Scan multi-cibles (>5 hôtes) | +5 | rsyslog correlation |
 
 ### Briques état système (max ~15 pts)

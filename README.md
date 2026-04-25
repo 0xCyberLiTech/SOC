@@ -36,7 +36,7 @@
 - **Score audit** : 10/10 — dette technique zéro
 - **Couches défense** : 8 (UFW → nftables → CrowdSec → Fail2ban → AppSec WAF → Suricata IDS → AppArmor → SOC/JARVIS)
 - **Règles IDS actives** : 106 789 (Suricata)
-- **Sources log centralisées** : 5 hôtes (site-01, site-02, pve, routeur GT-BE98, srv-ngix)
+- **Sources log centralisées** : 5 hôtes (site-01, site-02, pve, routeur <ROUTER>, srv-ngix)
 - **Score menace** : 24 briques, calcul temps réel, seuils FAIBLE/MOYEN/ÉLEVÉ/CRITIQUE
 - **Réponse autonome** : JARVIS IA locale — ban automatique, TTS alertes, analyse LLM
 
@@ -57,7 +57,7 @@ Dashboard SPA vanilla JS (24 modules) · JARVIS (Ollama phi4-reasoning)
 | site-01 | <CLT-IP> | Backend Apache · site CLT |
 | site-02 | <PA85-IP> | Backend Apache · site PA85 |
 | Proxmox VE | <PROXMOX-IP> | Hyperviseur (héberge les 3 VMs) |
-| Routeur GT-BE98 | <ROUTER-IP> | Passerelle WAN · source logs rsyslog |
+| Routeur <ROUTER> | <ROUTER-IP> | Passerelle WAN · source logs rsyslog |
 | JARVIS | <LAN-IP> | IA locale Windows · localhost:5000 |
 
 ---
