@@ -1,4 +1,16 @@
-# CHECKLIST OPÉRATIONNELLE — Supervision quotidienne
+<div align="center">
+
+# 📋 Checklist opérationnelle
+
+*Exploitation quotidienne · vérifications périodiques · métriques de santé*
+
+![Fréquence](https://img.shields.io/badge/Fréquence-Quotidienne-FF8C00?style=flat-square) ![Couverture](https://img.shields.io/badge/Couverture-Complète-00FF88?style=flat-square)
+
+[← Checklist deploy](CHECKLIST-DEPLOY.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](../README.md) &nbsp;·&nbsp; [README →](../README.md)
+
+</div>
+
+---
 
 Vérifications à effectuer chaque jour pour s'assurer que le SOC fonctionne correctement.  
 Durée estimée : **5 à 10 minutes**.
@@ -214,3 +226,12 @@ systemctl restart fail2ban && fail2ban-client status
 ---
 
 *Document : CHECKLIST-OPERATIONNELLE.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← Checklist deploy](CHECKLIST-DEPLOY.md) &nbsp;·&nbsp; [⬡ README](../README.md) &nbsp;·&nbsp; [README →](../README.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

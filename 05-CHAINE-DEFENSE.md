@@ -1,4 +1,16 @@
-# 05 — Chaîne de défense — Flux attaque → ban
+<div align="center">
+
+# ⛓️ Chaîne de défense
+
+*Flux attaque → détection → ban · Kill Chain · corrélations cross-source*
+
+![Kill Chain](https://img.shields.io/badge/Kill Chain-5 stades-FF4444?style=flat-square) ![Réponse](https://img.shields.io/badge/Réponse-automatique-00FF88?style=flat-square) ![XDR](https://img.shields.io/badge/XDR-corrélation-00D9FF?style=flat-square)
+
+[← 04 — Dashboard](04-DASHBOARD-SOC.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [06 — ThreatScore →](06-THREATSCORE.md)
+
+</div>
+
+---
 
 ## Vue d'ensemble
 
@@ -151,3 +163,12 @@ Classification automatique des IPs par phase d'attaque (fenêtre 15 min) :
 ---
 
 *Document : 05-CHAINE-DEFENSE.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← 04 — Dashboard](04-DASHBOARD-SOC.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [06 — ThreatScore →](06-THREATSCORE.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

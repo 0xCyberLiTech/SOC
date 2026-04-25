@@ -1,4 +1,16 @@
-# AUDIT-ARCHIVE-CHECKLIST — Vérification plug-and-play srv-ngix
+<div align="center">
+
+# 🔍 Checklist d'audit archive
+
+*3 phases · vérification avant création · contrôle archive · validation post-restore*
+
+![Phases](https://img.shields.io/badge/Phases-3-00D9FF?style=flat-square) ![Contrôle](https://img.shields.io/badge/Contrôle-Complet-00FF88?style=flat-square)
+
+[← Contenu archive](CONTENU-ARCHIVE.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](../README.md) &nbsp;·&nbsp; [README →](../README.md)
+
+</div>
+
+---
 
 > Checklist en trois phases : **AVANT** (créer l'archive), **PENDANT** (vérifier l'archive), **APRÈS** (valider la restauration)  
 > Référence : `create-archive.sh` v4 · `restore-soc.sh` · Archive `soc-config-2026-04-25_2159.tar.gz`
@@ -286,3 +298,12 @@ tar tzf "$ARCHIVE" | grep -E "(letsencrypt/live|api-keys\.conf|local_api_credent
 ---
 
 *Checklist créée le 2026-04-25 — basée sur audit live srv-ngix (archive v4)*
+---
+
+<div align="center">
+
+[← Contenu archive](CONTENU-ARCHIVE.md) &nbsp;·&nbsp; [⬡ README](../README.md) &nbsp;·&nbsp; [README →](../README.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

@@ -1,4 +1,16 @@
-# RUNBOOK — Déploiement SOC 0xCyberLiTech sur Debian 13 vierge
+<div align="center">
+
+# 📘 Runbook Debian 13
+
+*Installation complète pas à pas · toutes les briques · configurations détaillées*
+
+![Debian](https://img.shields.io/badge/Debian-13-A81D33?style=flat-square&logo=debian&logoColor=white) ![Bash](https://img.shields.io/badge/Bash-script-4EAA25?style=flat-square&logo=gnubash&logoColor=white) ![Briques](https://img.shields.io/badge/Briques-8 couches-00D9FF?style=flat-square)
+
+[← Guide rapide](GUIDE-DEPLOIEMENT-RAPIDE.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](../README.md) &nbsp;·&nbsp; [Checklist deploy →](CHECKLIST-DEPLOY.md)
+
+</div>
+
+---
 
 > Ce document décrit le déploiement complet du SOC sur une VM Debian 13 fraîchement installée.
 > Le script `deploy-soc.sh` automatise toutes les étapes avec mode simulation.
@@ -808,3 +820,12 @@ echo "Test SOC" | mail -s "[SOC] Test déploiement" admin@example.com
 ---
 
 *Document : DEPLOY/RUNBOOK-DEBIAN13.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← Guide rapide](GUIDE-DEPLOIEMENT-RAPIDE.md) &nbsp;·&nbsp; [⬡ README](../README.md) &nbsp;·&nbsp; [Checklist deploy →](CHECKLIST-DEPLOY.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

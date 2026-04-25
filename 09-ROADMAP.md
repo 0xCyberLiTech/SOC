@@ -1,4 +1,16 @@
-# 09 — Roadmap et axes d'évolution
+<div align="center">
+
+# 🗺️ Roadmap — Axes d'évolution
+
+*Décisions d'architecture · fonctionnalités planifiées · historique*
+
+![État](https://img.shields.io/badge/État-Production-brightgreen?style=flat-square) ![Dette](https://img.shields.io/badge/Dette-Zéro-00FF88?style=flat-square)
+
+[← 08 — JARVIS](08-JARVIS-DEFENSE.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [README →](README.md)
+
+</div>
+
+---
 
 ## État actuel (2026-04-25)
 
@@ -96,3 +108,12 @@ Déployer le SOC_SECOURS (déjà développé en v3.89.91) sur un Raspberry Pi 5 
 ---
 
 *Document : 09-ROADMAP.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← 08 — JARVIS](08-JARVIS-DEFENSE.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [README →](README.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

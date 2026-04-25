@@ -1,4 +1,16 @@
-# 07 — rsyslog central — Collecte et corrélation logs
+<div align="center">
+
+# 📡 rsyslog central — Collecte et corrélation logs
+
+*5 hôtes · réception TCP/UDP · filtres · rétention 7 jours*
+
+![Hôtes](https://img.shields.io/badge/Hôtes-5-00D9FF?style=flat-square) ![Rétention](https://img.shields.io/badge/Rétention-7 jours-00FF88?style=flat-square) ![Protocole](https://img.shields.io/badge/Protocole-TCP+UDP-FF8C00?style=flat-square)
+
+[← 06 — ThreatScore](06-THREATSCORE.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [08 — JARVIS →](08-JARVIS-DEFENSE.md)
+
+</div>
+
+---
 
 ## Architecture
 
@@ -167,3 +179,12 @@ ufw allow from <ROUTER-SUBNET> to any port 514 proto udp  # <ROUTER>
 ---
 
 *Document : 07-RSYSLOG-CENTRAL.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← 06 — ThreatScore](06-THREATSCORE.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [08 — JARVIS →](08-JARVIS-DEFENSE.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

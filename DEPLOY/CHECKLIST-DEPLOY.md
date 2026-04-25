@@ -1,4 +1,16 @@
-# CHECKLIST DÉPLOIEMENT — 36 points de vérification post-installation
+<div align="center">
+
+# ✅ Checklist post-déploiement
+
+*61 points de vérification · validation complète après restauration*
+
+![Points](https://img.shields.io/badge/Points-61-00FF88?style=flat-square) ![Phases](https://img.shields.io/badge/Phases-6-00D9FF?style=flat-square)
+
+[← Runbook Debian 13](RUNBOOK-DEBIAN13.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](../README.md) &nbsp;·&nbsp; [Checklist ops →](CHECKLIST-OPERATIONNELLE.md)
+
+</div>
+
+---
 
 Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationnel.
 
@@ -148,3 +160,12 @@ En cas de point rouge → consulter le RUNBOOK-DEBIAN13.md section correspondant
 ---
 
 *Document : CHECKLIST-DEPLOY.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← Runbook Debian 13](RUNBOOK-DEBIAN13.md) &nbsp;·&nbsp; [⬡ README](../README.md) &nbsp;·&nbsp; [Checklist ops →](CHECKLIST-OPERATIONNELLE.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

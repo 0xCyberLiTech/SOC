@@ -1,4 +1,16 @@
-# 03 — Sécurité — Les 8 couches de défense
+<div align="center">
+
+# 🛡️ Les 8 couches de défense
+
+*Défense en profondeur · matrice couverture par vecteur d'attaque*
+
+![CrowdSec](https://img.shields.io/badge/CrowdSec-WAF%20%2B%20IPS-00A3E0?style=flat-square) ![Suricata](https://img.shields.io/badge/Suricata-IDS-EF3B2D?style=flat-square) ![Fail2ban](https://img.shields.io/badge/Fail2ban-actif-F05032?style=flat-square) ![AppArmor](https://img.shields.io/badge/AppArmor-actif-663399?style=flat-square)
+
+[← 02 — Architecture](02-ARCHITECTURE.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [04 — Dashboard →](04-DASHBOARD-SOC.md)
+
+</div>
+
+---
 
 ## Principe : Défense en profondeur
 
@@ -162,3 +174,12 @@ Boucle 60s permanente (voir doc 08) :
 ---
 
 *Document : 03-SECURITE-BRIQUES.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← 02 — Architecture](02-ARCHITECTURE.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [04 — Dashboard →](04-DASHBOARD-SOC.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

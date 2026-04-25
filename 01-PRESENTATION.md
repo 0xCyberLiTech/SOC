@@ -1,4 +1,16 @@
-# 01 — Présentation du projet SOC 0xCyberLiTech
+<div align="center">
+
+# ⬡ Présentation du projet SOC
+
+*Objectifs · points forts · chiffres clés · contexte homelab*
+
+![Status](https://img.shields.io/badge/Status-Production-brightgreen?style=flat-square) ![Audit](https://img.shields.io/badge/Audit-10%2F10-00FF88?style=flat-square) ![Couches](https://img.shields.io/badge/Couches-8 défense-0D1117?style=flat-square)
+
+[← README](README.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [02 — Architecture →](02-ARCHITECTURE.md)
+
+</div>
+
+---
 
 ## Qu'est-ce que ce projet ?
 
@@ -103,3 +115,12 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 ---
 
 *Document : 01-PRESENTATION.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← README](README.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [02 — Architecture →](02-ARCHITECTURE.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

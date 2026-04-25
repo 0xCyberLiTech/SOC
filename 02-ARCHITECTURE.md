@@ -1,4 +1,16 @@
-# 02 — Architecture
+<div align="center">
+
+# 🏗️ Architecture
+
+*Infrastructure · stack technique · schéma réseau · VMs Proxmox*
+
+![Debian](https://img.shields.io/badge/Debian-13-A81D33?style=flat-square&logo=debian&logoColor=white) ![nginx](https://img.shields.io/badge/nginx-1.26-009639?style=flat-square&logo=nginx&logoColor=white) ![Proxmox](https://img.shields.io/badge/Proxmox-VE-E57000?style=flat-square)
+
+[← 01 — Présentation](01-PRESENTATION.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [03 — Défense →](03-SECURITE-BRIQUES.md)
+
+</div>
+
+---
 
 ## Schéma réseau
 
@@ -219,3 +231,12 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 ---
 
 *Document : 02-ARCHITECTURE.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← 01 — Présentation](01-PRESENTATION.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [03 — Défense →](03-SECURITE-BRIQUES.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

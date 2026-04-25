@@ -1,4 +1,16 @@
-# 04 — Dashboard SOC — Architecture front-end
+<div align="center">
+
+# 📊 Dashboard SOC — Architecture front-end
+
+*SPA vanilla JS · 24 modules · 35 tuiles · zéro dépendance NPM*
+
+![JavaScript](https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=white) ![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white) ![Modules](https://img.shields.io/badge/Modules-24 JS-00D9FF?style=flat-square) ![Tuiles](https://img.shields.io/badge/Tuiles-35-00FF88?style=flat-square)
+
+[← 03 — Défense](03-SECURITE-BRIQUES.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [05 — Chaîne →](05-CHAINE-DEFENSE.md)
+
+</div>
+
+---
 
 ## Vue d'ensemble
 
@@ -162,3 +174,12 @@ Le dashboard est vanilla JS pur. Seule exception : **Leaflet.js** (carte) charg�
 ---
 
 *Document : 04-DASHBOARD-SOC.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← 03 — Défense](03-SECURITE-BRIQUES.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [05 — Chaîne →](05-CHAINE-DEFENSE.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

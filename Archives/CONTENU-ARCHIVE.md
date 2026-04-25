@@ -1,4 +1,16 @@
-# Contenu de l'archive SOC — Inventaire v4
+<div align="center">
+
+# 📦 Contenu de l'archive — v4
+
+*Inventaire complet · 13 blocs vérifiés · fichiers sensibles identifiés*
+
+![Blocs](https://img.shields.io/badge/Blocs-13-00D9FF?style=flat-square) ![Version](https://img.shields.io/badge/Version-v4-00FF88?style=flat-square) ![Sensibles](https://img.shields.io/badge/Sensibles-identifiés-FF4444?style=flat-square)
+
+[← README](../README.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](../README.md) &nbsp;·&nbsp; [Audit checklist →](AUDIT-ARCHIVE-CHECKLIST.md)
+
+</div>
+
+---
 
 > Audit effectué le 2026-04-25 sur srv-ngix (<SRV-NGIX-IP>)  
 > Archive de référence : `soc-config-2026-04-25_2159.tar.gz` (v4 — 38 Mo)  
@@ -223,3 +235,12 @@ bash restore-soc.sh soc-config-2026-04-25_2159.tar.gz --step crons
 ---
 
 *Inventaire mis à jour le 2026-04-25 — archive v4 · 13 blocs · 38 Mo*
+---
+
+<div align="center">
+
+[← README](../README.md) &nbsp;·&nbsp; [⬡ README](../README.md) &nbsp;·&nbsp; [Audit checklist →](AUDIT-ARCHIVE-CHECKLIST.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

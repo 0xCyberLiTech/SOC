@@ -1,4 +1,16 @@
-# GUIDE DÉPLOIEMENT RAPIDE — Plug-and-Play srv-ngix
+<div align="center">
+
+# 🚀 Guide de déploiement rapide
+
+*Plug-and-play · 8 étapes · VM Debian 13 vierge → SOC opérationnel en < 30 min*
+
+![Debian](https://img.shields.io/badge/Debian-13-A81D33?style=flat-square&logo=debian&logoColor=white) ![Bash](https://img.shields.io/badge/Bash-script-4EAA25?style=flat-square&logo=gnubash&logoColor=white) ![Durée](https://img.shields.io/badge/Durée-< 30 min-00FF88?style=flat-square)
+
+[← README](../README.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](../README.md) &nbsp;·&nbsp; [Runbook Debian 13 →](RUNBOOK-DEBIAN13.md)
+
+</div>
+
+---
 
 > Procédure complète pour reconstruire srv-ngix à l'identique sur une nouvelle VM Debian 13.  
 > Durée estimée : **15 à 30 minutes**.
@@ -215,3 +227,12 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP>           # 5. reconnexi
 ---
 
 *Guide créé le 2026-04-25 — archive v4 · 13 blocs*
+---
+
+<div align="center">
+
+[← README](../README.md) &nbsp;·&nbsp; [⬡ README](../README.md) &nbsp;·&nbsp; [Runbook Debian 13 →](RUNBOOK-DEBIAN13.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>

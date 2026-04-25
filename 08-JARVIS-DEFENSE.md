@@ -1,4 +1,16 @@
-# 08 — JARVIS — Réponse autonome
+<div align="center">
+
+# 🤖 JARVIS — Réponse autonome IA
+
+*Ollama phi4-reasoning · boucle 60s · 12 déclencheurs · alertes TTS · ban automatique*
+
+![Ollama](https://img.shields.io/badge/Ollama-phi4-reasoning-FF8C00?style=flat-square) ![Python](https://img.shields.io/badge/Python-Flask-3776AB?style=flat-square&logo=python&logoColor=white) ![TTS](https://img.shields.io/badge/TTS-edge-tts-663399?style=flat-square) ![Déclencheurs](https://img.shields.io/badge/Déclencheurs-12-00FF88?style=flat-square)
+
+[← 07 — rsyslog](07-RSYSLOG-CENTRAL.md) &nbsp;·&nbsp; [⬡ SOC 0xCyberLiTech](README.md) &nbsp;·&nbsp; [09 — Roadmap →](09-ROADMAP.md)
+
+</div>
+
+---
 
 ## Rôle dans le SOC
 
@@ -155,3 +167,12 @@ python jarvis.py
 ---
 
 *Document : 08-JARVIS-DEFENSE.md · Projet SOC 0xCyberLiTech · 2026-04-25*
+---
+
+<div align="center">
+
+[← 07 — rsyslog](07-RSYSLOG-CENTRAL.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [09 — Roadmap →](09-ROADMAP.md)
+
+*0xCyberLiTech — SOC Homelab · 2026*
+
+</div>
