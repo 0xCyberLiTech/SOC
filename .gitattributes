@@ -1,0 +1,27 @@
+# Normaliser les fins de ligne
+* text=auto
+
+# Scripts bash → LF (Linux)
+*.sh text eol=lf
+*.py text eol=lf
+*.conf text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+
+# Windows scripts → CRLF
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+
+# Docs → auto
+*.md text eol=lf
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+
+# Binaires
+*.gz binary
+*.tar binary
+*.png binary
+*.jpg binary
+*.ico binary

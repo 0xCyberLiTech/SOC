@@ -1,0 +1,21 @@
+SOC Homelab — Vitrine / Portfolio
+Copyright (c) 2026 0xCyberLiTech. Tous droits réservés.
+
+Ce dépôt est publié à des fins de PRÉSENTATION (vitrine / portfolio) et de
+documentation de l'approche défensive.
+
+TOUS DROITS RÉSERVÉS. Le contenu (documentation, configurations anonymisées,
+captures d'écran, schémas) peut être CONSULTÉ à titre de référence, mais aucune
+licence de réutilisation n'est accordée : il est interdit de reproduire,
+redistribuer, publier, modifier ou exploiter tout ou partie de ce dépôt, sous
+quelque forme et par quelque moyen que ce soit, sans l'autorisation écrite
+préalable de l'auteur.
+
+Les sources du dashboard, les scripts opérationnels et l'archive de
+restauration restent PRIVÉS — la reconstruction n'est volontairement pas
+reproductible depuis ce dépôt public seul (savoir protégé).
+
+Les marques, logos et technologies tierces cités (CrowdSec, Suricata, nginx,
+Ollama, etc.) appartiennent à leurs propriétaires respectifs.
+
+Contact : https://github.com/0xCyberLiTech
