@@ -260,7 +260,7 @@ if run_bloc network; then
     [[ -f "$TMPDIR/network/nftables.conf" ]] && \
         restore_file "$TMPDIR/network/nftables.conf"    "/etc/nftables.conf"
 
-    # exim4 (SMTP sortant — alertes mail SOC → smtp.laposte.net)
+    # exim4 (SMTP sortant — alertes mail SOC → smtp.<MAIL-PROVIDER>)
     [[ -d "$TMPDIR/network/exim4" ]] && \
         restore_dir "$TMPDIR/network/exim4"             "/etc/exim4" "exim4"
 
@@ -284,7 +284,7 @@ if run_bloc network; then
         if command -v update-exim4.conf > /dev/null 2>&1; then
             update-exim4.conf > /dev/null 2>&1 || true
             systemctl restart exim4 2>/dev/null || true
-            ok "exim4 reconfiguré + redémarré (SMTP laposte.net)"
+            ok "exim4 reconfiguré + redémarré (SMTP <MAIL-PROVIDER>)"
         fi
 
         warn "INTERFACES : /etc/network/interfaces restauré — prend effet au REBOOT"
@@ -292,7 +292,7 @@ if run_bloc network; then
     else
         sim "SYSCTL     : sysctl -p (rp_filter=2 pour Suricata AF_PACKET)"
         sim "SSH        : systemctl restart ssh (port <SSH-PORT>)"
-        sim "EXIM4      : update-exim4.conf + restart (SMTP laposte.net)"
+        sim "EXIM4      : update-exim4.conf + restart (SMTP <MAIL-PROVIDER>)"
         sim "INTERFACES : prend effet au reboot — vérifier avant de rebooter"
     fi
     bloc_ok "BLOC 0/13 RÉSEAU"

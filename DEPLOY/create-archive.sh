@@ -184,7 +184,7 @@ if $PUBLIC_MODE; then
         # Supprimer passwd.client (contient login:password SMTP)
         rm -f "${TMPDIR}/network/exim4/passwd.client"
         echo "# passwd.client — EXCLU (--public mode)" > "${TMPDIR}/network/exim4/passwd.client.example"
-        echo "# Format: smtp.laposte.net:587:user@laposte.net:PASSWORD" >> "${TMPDIR}/network/exim4/passwd.client.example"
+        echo "# Format: smtp.<MAIL-PROVIDER>:587:user@<MAIL-PROVIDER>:PASSWORD" >> "${TMPDIR}/network/exim4/passwd.client.example"
         ok "exim4/ → copié (passwd.client exclu)"
     else
         echo -e "  ${YELLOW}[DRY]${NC} exim4/ → copié sans passwd.client (mode public)"

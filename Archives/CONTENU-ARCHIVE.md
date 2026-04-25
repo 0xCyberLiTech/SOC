@@ -21,7 +21,7 @@
 | `sysctl/sysctl.conf` | `/etc/sysctl.conf` | ✅ |
 | `sysctl/sysctl.d/` | `/etc/sysctl.d/` (99-hardening + 99-disable-ipv6) | ✅ |
 | `nftables.conf` | `/etc/nftables.conf` | ✅ |
-| `exim4/` | `/etc/exim4/` (43 fichiers — smarthost laposte.net) | ✅ ⚠️ passwd.client |
+| `exim4/` | `/etc/exim4/` (43 fichiers — smarthost <MAIL-PROVIDER>) | ✅ ⚠️ passwd.client |
 | `hosts.allow` | `/etc/hosts.allow` | ✅ |
 | `hosts.deny` | `/etc/hosts.deny` | ✅ |
 | `ip-addr.txt` | `ip addr` (état live au moment export) | ✅ |
@@ -168,7 +168,7 @@
 | `nginx/letsencrypt/` | 🔴 Élevée | Clés privées SSL Let's Encrypt |
 | `crowdsec/local_api_credentials.yaml` | 🔴 Élevée | Token API CrowdSec LAPI |
 | `api-keys/api-keys.conf` | 🔴 Élevée | NVD API Key + AbuseIPDB API Key |
-| `network/exim4/passwd.client` | 🔴 Élevée | Password SMTP laposte.net |
+| `network/exim4/passwd.client` | 🔴 Élevée | Password SMTP <MAIL-PROVIDER> |
 | `ssh/id_site-01_sync` + autres | 🔴 Élevée | Clés SSH privées (sync vers VMs) |
 | `geoip/GeoIP.conf` | 🟡 Moyenne | License Key MaxMind |
 | `ssh/authorized_keys` | 🟡 Moyenne | Clé SSH pve-monitor Proxmox |

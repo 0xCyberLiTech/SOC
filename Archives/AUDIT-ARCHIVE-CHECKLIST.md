@@ -14,7 +14,7 @@
 - [ ] `/etc/ssh/sshd_config` — port <SSH-PORT>, PasswordAuthentication no, MaxAuthTries 3
 - [ ] `/etc/sysctl.d/99-hardening.conf` — `net.ipv4.conf.all.rp_filter = 2` (requis Suricata AF_PACKET)
 - [ ] `/etc/sysctl.d/99-disable-ipv6.conf` — IPv6 désactivé
-- [ ] `/etc/exim4/passwd.client` — credentials SMTP laposte.net (alertes mail SOC)
+- [ ] `/etc/exim4/passwd.client` — credentials SMTP <MAIL-PROVIDER> (alertes mail SOC)
 - [ ] `/etc/nftables.conf` — règles de base présentes
 
 ### nginx — BLOC 1
@@ -170,7 +170,7 @@ grep -c "DIFFÉRENT\|NOUVEAU" restore-simulation.txt
 - [ ] `ip route` → default via <LAN-IP>
 - [ ] `ssh -p <SSH-PORT> root@<SRV-NGIX-IP> hostname` → `srv-ngix` (depuis LAN)
 - [ ] `sysctl net.ipv4.conf.all.rp_filter` → `2`
-- [ ] `echo "test SOC" | mail -s test admin@domain.fr` → mail reçu (exim4 SMTP laposte.net)
+- [ ] `echo "test SOC" | mail -s test admin@domain.fr` → mail reçu (exim4 SMTP <MAIL-PROVIDER>)
 
 ### Services actifs
 ```bash
@@ -253,7 +253,7 @@ stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
 | `nginx/letsencrypt/` | 🔴 Clés privées SSL | Archive sur support chiffré uniquement |
 | `crowdsec/local_api_credentials.yaml` | 🔴 Token API CrowdSec | Stocker hors NAS public |
 | `api-keys/api-keys.conf` | 🔴 NVD + AbuseIPDB API keys | Stocker hors NAS public |
-| `network/exim4/passwd.client` | 🔴 Password SMTP laposte.net | Stocker hors NAS public |
+| `network/exim4/passwd.client` | 🔴 Password SMTP <MAIL-PROVIDER> | Stocker hors NAS public |
 | `geoip/GeoIP.conf` | 🟡 License Key MaxMind | Accès restreint |
 | `ssh/id_site-01_sync` + autres | 🟡 Clés SSH privées sync | Stocker hors NAS public |
 | `ssh/authorized_keys` | 🟡 Clé SSH pve-monitor | Accès restreint |
