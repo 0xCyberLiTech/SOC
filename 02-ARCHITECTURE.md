@@ -18,8 +18,8 @@ INTERNET
 │                                                     │
 │  ┌──────────────────────────────────────────────┐   │
 │  │  nginx 1.26                                  │   │
-│  │  • Reverse proxy → clt (<CLT-IP>:80)     │   │
-│  │  • Reverse proxy → pa85 (<PA85-IP>:80)    │   │
+│  │  • Reverse proxy → <VM1> (<CLT-IP>:80)     │   │
+│  │  • Reverse proxy → <VM2> (<PA85-IP>:80)    │   │
 │  │  • Dashboard SOC :8080 (LAN only)            │   │
 │  │  • GeoIP2 · Log format enrichi               │   │
 │  │  • Headers sécurité (HSTS, CSP, X-Frame...)  │   │
@@ -42,7 +42,7 @@ INTERNET
          │ :80                      │ rsyslog :514
          ▼                          ▼
 ┌──────────────────┐    ┌────────────────────┐
-│ clt <CLT-IP> │    │ pa85 <PA85-IP>  │
+│ <VM1> <CLT-IP> │    │ <VM2> <PA85-IP>  │
 │ Apache · site CLT│    │ Apache · site PA85 │
 │ fail2ban local   │    │ fail2ban local     │
 └──────────────────┘    └────────────────────┘
@@ -73,8 +73,8 @@ INTERNET
 | VM ID | Nom | IP | RAM | Disque | Rôle |
 |-------|-----|----|-----|--------|------|
 | 108 | srv-ngix | <SRV-NGIX-IP> | 14 Go | 50 Go | Reverse proxy · SOC · sécurité |
-| 106 | srv-clt | <CLT-IP> | 2 Go | 50 Go | Backend Apache · site CLT |
-| 107 | srv-pa85 | <PA85-IP> | 2 Go | 50 Go | Backend Apache · site PA85 |
+| 106 | srv-<VM1> | <CLT-IP> | 2 Go | 50 Go | Backend Apache · site CLT |
+| 107 | srv-<VM2> | <PA85-IP> | 2 Go | 50 Go | Backend Apache · site PA85 |
 
 **Proxmox VE** : <PROXMOX-IP> · SSH port <SSH-PORT> · clé `~/.ssh/id_proxmox`
 
@@ -131,7 +131,7 @@ nginx access.log
       │
       ├──→ Fail2ban (parsing regex → crowdsec-sync)
       ├──→ monitoring_gen.py (stats req/h, error rate, top IPs)
-      └──→ rsyslog (apache_access.log via syslog clt/pa85)
+      └──→ rsyslog (apache_access.log via syslog <VM1>/<VM2>)
 
 CrowdSec LAPI
       │
@@ -145,7 +145,7 @@ Suricata (AF_PACKET eth0)
 
 rsyslog /var/log/central/
       │
-      ├──→ clt/  pa85/  pve/  GT-BE98/  srv-ngix/
+      ├──→ <VM1>/  <VM2>/  pve/  GT-BE98/  srv-ngix/
       └──→ monitoring_gen.py (cross-host correlation)
 
 monitoring_gen.py (cron */5 min)
@@ -171,8 +171,8 @@ JARVIS soc.py (boucle 60s)
 | Clé | Machine cible | Chemin local |
 |-----|--------------|--------------|
 | id_nginx | srv-ngix (<SRV-NGIX-IP>) | ~/.ssh/id_nginx |
-| id_clt | clt (<CLT-IP>) | ~/.ssh/id_clt |
-| id_pa85 | pa85 (<PA85-IP>) | ~/.ssh/id_pa85 |
+| id_vm1 | <VM1> (<CLT-IP>) | ~/.ssh/id_vm1 |
+| id_vm2 | <VM2> (<PA85-IP>) | ~/.ssh/id_vm2 |
 | id_proxmox | Proxmox (<PROXMOX-IP>) | ~/.ssh/id_proxmox |
 
 Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode=yes**
@@ -191,7 +191,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 │   └── monitoring.css      ← Styles (1 400 lignes, tokens CSS --fs-*)
 └── libs/                   ← Librairies tierces (Leaflet...)
 
-/opt/clt/
+/opt/<VM1>/
 ├── monitoring_gen.py       ← Générateur monitoring.json
 ├── monitoring.sh           ← Wrapper bash (appelé par cron)
 ├── soc.py                  ← API Flask ban/unban/restart (port interne)
@@ -200,7 +200,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 
 /etc/nginx/
 ├── nginx.conf              ← Config principale (server_tokens off, headers-more)
-├── sites-available/        ← Vhosts (clt, pa85, monitoring)
+├── sites-available/        ← Vhosts (<VM1>, <VM2>, monitoring)
 └── sites-enabled/          ← Symlinks actifs
 
 /etc/crowdsec/
@@ -209,8 +209,8 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 └── scenarios/              ← Scénarios custom
 
 /var/log/central/           ← Logs rsyslog centralisés
-├── clt/
-├── pa85/
+├── <VM1>/
+├── <VM2>/
 ├── pve/
 ├── GT-BE98/
 └── srv-ngix/

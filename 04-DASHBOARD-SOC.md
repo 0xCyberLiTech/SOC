@@ -81,8 +81,8 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 17 | Mise à jour système nginx | apt |
-| 18 | Mise à jour système clt | apt via SSH |
-| 19 | Mise à jour système pa85 | apt via SSH |
+| 18 | Mise à jour système <VM1> | apt via SSH |
+| 19 | Mise à jour système <VM2> | apt via SSH |
 | 20 | Windows (disque/GPU/backup) | windows-disk.json |
 | 21 | Protocoles réseau live | proto-live.py |
 | 22 | JARVIS IA | localhost:5000/api/status |
@@ -107,7 +107,7 @@ monitoring_gen.py (cron */5 min)
       ├── UFW               → règles actives
       ├── AppArmor          → profils enforce/complain
       ├── AIDE              → dernière vérification, statut
-      ├── apt (SSH clt/pa85)→ paquets à mettre à jour
+      ├── apt (SSH <VM1>/<VM2>)→ paquets à mettre à jour
       ├── rsyslog central   → logs 5 hôtes, corrélations
       ├── ThreatScore       → calcul 24 briques → score 0-100
       └── Kill Chain        → classification IPs actives

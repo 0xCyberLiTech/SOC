@@ -19,7 +19,7 @@
 
 ### nginx — BLOC 1
 - [ ] `/etc/nginx/nginx.conf` — config principale présente
-- [ ] `/etc/nginx/sites-available/` — tous les vhosts (0xcyberlitech.com, pa85, monitoring...)
+- [ ] `/etc/nginx/sites-available/` — tous les vhosts (0xcyberlitech.com, <VM2>, monitoring...)
 - [ ] `/etc/nginx/sites-enabled/` — symlinks actifs vérifiés
 - [ ] `/etc/nginx/snippets/` — security-headers, ssl-params, geoip-block présents
 - [ ] `/usr/share/GeoIP/*.mmdb` — 3 bases MaxMind (GeoLite2-Country, City, ASN)
@@ -48,7 +48,7 @@
 
 ### rsyslog — BLOC 5
 - [ ] `/etc/rsyslog.conf` — config receiver UDP 514
-- [ ] `/etc/rsyslog.d/` — règles par hôte (clt, pa85, pve, GT-BE98)
+- [ ] `/etc/rsyslog.d/` — règles par hôte (<VM1>, <VM2>, pve, GT-BE98)
 
 ### AppArmor — BLOC 6
 - [ ] `/etc/apparmor.d/usr.sbin.nginx` — profil nginx
@@ -60,14 +60,14 @@
 - [ ] `ufw status verbose` exporté lisible
 
 ### Scripts — BLOC 8
-- [ ] `/opt/clt/` — 72 fichiers (monitoring_gen.py, soc.py, soc-daily-report.py, monitoring.sh...)
+- [ ] `/opt/<VM1>/` — 72 fichiers (monitoring_gen.py, soc.py, soc-daily-report.py, monitoring.sh...)
 - [ ] `/usr/local/bin/pve-monitor-write` — script réception stats Proxmox
 - [ ] `/var/www/monitoring/` — dashboard HTML+JS+CSS (sans monitoring.json live)
 
 ### Crons — BLOC 9
 - [ ] `/etc/cron.d/aide-soc` — AIDE 03h00
-- [ ] `/etc/cron.d/clt-cve-fetch` — CVE 3x/jour
-- [ ] `/etc/cron.d/clt-threat-fetch` — Threat 03h00
+- [ ] `/etc/cron.d/<VM1>-cve-fetch` — CVE 3x/jour
+- [ ] `/etc/cron.d/<VM1>-threat-fetch` — Threat 03h00
 - [ ] `/etc/cron.d/crowdsec-hub-update` — Hub 03h45
 - [ ] `/etc/cron.d/geoipupdate` — MaxMind 03h00
 - [ ] `/etc/cron.d/monitoring` — Dashboard 1 min
@@ -99,8 +99,8 @@
 
 ### Clés SSH — BLOC 11
 - [ ] `/root/.ssh/authorized_keys` — clé pve-monitor (Proxmox → srv-ngix)
-- [ ] `/root/.ssh/id_clt_sync` + `.pub` — connexion root@<CLT-IP>
-- [ ] `/root/.ssh/id_pa85_sync` + `.pub` — connexion root@<PA85-IP>
+- [ ] `/root/.ssh/id_vm1_sync` + `.pub` — connexion root@<CLT-IP>
+- [ ] `/root/.ssh/id_vm2_sync` + `.pub` — connexion root@<PA85-IP>
 - [ ] `/root/.ssh/id_proxmox_sync` + `.pub` — connexion root@<PROXMOX-IP>
 
 ---
@@ -115,7 +115,7 @@ tar tzf soc-config-AAAA-MM-JJ.tar.gz | sort | head -100
 tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep -E "^[^/]+/(network|nginx|crowdsec|fail2ban|suricata|rsyslog|apparmor|ufw|scripts|crons|systemd|aide|logrotate|geoip|api-keys|ssh)/" | awk -F/ '{print $2}' | sort -u
 
 # Vérifier les fichiers sensibles présents (les attendre !)
-tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep -E "(letsencrypt|api-keys\.conf|GeoIP\.conf|id_clt_sync|id_pa85_sync|local_api_credentials)"
+tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep -E "(letsencrypt|api-keys\.conf|GeoIP\.conf|id_vm1_sync|id_vm2_sync|local_api_credentials)"
 
 # Vérifier le nombre de fichiers cron
 tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep "crons/cron.d/" | wc -l
@@ -134,7 +134,7 @@ tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep README-RESTORE
 - [ ] `rsyslog/` présent (rsyslog.conf, rsyslog.d/)
 - [ ] `apparmor/` présent (profils nginx + suricata + aa-status.json)
 - [ ] `ufw/` présent (configs + ufw-status-verbose.txt)
-- [ ] `scripts/` présent (opt-clt/, usr-local-bin/, dashboard/)
+- [ ] `scripts/` présent (opt-<VM1>/, usr-local-bin/, dashboard/)
 - [ ] `crons/` présent (cron.d/ avec 11 fichiers)
 - [ ] `systemd/` présent (soc-report-trigger.service + services-actifs.txt)
 - [ ] `aide/` présent (/etc/aide/ complet)
@@ -200,7 +200,7 @@ curl -sI https://0xcyberlitech.com/ | head -3  # 200 ou 301
 curl -sI http://<SRV-NGIX-IP>:8080/ | head -3   # dashboard
 ```
 - [ ] `nginx -t` → OK
-- [ ] Sites répondent (0xcyberlitech.com, pa85)
+- [ ] Sites répondent (0xcyberlitech.com, <VM2>)
 - [ ] Dashboard SOC accessible http://<SRV-NGIX-IP>:8080/
 
 ### Crons
@@ -255,7 +255,7 @@ stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
 | `api-keys/api-keys.conf` | 🔴 NVD + AbuseIPDB API keys | Stocker hors NAS public |
 | `network/exim4/passwd.client` | 🔴 Password SMTP laposte.net | Stocker hors NAS public |
 | `geoip/GeoIP.conf` | 🟡 License Key MaxMind | Accès restreint |
-| `ssh/id_clt_sync` + autres | 🟡 Clés SSH privées sync | Stocker hors NAS public |
+| `ssh/id_vm1_sync` + autres | 🟡 Clés SSH privées sync | Stocker hors NAS public |
 | `ssh/authorized_keys` | 🟡 Clé SSH pve-monitor | Accès restreint |
 
 **Règle absolue : stocker l'archive dans `D:\BACKUP-PROXMOX\` uniquement — jamais sur un NAS accessible depuis le LAN non chiffré.**
@@ -280,7 +280,7 @@ tar tzf "$ARCHIVE" | grep "crons/cron.d/" | grep -v "/$" | wc -l
 
 ```bash
 # Vérifier les fichiers sensibles
-tar tzf "$ARCHIVE" | grep -E "(letsencrypt/live|api-keys\.conf|local_api_credentials|GeoIP\.conf|id_clt_sync|passwd\.client)"
+tar tzf "$ARCHIVE" | grep -E "(letsencrypt/live|api-keys\.conf|local_api_credentials|GeoIP\.conf|id_vm1_sync|passwd\.client)"
 ```
 
 ---
