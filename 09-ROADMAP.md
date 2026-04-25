@@ -3,7 +3,7 @@
 <br/>
 
 <a href="https://github.com/0xCyberLiTech/SOC">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=>ROADMAP_" alt="SOC 0xCyberLiTech" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=%3EROADMAP_" alt="SOC 0xCyberLiTech" />
 </a>
 
 <br/>
@@ -14,19 +14,27 @@
 
 <p>
   <a href="https://0xcyberlitech.com">
-    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site web" />
+    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site" />
   </a>
   &nbsp;
   <a href="https://github.com/0xCyberLiTech/SOC">
-    <img src="https://img.shields.io/badge/Dépôt-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
+    <img src="https://img.shields.io/badge/GitHub-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
   </a>
   &nbsp;
-  ![État](https://img.shields.io/badge/État-Production-brightgreen?style=flat-square) ![Dette technique](https://img.shields.io/badge/Dette technique-Zéro-00FF88?style=flat-square)
+  <img src="https://img.shields.io/badge/État-Production-brightgreen?style=flat-square" alt="État" />
+  &nbsp;  <img src="https://img.shields.io/badge/Dette technique-Zéro-00FF88?style=flat-square" alt="Dette technique" />
+  &nbsp;
 </p>
 
 <br/>
 
-[← 08 — JARVIS](08-JARVIS-DEFENSE.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [README →](README.md)
+<p>
+  <a href="08-JARVIS-DEFENSE.md"><img src="https://img.shields.io/badge/◄-08+JARVIS-555555?style=flat-square" alt="← 08 JARVIS" /></a>
+  &nbsp;&nbsp;
+  <a href="README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>
+  &nbsp;&nbsp;
+  <a href="README.md"><img src="https://img.shields.io/badge/README-►-555555?style=flat-square" alt="README →" /></a>
+</p>
 
 </div>
 
@@ -132,28 +140,30 @@ Déployer le SOC_SECOURS (déjà développé en v3.89.91) sur un Raspberry Pi 5 
 
 <div align="center">
 
+<br/>
+
 <table>
 <tr>
-<td align="center"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
-<td align="center"><b>💻 Développement &amp; Web</b></td>
-<td align="center"><b>🤖 Intelligence Artificielle</b></td>
+<td align="center" width="33%"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
+<td align="center" width="33%"><b>💻 Développement &amp; Web</b></td>
+<td align="center" width="33%"><b>🤖 Intelligence Artificielle</b></td>
 </tr>
 <tr>
 <td align="center">
-  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>
-  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>
-  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>
+  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>&nbsp;
+  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>&nbsp;
+  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>&nbsp;
   <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="40" title="Git" /></a>
 </td>
 <td align="center">
-  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>
-  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>
-  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>
+  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>&nbsp;
+  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>&nbsp;
+  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>&nbsp;
   <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code" /></a>
 </td>
 <td align="center">
   <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
-  &nbsp;
+  <br/><br/>
   <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
 </td>
 </tr>
@@ -161,14 +171,14 @@ Déployer le SOC_SECOURS (déjà développé en v3.89.91) sur un Raspberry Pi 5 
 
 <br/>
 
-<sub>🔒 Projet par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> (Anthropic) 🔒</sub>
+<sub>🔒 Projet <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> · Anthropic 🔒</sub>
 
 </div>
 
----
-
 <div align="center">
 
-[← 08 — JARVIS](08-JARVIS-DEFENSE.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [README →](README.md)
+<p>
+  <a href="08-JARVIS-DEFENSE.md"><img src="https://img.shields.io/badge/◄-08+JARVIS-555555?style=flat-square" alt="← 08 JARVIS" /></a>&nbsp;&nbsp;<a href="README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>&nbsp;&nbsp;<a href="README.md"><img src="https://img.shields.io/badge/README-►-555555?style=flat-square" alt="README →" /></a>
+</p>
 
 </div>

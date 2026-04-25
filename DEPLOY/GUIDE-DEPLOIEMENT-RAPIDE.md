@@ -3,7 +3,7 @@
 <br/>
 
 <a href="https://github.com/0xCyberLiTech/SOC">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=>DEPLOIEMENT_" alt="SOC 0xCyberLiTech" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=%3EDEPLOIEMENT_" alt="SOC 0xCyberLiTech" />
 </a>
 
 <br/>
@@ -14,19 +14,28 @@
 
 <p>
   <a href="https://0xcyberlitech.com">
-    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site web" />
+    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site" />
   </a>
   &nbsp;
   <a href="https://github.com/0xCyberLiTech/SOC">
-    <img src="https://img.shields.io/badge/Dépôt-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
+    <img src="https://img.shields.io/badge/GitHub-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
   </a>
   &nbsp;
-  ![Debian](https://img.shields.io/badge/Debian-13-A81D33?style=flat-square&logo=debian&logoColor=white) ![Bash](https://img.shields.io/badge/Bash-script-4EAA25?style=flat-square&logo=gnubash&logoColor=white) ![Durée](https://img.shields.io/badge/Durée-< 30 min-00FF88?style=flat-square)
+  <img src="https://img.shields.io/badge/Debian-13-A81D33?style=flat-square&logo=debian&logoColor=white" alt="Debian" />
+  &nbsp;  <img src="https://img.shields.io/badge/Bash-script-4EAA25?style=flat-square&logo=gnubash&logoColor=white" alt="Bash" />
+  &nbsp;  <img src="https://img.shields.io/badge/Durée-%3C30min-00FF88?style=flat-square" alt="Durée" />
+  &nbsp;
 </p>
 
 <br/>
 
-[← README](../README.md) &nbsp;·&nbsp; [⬡ README](../README.md) &nbsp;·&nbsp; [Runbook →](RUNBOOK-DEBIAN13.md)
+<p>
+  <a href="../README.md"><img src="https://img.shields.io/badge/◄-README-555555?style=flat-square" alt="← README" /></a>
+  &nbsp;&nbsp;
+  <a href="../README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>
+  &nbsp;&nbsp;
+  <a href="RUNBOOK-DEBIAN13.md"><img src="https://img.shields.io/badge/Runbook-►-555555?style=flat-square" alt="Runbook →" /></a>
+</p>
 
 </div>
 
@@ -251,28 +260,30 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP>           # 5. reconnexi
 
 <div align="center">
 
+<br/>
+
 <table>
 <tr>
-<td align="center"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
-<td align="center"><b>💻 Développement &amp; Web</b></td>
-<td align="center"><b>🤖 Intelligence Artificielle</b></td>
+<td align="center" width="33%"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
+<td align="center" width="33%"><b>💻 Développement &amp; Web</b></td>
+<td align="center" width="33%"><b>🤖 Intelligence Artificielle</b></td>
 </tr>
 <tr>
 <td align="center">
-  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>
-  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>
-  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>
+  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>&nbsp;
+  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>&nbsp;
+  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>&nbsp;
   <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="40" title="Git" /></a>
 </td>
 <td align="center">
-  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>
-  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>
-  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>
+  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>&nbsp;
+  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>&nbsp;
+  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>&nbsp;
   <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code" /></a>
 </td>
 <td align="center">
   <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
-  &nbsp;
+  <br/><br/>
   <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
 </td>
 </tr>
@@ -280,14 +291,14 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP>           # 5. reconnexi
 
 <br/>
 
-<sub>🔒 Projet par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> (Anthropic) 🔒</sub>
+<sub>🔒 Projet <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> · Anthropic 🔒</sub>
 
 </div>
 
----
-
 <div align="center">
 
-[← README](../README.md) &nbsp;·&nbsp; [⬡ README](../README.md) &nbsp;·&nbsp; [Runbook →](RUNBOOK-DEBIAN13.md)
+<p>
+  <a href="../README.md"><img src="https://img.shields.io/badge/◄-README-555555?style=flat-square" alt="← README" /></a>&nbsp;&nbsp;<a href="../README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>&nbsp;&nbsp;<a href="RUNBOOK-DEBIAN13.md"><img src="https://img.shields.io/badge/Runbook-►-555555?style=flat-square" alt="Runbook →" /></a>
+</p>
 
 </div>

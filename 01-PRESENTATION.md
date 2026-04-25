@@ -3,30 +3,39 @@
 <br/>
 
 <a href="https://github.com/0xCyberLiTech/SOC">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=>PRESENTATION_" alt="SOC 0xCyberLiTech" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=%3EPRESENTATION_" alt="SOC 0xCyberLiTech" />
 </a>
 
 <br/>
 
-<h3>⬡ SOC 0xCyberLiTech &nbsp;·&nbsp; 🛡️ Cybersécurité défensive &nbsp;·&nbsp; 🏠 Homelab en production</h3>
+<h3>🛡️ Cybersécurité défensive &nbsp;·&nbsp; 🤖 IA locale &nbsp;·&nbsp; 🏠 Homelab en production</h3>
 
 <br/>
 
 <p>
   <a href="https://0xcyberlitech.com">
-    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site web" />
+    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site" />
   </a>
   &nbsp;
   <a href="https://github.com/0xCyberLiTech/SOC">
-    <img src="https://img.shields.io/badge/Dépôt-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
+    <img src="https://img.shields.io/badge/GitHub-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
   </a>
   &nbsp;
-  ![Status](https://img.shields.io/badge/Status-Production-brightgreen?style=flat-square) ![Audit](https://img.shields.io/badge/Audit-10%2F10-00FF88?style=flat-square) ![Couches](https://img.shields.io/badge/Couches-8 défense-0D1117?style=flat-square)
+  <img src="https://img.shields.io/badge/Status-Production-brightgreen?style=flat-square" alt="Status" />
+  &nbsp;  <img src="https://img.shields.io/badge/Audit-10%2F10-00FF88?style=flat-square" alt="Audit" />
+  &nbsp;  <img src="https://img.shields.io/badge/8 couches-défense-00B4D8?style=flat-square" alt="8 couches" />
+  &nbsp;
 </p>
 
 <br/>
 
-[← README](README.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [02 — Architecture →](02-ARCHITECTURE.md)
+<p>
+  <a href="README.md"><img src="https://img.shields.io/badge/◄-README-555555?style=flat-square" alt="← README" /></a>
+  &nbsp;&nbsp;
+  <a href="README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>
+  &nbsp;&nbsp;
+  <a href="02-ARCHITECTURE.md"><img src="https://img.shields.io/badge/02+Architecture-►-555555?style=flat-square" alt="02 Architecture →" /></a>
+</p>
 
 </div>
 
@@ -139,28 +148,30 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 
 <div align="center">
 
+<br/>
+
 <table>
 <tr>
-<td align="center"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
-<td align="center"><b>💻 Développement &amp; Web</b></td>
-<td align="center"><b>🤖 Intelligence Artificielle</b></td>
+<td align="center" width="33%"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
+<td align="center" width="33%"><b>💻 Développement &amp; Web</b></td>
+<td align="center" width="33%"><b>🤖 Intelligence Artificielle</b></td>
 </tr>
 <tr>
 <td align="center">
-  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>
-  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>
-  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>
+  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>&nbsp;
+  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>&nbsp;
+  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>&nbsp;
   <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="40" title="Git" /></a>
 </td>
 <td align="center">
-  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>
-  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>
-  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>
+  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>&nbsp;
+  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>&nbsp;
+  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>&nbsp;
   <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code" /></a>
 </td>
 <td align="center">
   <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
-  &nbsp;
+  <br/><br/>
   <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
 </td>
 </tr>
@@ -168,14 +179,14 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 
 <br/>
 
-<sub>🔒 Projet par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> (Anthropic) 🔒</sub>
+<sub>🔒 Projet <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> · Anthropic 🔒</sub>
 
 </div>
 
----
-
 <div align="center">
 
-[← README](README.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [02 — Architecture →](02-ARCHITECTURE.md)
+<p>
+  <a href="README.md"><img src="https://img.shields.io/badge/◄-README-555555?style=flat-square" alt="← README" /></a>&nbsp;&nbsp;<a href="README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>&nbsp;&nbsp;<a href="02-ARCHITECTURE.md"><img src="https://img.shields.io/badge/02+Architecture-►-555555?style=flat-square" alt="02 Architecture →" /></a>
+</p>
 
 </div>

@@ -3,30 +3,40 @@
 <br/>
 
 <a href="https://github.com/0xCyberLiTech/SOC">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=>JARVIS+AI_" alt="SOC 0xCyberLiTech" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=%3EJARVIS+AI_" alt="SOC 0xCyberLiTech" />
 </a>
 
 <br/>
 
-<h3>🤖 IA 100% locale &nbsp;·&nbsp; Ollama phi4-reasoning &nbsp;·&nbsp; Ban automatique &nbsp;·&nbsp; Alertes TTS</h3>
+<h3>🤖 IA 100% locale &nbsp;·&nbsp; Ollama phi4-reasoning &nbsp;·&nbsp; Ban auto &nbsp;·&nbsp; Alertes TTS</h3>
 
 <br/>
 
 <p>
   <a href="https://0xcyberlitech.com">
-    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site web" />
+    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site" />
   </a>
   &nbsp;
   <a href="https://github.com/0xCyberLiTech/SOC">
-    <img src="https://img.shields.io/badge/Dépôt-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
+    <img src="https://img.shields.io/badge/GitHub-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
   </a>
   &nbsp;
-  ![Ollama](https://img.shields.io/badge/Ollama-phi4-reasoning-FF8C00?style=flat-square) ![Python](https://img.shields.io/badge/Python-Flask-3776AB?style=flat-square&logo=python&logoColor=white) ![TTS](https://img.shields.io/badge/TTS-Neural-8B5CF6?style=flat-square) ![Déclencheurs](https://img.shields.io/badge/Déclencheurs-12-00FF88?style=flat-square)
+  <img src="https://img.shields.io/badge/Ollama-phi4%2Dreasoning-FF8C00?style=flat-square" alt="Ollama" />
+  &nbsp;  <img src="https://img.shields.io/badge/Flask-Python-3776AB?style=flat-square&logo=python&logoColor=white" alt="Flask" />
+  &nbsp;  <img src="https://img.shields.io/badge/Déclencheurs-12-00FF88?style=flat-square" alt="Déclencheurs" />
+  &nbsp;  <img src="https://img.shields.io/badge/TTS-Neural-8B5CF6?style=flat-square" alt="TTS" />
+  &nbsp;
 </p>
 
 <br/>
 
-[← 07 — rsyslog](07-RSYSLOG-CENTRAL.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [09 — Roadmap →](09-ROADMAP.md)
+<p>
+  <a href="07-RSYSLOG-CENTRAL.md"><img src="https://img.shields.io/badge/◄-07+rsyslog-555555?style=flat-square" alt="← 07 rsyslog" /></a>
+  &nbsp;&nbsp;
+  <a href="README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>
+  &nbsp;&nbsp;
+  <a href="09-ROADMAP.md"><img src="https://img.shields.io/badge/09+Roadmap-►-555555?style=flat-square" alt="09 Roadmap →" /></a>
+</p>
 
 </div>
 
@@ -191,28 +201,30 @@ python jarvis.py
 
 <div align="center">
 
+<br/>
+
 <table>
 <tr>
-<td align="center"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
-<td align="center"><b>💻 Développement &amp; Web</b></td>
-<td align="center"><b>🤖 Intelligence Artificielle</b></td>
+<td align="center" width="33%"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
+<td align="center" width="33%"><b>💻 Développement &amp; Web</b></td>
+<td align="center" width="33%"><b>🤖 Intelligence Artificielle</b></td>
 </tr>
 <tr>
 <td align="center">
-  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>
-  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>
-  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>
+  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>&nbsp;
+  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>&nbsp;
+  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>&nbsp;
   <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="40" title="Git" /></a>
 </td>
 <td align="center">
-  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>
-  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>
-  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>
+  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>&nbsp;
+  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>&nbsp;
+  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>&nbsp;
   <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code" /></a>
 </td>
 <td align="center">
   <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
-  &nbsp;
+  <br/><br/>
   <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
 </td>
 </tr>
@@ -220,14 +232,14 @@ python jarvis.py
 
 <br/>
 
-<sub>🔒 Projet par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> (Anthropic) 🔒</sub>
+<sub>🔒 Projet <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> · Anthropic 🔒</sub>
 
 </div>
 
----
-
 <div align="center">
 
-[← 07 — rsyslog](07-RSYSLOG-CENTRAL.md) &nbsp;·&nbsp; [⬡ README](README.md) &nbsp;·&nbsp; [09 — Roadmap →](09-ROADMAP.md)
+<p>
+  <a href="07-RSYSLOG-CENTRAL.md"><img src="https://img.shields.io/badge/◄-07+rsyslog-555555?style=flat-square" alt="← 07 rsyslog" /></a>&nbsp;&nbsp;<a href="README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>&nbsp;&nbsp;<a href="09-ROADMAP.md"><img src="https://img.shields.io/badge/09+Roadmap-►-555555?style=flat-square" alt="09 Roadmap →" /></a>
+</p>
 
 </div>
