@@ -50,6 +50,7 @@
 <h2 align="center">Prérequis</h2>
 
 <h3 align="center">VM à préparer (nouveau srv-ngix)</h3>
+
 - OS : **Debian 13 (Trixie)** installation minimale
 - IP : **<SRV-NGIX-IP>** (configurée pendant l'install Debian — DHCP ou statique, peu importe pour l'instant)
 - SSH : port **22** (par défaut — sera changé à <SSH-PORT> par le script de restauration)
@@ -57,6 +58,7 @@
 - Réseau : accessible depuis votre poste Windows
 
 <h3 align="center">Fichiers à avoir sur Windows</h3>
+
 - **Archive** : `D:\BACKUP-PROXMOX\soc-config-AAAA-MM-JJ.tar.gz` (38 Mo)
 - **Dossier DEPLOY** : `C:\Users\mmsab\Documents\0xCyberLiTech\SOC\docs\PROJET-SOC\DEPLOY\`
   - `deploy-soc.sh` — installe les paquets (nginx, crowdsec, suricata...)
