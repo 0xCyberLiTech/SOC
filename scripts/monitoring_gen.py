@@ -113,7 +113,7 @@ PVE_CPU_HISTORY_FILE = '/var/www/monitoring/proxmox-cpu-history.json'
 SYS_CPU_HISTORY_FILE = '/var/www/monitoring/sys-cpu-history.json'
 PVE_NET_HISTORY_FILE = '/var/www/monitoring/pve-net-history.json'
 WAN_HISTORY_FILE = '/var/www/monitoring/wan-history.json'
-WAN_BOX_IP       = '<BOX-IP>'   # Free Delta box
+WAN_BOX_IP       = '<BOX-IP>'   # IP locale de la box FAI
 SFP_HISTORY_FILE = '/var/www/monitoring/sfp-history.json'
 WAN_HISTORY_MAX  = 288               # 24h à 5 min d'intervalle
 JARVIS_URL       = 'http://localhost:5000'
@@ -1605,17 +1605,18 @@ def get_proxmox_stats():
         return {'configured': True, 'error': str(e)[:120]}
 
 def get_wan_ip():
-    """Détecte l'IP WAN publique — position fixée aux Sables-d'Olonne (85, FR)."""
+    """Détecte l'IP WAN publique et sa géolocalisation via ipinfo.io."""
     try:
         req = Request('https://ipinfo.io/json', headers={'User-Agent': 'monitoring-gen/2.3'})
         with urlopen(req, timeout=6) as r:
             info = json.loads(r.read().decode())
+        loc = info.get('loc', '0,0').split(',')
         return {
             'ip':      info.get('ip', ''),
-            'city':    "Les Sables-d'Olonne",
-            'country': 'FR',
-            'lat':     46.4978,
-            'lon':     -1.7831,
+            'city':    info.get('city', ''),
+            'country': info.get('country', ''),
+            'lat':     float(loc[0]) if len(loc) == 2 else 0.0,
+            'lon':     float(loc[1]) if len(loc) == 2 else 0.0,
         }
     except Exception:
         return None
@@ -4652,10 +4653,10 @@ def main():
         if isinstance(fbx, dict) and fbx.get('ipv4'):
             data['wan_ip'] = {
                 'ip':      fbx['ipv4'],
-                'city':    "Les Sables-d'Olonne",
-                'country': 'FR',
-                'lat':     46.4978,
-                'lon':     -1.7831,
+                'city':    '',
+                'country': '',
+                'lat':     0.0,
+                'lon':     0.0,
             }
     _main_enrich_crowdsec(data)
     _main_enrich_honeypot(data)
