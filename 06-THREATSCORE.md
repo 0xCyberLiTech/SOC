@@ -160,7 +160,6 @@ Le dashboard affiche :
 - Tendance ↑↓ (comparaison heure précédente)
 
 ---
----
 
 <div align="center">
 

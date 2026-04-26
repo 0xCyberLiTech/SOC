@@ -212,7 +212,6 @@ Convention audit qualité — score cible 99/100 :
 Le dashboard est vanilla JS pur. Seule exception : **Leaflet.js** (carte) chargé depuis `/libs/`.
 
 ---
----
 
 <div align="center">
 

@@ -205,7 +205,6 @@ Boucle 60s permanente (voir doc 08) :
 | IP malveillante connue | CrowdSec CAPI (communauté mondiale) + nftables |
 
 ---
----
 
 <div align="center">
 

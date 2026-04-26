@@ -254,7 +254,6 @@ systemctl restart fail2ban && fail2ban-client status
 5. Après résolution → documenter dans le rapport journalier
 
 ---
----
 
 <div align="center">
 

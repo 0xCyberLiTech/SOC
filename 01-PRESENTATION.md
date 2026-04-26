@@ -154,7 +154,6 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 - **faster-whisper** — Reconnaissance vocale commandes
 
 ---
----
 
 <div align="center">
 

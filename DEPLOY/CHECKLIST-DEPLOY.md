@@ -188,7 +188,6 @@ TOTAL                : _/61
 En cas de point rouge → consulter le RUNBOOK-DEBIAN13.md section correspondante.
 
 ---
----
 
 <div align="center">
 

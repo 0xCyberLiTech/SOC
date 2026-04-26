@@ -848,7 +848,6 @@ echo "Test SOC" | mail -s "[SOC] Test déploiement" admin@example.com
 ```
 
 ---
----
 
 <div align="center">
 

@@ -259,7 +259,6 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 ```
 
 ---
----
 
 <div align="center">
 

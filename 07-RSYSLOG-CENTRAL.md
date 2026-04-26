@@ -207,7 +207,6 @@ ufw allow from <ROUTER-SUBNET> to any port 514 proto udp  # <ROUTER>
 ```
 
 ---
----
 
 <div align="center">
 

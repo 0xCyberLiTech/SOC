@@ -130,7 +130,6 @@ Déployer le SOC_SECOURS (déjà développé en v3.89.91) sur un Raspberry Pi 5 
 - **Intégration Proxmox alerts** : recevoir les alertes backup/VM dans le SOC dashboard
 
 ---
----
 
 <div align="center">
 

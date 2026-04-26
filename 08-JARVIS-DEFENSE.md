@@ -195,7 +195,6 @@ python jarvis.py
 ```
 
 ---
----
 
 <div align="center">
 

@@ -192,7 +192,6 @@ Classification automatique des IPs par phase d'attaque (fenêtre 15 min) :
 | `jarvis-rsyslog-recon` | Recon multi-cibles rsyslog |
 
 ---
----
 
 <div align="center">
 
