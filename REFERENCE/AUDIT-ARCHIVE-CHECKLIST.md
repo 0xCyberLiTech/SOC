@@ -63,7 +63,7 @@
 <h3 align="center">nginx — BLOC 1</h3>
 
 - [ ] `/etc/nginx/nginx.conf` — config principale présente
-- [ ] `/etc/nginx/sites-available/` — tous les vhosts (0xcyberlitech.com, site-02, monitoring...)
+- [ ] `/etc/nginx/sites-available/` — tous les vhosts (<DOMAIN-COM>, site-02, monitoring...)
 - [ ] `/etc/nginx/sites-enabled/` — symlinks actifs vérifiés
 - [ ] `/etc/nginx/snippets/` — security-headers, ssl-params, geoip-block présents
 - [ ] `/usr/share/GeoIP/*.mmdb` — 3 bases MaxMind (GeoLite2-Country, City, ASN)
@@ -260,11 +260,11 @@ cscli collections list | grep linux-lpe  # collection installée
 
 ```bash
 nginx -t                           # OK
-curl -sI https://0xcyberlitech.com/ | head -3  # 200 ou 301
+curl -sI https://<DOMAIN-COM>/ | head -3  # 200 ou 301
 curl -sI http://<SRV-NGIX-IP>:8080/ | head -3   # dashboard
 ```
 - [ ] `nginx -t` → OK
-- [ ] Sites répondent (0xcyberlitech.com, site-02)
+- [ ] Sites répondent (<DOMAIN-COM>, site-02)
 - [ ] Dashboard SOC accessible http://<SRV-NGIX-IP>:8080/
 
 <h3 align="center">Crons</h3>
