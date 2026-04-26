@@ -65,21 +65,26 @@ Le projet démontre qu'il est possible de construire un SOC professionnel avec d
 <h2 align="center">Points forts</h2>
 
 <h3 align="center">Défense en profondeur — 8 couches indépendantes</h3>
+
 De l'UFW/nftables jusqu'à l'IA locale, chaque couche opère indépendamment. La compromission d'une couche ne désactive pas les autres.
 
 <h3 align="center">Zéro dépendance externe</h3>
+
 - Pas de cloud SOC (pas de Splunk, Datadog, ELK cloud)
 - Pas de NPM dans le dashboard (vanilla JS pur)
 - GeoIP en local (MaxMind MMDB)
 - IA locale (Ollama, pas d'API OpenAI)
 
 <h3 align="center">Score menace temps réel — 24 briques</h3>
+
 Un algorithme original calcule un score 0-100 toutes les 60 secondes en agrégeant 24 sources de données. Anti-doublons explicites évitent la surpondération.
 
 <h3 align="center">Kill Chain MITRE ATT&CK</h3>
+
 Les IPs actives sont classées automatiquement en phases : RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ.
 
 <h3 align="center">JARVIS — réponse autonome</h3>
+
 Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 - Bannit les IPs critiques via CrowdSec
 - Redémarre les services tombés
@@ -87,6 +92,7 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 - Analyse les gaps défensifs avec un LLM local (phi4-reasoning)
 
 <h3 align="center">Audit qualité 10/10</h3>
+
 85 passes d'audit manuel couvrant : XSS, NDT (Non-Déterminisme Technique), hardcodes, dette CSS, robustesse. Score parfait maintenu.
 
 ---
@@ -117,27 +123,32 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 <h2 align="center">Technologies utilisées</h2>
 
 <h3 align="center">Couche réseau / système</h3>
+
 - **Debian 13 (Trixie)** — OS des VMs
 - **Proxmox VE** — Hyperviseur
 - **UFW + nftables** — Firewall
 - **AppArmor** — Confinement processus (9 profils enforce)
 
 <h3 align="center">Couche détection / blocage</h3>
+
 - **CrowdSec** — LAPI collaborative + 8 collections + AppSec WAF (207 vpatch)
 - **Fail2ban** — Détecteur logs → alimente CrowdSec (3 jails)
 - **Suricata** — IDS réseau (106 789 règles ET Pro + Emerging Threats)
 
 <h3 align="center">Couche collecte / corrélation</h3>
+
 - **rsyslog** — Récepteur central TCP+UDP :514 (5 hôtes)
 - **nginx** — Reverse proxy + logs avec GeoIP country + format enrichi
 - **GeoIP2 MaxMind** — Géolocalisation IP temps réel
 
 <h3 align="center">Couche visualisation</h3>
+
 - **Dashboard SPA vanilla JS** — 24 modules, 0 dépendance NPM
 - **Python 3.11** — monitoring_gen.py (générateur JSON), soc.py (API JARVIS)
 - **monitoring.json** — Agrégation toutes sources, polling 60s
 
 <h3 align="center">Couche IA / réponse</h3>
+
 - **JARVIS** — Flask + Ollama (phi4-reasoning) — boucle autonome
 - **edge-tts / Piper** — Synthèse vocale alertes
 - **faster-whisper** — Reconnaissance vocale commandes
