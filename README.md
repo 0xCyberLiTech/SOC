@@ -188,6 +188,19 @@ INTERNET
 
 ---
 
+<h2 align="center">Par où commencer ?</h2>
+
+| Objectif | Point d'entrée |
+|----------|---------------|
+| 🔧 **Reconstruire le SOC** sur une VM vierge | [DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) |
+| 📖 **Comprendre l'architecture** et les choix défensifs | Documentation [01](01-PRESENTATION.md) → [09](09-ROADMAP.md) |
+| ⚙️ **Adapter une configuration** à votre infrastructure | [CONFIGS/](CONFIGS/) — placeholders anonymisés |
+
+> **Périmètre de ce dépôt** : infrastructure · configuration système · guides de déploiement.
+> Les scripts Python (`monitoring_gen.py`, `soc-daily-report.py`, etc.) et le dashboard (HTML/JS/CSS) ne sont pas publiés ici — ils contiennent la logique applicative et sont distribués séparément.
+
+---
+
 <h2 align="center">Documentation</h2>
 
 | # | Document | Description |
@@ -214,6 +227,8 @@ INTERNET
 | [restore-soc.sh](DEPLOY/restore-soc.sh) | Restauration — `--dry-run` · `--step` · rollback auto |
 | [CHECKLIST-DEPLOY.md](DEPLOY/CHECKLIST-DEPLOY.md) | 61 points de vérification post-déploiement |
 | [CHECKLIST-OPERATIONNELLE.md](DEPLOY/CHECKLIST-OPERATIONNELLE.md) | Checklist exploitation quotidienne |
+| [CONTENU-ARCHIVE.md](REFERENCE/CONTENU-ARCHIVE.md) | Inventaire des 13 blocs de l'archive — structure détaillée |
+| [AUDIT-ARCHIVE-CHECKLIST.md](REFERENCE/AUDIT-ARCHIVE-CHECKLIST.md) | Checklist de vérification avant chaque archivage |
 
 ```bash
 # Restauration sur VM Debian 13 vierge
