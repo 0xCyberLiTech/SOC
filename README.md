@@ -204,10 +204,10 @@ INTERNET
 >
 > | Placeholder | Rôle | Exemple générique |
 > |-------------|------|-------------------|
-> | `<SRV-NGIX-IP>` | VM nginx + SOC dashboard | `10.0.0.10` |
-> | `<CLT-IP>` | VM site-01 (Apache) | `10.0.0.11` |
-> | `<PA85-IP>` | VM site-02 (Apache) | `10.0.0.12` |
-> | `<PROXMOX-IP>` | Hyperviseur Proxmox VE | `10.0.0.1` |
+> | `<SRV-NGIX-IP>` | VM nginx + SOC dashboard | `203.0.113.10` |
+> | `<CLT-IP>` | VM site-01 (Apache) | `203.0.113.11` |
+> | `<PA85-IP>` | VM site-02 (Apache) | `203.0.113.12` |
+> | `<PROXMOX-IP>` | Hyperviseur Proxmox VE | `203.0.113.1` |
 
 ---
 

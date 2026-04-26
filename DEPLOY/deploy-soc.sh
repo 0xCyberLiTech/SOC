@@ -23,12 +23,12 @@ set -euo pipefail
 # ═════════════════════════════════════════════════════════════════════════════
 # CONFIG — ADAPTER À VOTRE INFRASTRUCTURE AVANT DE LANCER
 # ═════════════════════════════════════════════════════════════════════════════
-VM_IP="<SRV-NGIX-IP>"          # IP VM nginx + SOC          ex: 10.0.0.10
-CLT_IP="<CLT-IP>"              # IP VM site-01 (Apache)      ex: 10.0.0.11
-PA85_IP="<PA85-IP>"            # IP VM site-02 (Apache)      ex: 10.0.0.12
-PROXMOX_IP="<PROXMOX-IP>"      # IP hyperviseur Proxmox VE   ex: 10.0.0.1
-LAN_CIDR="<LAN-CIDR>"         # Sous-réseau LAN             ex: 10.0.0.0/24
-LAN2_CIDR="<ROUTER-SUBNET>"   # Sous-réseau routeur/gestion ex: 10.0.1.0/24
+VM_IP="<SRV-NGIX-IP>"          # IP VM nginx + SOC          ex: 203.0.113.10
+CLT_IP="<CLT-IP>"              # IP VM site-01 (Apache)      ex: 203.0.113.11
+PA85_IP="<PA85-IP>"            # IP VM site-02 (Apache)      ex: 203.0.113.12
+PROXMOX_IP="<PROXMOX-IP>"      # IP hyperviseur Proxmox VE   ex: 203.0.113.1
+LAN_CIDR="<LAN-CIDR>"         # Sous-réseau LAN             ex: 203.0.113.0/24
+LAN2_CIDR="<ROUTER-SUBNET>"   # Sous-réseau routeur/gestion ex: 203.0.113.128/25
 SSH_PORT="<SSH-PORT>"          # Port SSH non standard       ex: 2222
 DOMAIN_COM="<DOMAIN-COM>"      # Domaine principal           ex: monsite.com
 DOMAIN_FR="<DOMAIN-FR>"        # Domaine secondaire          ex: monsite.fr
