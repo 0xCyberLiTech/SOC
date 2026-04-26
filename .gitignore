@@ -1,0 +1,43 @@
+# ── Secrets & credentials ─────────────────────────────────────────────────────
+alert.conf
+.proxmox_pass
+freebox_token.txt
+api-keys.conf
+*.token
+*.secret
+*.pass
+.env
+.env.*
+
+# ── Données runtime (générées par le SOC) ────────────────────────────────────
+monitoring.json
+alert-state.json
+net-history.json
+wan-history.json
+sfp-history.json
+sys-cpu-history.json
+pve-cpu-history.json
+pve-net-history.json
+proxmox-cpu-history.json
+proxmox-ufw.json
+windows-disk.json
+threat-stats.json
+abuseipdb-stats.json
+cve-*.json
+index.json
+
+# ── Archives & backups ────────────────────────────────────────────────────────
+*.tar.gz
+*.tar.bz2
+soc-archive-*.tar.*
+*.bak
+*.orig
+
+# ── Éditeurs & OS ─────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.vscode/
+.idea/

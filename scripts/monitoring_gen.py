@@ -125,7 +125,7 @@ SYS_SERVICES_MONITORED = ['nginx', 'crowdsec', 'fail2ban', 'rsyslog', 'ssh']
 # Laisser PROXMOX_USER et PROXMOX_TOKEN vides pour désactiver le panneau Proxmox
 PROXMOX_HOST  = IP_PROXMOX
 PROXMOX_PORT  = 8006
-PROXMOX_USER  = 'root@pam'   # ex: 'root@pam' ou 'monitor@pam'
+PROXMOX_USER  = '<PROXMOX-USER>'   # ex: 'root@pam' ou 'monitor@pam'
 try:
     PROXMOX_PASS = open('/opt/clt/.proxmox_pass').read().strip() if __import__('os').path.exists('/opt/clt/.proxmox_pass') else ''  # srv-ngix : /opt/clt/.proxmox_pass (chmod 600)
 except Exception:
@@ -1924,10 +1924,10 @@ def get_wan_monitoring():
     wan_ms  = wan1['ms'] if wan1['ok'] else (wan2['ms'] if wan2['ok'] else None)
     wan_loss = min(wan1['loss'], wan2['loss'])
 
-    # Sondes Free Telecom — HTTPS vers serveurs Free (port 53 intercepté par la Freebox → HTTP)
-    # www.free.fr (portail) et assistance.free.fr (support) — représentatifs du backbone Free
-    free_dns      = _tcp_latency('www.free.fr',         port=443, timeout=5)
-    free_backbone = _tcp_latency('assistance.free.fr',  port=443, timeout=5)
+    # Sondes FAI — HTTPS vers deux serveurs de l'opérateur (backbone + portail)
+    # ADAPTER : remplacer par deux hosts représentatifs de votre FAI
+    free_dns      = _tcp_latency('<ISP-HOST-1>',  port=443, timeout=5)
+    free_backbone = _tcp_latency('<ISP-HOST-2>',  port=443, timeout=5)
     free_dns_ok      = free_dns['ok']
     free_backbone_ok = free_backbone['ok']
     free_dns_ms      = free_dns['ms']
