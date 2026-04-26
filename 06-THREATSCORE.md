@@ -3,7 +3,7 @@
 <br/>
 
 <a href="https://github.com/0xCyberLiTech/SOC">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=%3ETHREATSCORE_" alt="SOC 0xCyberLiTech" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=%3ESCORE+MENACE+0-100_" alt="SOC 0xCyberLiTech" />
 </a>
 
 <br/>
