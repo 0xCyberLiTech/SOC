@@ -185,6 +185,7 @@ Le handler global dans `11-bind.js` intercepts les clics sur `[data-panel]` et o
 <h2 align="center">Conventions de développement</h2>
 
 <h3 align="center">Cache-busters</h3>
+
 Chaque module JS est chargé avec un cache-buster dans `index.html` :
 ```html
 <script src="js/07-render.js?v=3.97.152"></script>
@@ -192,12 +193,14 @@ Chaque module JS est chargé avec un cache-buster dans `index.html` :
 À chaque modification d'un module, incrémenter son cache-buster **ET** le numéro de version global (ligne 1 du HTML).
 
 <h3 align="center">Versioning HTML</h3>
+
 ```html
 <!-- v3.97.155 — SOC Dashboard 0xCyberLiTech -->
 ```
 Format : `v{majeur}.{fonctionnel}.{patch}`
 
 <h3 align="center">NDT (Non-Déterminisme Technique)</h3>
+
 Convention audit qualité — score cible 99/100 :
 - Tous les accès à des valeurs potentiellement `undefined` → guards `||0`, `||''`, `(x||[])`
 - Pas de `var` dans des closures (utiliser `let`/`const`)
@@ -205,6 +208,7 @@ Convention audit qualité — score cible 99/100 :
 - `.slice()` / `.toUpperCase()` : toujours `(str||'').slice()`
 
 <h3 align="center">Pas de dépendances NPM</h3>
+
 Le dashboard est vanilla JS pur. Seule exception : **Leaflet.js** (carte) chargé depuis `/libs/`.
 
 ---

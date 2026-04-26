@@ -71,6 +71,7 @@ INTERNET
 <h2 align="center">[1] UFW + nftables bouncer</h2>
 
 <h3 align="center">UFW (pare-feu Linux)</h3>
+
 - **Default** : `deny incoming` · `deny outgoing` · `disabled routed`
 - SSH port <SSH-PORT> : LAN uniquement (<LAN-SUBNET> + <ROUTER-SUBNET>)
 - Dashboard :8080 : LAN uniquement
@@ -78,6 +79,7 @@ INTERNET
 - 80/443 : public
 
 <h3 align="center">nftables bouncer CrowdSec</h3>
+
 Trois sets nftables gérés automatiquement :
 - `crowdsec_blacklists` — IPs bannies via CAPI (communauté mondiale)
 - `crowdsec_cscli` — IPs bannies manuellement ou par JARVIS
@@ -101,6 +103,7 @@ Trois sets nftables gérés automatiquement :
 | AppSec WAF | 207 vpatch CVE + OWASP CRS (module inline) |
 
 <h3 align="center">Fail2ban — 3 jails (rôle : détecteur → alimente CrowdSec)</h3>
+
 Depuis 2026-04-12, Fail2ban ne gère plus les bans nftables directement.
 Il parse les logs et transmet à CrowdSec via `crowdsec-sync`.
 

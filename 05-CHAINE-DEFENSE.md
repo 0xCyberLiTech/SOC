@@ -126,6 +126,7 @@ action   = crowdsec-sync[name=nginx-botsearch]
 ```
 
 <h3 align="center">Action crowdsec-sync</h3>
+
 ```bash
 # /etc/fail2ban/action.d/crowdsec-sync.conf
 actionban   = cscli decisions add --ip <ip> --reason "fail2ban-%(name)s" --duration 24h
