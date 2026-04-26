@@ -176,14 +176,14 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 ```bash
 # Simuler un ban JARVIS
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
-  "cscli decisions add --ip 10.255.255.1 --reason 'test-mensuel' --duration 5m"
+  "cscli decisions add --ip 203.0.113.1 --reason 'test-mensuel' --duration 5m"
 
 # Vérifier apparition dans dashboard
 # Attendre 60s → monitoring.json mis à jour → tuile CrowdSec
 
 # Nettoyer
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
-  "cscli decisions delete --ip 10.255.255.1"
+  "cscli decisions delete --ip 203.0.113.1"
 ```
 
 - [ ] IP bannie visible dans dashboard
