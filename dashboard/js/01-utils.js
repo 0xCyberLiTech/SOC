@@ -1,17 +1,22 @@
 'use strict';
 // ── CONFIG INFRA — source unique pour toutes les IPs du homelab ──
 var SOC_INFRA={
-  SRV_NGIX: '<SRV-NGIX-IP>',
-  PROXMOX:  '<PROXMOX-IP>',
-  CLT:      '<CLT-IP>',
-  PA85:     '<PA85-IP>',
-  FREEBOX:  '<BOX-IP>',
-  ROUTER:   '<ROUTER-IP>',
-  LAN_CIDR: '<LAN-CIDR>',
-  SSH_PORT: '<SSH-PORT>',
-  SSH_KEY:  '<SSH-KEY>',
-  WAN_LAT:  parseFloat('<WAN-LAT>') || 0.0,   // latitude de votre box (ex: 48.8566 pour Paris)
-  WAN_LON:  parseFloat('<WAN-LON>') || 0.0    // longitude de votre box (ex: 2.3522 pour Paris)
+  SRV_NGIX:     '<SRV-NGIX-IP>',
+  PROXMOX:      '<PROXMOX-IP>',
+  CLT:          '<CLT-IP>',
+  PA85:         '<PA85-IP>',
+  FREEBOX:      '<BOX-IP>',
+  ROUTER:       '<ROUTER-IP>',
+  LAN_CIDR:     '<LAN-CIDR>',
+  SSH_PORT:     '<SSH-PORT>',
+  SSH_KEY:      '<SSH-KEY>',
+  WAN_LAT:      parseFloat('<WAN-LAT>') || 0.0,
+  WAN_LON:      parseFloat('<WAN-LON>') || 0.0,
+  SITE01_HOST:  '<SITE-01-HOSTNAME>',   // hostname rsyslog VM site-01
+  SITE02_HOST:  '<SITE-02-HOSTNAME>',   // hostname rsyslog VM site-02
+  ROUTER_ID:    '<ROUTER-ID>',          // ID répertoire rsyslog routeur
+  VM_ID_SITE01: parseInt('<VM-ID-SITE01>',10) || 0,  // ID Proxmox VM site-01
+  VM_ID_SITE02: parseInt('<VM-ID-SITE02>',10) || 0   // ID Proxmox VM site-02
 };
 
 // ── PALETTE KILL CHAIN — source unique (hex + rgb) pour 02/03/05/06 ─────────
@@ -366,11 +371,11 @@ function _tsCrowdSec(d,exploitUnblocked,exploitCount){
 function _tsKillRate(d,kcActive,csD){
   // Kill Rate — proportion menaces non neutralisées (max 10pts)
   // _kcNeutralized = CrowdSec decisions (inclut F2B srv-ngix via crowdsec-sync)
-  //                + F2B satellites (proxmox/clt/pa85 — nftables propres, hors CrowdSec)
+  //                + F2B satellites (proxmox/site01/site02 — nftables propres, hors CrowdSec)
   // IMPORTANT: srv-ngix F2B total_banned exclu — tous transitent via crowdsec-sync → déjà dans csD
   var s=0,f=[];
   var f2b=d.fail2ban||{};
-  var pvf2b=f2b.proxmox||{},cltf2b=f2b.clt||{},pa85f2b=f2b.pa85||{};
+  var pvf2b=f2b.proxmox||{},cltf2b=f2b.site01||{},pa85f2b=f2b.site02||{};
   var _kcNeutralized=csD
     +(pvf2b.available?pvf2b.total_banned||0:0)
     +(cltf2b.available?cltf2b.total_banned||0:0)
@@ -386,11 +391,11 @@ function _tsKillRate(d,kcActive,csD){
   return {s:s,f:f};
 }
 function _tsF2bSatellites(d){
-  // F2B bans actifs — satellites uniquement (clt/pa85/proxmox) — max 10pts
+  // F2B bans actifs — satellites uniquement (site01/site02/proxmox) — max 10pts
   // srv-ngix F2B exclu : tous les bans transitent via crowdsec-sync → déjà comptés dans csD
   var s=0,f=[];
   var f2b=d.fail2ban||{};
-  var pvf2b=f2b.proxmox||{},cltf2b=f2b.clt||{},pa85f2b=f2b.pa85||{};
+  var pvf2b=f2b.proxmox||{},cltf2b=f2b.site01||{},pa85f2b=f2b.site02||{};
   var totalBansAll=(pvf2b.available?_f2bNonBotBanned(pvf2b.jails||[]):0)
     +(cltf2b.available?_f2bNonBotBanned(cltf2b.jails||[]):0)
     +(pa85f2b.available?_f2bNonBotBanned(pa85f2b.jails||[]):0);
@@ -399,16 +404,16 @@ function _tsF2bSatellites(d){
   else if(totalBansAll>20){s+=2;}
   // F2B satellites DOWN — gap couverture (+4pts chacun)
   if(pvf2b.available===false){s+=4;f.push({t:'⚠ F2B Proxmox DOWN',c:'r'});}
-  if(cltf2b.available===false){s+=4;f.push({t:'⚠ F2B CLT DOWN',c:'r'});}
-  if(pa85f2b.available===false){s+=4;f.push({t:'⚠ F2B PA85 DOWN',c:'r'});}
+  if(cltf2b.available===false){s+=4;f.push({t:'⚠ F2B SITE-01 DOWN',c:'r'});}
+  if(pa85f2b.available===false){s+=4;f.push({t:'⚠ F2B SITE-02 DOWN',c:'r'});}
   return {s:s,f:f};
 }
 function _tsWebBots(d){
-  // Web bots — srv-ngix (nginx-botsearch) + clt + pa85 (apache) (max 8pts)
+  // Web bots — srv-ngix (nginx-botsearch) + site01 + site02 (apache) (max 8pts)
   // nginx-botsearch : tot_failed uniquement — cur_banned désormais dans csD via crowdsec-sync
   var s=0,f=[];
   var f2b=d.fail2ban||{};
-  var cltf2b=f2b.clt||{},pa85f2b=f2b.pa85||{};
+  var cltf2b=f2b.site01||{},pa85f2b=f2b.site02||{};
   var webBotScore=[(cltf2b.jails||[]),(pa85f2b.jails||[])].reduce(function(a,jls){
     return a+jls.filter(function(j){return ['apache-badbots','apache-noscript','apache-overflows'].indexOf(j.jail)>=0;})
       .reduce(function(x,j){return x+(j.cur_banned||0)+(j.tot_failed||0);},0);
@@ -507,9 +512,9 @@ function _tsConfinement(d){
   var _upd=d.updates||{},_updSec=_upd.total_security||0;
   if(_updSec>5){s+=8;f.push({t:'⚠ '+_updSec+' màj sécu. en attente (infra)',c:'r'});}
   else if(_updSec>0){s+=4;f.push({t:'⚠ '+_updSec+' màj sécu. en attente',c:'y'});}
-  var _aa=d.clt_apparmor||{};
-  if(_aa.available===true&&_aa.enforce===false){s+=6;f.push({t:'⚠ AppArmor CLT hors enforce — Apache non confiné',c:'r'});}
-  else if(_aa.available===false){s+=2;f.push({t:'⚠ AppArmor CLT inaccessible',c:'y'});}
+  var _aa=d.site01_apparmor||{};
+  if(_aa.available===true&&_aa.enforce===false){s+=6;f.push({t:'⚠ AppArmor SITE-01 hors enforce — Apache non confiné',c:'r'});}
+  else if(_aa.available===false){s+=2;f.push({t:'⚠ AppArmor SITE-01 inaccessible',c:'y'});}
   var _aan=d.apparmor_nginx||{};
   if(_aan.available===true&&_aan.enforce===false){s+=6;f.push({t:'⚠ AppArmor nginx hors enforce — workers non confinés',c:'r'});}
   else if(_aan.available===false){s+=2;f.push({t:'⚠ AppArmor nginx inaccessible',c:'y'});}
@@ -520,15 +525,15 @@ function _tsConfinement(d){
     if(_tlsMin<7){s+=10;f.push({t:'🔴 TLS expire dans '+_tlsMin+'j — URGENT certbot',c:'r'});}
     else if(_tlsMin<30){s+=5;f.push({t:'⚠ TLS expire dans '+_tlsMin+'j — renouvellement requis',c:'y'});}
   }
-  var _ms=d.clt_modsec||{};
-  if(_ms.available===true&&_ms.engine_on===false){s+=6;f.push({t:'⚠ ModSec CLT désactivé — WAF Apache inactif',c:'r'});}
-  else if(_ms.available===false){s+=2;f.push({t:'⚠ ModSec CLT inaccessible',c:'y'});}
-  var _aap=d.pa85_apparmor||{};
-  if(_aap.available===true&&_aap.enforce===false){s+=6;f.push({t:'⚠ AppArmor PA85 hors enforce — Apache non confiné',c:'r'});}
-  else if(_aap.available===false){s+=2;f.push({t:'⚠ AppArmor PA85 inaccessible',c:'y'});}
-  var _msp=d.pa85_modsec||{};
-  if(_msp.available===true&&_msp.engine_on===false){s+=6;f.push({t:'⚠ ModSec PA85 désactivé — WAF Apache inactif',c:'r'});}
-  else if(_msp.available===false){s+=2;f.push({t:'⚠ ModSec PA85 inaccessible',c:'y'});}
+  var _ms=d.site01_modsec||{};
+  if(_ms.available===true&&_ms.engine_on===false){s+=6;f.push({t:'⚠ ModSec SITE-01 désactivé — WAF Apache inactif',c:'r'});}
+  else if(_ms.available===false){s+=2;f.push({t:'⚠ ModSec SITE-01 inaccessible',c:'y'});}
+  var _aap=d.site02_apparmor||{};
+  if(_aap.available===true&&_aap.enforce===false){s+=6;f.push({t:'⚠ AppArmor SITE-02 hors enforce — Apache non confiné',c:'r'});}
+  else if(_aap.available===false){s+=2;f.push({t:'⚠ AppArmor SITE-02 inaccessible',c:'y'});}
+  var _msp=d.site02_modsec||{};
+  if(_msp.available===true&&_msp.engine_on===false){s+=6;f.push({t:'⚠ ModSec SITE-02 désactivé — WAF Apache inactif',c:'r'});}
+  else if(_msp.available===false){s+=2;f.push({t:'⚠ ModSec SITE-02 inaccessible',c:'y'});}
   return {s:s,f:f};
 }
 function _tsSignatures(d){
@@ -569,10 +574,10 @@ function _tsPersistence(d){
   var _c2Ips=Object.keys(_xhKcIps).filter(function(ip){return (_xhKcIps[ip].router_out||0)>0;});
   if(_c2Ips.length>=3){s+=15;f.push({t:'C2 SORTANT: '+_c2Ips.length+' IPs — exfiltration possible',c:'r'});}
   else if(_c2Ips.length>=1){s+=10;f.push({t:'C2 sortant: '+_c2Ips.length+' IP(s) suspecte(s) routeur',c:'r'});}
-  var _vmBansClt=((_xh.f2b_bans||{}).clt||[]).length;
-  var _vmBansPa85=((_xh.f2b_bans||{}).pa85||[]).length;
+  var _vmBansClt=((_xh.f2b_bans||{}).site01||[]).length;
+  var _vmBansPa85=((_xh.f2b_bans||{}).site02||[]).length;
   var _vmBansTotal=_vmBansClt+_vmBansPa85;
-  if(_vmBansTotal>20){s+=5;f.push({t:'F2B VMs: '+_vmBansTotal+' bans clt+pa85',c:'y'});}
+  if(_vmBansTotal>20){s+=5;f.push({t:'F2B VMs: '+_vmBansTotal+' bans site01+site02',c:'y'});}
   else if(_vmBansTotal>5){s+=2;}
   var _rsl=d.rsyslog||{};
   if(_rsl.available===false){s+=5;f.push({t:'⚠ rsyslog centralisé DOWN — visibilité cross-host réduite',c:'y'});}

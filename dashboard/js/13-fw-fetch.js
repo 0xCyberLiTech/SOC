@@ -114,7 +114,7 @@ function buildFwMatrix(hosts){
     {p:'22',  s:'SSH (WAN)',  ng:'—',  ct:'—',  p85:'—',  pve:'—'},
   ];
   var rowsHtml=ROWS.map(function(r){
-    return `<tr><td>:${r.p}</td><td style="color:var(--muted);font-size:var(--fs-xs)">${r.s}</td><td>${_fwMatrixCell(r.ng,r.p,'srv-ngix',hm)}</td><td>${_fwMatrixCell(r.ct,r.p,'clt',hm)}</td><td>${_fwMatrixCell(r.p85,r.p,'pa85',hm)}</td><td>${_fwMatrixCell(r.pve,r.p,'proxmox',hm)}</td></tr>`;
+    return `<tr><td>:${r.p}</td><td style="color:var(--muted);font-size:var(--fs-xs)">${r.s}</td><td>${_fwMatrixCell(r.ng,r.p,'srv-ngix',hm)}</td><td>${_fwMatrixCell(r.ct,r.p,'site-01',hm)}</td><td>${_fwMatrixCell(r.p85,r.p,'site-02',hm)}</td><td>${_fwMatrixCell(r.pve,r.p,'proxmox',hm)}</td></tr>`;
   }).join('');
   var known=[80,443,<SSH-PORT>,8080,8006,587,25,22];
   var extra={};
@@ -127,7 +127,7 @@ function buildFwMatrix(hosts){
   var extraHtml=ek.length
     ?'<div style="margin-top:.5rem;font-size:var(--fs-xs);color:var(--muted)">Ports supplémentaires détectés: '
       +ek.map(function(p){return`<span style="color:var(--yellow);margin-right:.5rem">:${p} [${extra[p].map(function(n){return esc(n);}).join(',')}]</span>`;}).join('')+'</div>':'';
-  return `<table class="fw-mt"><tr><th>PORT</th><th>SERVICE</th><th>ngix</th><th>clt</th><th>pa85</th><th>proxmox</th></tr>${rowsHtml}</table>${extraHtml}`;
+  return `<table class="fw-mt"><tr><th>PORT</th><th>SERVICE</th><th>ngix</th><th>site-01</th><th>site-02</th><th>proxmox</th></tr>${rowsHtml}</table>${extraHtml}`;
 }
 
 function _fwMatrixCell(val,port,hn,hm){
@@ -142,7 +142,7 @@ function _fwMatrixCell(val,port,hn,hm){
   return '<span class="fw-cn">—</span>';
 }
 
-var _FW_JAIL_COLOR={'nginx-clt-444':'var(--red)','nginx-clt-400':'var(--red)','nginx-limit-req':'var(--orange)','nginx-http-auth':'var(--yellow)','sshd':'var(--yellow)'};
+var _FW_JAIL_COLOR={'nginx-site01-444':'var(--red)','nginx-site01-400':'var(--red)','nginx-limit-req':'var(--orange)','nginx-http-auth':'var(--yellow)','sshd':'var(--yellow)'};
 function _fwRenderJails(jails){
   return (jails||[]).map(function(j){
     var hasBan=j.cur_banned>0;
@@ -167,7 +167,7 @@ function _parseUfwLine(line){
   return{a:action,d:desc};
 }
 function buildFwRules(hosts){
-  var hcol={'srv-ngix':'var(--cyan)','clt':'var(--green)','pa85':'var(--green)','proxmox':'var(--purple)'};
+  var hcol={'srv-ngix':'var(--cyan)','site-01':'var(--green)','site-02':'var(--green)','proxmox':'var(--purple)'};
   return (hosts||[]).map(function(hh){
     var n=hh.name||'?';
     var col=hcol[n]||'var(--muted)';
@@ -218,7 +218,9 @@ var _FW_FLUX_ZS=[
   {id:'mgt',lbl:'MGMT / HYPERVISEUR',   y:0.38, h:0.10, rc:'191,95,255',lc:'#bf5fff'},
   {id:'pve',lbl:'PVE VMs — vmbr0 · vmbr1',y:0.48,h:0.52,rc:'255,159,64',lc:'#ff9f40'},
 ];
-var _FW_VM_ID_MAP={106:'clt',107:'pa85',108:'srv-ngix'};
+var _FW_VM_ID_MAP={108:'srv-ngix'};
+if(SOC_INFRA.VM_ID_SITE01)_FW_VM_ID_MAP[SOC_INFRA.VM_ID_SITE01]='site-01';
+if(SOC_INFRA.VM_ID_SITE02)_FW_VM_ID_MAP[SOC_INFRA.VM_ID_SITE02]='site-02';
 function _fwFluxGetH(n,hm){return hm[n]||hm['srv-'+n]||{};}
 function _fwUfwRules(n,hm){return((_fwFluxGetH(n,hm).ufw_rule_lines)||[]).length;}
 function _fwUfwActive(n,hm){return _fwFluxGetH(n,hm).ufw_active;}
@@ -227,8 +229,8 @@ function _fwZBound(id){var z=_FW_FLUX_ZS.find(function(z){return z.id===id;});re
 function _fwSvcUp(n,hm,svcs,pvmStatus,nodes){
   if(n==='internet') return null;
   if(n==='srv-ngix') return true;
-  if(n==='clt'){var s=svcs['clt (<DOMAIN-COM>)'];return s?(s.status==='UP'):null;}
-  if(n==='pa85'){var s=svcs['pa85 (<DOMAIN-FR>)'];return s?(s.status==='UP'):null;}
+  if(n==='site-01'){var s=svcs['site-01 (<DOMAIN-COM>)'];return s?(s.status==='UP'):null;}
+  if(n==='site-02'){var s=svcs['site-02 (<DOMAIN-FR>)'];return s?(s.status==='UP'):null;}
   if(n==='proxmox'){return _fwUfwActive('proxmox',hm)!==false?true:null;}
   // VMs Proxmox — statut depuis API PVE via _FW_VM_ID_MAP (106/107/108)
   for(var vid in _FW_VM_ID_MAP){if(_FW_VM_ID_MAP[vid]===n)return pvmStatus[vid]==='running';}
@@ -255,9 +257,9 @@ function drawFwFlux(d){
   var NW=118,NH=76,NWvm=104,NHvm=58;
   var NODES=[
     {id:'internet',lbl:'INTERNET', sub:'WAN / Public',     c:'#ff3b5c',zc:'255,59,92', role:'WAN',       xf:0.50,yf:0.04,zone:'ext', ports:[{t:'→ :443',c:'#ff3b5c'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':80',c:'#f97316'}]},
-    {id:'srv-ngix',lbl:'srv-ngix', sub:SOC_INFRA.SRV_NGIX,     c:'#00d9ff',zc:'0,217,255', role:'PROXY+FW',  xf:0.50,zone:'dmz',          ports:[{t:':80→clt',c:'#00ff88'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':80→pa85',c:'#00d9ff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':8006',c:'#bf5fff'}]},
-    {id:'clt',     lbl:'clt',      sub:SOC_INFRA.CLT,     c:'#00ff88',zc:'0,255,136', role:'WEB',       xf:0.28,zone:'int',          ports:[{t:':80 ← ngix',c:'#00ff88'}]},
-    {id:'pa85',    lbl:'pa85',     sub:SOC_INFRA.PA85,     c:'#00d9ff',zc:'0,217,255', role:'WEB+SMTP',  xf:0.72,zone:'int',          ports:[{t:':80 ← ngix',c:'#00d9ff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':587→smtp',c:'#f97316'}]},
+    {id:'srv-ngix',lbl:'srv-ngix', sub:SOC_INFRA.SRV_NGIX,     c:'#00d9ff',zc:'0,217,255', role:'PROXY+FW',  xf:0.50,zone:'dmz',          ports:[{t:':80→site-01',c:'#00ff88'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':80→site-02',c:'#00d9ff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':8006',c:'#bf5fff'}]},
+    {id:'site-01', lbl:'site-01',  sub:SOC_INFRA.CLT,     c:'#00ff88',zc:'0,255,136', role:'WEB',       xf:0.28,zone:'int',          ports:[{t:':80 ← ngix',c:'#00ff88'}]},
+    {id:'site-02', lbl:'site-02',  sub:SOC_INFRA.PA85,     c:'#00d9ff',zc:'0,217,255', role:'WEB+SMTP',  xf:0.72,zone:'int',          ports:[{t:':80 ← ngix',c:'#00d9ff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':587→smtp',c:'#f97316'}]},
     {id:'proxmox', lbl:'proxmox',  sub:SOC_INFRA.PROXMOX,     c:'#bf5fff',zc:'191,95,255',role:'HYPERVISOR',xf:0.50,zone:'mgt',          ports:[{t:':8006',c:'#bf5fff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':<SSH-PORT>',c:'#ffd700'}]},
     // VMs Proxmox — nagios vmbr0 gauche · opnsense centre · labo VMs symétrie ±0.15 autour de 0.50
     // Row 1 PVE (yf=0.60) : nagios(vmbr0 gauche) · opnsense(centre gateway)
@@ -284,32 +286,32 @@ function drawFwFlux(d){
     {y:_fwZBound('ext'),wide:true,host:'srv-ngix',c:'#00d9ff',
      lbl:'UFW srv-ngix',
      inTxt:'IN: :443/:80 (PUB) · :<SSH-PORT>/:8080 (LAN)',
-     outTxt:'OUT: clt:80 · pa85:80 · :8006 · :<SSH-PORT> SSH · DNS'},
+     outTxt:'OUT: site-01:80 · site-02:80 · :8006 · :<SSH-PORT> SSH · DNS'},
     {y:_fwZBound('dmz'),split:true,
-     left: {x:W*0.28,host:'clt', c:'#00ff88',lbl:'UFW clt', inTxt:'IN: :80 ← ngix',outTxt:'OUT: :443 :80 DNS'},
-     right:{x:W*0.72,host:'pa85',c:'#00ff88',lbl:'UFW pa85',inTxt:'IN: :80 ← ngix',outTxt:'OUT: :443 :80 :587 DNS'}},
+     left: {x:W*0.28,host:'site-01',c:'#00ff88',lbl:'UFW site-01',inTxt:'IN: :80 ← ngix',outTxt:'OUT: :443 :80 DNS'},
+     right:{x:W*0.72,host:'site-02',c:'#00ff88',lbl:'UFW site-02',inTxt:'IN: :80 ← ngix',outTxt:'OUT: :443 :80 :587 DNS'}},
     {y:_fwZBound('int'),partial:true,c:'#bf5fff',
      lbl:'PVE Firewall',
      inTxt:':8006 ← '+SOC_INFRA.LAN_CIDR+' (LAN only)',
      outTxt:'DROP external access'},
   ];
 
-  // Connexions — HTTPS, HTTP, SSH visibles, symétrie clt/pa85
+  // Connexions — HTTPS, HTTP, SSH visibles, symétrie site-01/site-02
   var CONNS=[
     // Internet → srv-ngix : :443 HTTPS + :80 HTTP (symétrie ±13)
     {f:'internet',t:'srv-ngix',port:':443',  type:'HTTPS',   c:'#ff3b5c',w:2.0,           xOff:-13},
     {f:'internet',t:'srv-ngix',port:':80',   type:'HTTP',    c:'#f97316',w:1.3,           xOff:13},
-    // srv-ngix → clt : HTTP + SSH (deux parallèles, côté gauche)
-    {f:'srv-ngix',t:'clt',     port:':80',   type:'HTTP',    c:'#00ff88',w:1.5,           xOff:-14},
-    {f:'srv-ngix',t:'clt',     port:':<SSH-PORT>', type:'SSH',     c:'#ffd700',w:1.1,dash:true, xOff:2},
-    // srv-ngix → pa85 : HTTP + SSH (miroir — symétrie)
-    {f:'srv-ngix',t:'pa85',    port:':80',   type:'HTTP',    c:'#00d9ff',w:1.5,           xOff:14},
-    {f:'srv-ngix',t:'pa85',    port:':<SSH-PORT>', type:'SSH',     c:'#ffd700',w:1.1,dash:true, xOff:-2},
+    // srv-ngix → site-01 : HTTP + SSH (deux parallèles, côté gauche)
+    {f:'srv-ngix',t:'site-01', port:':80',   type:'HTTP',    c:'#00ff88',w:1.5,           xOff:-14},
+    {f:'srv-ngix',t:'site-01', port:':<SSH-PORT>', type:'SSH',     c:'#ffd700',w:1.1,dash:true, xOff:2},
+    // srv-ngix → site-02 : HTTP + SSH (miroir — symétrie)
+    {f:'srv-ngix',t:'site-02', port:':80',   type:'HTTP',    c:'#00d9ff',w:1.5,           xOff:14},
+    {f:'srv-ngix',t:'site-02', port:':<SSH-PORT>', type:'SSH',     c:'#ffd700',w:1.1,dash:true, xOff:-2},
     // srv-ngix → proxmox : :8006 MGMT + SSH (symétrie ±11)
     {f:'srv-ngix',t:'proxmox', port:':8006', type:'MGMT',    c:'#bf5fff',w:1.2,dash:true, xOff:-11},
     {f:'srv-ngix',t:'proxmox', port:':<SSH-PORT>', type:'SSH',     c:'#ffd700',w:1.0,dash:true, xOff:11},
-    // pa85 → internet : SMTP sortant (rev, côté droit)
-    {f:'pa85',    t:'internet',port:':587',  type:'SMTP OUT',c:'#f97316',w:1.5,dash:true, rev:true,xOff:42,label_t:0.22},
+    // site-02 → internet : SMTP sortant (rev, côté droit)
+    {f:'site-02', t:'internet',port:':587',  type:'SMTP OUT',c:'#f97316',w:1.5,dash:true, rev:true,xOff:42,label_t:0.22},
     // proxmox → nagios (vmbr0 direct) + opnsense (gateway vmbr0↔vmbr1)
     {f:'proxmox',t:'nagios',  port:'VM104',type:'PVE',c:'#00d9ff',w:1.0,dash:true,noLbl:true},
     {f:'proxmox',t:'opnsense',port:'VM100',type:'PVE',c:'#ff9f40',w:1.2,dash:true,noLbl:true},
@@ -492,7 +494,7 @@ function drawFwFlux(d){
     for(var sl=0;sl<H;sl+=3){ctx.fillStyle='rgba(0,0,0,0.025)';ctx.fillRect(0,sl,W,1);}
     ctx.fillStyle='rgba(0,0,0,0.65)';ctx.fillRect(0,H-22,W,22);
     ctx.textAlign='left';ctx.font='7px "Courier New"';
-    [{c:'#ff3b5c',t:':443 HTTPS'},{c:'#f97316',t:':80 HTTP'},{c:'#00ff88',t:'LAN\u2192clt'},{c:'#00d9ff',t:'LAN\u2192pa85'},{c:'#ffd700',t:':<SSH-PORT> SSH'},{c:'#bf5fff',t:':8006 MGMT'},{c:'#f97316',t:':587 SMTP'}]
+    [{c:'#ff3b5c',t:':443 HTTPS'},{c:'#f97316',t:':80 HTTP'},{c:'#00ff88',t:'LAN\u2192site-01'},{c:'#00d9ff',t:'LAN\u2192site-02'},{c:'#ffd700',t:':<SSH-PORT> SSH'},{c:'#bf5fff',t:':8006 MGMT'},{c:'#f97316',t:':587 SMTP'}]
     .forEach(function(l,i){ctx.fillStyle=l.c;ctx.fillText('\u25a0 '+l.t,8+i*Math.floor((W-16)/7),H-7);});
   }
 
@@ -535,7 +537,7 @@ function drawFwTopo(d){
   var hm={};fwHosts.forEach(function(h){hm[h.name]=h;});
   var pveVmsRaw=((d.proxmox&&d.proxmox.nodes&&d.proxmox.nodes[0])?d.proxmox.nodes[0].vms:null)||[];
 
-  // Normalisation : strip "srv-" pour matcher firewall_matrix (srv-clt→clt)
+  // Normalisation : strip "srv-" pour matcher firewall_matrix (srv-site01→site-01)
   // Exclure les VMs dont le nom correspond à un nœud fixe
   var FIXED_IDS={'internet':1,'srv-ngix':1,'proxmox':1};
   var pveVms=pveVmsRaw.filter(function(v){
@@ -543,8 +545,8 @@ function drawFwTopo(d){
   });
   if(!pveVms.length){
     pveVms=[
-      {id:106,name:'srv-clt', status:'running',type:'vm',cpu:null,mem_pct:null},
-      {id:107,name:'srv-pa85',status:'running',type:'vm',cpu:null,mem_pct:null},
+      {id:SOC_INFRA.VM_ID_SITE01||0,name:'site-01',status:'running',type:'vm',cpu:null,mem_pct:null},
+      {id:SOC_INFRA.VM_ID_SITE02||0,name:'site-02',status:'running',type:'vm',cpu:null,mem_pct:null},
     ];
   }
 

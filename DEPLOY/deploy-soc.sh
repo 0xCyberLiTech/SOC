@@ -24,8 +24,8 @@ set -euo pipefail
 # CONFIG — ADAPTER À VOTRE INFRASTRUCTURE AVANT DE LANCER
 # ═════════════════════════════════════════════════════════════════════════════
 VM_IP="<SRV-NGIX-IP>"          # IP VM nginx + SOC          ex: 203.0.113.10
-CLT_IP="<CLT-IP>"              # IP VM site-01 (Apache)      ex: 203.0.113.11
-PA85_IP="<PA85-IP>"            # IP VM site-02 (Apache)      ex: 203.0.113.12
+CLT_IP="<CLT-IP>"              # IP VM site-01 (Apache)      ex: 192.168.1.11
+PA85_IP="<PA85-IP>"            # IP VM site-02 (Apache)      ex: 192.168.1.12
 PROXMOX_IP="<PROXMOX-IP>"      # IP hyperviseur Proxmox VE   ex: 203.0.113.1
 BOX_IP="<BOX-IP>"              # IP locale de la box FAI     ex: 192.168.0.1
 ROUTER_IP="<ROUTER-IP>"        # IP du routeur               ex: 192.168.0.254
@@ -33,10 +33,16 @@ LAN_CIDR="<LAN-CIDR>"          # Sous-réseau LAN             ex: 203.0.113.0/24
 LAN2_CIDR="<ROUTER-SUBNET>"    # Sous-réseau routeur/gestion ex: 203.0.113.128/25
 SSH_PORT="<SSH-PORT>"          # Port SSH non standard       ex: 2222
 SSH_KEY="<SSH-KEY>"            # Nom de clé SSH (dashboard)  ex: id_nginx
-SSH_KEY_NGIX="<SSH-KEY-NGIX>"  # Clé SSH monitoring→ngix     ex: /root/.ssh/id_nginx_sync
-SSH_KEY_CLT="<SSH-KEY-CLT>"    # Clé SSH monitoring→clt      ex: /root/.ssh/id_clt_sync
-SSH_KEY_PA85="<SSH-KEY-PA85>"  # Clé SSH monitoring→pa85     ex: /root/.ssh/id_pa85_sync
-SSH_KEY_PVE="<SSH-KEY-PVE>"    # Clé SSH monitoring→proxmox  ex: /root/.ssh/id_proxmox_sync
+SSH_KEY_NGIX="<SSH-KEY-NGIX>"          # Clé SSH monitoring→ngix     ex: /root/.ssh/id_nginx_sync
+SSH_KEY_SITE01="<SSH-KEY-SITE01>"      # Clé SSH monitoring→site-01  ex: /root/.ssh/id_site01_sync
+SSH_KEY_SITE02="<SSH-KEY-SITE02>"      # Clé SSH monitoring→site-02  ex: /root/.ssh/id_site02_sync
+SSH_KEY_PVE="<SSH-KEY-PVE>"            # Clé SSH monitoring→proxmox  ex: /root/.ssh/id_proxmox_sync
+SITE01_HOST="<SITE-01-HOSTNAME>"       # Hostname rsyslog VM site-01 ex: srv-site01
+SITE02_HOST="<SITE-02-HOSTNAME>"       # Hostname rsyslog VM site-02 ex: srv-site02
+ROUTER_ID="<ROUTER-ID>"               # Identifiant répertoire rsyslog routeur
+SITE01_WEB="<SITE01-WEBROOT>"          # Nom répertoire web site-01 sous /var/www/
+VM_ID_SITE01="<VM-ID-SITE01>"          # VM ID Proxmox de site-01    ex: 106
+VM_ID_SITE02="<VM-ID-SITE02>"          # VM ID Proxmox de site-02    ex: 107
 DOMAIN_COM="<DOMAIN-COM>"      # Domaine principal           ex: monsite.com
 DOMAIN_FR="<DOMAIN-FR>"        # Domaine secondaire          ex: monsite.fr
 MAIL_DEST="<MAIL-DEST>"        # Email alertes SOC           ex: admin@monsite.com
@@ -420,14 +426,18 @@ if step_active "scripts"; then
                s|<LAN-CIDR>|${LAN_CIDR}|g; \
                s/<SSH-PORT>/${SSH_PORT}/g; \
                s|<SSH-KEY-NGIX>|${SSH_KEY_NGIX}|g; \
-               s|<SSH-KEY-CLT>|${SSH_KEY_CLT}|g; \
-               s|<SSH-KEY-PA85>|${SSH_KEY_PA85}|g; \
+               s|<SSH-KEY-SITE01>|${SSH_KEY_SITE01}|g; \
+               s|<SSH-KEY-SITE02>|${SSH_KEY_SITE02}|g; \
                s|<SSH-KEY-PVE>|${SSH_KEY_PVE}|g; \
                s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
                s/<DOMAIN-FR>/${DOMAIN_FR}/g; \
                s/<ISP-HOST-1>/${ISP_HOST_1}/g; \
                s/<ISP-HOST-2>/${ISP_HOST_2}/g; \
-               s|<SCRIPTS-DIR>|${SCRIPTS_DIR}|g' \
+               s|<SCRIPTS-DIR>|${SCRIPTS_DIR}|g; \
+               s/<SITE-01-HOSTNAME>/${SITE01_HOST}/g; \
+               s/<SITE-02-HOSTNAME>/${SITE02_HOST}/g; \
+               s/<ROUTER-ID>/${ROUTER_ID}/g; \
+               s/<SITE01-WEBROOT>/${SITE01_WEB}/g' \
        ${SCRIPTS_DIR}/monitoring_gen.py \
        ${SCRIPTS_DIR}/soc-daily-report.py \
        ${SCRIPTS_DIR}/monitoring.sh \
@@ -466,7 +476,12 @@ if step_active "dashboard"; then
                s/<ISP-NAME>/${ISP_NAME}/g; \
                s/<ISP-SLUG>/${ISP_SLUG}/g; \
                s/<ISP-SUPPORT-NUM>/${ISP_SUPPORT_NUM}/g; \
-               s|<SCRIPTS-DIR>|${SCRIPTS_DIR}|g' \
+               s|<SCRIPTS-DIR>|${SCRIPTS_DIR}|g; \
+               s/<SITE-01-HOSTNAME>/${SITE01_HOST}/g; \
+               s/<SITE-02-HOSTNAME>/${SITE02_HOST}/g; \
+               s/<ROUTER-ID>/${ROUTER_ID}/g; \
+               s/<VM-ID-SITE01>/${VM_ID_SITE01}/g; \
+               s/<VM-ID-SITE02>/${VM_ID_SITE02}/g' \
        ${MONITORING_DIR}/js/*.js 2>/dev/null || true"
   run "chown -R www-data:www-data $MONITORING_DIR"
   ok "Dashboard deploye dans ${MONITORING_DIR}/"

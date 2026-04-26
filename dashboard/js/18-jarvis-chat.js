@@ -68,7 +68,7 @@ function buildQuickPrompts(){
       false, '🌍 Géolocalisation')},
     {lbl:'🛡 Défenses',       fn: _jvQuickRoutine(
       'Contexte SOC complet disponible. Donne directement :\n'
-      +'Fail2ban : IPs bannies total (4 hôtes : srv-ngix, Proxmox, clt, pa85), tentatives SSH bloquées.\n'
+      +'Fail2ban : IPs bannies total (4 hôtes : srv-ngix, Proxmox, site-01, site-02), tentatives SSH bloquées.\n'
       +'CrowdSec WAF : décisions actives, stages couverts.\n'
       +'Suricata IDS : alertes sév.1 critiques actives, sév.2 high, couverture réseau.\n'
       +'UFW : paquets bloqués.\n'

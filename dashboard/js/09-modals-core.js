@@ -665,8 +665,8 @@ function openProxmoxModal(data){
 // ════════════════════════════════════════════════════════
 var JAIL_DESC={
   'nginx-cve':'Exploits CVE détectés — Path Traversal, Log4Shell, RCE (maxretry=1, bantime=24h)',
-  'nginx-clt-444':'Connexions fermées sans réponse — IP bloquée par nginx (444)',
-  'nginx-clt-400':'Requêtes HTTP malformées ou malveillantes (400)',
+  'nginx-site01-444':'Connexions fermées sans réponse — IP bloquée par nginx (444)',
+  'nginx-site01-400':'Requêtes HTTP malformées ou malveillantes (400)',
   'nginx-limit-req':'Rate-limiting dépassé — trop de requêtes (429)',
   'nginx-http-auth':'Tentatives d\'authentification HTTP échouées (401)',
   'sshd':'Tentatives d\'authentification SSH échouées (port '+SOC_INFRA.SSH_PORT+')',
@@ -1089,14 +1089,14 @@ function _f2bKpiHtml(val,lbl,col,pulse){
 function openF2bModal(f2b){
   if(!f2b||_isOpen)return;
   var pvf2b=f2b.proxmox||{};
-  var cltf2b=f2b.clt||{};
-  var pa85f2b=f2b.pa85||{};
+  var cltf2b=f2b.site01||{};
+  var pa85f2b=f2b.site02||{};
   var allHosts=[
     {label:'SRV-NGIX', jails:f2b.jails||[], avail:true, note:'nginx · ignoreip '+SOC_INFRA.LAN_CIDR+''},
     {label:'PROXMOX',  jails:pvf2b.jails||[], avail:pvf2b.available, stale:pvf2b.stale,
      note:pvf2b.available&&pvf2b.generated_at?'sync '+pvf2b.generated_at.replace('T',' ').slice(0,16)+' UTC':'push cron 5 min'},
-    {label:'CLT',      jails:cltf2b.jails||[], avail:cltf2b.available, note:'apache · ignoreip '+SOC_INFRA.LAN_CIDR+''},
-    {label:'PA85',     jails:pa85f2b.jails||[], avail:pa85f2b.available, note:'apache · ignoreip '+SOC_INFRA.LAN_CIDR+''}
+    {label:'SITE-01',  jails:cltf2b.jails||[], avail:cltf2b.available, note:'apache · ignoreip '+SOC_INFRA.LAN_CIDR+''},
+    {label:'SITE-02',  jails:pa85f2b.jails||[], avail:pa85f2b.available, note:'apache · ignoreip '+SOC_INFRA.LAN_CIDR+''}
   ];
   var totalBanned=allHosts.reduce(function(a,h){return a+(h.avail?h.jails.reduce(function(x,j){return x+(j.cur_banned||0);},0):0);},0);
   var totalFailed=allHosts.reduce(function(a,h){return a+(h.avail?h.jails.reduce(function(x,j){return x+(j.tot_failed||0);},0):0);},0);

@@ -9,11 +9,11 @@ function openFirewallModal(d){
   var scores=hosts.filter(function(h){return h.conformity!==undefined;}).map(function(h){return h.conformity;});
   var minS=scores.length?Math.min.apply(null,scores):100;
   var minSC=minS>=90?'var(--green)':minS>=70?'var(--yellow)':'var(--red)';
-  var hcol={'srv-ngix':'var(--cyan)','clt':'var(--green)','pa85':'var(--green)','proxmox':'var(--purple)'};
+  var hcol={'srv-ngix':'var(--cyan)','site-01':'var(--green)','site-02':'var(--green)','proxmox':'var(--purple)'};
 
   var _g=new Date(d.generated_at||'');
   var _genTs=isNaN(_g.getTime())?'—':_fmtDateTs(_g); // NDT-149
-  var hostCardsHtml=['srv-ngix','clt','pa85','proxmox'].map(function(n){
+  var hostCardsHtml=['srv-ngix','site-01','site-02','proxmox'].map(function(n){
     var hh=hm[n]||{name:n};
     var sc=hh.conformity!==undefined?hh.conformity:(hh.error?0:95);
     var scc=sc>=90?'var(--green)':sc>=70?'var(--yellow)':'var(--red)';
