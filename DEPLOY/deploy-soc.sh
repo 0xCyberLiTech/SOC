@@ -23,15 +23,16 @@ set -euo pipefail
 # ═════════════════════════════════════════════════════════════════════════════
 # CONFIG — ADAPTER À VOTRE INFRASTRUCTURE AVANT DE LANCER
 # ═════════════════════════════════════════════════════════════════════════════
-VM_IP="<SRV-NGIX-IP>"          # IP de cette VM (nginx)
-CLT_IP="<CLT-IP>"              # IP backend site-01 (Apache)
-PA85_IP="<PA85-IP>"            # IP backend site-02 (Apache)
-LAN_CIDR="<LAN-CIDR>"         # Sous-réseau LAN (ex: X.X.X.0/24)
-LAN2_CIDR="<ROUTER-SUBNET>"   # Sous-réseau routeur/gestion si différent
-SSH_PORT="<SSH-PORT>"          # Port SSH non standard
-DOMAIN_COM="<DOMAIN-COM>"      # Domaine principal ex: monsite.com
-DOMAIN_FR="<DOMAIN-FR>"        # Domaine secondaire ex: monsite.fr
-MAIL_DEST="<MAIL-DEST>"        # Email alertes SOC
+VM_IP="<SRV-NGIX-IP>"          # IP VM nginx + SOC          ex: 10.0.0.10
+CLT_IP="<CLT-IP>"              # IP VM site-01 (Apache)      ex: 10.0.0.11
+PA85_IP="<PA85-IP>"            # IP VM site-02 (Apache)      ex: 10.0.0.12
+PROXMOX_IP="<PROXMOX-IP>"      # IP hyperviseur Proxmox VE   ex: 10.0.0.1
+LAN_CIDR="<LAN-CIDR>"         # Sous-réseau LAN             ex: 10.0.0.0/24
+LAN2_CIDR="<ROUTER-SUBNET>"   # Sous-réseau routeur/gestion ex: 10.0.1.0/24
+SSH_PORT="<SSH-PORT>"          # Port SSH non standard       ex: 2222
+DOMAIN_COM="<DOMAIN-COM>"      # Domaine principal           ex: monsite.com
+DOMAIN_FR="<DOMAIN-FR>"        # Domaine secondaire          ex: monsite.fr
+MAIL_DEST="<MAIL-DEST>"        # Email alertes SOC           ex: admin@monsite.com
 
 MONITORING_DIR="/var/www/monitoring"
 SCRIPTS_DIR="/opt/soc"
@@ -170,8 +171,51 @@ if step_active "nginx"; then
   pkg_ensure libnginx-mod-http-geoip2
   pkg_ensure libnginx-mod-http-headers-more-filter
   run "mkdir -p ${MONITORING_DIR}/{js,css}"
+
+  # Déployer les vhosts depuis le dépôt
+  NGINX_CONF_SRC="${REPO_DIR}/configs/nginx"
+  if [[ -d "$NGINX_CONF_SRC" ]]; then
+    for f in monitoring.conf site-01.conf site-02.conf; do
+      SRC="${NGINX_CONF_SRC}/$f"
+      if [[ -f "$SRC" ]]; then
+        # Nom cible dans sites-available (sans extension .conf)
+        VHOST_NAME="${f%.conf}"
+        run "cp '$SRC' /etc/nginx/sites-available/${VHOST_NAME}"
+        run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g; \
+                     s/<CLT-IP>/${CLT_IP}/g; \
+                     s/<PA85-IP>/${PA85_IP}/g; \
+                     s|<LAN-CIDR>|${LAN_CIDR}|g; \
+                     s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
+                     s/<DOMAIN-FR>/${DOMAIN_FR}/g; \
+                     s/<GITHUB-USER>/<GITHUB-USER>/g' \
+             /etc/nginx/sites-available/${VHOST_NAME}"
+        ok "nginx vhost : ${VHOST_NAME}"
+      fi
+    done
+    # Snippets
+    SNIP_SRC="${NGINX_CONF_SRC}/snippets"
+    if [[ -d "$SNIP_SRC" ]]; then
+      run "mkdir -p /etc/nginx/snippets"
+      for f in "$SNIP_SRC"/*.conf; do
+        run "cp '$f' /etc/nginx/snippets/"
+      done
+      ok "nginx snippets deployes"
+    fi
+    # Activer les vhosts
+    for VHOST in monitoring site-01 site-02; do
+      AVAIL="/etc/nginx/sites-available/${VHOST}"
+      ENABL="/etc/nginx/sites-enabled/${VHOST}"
+      [[ -f "$AVAIL" && ! -L "$ENABL" ]] && run "ln -s '$AVAIL' '$ENABL'"
+    done
+    # Désactiver le vhost default
+    [[ -L /etc/nginx/sites-enabled/default ]] && run "rm /etc/nginx/sites-enabled/default"
+    run "nginx -t && systemctl reload nginx 2>/dev/null || true"
+    warn "Vhosts deployes — certificats TLS requis (voir etape 6)"
+  else
+    warn "configs/nginx/ absent — vhosts non deployes (voir CONFIGS/01-nginx.md)"
+  fi
   run "chown -R www-data:www-data ${MONITORING_DIR}"
-  ok "nginx installe - vhosts a configurer manuellement (voir CONFIGS/01-nginx.md)"
+  ok "nginx configure"
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -356,7 +400,8 @@ if step_active "scripts"; then
   run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g; \
                s/<CLT-IP>/${CLT_IP}/g; \
                s/<PA85-IP>/${PA85_IP}/g; \
-               s/<LAN-CIDR>/${LAN_CIDR}/g; \
+               s/<PROXMOX-IP>/${PROXMOX_IP}/g; \
+               s|<LAN-CIDR>|${LAN_CIDR}|g; \
                s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
                s/<DOMAIN-FR>/${DOMAIN_FR}/g' \
        ${SCRIPTS_DIR}/monitoring_gen.py \
@@ -438,9 +483,9 @@ fi
 if step_active "aide"; then
   log "== ETAPE 16 — AIDE integrite =="
   pkg_ensure aide
-  # Config AIDE depuis le depot
-  AIDE_CONF_SRC="${REPO_DIR}/scripts/50_aide_soc"
-  [[ -f "$AIDE_CONF_SRC" ]] && run "cp '$AIDE_CONF_SRC' /etc/aide/aide.conf.d/50_soc"
+  # Config AIDE depuis le depot (logrotate.d/aide-soc = règle rotation)
+  AIDE_LOGR="${REPO_DIR}/scripts/logrotate.d/aide-soc"
+  [[ -f "$AIDE_LOGR" ]] && run "cp '$AIDE_LOGR' /etc/logrotate.d/aide-soc"
   if [[ -f "/var/lib/aide/aide.db" ]]; then
     ok "Base AIDE deja initialisee"
   else
