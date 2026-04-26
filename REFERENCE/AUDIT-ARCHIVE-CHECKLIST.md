@@ -157,9 +157,9 @@
 <h3 align="center">Clés SSH — BLOC 11</h3>
 
 - [ ] `/root/.ssh/authorized_keys` — clé pve-monitor (Proxmox → srv-ngix)
-- [ ] `/root/.ssh/id_site-01_sync` + `.pub` — connexion root@<CLT-IP>
-- [ ] `/root/.ssh/id_site-02_sync` + `.pub` — connexion root@<PA85-IP>
-- [ ] `/root/.ssh/id_proxmox_sync` + `.pub` — connexion root@<PROXMOX-IP>
+- [ ] `/root/.ssh/<SSH-KEY-CLT>` + `.pub` — connexion root@<CLT-IP>
+- [ ] `/root/.ssh/<SSH-KEY-PA85>` + `.pub` — connexion root@<PA85-IP>
+- [ ] `/root/.ssh/<SSH-KEY-PVE>` + `.pub` — connexion root@<PROXMOX-IP>
 
 ---
 

@@ -205,9 +205,9 @@
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `authorized_keys` | `/root/.ssh/authorized_keys` (clé pve-monitor) | ✅ ⚠️ sensible |
-| `id_site-01_sync` + `.pub` | `/root/.ssh/id_site-01_sync` (connexion site-01) | ✅ ⚠️ clé privée |
-| `id_site-02_sync` + `.pub` | `/root/.ssh/id_site-02_sync` (connexion site-02) | ✅ ⚠️ clé privée |
-| `id_proxmox_sync` + `.pub` | `/root/.ssh/id_proxmox_sync` (connexion pve) | ✅ ⚠️ clé privée |
+| `<SSH-KEY-CLT>` + `.pub` | `/root/.ssh/<SSH-KEY-CLT>` (connexion site-01) | ✅ ⚠️ clé privée |
+| `<SSH-KEY-PA85>` + `.pub` | `/root/.ssh/<SSH-KEY-PA85>` (connexion site-02) | ✅ ⚠️ clé privée |
+| `<SSH-KEY-PVE>` + `.pub` | `/root/.ssh/<SSH-KEY-PVE>` (connexion pve) | ✅ ⚠️ clé privée |
 
 <h3 align="center">metadata/ ✅</h3>
 
@@ -245,7 +245,7 @@
 | Logs `/var/log/` | Données opérationnelles, pas de config |
 | JARVIS | Tourne sur Windows (<LAN-IP>), hors périmètre srv-ngix |
 | Base AIDE `/var/lib/aide/aide.db.gz` | Recalculée via `aide --init` après restore |
-| Clés SSH privées `/root/.ssh/id_rsa*` | Clés d'authentification personnelles — restaurer manuellement |
+| Clés SSH privées `~/.ssh/id_*` | Clés d'authentification personnelles — restaurer manuellement |
 
 ---
 

@@ -9,7 +9,7 @@ var SOC_INFRA={
   ROUTER:   '<ROUTER-IP>',
   LAN_CIDR: '<LAN-CIDR>',
   SSH_PORT: '<SSH-PORT>',
-  SSH_KEY:  'id_nginx'
+  SSH_KEY:  '<SSH-KEY>'
 };
 
 // ── PALETTE KILL CHAIN — source unique (hex + rgb) pour 02/03/05/06 ─────────

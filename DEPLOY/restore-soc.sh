@@ -140,8 +140,8 @@ if ! $DRY_RUN; then
                 /etc/cron.d /etc/systemd/system/soc-report-trigger.service \
                 /etc/systemd/system/sshd.service /etc/aide \
                 /etc/logrotate.d /etc/GeoIP.conf /etc/nginx/api-keys.conf \
-                /root/.ssh/authorized_keys /root/.ssh/id_site-01_sync \
-                /root/.ssh/id_site-02_sync /root/.ssh/id_proxmox_sync; do
+                /root/.ssh/authorized_keys /root/.ssh/<SSH-KEY-CLT> \
+                /root/.ssh/<SSH-KEY-PA85> /root/.ssh/<SSH-KEY-PVE>; do
         [[ ! -e "$src" ]] && continue
         dest_name=$(echo "$src" | tr '/' '_' | sed 's/^_//')
         if [[ -d "$src" ]]; then

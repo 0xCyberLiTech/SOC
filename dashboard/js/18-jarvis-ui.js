@@ -633,7 +633,7 @@ window.openJvModal = function openJvModal(){
     +'<div class="jvm-section-title" style="margin-top:.3rem">◈ CONNECTIVITÉ ROUTES SOC</div>'
     +'<div class="jvm-thresh-grid">'
     +'<div class="jvm-thresh-row"><span class="jvm-thresh-lbl">/api/stats (GPU · CPU · RAM)</span><span class="jvm-thresh-val" style="color:'+(_online?'var(--green)':'var(--red)')+'">'+(_online?'✓ OK':'✗ HORS LIGNE')+'</span></div>'
-    +'<div class="jvm-thresh-row"><span class="jvm-thresh-lbl">/api/soc/ban-ip (SSH id_nginx)</span><span class="jvm-thresh-val" style="color:'+(sshOk?'var(--green)':'var(--amber)')+'">'+( sshOk?'✓ OK':'⚠ vérifier')+'</span></div>'
+    +'<div class="jvm-thresh-row"><span class="jvm-thresh-lbl">/api/soc/ban-ip (SSH <SSH-KEY>)</span><span class="jvm-thresh-val" style="color:'+(sshOk?'var(--green)':'var(--amber)')+'">'+( sshOk?'✓ OK':'⚠ vérifier')+'</span></div>'
     +'<div class="jvm-thresh-row"><span class="jvm-thresh-lbl">/api/soc/actions (journal)</span><span class="jvm-thresh-val" style="color:'+(_PRO_DATA&&_PRO_DATA.by_type?'var(--green)':'var(--muted)')+'">'+(_PRO_DATA&&_PRO_DATA.by_type?'✓ OK':'—')+'</span></div>'
     +'<div class="jvm-thresh-row"><span class="jvm-thresh-lbl">/api/security (garde-fou LLM)</span><span class="jvm-thresh-val" style="color:'+(_SEC_DATA&&_SEC_DATA.by_level?'var(--green)':'var(--muted)')+'">'+(_SEC_DATA&&_SEC_DATA.by_level?'✓ OK':'—')+'</span></div>'
     +'<div class="jvm-thresh-row"><span class="jvm-thresh-lbl">TTS /api/speak (séquentiel)</span><span class="jvm-thresh-val" style="color:'+(_ttsEnabled?'var(--green)':'var(--muted)')+'">'+(_ttsEnabled?'✓ ACTIVÉ · lock OK':'DÉSACTIVÉ')+'</span></div>'
