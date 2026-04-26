@@ -10,8 +10,8 @@ var SOC_INFRA={
   LAN_CIDR: '<LAN-CIDR>',
   SSH_PORT: '<SSH-PORT>',
   SSH_KEY:  '<SSH-KEY>',
-  WAN_LAT:  0.0,   // latitude de votre box (ex: 48.8566 pour Paris)
-  WAN_LON:  0.0    // longitude de votre box (ex: 2.3522 pour Paris)
+  WAN_LAT:  parseFloat('<WAN-LAT>') || 0.0,   // latitude de votre box (ex: 48.8566 pour Paris)
+  WAN_LON:  parseFloat('<WAN-LON>') || 0.0    // longitude de votre box (ex: 2.3522 pour Paris)
 };
 
 // ── PALETTE KILL CHAIN — source unique (hex + rgb) pour 02/03/05/06 ─────────

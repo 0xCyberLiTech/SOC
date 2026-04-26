@@ -27,8 +27,10 @@ VM_IP="<SRV-NGIX-IP>"          # IP VM nginx + SOC          ex: 203.0.113.10
 CLT_IP="<CLT-IP>"              # IP VM site-01 (Apache)      ex: 203.0.113.11
 PA85_IP="<PA85-IP>"            # IP VM site-02 (Apache)      ex: 203.0.113.12
 PROXMOX_IP="<PROXMOX-IP>"      # IP hyperviseur Proxmox VE   ex: 203.0.113.1
-LAN_CIDR="<LAN-CIDR>"         # Sous-réseau LAN             ex: 203.0.113.0/24
-LAN2_CIDR="<ROUTER-SUBNET>"   # Sous-réseau routeur/gestion ex: 203.0.113.128/25
+BOX_IP="<BOX-IP>"              # IP locale de la box FAI     ex: 192.168.0.1
+ROUTER_IP="<ROUTER-IP>"        # IP du routeur               ex: 192.168.0.254
+LAN_CIDR="<LAN-CIDR>"          # Sous-réseau LAN             ex: 203.0.113.0/24
+LAN2_CIDR="<ROUTER-SUBNET>"    # Sous-réseau routeur/gestion ex: 203.0.113.128/25
 SSH_PORT="<SSH-PORT>"          # Port SSH non standard       ex: 2222
 SSH_KEY="<SSH-KEY>"            # Nom de clé SSH (dashboard)  ex: id_nginx
 SSH_KEY_NGIX="<SSH-KEY-NGIX>"  # Clé SSH monitoring→ngix     ex: /root/.ssh/id_nginx_sync
@@ -38,6 +40,13 @@ SSH_KEY_PVE="<SSH-KEY-PVE>"    # Clé SSH monitoring→proxmox  ex: /root/.ssh/i
 DOMAIN_COM="<DOMAIN-COM>"      # Domaine principal           ex: monsite.com
 DOMAIN_FR="<DOMAIN-FR>"        # Domaine secondaire          ex: monsite.fr
 MAIL_DEST="<MAIL-DEST>"        # Email alertes SOC           ex: admin@monsite.com
+WAN_LAT="0.0"                  # Latitude de la box (décimal) ex: 48.8566 (Paris)
+WAN_LON="0.0"                  # Longitude de la box (décimal) ex: 2.3522 (Paris)
+ISP_HOST_1="<ISP-HOST-1>"      # Sonde ISP primaire           ex: www.orange.fr
+ISP_HOST_2="<ISP-HOST-2>"      # Sonde ISP secondaire         ex: assistance.orange.fr
+ISP_NAME="<ISP-NAME>"          # Nom de l'opérateur FAI       ex: Orange Fibre
+ISP_SLUG="<ISP-SLUG>"          # Slug downdetector.fr         ex: orange
+ISP_SUPPORT_NUM="<ISP-SUPPORT-NUM>" # N° hotline FAI         ex: 3900
 
 MONITORING_DIR="/var/www/monitoring"
 SCRIPTS_DIR="/opt/soc"
@@ -406,6 +415,8 @@ if step_active "scripts"; then
                s/<CLT-IP>/${CLT_IP}/g; \
                s/<PA85-IP>/${PA85_IP}/g; \
                s/<PROXMOX-IP>/${PROXMOX_IP}/g; \
+               s/<BOX-IP>/${BOX_IP}/g; \
+               s/<ROUTER-IP>/${ROUTER_IP}/g; \
                s|<LAN-CIDR>|${LAN_CIDR}|g; \
                s/<SSH-PORT>/${SSH_PORT}/g; \
                s|<SSH-KEY-NGIX>|${SSH_KEY_NGIX}|g; \
@@ -413,7 +424,9 @@ if step_active "scripts"; then
                s|<SSH-KEY-PA85>|${SSH_KEY_PA85}|g; \
                s|<SSH-KEY-PVE>|${SSH_KEY_PVE}|g; \
                s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
-               s/<DOMAIN-FR>/${DOMAIN_FR}/g' \
+               s/<DOMAIN-FR>/${DOMAIN_FR}/g; \
+               s/<ISP-HOST-1>/${ISP_HOST_1}/g; \
+               s/<ISP-HOST-2>/${ISP_HOST_2}/g' \
        ${SCRIPTS_DIR}/monitoring_gen.py \
        ${SCRIPTS_DIR}/soc-daily-report.py 2>/dev/null || true"
   run "chmod +x ${SCRIPTS_DIR}/monitoring.sh"
@@ -434,11 +447,22 @@ if step_active "dashboard"; then
   run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g; \
                s/<CLT-IP>/${CLT_IP}/g; \
                s/<PA85-IP>/${PA85_IP}/g; \
+               s/<PROXMOX-IP>/${PROXMOX_IP}/g; \
+               s/<BOX-IP>/${BOX_IP}/g; \
+               s/<ROUTER-IP>/${ROUTER_IP}/g; \
                s|<LAN-CIDR>|${LAN_CIDR}|g; \
                s/<SSH-PORT>/${SSH_PORT}/g; \
                s/<SSH-KEY>/${SSH_KEY}/g; \
                s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
-               s/<DOMAIN-FR>/${DOMAIN_FR}/g' \
+               s/<DOMAIN-FR>/${DOMAIN_FR}/g; \
+               s/<WAN-LAT>/${WAN_LAT}/g; \
+               s/<WAN-LON>/${WAN_LON}/g; \
+               s/<WAN-IP>/${BOX_IP}/g; \
+               s/<ISP-HOST-1>/${ISP_HOST_1}/g; \
+               s/<ISP-HOST-2>/${ISP_HOST_2}/g; \
+               s/<ISP-NAME>/${ISP_NAME}/g; \
+               s/<ISP-SLUG>/${ISP_SLUG}/g; \
+               s/<ISP-SUPPORT-NUM>/${ISP_SUPPORT_NUM}/g' \
        ${MONITORING_DIR}/js/*.js 2>/dev/null || true"
   run "chown -R www-data:www-data $MONITORING_DIR"
   ok "Dashboard deploye dans ${MONITORING_DIR}/"
