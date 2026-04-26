@@ -192,7 +192,7 @@ INTERNET
 
 | Objectif | Point d'entrée |
 |----------|---------------|
-| 🔧 **Reconstruire le SOC** sur une VM vierge | [DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) |
+| 🔧 **Reconstruire le SOC** sur une VM vierge | [DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) · [deploy-soc.sh](DEPLOY/deploy-soc.sh) |
 | 📖 **Comprendre l'architecture** et les choix défensifs | Documentation [01](01-PRESENTATION.md) → [09](09-ROADMAP.md) |
 | ⚙️ **Adapter une configuration** à votre infrastructure | [CONFIGS/](CONFIGS/) — placeholders anonymisés |
 
@@ -223,8 +223,9 @@ INTERNET
 |----------------|------|
 | [GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) | **🚀 8 étapes plug-and-play** — VM vierge → SOC opérationnel |
 | [RUNBOOK-DEBIAN13.md](DEPLOY/RUNBOOK-DEBIAN13.md) | Runbook complet installation sur Debian 13 |
+| [deploy-soc.sh](DEPLOY/deploy-soc.sh) | **Installation depuis le dépôt** — 17 étapes · `--dry-run` · `--step` · placeholders substitués |
 | [create-archive.sh](DEPLOY/create-archive.sh) | Export config complète — 13 blocs |
-| [restore-soc.sh](DEPLOY/restore-soc.sh) | Restauration — `--dry-run` · `--step` · rollback auto |
+| [restore-soc.sh](DEPLOY/restore-soc.sh) | Restauration depuis archive — `--dry-run` · `--step` · rollback auto |
 | [CHECKLIST-DEPLOY.md](DEPLOY/CHECKLIST-DEPLOY.md) | 61 points de vérification post-déploiement |
 | [CHECKLIST-OPERATIONNELLE.md](DEPLOY/CHECKLIST-OPERATIONNELLE.md) | Checklist exploitation quotidienne |
 | [CONTENU-ARCHIVE.md](REFERENCE/CONTENU-ARCHIVE.md) | Inventaire des 13 blocs de l'archive — structure détaillée |
