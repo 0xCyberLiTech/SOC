@@ -42,7 +42,7 @@
 
 ---
 
-## État actuel (2026-04-25)
+<h2 align="center">État actuel (2026-04-25)</h2>
 
 | Composant | Version | Statut |
 |-----------|---------|--------|
@@ -55,33 +55,33 @@
 
 ---
 
-## Axes d'évolution court terme
+<h2 align="center">Axes d'évolution court terme</h2>
 
-### 1. Alertes enrichies par email
+<h3 align="center">1. Alertes enrichies par email</h3>
 
 Actuellement : rapport quotidien `soc-daily-report.py` envoyé à 8h00.
 
 Évolution : alertes email immédiates si ThreatScore ≥ 75, avec résumé de l'incident (IP, phase Kill Chain, signaux déclencheurs).
 
-### 2. Rétention ThreatScore 30 jours
+<h3 align="center">2. Rétention ThreatScore 30 jours</h3>
 
 Actuellement : score calculé à l'instant T, pas de persistance longue durée.
 
 Évolution : stocker l'historique dans un fichier JSON rotatif → graphe tendance 30j dans le dashboard.
 
-### 3. Honeypot HTTP réel
+<h3 align="center">3. Honeypot HTTP réel</h3>
 
 Actuellement : simulation via les logs nginx (404/403 patterns).
 
 Évolution : déployer un vrai honeypot HTTP (cowrie / opencanary) sur un port secondaire — détection plus précise des scanners.
 
-### 4. Feed AbuseIPDB automatique
+<h3 align="center">4. Feed AbuseIPDB automatique</h3>
 
 Actuellement : consultation manuelle AbuseIPDB depuis la tuile IP Deep.
 
 Évolution : `monitoring_gen.py` consulte AbuseIPDB API pour les top 10 IPs actives → score de réputation intégré dans le ThreatScore.
 
-### 5. Détection anomalies DNS (<ROUTER>)
+<h3 align="center">5. Détection anomalies DNS (<ROUTER>)</h3>
 
 Actuellement : logs <ROUTER> analysés pour C2 sortant.
 
@@ -89,9 +89,9 @@ Actuellement : logs <ROUTER> analysés pour C2 sortant.
 
 ---
 
-## Axes d'évolution moyen terme
+<h2 align="center">Axes d'évolution moyen terme</h2>
 
-### 6. Backup automatique configuration
+<h3 align="center">6. Backup automatique configuration</h3>
 
 Script `create-archive.sh` livré — à planifier en cron hebdomadaire.
 
@@ -100,23 +100,23 @@ Script `create-archive.sh` livré — à planifier en cron hebdomadaire.
 0 2 * * 0  /opt/site-01/scripts/create-archive.sh --auto
 ```
 
-### 7. Dashboard mobile (responsive)
+<h3 align="center">7. Dashboard mobile (responsive)</h3>
 
 Actuellement : optimisé écran 1920×1080.
 
 Évolution : media queries pour consultation sur tablette/téléphone (alertes nomades).
 
-### 8. Intégration MISP (Threat Intelligence)
+<h3 align="center">8. Intégration MISP (Threat Intelligence)</h3>
 
 Partage d'indicateurs avec la communauté via un serveur MISP local.
 
-### 9. Second nœud SOC (Pi5)
+<h3 align="center">9. Second nœud SOC (Pi5)</h3>
 
 Déployer le SOC_SECOURS (déjà développé en v3.89.91) sur un Raspberry Pi 5 comme mirror cold-standby.
 
 ---
 
-## Ce qui ne sera PAS ajouté
+<h2 align="center">Ce qui ne sera PAS ajouté</h2>
 
 | Fonctionnalité | Raison du refus |
 |----------------|-----------------|
@@ -128,7 +128,7 @@ Déployer le SOC_SECOURS (déjà développé en v3.89.91) sur un Raspberry Pi 5 
 
 ---
 
-## Idées en réflexion
+<h2 align="center">Idées en réflexion</h2>
 
 - **Corrélation temporelle** : détecter les campagnes d'attaque distribuées dans le temps (même sous-réseau /24, délais aléatoires pour éviter F2B)
 - **Score IP historique** : mémoriser les IPs vues précédemment → "IP déjà vue il y a 14 jours"

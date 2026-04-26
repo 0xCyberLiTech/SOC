@@ -42,7 +42,7 @@
 
 ---
 
-## Schéma réseau
+<h2 align="center">Schéma réseau</h2>
 
 ```
 INTERNET
@@ -110,7 +110,7 @@ INTERNET
 
 ---
 
-## Infrastructure VMs Proxmox
+<h2 align="center">Infrastructure VMs Proxmox</h2>
 
 | VM ID | Nom | IP | RAM | Disque | Rôle |
 |-------|-----|----|-----|--------|------|
@@ -122,9 +122,9 @@ INTERNET
 
 ---
 
-## Ports exposés
+<h2 align="center">Ports exposés</h2>
 
-### Entrants (srv-ngix)
+<h3 align="center">Entrants (srv-ngix)</h3>
 
 | Port | Proto | Source | Service |
 |------|-------|--------|---------|
@@ -134,7 +134,7 @@ INTERNET
 | 8080 | TCP | <LAN-SUBNET> | Dashboard SOC (LAN uniquement) |
 | 514 | TCP+UDP | <LAN-SUBNET> | rsyslog central (LAN uniquement) |
 
-### Sortants (srv-ngix)
+<h3 align="center">Sortants (srv-ngix)</h3>
 
 | Port | Proto | Destination | Usage |
 |------|-------|-------------|-------|
@@ -147,7 +147,7 @@ INTERNET
 
 ---
 
-## Stack logicielle srv-ngix
+<h2 align="center">Stack logicielle srv-ngix</h2>
 
 ```
 OS          : Debian 13 (Trixie)
@@ -166,7 +166,7 @@ AIDE        : Vérification intégrité nightly 03h00
 
 ---
 
-## Flux de données
+<h2 align="center">Flux de données</h2>
 
 ```
 nginx access.log
@@ -208,7 +208,7 @@ JARVIS soc.py (boucle 60s)
 
 ---
 
-## Clés SSH
+<h2 align="center">Clés SSH</h2>
 
 | Clé | Machine cible | Chemin local |
 |-----|--------------|--------------|
@@ -221,7 +221,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 
 ---
 
-## Structure fichiers srv-ngix
+<h2 align="center">Structure fichiers srv-ngix</h2>
 
 ```
 /var/www/monitoring/

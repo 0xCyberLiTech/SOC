@@ -42,7 +42,7 @@
 
 ---
 
-## Vue d'ensemble
+<h2 align="center">Vue d'ensemble</h2>
 
 ```
 ATTAQUE ENTRANTE
@@ -80,7 +80,7 @@ rsyslog /var/log/central/
 
 ---
 
-## CrowdSec — Source unique de vérité des bans
+<h2 align="center">CrowdSec — Source unique de vérité des bans</h2>
 
 Depuis la refactorisation du 2026-04-12, **CrowdSec est l'unique autorité de ban**.
 
@@ -92,9 +92,9 @@ Depuis la refactorisation du 2026-04-12, **CrowdSec est l'unique autorité de ba
 
 ---
 
-## Fail2ban — Rôle détecteur uniquement
+<h2 align="center">Fail2ban — Rôle détecteur uniquement</h2>
 
-### Jails configurées
+<h3 align="center">Jails configurées</h3>
 
 ```ini
 # /etc/fail2ban/jail.local
@@ -125,7 +125,7 @@ bantime  = 86400
 action   = crowdsec-sync[name=nginx-botsearch]
 ```
 
-### Action crowdsec-sync
+<h3 align="center">Action crowdsec-sync</h3>
 ```bash
 # /etc/fail2ban/action.d/crowdsec-sync.conf
 actionban   = cscli decisions add --ip <ip> --reason "fail2ban-%(name)s" --duration 24h
@@ -134,7 +134,7 @@ actionunban = cscli decisions delete --ip <ip>
 
 ---
 
-## Unban atomique
+<h2 align="center">Unban atomique</h2>
 
 Pour débannir une IP proprement (CrowdSec + Fail2ban) :
 
@@ -150,7 +150,7 @@ fail2ban-client unbanip nginx-botsearch <IP>
 
 ---
 
-## Corrélations cross-hôtes (rsyslog)
+<h2 align="center">Corrélations cross-hôtes (rsyslog)</h2>
 
 `monitoring_gen.py` lit les logs de tous les hôtes et détecte :
 
@@ -163,7 +163,7 @@ fail2ban-client unbanip nginx-botsearch <IP>
 
 ---
 
-## Kill Chain MITRE ATT&CK
+<h2 align="center">Kill Chain MITRE ATT&CK</h2>
 
 Classification automatique des IPs par phase d'attaque (fenêtre 15 min) :
 
@@ -177,7 +177,7 @@ Classification automatique des IPs par phase d'attaque (fenêtre 15 min) :
 
 ---
 
-## Nomenclature des bans JARVIS
+<h2 align="center">Nomenclature des bans JARVIS</h2>
 
 | Raison ban | Déclencheur |
 |------------|------------|

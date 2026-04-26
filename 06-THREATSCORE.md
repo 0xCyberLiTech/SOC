@@ -42,7 +42,7 @@
 
 ---
 
-## Principe
+<h2 align="center">Principe</h2>
 
 Le ThreatScore est un entier **0 à 100** calculé toutes les 60 secondes par `monitoring_gen.py`.
 
@@ -51,7 +51,7 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 
 ---
 
-## Seuils d'alerte
+<h2 align="center">Seuils d'alerte</h2>
 
 | Score | Niveau | Couleur | Action JARVIS |
 |-------|--------|---------|---------------|
@@ -62,9 +62,9 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 
 ---
 
-## Les 24 briques
+<h2 align="center">Les 24 briques</h2>
 
-### Briques réseau / volumétrie (max ~30 pts)
+<h3 align="center">Briques réseau / volumétrie (max ~30 pts)</h3>
 
 | # | Brique | Poids | Déclencheur |
 |---|--------|-------|-------------|
@@ -73,7 +73,7 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 | 3 | Volume bande passante anormal | +5 | bytes > 3× baseline |
 | 4 | IPs uniques actives > seuil | +7 | distinct_ips > 50/h |
 
-### Briques détection active (max ~35 pts)
+<h3 align="center">Briques détection active (max ~35 pts)</h3>
 
 | # | Brique | Poids | Déclencheur |
 |---|--------|-------|-------------|
@@ -84,7 +84,7 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 | 9 | AppSec WAF bloquages | +8 | appsec_blocked > 0 |
 | 10 | Fail2ban bans actifs | +5 | f2b_bans > 0 |
 
-### Briques corrélation (max ~20 pts)
+<h3 align="center">Briques corrélation (max ~20 pts)</h3>
 
 | # | Brique | Poids | Déclencheur |
 |---|--------|-------|-------------|
@@ -93,7 +93,7 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 | 13 | Trafic sortant C2 potentiel | +15 | rsyslog routeur <ROUTER> pattern C2 |
 | 14 | Scan multi-cibles (>5 hôtes) | +5 | rsyslog correlation |
 
-### Briques état système (max ~15 pts)
+<h3 align="center">Briques état système (max ~15 pts)</h3>
 
 | # | Brique | Poids | Déclencheur |
 |---|--------|-------|-------------|
@@ -102,7 +102,7 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 | 17 | AppArmor denied récent | +5 | kernel audit AppArmor deny |
 | 18 | Fail2ban jail inactive | +3 | jail absent ou disabled |
 
-### Briques contextuelles (max ~10 pts)
+<h3 align="center">Briques contextuelles (max ~10 pts)</h3>
 
 | # | Brique | Poids | Déclencheur |
 |---|--------|-------|-------------|
@@ -115,7 +115,7 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 
 ---
 
-## Anti-doublons
+<h2 align="center">Anti-doublons</h2>
 
 Règles explicites pour éviter la surpondération :
 
@@ -128,7 +128,7 @@ Règles explicites pour éviter la surpondération :
 
 ---
 
-## Formule de calcul
+<h2 align="center">Formule de calcul</h2>
 
 ```python
 def compute_threat_score(data):
@@ -151,7 +151,7 @@ def compute_threat_score(data):
 
 ---
 
-## Évolution dans le temps
+<h2 align="center">Évolution dans le temps</h2>
 
 Le ThreatScore est archivé dans `monitoring.json` avec horodatage.  
 Le dashboard affiche :

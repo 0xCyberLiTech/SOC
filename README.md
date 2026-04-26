@@ -39,7 +39,7 @@
 
 ---
 
-## Cartographie des menaces — Live
+<h2 align="center">Cartographie des menaces — Live</h2>
 
 <div align="center">
 
@@ -51,7 +51,7 @@
 
 ---
 
-## Kill Chain — Progression des attaques
+<h2 align="center">Kill Chain — Progression des attaques</h2>
 
 <div align="center">
 
@@ -63,7 +63,7 @@
 
 ---
 
-## Vue tactique Europe & Investigation IP
+<h2 align="center">Vue tactique Europe & Investigation IP</h2>
 
 <div align="center">
 
@@ -76,7 +76,7 @@
 
 ---
 
-## GeoIP — Statistiques & Corrélations
+<h2 align="center">GeoIP — Statistiques & Corrélations</h2>
 
 <div align="center">
 
@@ -88,7 +88,7 @@
 
 ---
 
-## Moteur de corrélation & Chaîne de défense
+<h2 align="center">Moteur de corrélation & Chaîne de défense</h2>
 
 <div align="center">
 
@@ -101,7 +101,7 @@
 
 ---
 
-## Heatmap & Monitoring système
+<h2 align="center">Heatmap & Monitoring système</h2>
 
 <div align="center">
 
@@ -114,7 +114,7 @@
 
 ---
 
-## JARVIS — IA défensive intégrée
+<h2 align="center">JARVIS — IA défensive intégrée</h2>
 
 <div align="center">
 
@@ -126,7 +126,7 @@
 
 ---
 
-## Points forts
+<h2 align="center">Points forts</h2>
 
 | | Capacité | Détail |
 |--|----------|--------|
@@ -142,7 +142,7 @@
 
 ---
 
-## Stack technique
+<h2 align="center">Stack technique</h2>
 
 ```
 OS          Debian 13 (Bookworm)
@@ -159,7 +159,7 @@ Infra       Proxmox VE — 3 VMs (srv-ngix · site-01 · site-02)
 
 ---
 
-## Architecture
+<h2 align="center">Architecture</h2>
 
 ```
 INTERNET
@@ -188,7 +188,7 @@ INTERNET
 
 ---
 
-## Documentation
+<h2 align="center">Documentation</h2>
 
 | # | Document | Description |
 |---|----------|-------------|
@@ -204,7 +204,7 @@ INTERNET
 
 ---
 
-## Déploiement
+<h2 align="center">Déploiement</h2>
 
 | Script / Guide | Rôle |
 |----------------|------|

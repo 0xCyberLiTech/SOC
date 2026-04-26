@@ -47,7 +47,7 @@
 
 ---
 
-## Prérequis VM
+<h2 align="center">Prérequis VM</h2>
 
 | Élément | Minimum | Recommandé |
 |---------|---------|-----------|
@@ -64,7 +64,7 @@
 
 ---
 
-## Utilisation du script de déploiement
+<h2 align="center">Utilisation du script de déploiement</h2>
 
 ```bash
 # Télécharger le script sur la VM cible
@@ -88,7 +88,7 @@ bash deploy-soc.sh --step dashboard
 
 ---
 
-## Script de déploiement `deploy-soc.sh`
+<h2 align="center">Script de déploiement `deploy-soc.sh`</h2>
 
 ```bash
 #!/usr/bin/env bash
@@ -746,9 +746,9 @@ echo ""
 
 ---
 
-## Étapes manuelles post-script
+<h2 align="center">Étapes manuelles post-script</h2>
 
-### 1. Vhosts nginx
+<h3 align="center">1. Vhosts nginx</h3>
 
 ```nginx
 # /etc/nginx/sites-available/site-01
@@ -806,7 +806,7 @@ server {
 }
 ```
 
-### 2. Copie des fichiers dashboard
+<h3 align="center">2. Copie des fichiers dashboard</h3>
 
 ```bash
 # Depuis le poste de développement Windows
@@ -823,7 +823,7 @@ scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
   root@<SRV-NGIX-IP>:/var/www/monitoring/css/
 ```
 
-### 3. Copie des scripts Python
+<h3 align="center">3. Copie des scripts Python</h3>
 
 ```bash
 scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
@@ -831,7 +831,7 @@ scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
   root@<SRV-NGIX-IP>:/opt/site-01/
 ```
 
-### 4. Test final
+<h3 align="center">4. Test final</h3>
 
 ```bash
 # Vérification services

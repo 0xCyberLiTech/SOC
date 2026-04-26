@@ -42,7 +42,7 @@
 
 ---
 
-## Architecture
+<h2 align="center">Architecture</h2>
 
 `srv-ngix` est le **récepteur rsyslog central** pour 5 hôtes du homelab.
 
@@ -63,7 +63,7 @@ srv-ngix (local)     ──→ rsyslog fichiers locaux
 
 ---
 
-## Configuration rsyslog récepteur (srv-ngix)
+<h2 align="center">Configuration rsyslog récepteur (srv-ngix)</h2>
 
 ```
 # /etc/rsyslog.conf — section réception
@@ -99,7 +99,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 
 ---
 
-## Configuration rsyslog émetteur (site-01 / site-02)
+<h2 align="center">Configuration rsyslog émetteur (site-01 / site-02)</h2>
 
 ```
 # /etc/rsyslog.conf — section émission (site-01 et site-02)
@@ -110,7 +110,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 
 ---
 
-## Rétention des logs
+<h2 align="center">Rétention des logs</h2>
 
 - **Rotation** : `logrotate` — 7 jours pour les logs `/var/log/central/`
 - **Format fichier** : `AAAA-MM-JJ.log` (un fichier par jour par hôte)
@@ -132,7 +132,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 
 ---
 
-## Sources de logs par hôte
+<h2 align="center">Sources de logs par hôte</h2>
 
 | Hôte | Logs envoyés |
 |------|-------------|
@@ -144,31 +144,31 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 
 ---
 
-## Corrélations détectées par monitoring_gen.py
+<h2 align="center">Corrélations détectées par monitoring_gen.py</h2>
 
 `monitoring_gen.py` lit tous les logs centralisés et détecte les patterns suivants :
 
-### Corrélation cross-hôte (XHC)
+<h3 align="center">Corrélation cross-hôte (XHC)</h3>
 
 Une IP est vue dans les logs **nginx (srv-ngix)** ET **apache (site-01)** ET **apache (site-02)** dans une fenêtre de 15 minutes.
 
 → Badge `⊙XHC` dans le Kill Chain dashboard  
 → Score ThreatScore +10
 
-### Connexion SSH depuis IP bannie
+<h3 align="center">Connexion SSH depuis IP bannie</h3>
 
 Une IP présente dans les `active_decisions` CrowdSec tente une connexion SSH sur `auth.log`.
 
 → Score ThreatScore +8
 
-### Trafic C2 sortant (<ROUTER>)
+<h3 align="center">Trafic C2 sortant (<ROUTER>)</h3>
 
 Le routeur <ROUTER> logue une connexion sortante vers une IP connue (Threat Intel) ou un port C2 caractéristique (IRC 6667, Tor, .onion via DNS).
 
 → ThreatScore +15  
 → JARVIS alerte TTS + ban automatique IP destination
 
-### Scan multi-cibles
+<h3 align="center">Scan multi-cibles</h3>
 
 La même IP source touche **plus de 5 hôtes distincts** dans la fenêtre 15 min.
 
@@ -177,7 +177,7 @@ La même IP source touche **plus de 5 hôtes distincts** dans la fenêtre 15 min
 
 ---
 
-## Vérification du fonctionnement
+<h2 align="center">Vérification du fonctionnement</h2>
 
 ```bash
 # Sur srv-ngix — vérifier réception logs site-01
@@ -197,7 +197,7 @@ grep 'TEST rsyslog' /var/log/central/site-01/$(date +%Y-%m-%d).log
 
 ---
 
-## UFW — Règle autorisant rsyslog entrant
+<h2 align="center">UFW — Règle autorisant rsyslog entrant</h2>
 
 ```bash
 # Sur srv-ngix — déjà configuré

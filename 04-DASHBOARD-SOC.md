@@ -42,7 +42,7 @@
 
 ---
 
-## Vue d'ensemble
+<h2 align="center">Vue d'ensemble</h2>
 
 Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 
@@ -53,7 +53,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 
 ---
 
-## Architecture modules JS
+<h2 align="center">Architecture modules JS</h2>
 
 ```
 /var/www/monitoring/js/
@@ -85,9 +85,9 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 
 ---
 
-## 35 Tuiles en production
+<h2 align="center">35 Tuiles en production</h2>
 
-### Rangée 1 — Indicateurs globaux
+<h3 align="center">Rangée 1 — Indicateurs globaux</h3>
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 1 | ThreatScore (0-100 + jauge) | 24 briques monitoring.json |
@@ -95,7 +95,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 3 | Carte GeoIP mondiale | top_ips + GeoIP2 |
 | 4 | Métriques nginx (req/h, erreurs) | nginx access.log |
 
-### Rangée 2 — Sécurité
+<h3 align="center">Rangée 2 — Sécurité</h3>
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 5 | CrowdSec LAPI | cscli decisions + CAPI |
@@ -103,7 +103,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 7 | Suricata alertes | eve.json |
 | 8 | AppSec WAF | CrowdSec AppSec logs |
 
-### Rangée 3 — Système
+<h3 align="center">Rangée 3 — Système</h3>
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 9 | UFW règles | ufw status |
@@ -111,7 +111,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 11 | AIDE intégrité | /var/log/aide/aide.log |
 | 12 | Headers sécurité nginx | curl -I |
 
-### Rangée 4 — Réseau / Corrélation
+<h3 align="center">Rangée 4 — Réseau / Corrélation</h3>
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 13 | XDR corrélation | cross-source signals |
@@ -119,7 +119,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 15 | CVE actives | NVD feed + AppSec |
 | 16 | Honeypot | fake services logs |
 
-### Rangée 5 — Infrastructure
+<h3 align="center">Rangée 5 — Infrastructure</h3>
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 17 | Mise à jour système nginx | apt |
@@ -129,7 +129,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 21 | Protocoles réseau live | proto-live.py |
 | 22 | JARVIS IA | localhost:5000/api/status |
 
-### Rangée 6 — Hôtes distants + services
+<h3 align="center">Rangée 6 — Hôtes distants + services</h3>
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 23 | Services systemd | systemctl --failed |
@@ -137,7 +137,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 
 ---
 
-## Flux données monitoring.json
+<h2 align="center">Flux données monitoring.json</h2>
 
 ```
 monitoring_gen.py (cron */5 min)
@@ -159,7 +159,7 @@ monitoring_gen.py (cron */5 min)
 
 ---
 
-## Système modal centralisé (09-modals-core.js)
+<h2 align="center">Système modal centralisé (09-modals-core.js)</h2>
 
 Tout modal du dashboard utilise le même mécanisme :
 
@@ -176,29 +176,29 @@ Le handler global dans `11-bind.js` intercepts les clics sur `[data-panel]` et o
 
 ---
 
-## Conventions de développement
+<h2 align="center">Conventions de développement</h2>
 
-### Cache-busters
+<h3 align="center">Cache-busters</h3>
 Chaque module JS est chargé avec un cache-buster dans `index.html` :
 ```html
 <script src="js/07-render.js?v=3.97.152"></script>
 ```
 À chaque modification d'un module, incrémenter son cache-buster **ET** le numéro de version global (ligne 1 du HTML).
 
-### Versioning HTML
+<h3 align="center">Versioning HTML</h3>
 ```html
 <!-- v3.97.155 — SOC Dashboard 0xCyberLiTech -->
 ```
 Format : `v{majeur}.{fonctionnel}.{patch}`
 
-### NDT (Non-Déterminisme Technique)
+<h3 align="center">NDT (Non-Déterminisme Technique)</h3>
 Convention audit qualité — score cible 99/100 :
 - Tous les accès à des valeurs potentiellement `undefined` → guards `||0`, `||''`, `(x||[])`
 - Pas de `var` dans des closures (utiliser `let`/`const`)
 - Division : toujours `(a/(b||1))`
 - `.slice()` / `.toUpperCase()` : toujours `(str||'').slice()`
 
-### Pas de dépendances NPM
+<h3 align="center">Pas de dépendances NPM</h3>
 Le dashboard est vanilla JS pur. Seule exception : **Leaflet.js** (carte) chargé depuis `/libs/`.
 
 ---

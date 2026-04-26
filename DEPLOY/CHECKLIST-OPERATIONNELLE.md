@@ -47,9 +47,9 @@ Durée estimée : **5 à 10 minutes**.
 
 ---
 
-## Vérification quotidienne (chaque matin)
+<h2 align="center">Vérification quotidienne (chaque matin)</h2>
 
-### 1. État global du dashboard
+<h3 align="center">1. État global du dashboard</h3>
 
 Ouvrir `http://<SRV-NGIX-IP>:8080/` depuis le LAN.
 
@@ -58,7 +58,7 @@ Ouvrir `http://<SRV-NGIX-IP>:8080/` depuis le LAN.
 - [ ] Dernière mise à jour `monitoring.json` : moins de 10 minutes
 - [ ] Aucun service en rouge dans la tuile Services systemd
 
-### 2. Services critiques
+<h3 align="center">2. Services critiques</h3>
 
 ```bash
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
@@ -73,13 +73,13 @@ Résultat attendu : `active` × 5
 - [ ] fail2ban → active
 - [ ] rsyslog → active
 
-### 3. Rapport email JARVIS
+<h3 align="center">3. Rapport email JARVIS</h3>
 
 - [ ] Email reçu à 8h00 de `soc-daily-report.py`
 - [ ] Score ThreatScore de la veille cohérent
 - [ ] Nombre de bans non aberrant (> 500 → investiguer)
 
-### 4. Bans CrowdSec
+<h3 align="center">4. Bans CrowdSec</h3>
 
 ```bash
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
@@ -92,9 +92,9 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 
 ---
 
-## Vérification hebdomadaire (lundi)
+<h2 align="center">Vérification hebdomadaire (lundi)</h2>
 
-### 5. Mise à jour des règles CrowdSec
+<h3 align="center">5. Mise à jour des règles CrowdSec</h3>
 
 ```bash
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
@@ -105,7 +105,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 - [ ] AppSec rules à jour
 - [ ] CrowdSec redémarré si mise à jour : `systemctl restart crowdsec`
 
-### 6. Mise à jour des règles Suricata
+<h3 align="center">6. Mise à jour des règles Suricata</h3>
 
 ```bash
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
@@ -115,7 +115,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 - [ ] Règles mises à jour sans erreur
 - [ ] Suricata rechargé : vérifier `systemctl is-active suricata` → active
 
-### 7. Mises à jour système
+<h3 align="center">7. Mises à jour système</h3>
 
 ```bash
 # srv-ngix
@@ -134,7 +134,7 @@ ssh -i ~/.ssh/id_site-02 -p <SSH-PORT> root@<PA85-IP> \
 - [ ] Paquets critiques de sécurité → appliquer immédiatement
 - [ ] Autres paquets → planifier weekend
 
-### 8. Rotation logs
+<h3 align="center">8. Rotation logs</h3>
 
 ```bash
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
@@ -144,7 +144,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 - [ ] Aucun dossier > 2 Go
 - [ ] logrotate fonctionnel : fichiers .gz présents
 
-### 9. Backup hebdomadaire AIDE
+<h3 align="center">9. Backup hebdomadaire AIDE</h3>
 
 Vérifier que la vérification AIDE nocturne (03h00) s'est bien exécutée :
 
@@ -159,9 +159,9 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 
 ---
 
-## Vérification mensuelle (1er du mois)
+<h2 align="center">Vérification mensuelle (1er du mois)</h2>
 
-### 10. Revue des bans permanents
+<h3 align="center">10. Revue des bans permanents</h3>
 
 ```bash
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
@@ -171,7 +171,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 - [ ] Aucun ban permanent inattendu
 - [ ] Nettoyer les vieux bans si nécessaire
 
-### 11. Test de réponse à incident (simulation)
+<h3 align="center">11. Test de réponse à incident (simulation)</h3>
 
 ```bash
 # Simuler un ban JARVIS
@@ -189,7 +189,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 - [ ] IP bannie visible dans dashboard
 - [ ] IP débannie après commande delete
 
-### 12. Revue des règles UFW
+<h3 align="center">12. Revue des règles UFW</h3>
 
 ```bash
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
@@ -199,7 +199,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 - [ ] Aucune règle orpheline ajoutée sans documentation
 - [ ] Default policies inchangées
 
-### 13. Backup configuration SOC
+<h3 align="center">13. Backup configuration SOC</h3>
 
 ```bash
 # Exécuter le script d'archive depuis srv-ngix
@@ -212,9 +212,9 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 
 ---
 
-## Procédures d'urgence
+<h2 align="center">Procédures d'urgence</h2>
 
-### IP légitime bannie par erreur (faux positif)
+<h3 align="center">IP légitime bannie par erreur (faux positif)</h3>
 
 ```bash
 # 1. Débannir dans CrowdSec
@@ -229,7 +229,7 @@ fail2ban-client unbanip nginx-botsearch <IP>
 echo "<IP>" >> /etc/crowdsec/local_api_credentials.yaml  # ou via parsers whitelist
 ```
 
-### Service down — redémarrage d'urgence
+<h3 align="center">Service down — redémarrage d'urgence</h3>
 
 ```bash
 # nginx
@@ -245,7 +245,7 @@ systemctl restart suricata && tail -5 /var/log/suricata/suricata.log
 systemctl restart fail2ban && fail2ban-client status
 ```
 
-### ThreatScore > 75 — Procédure d'investigation
+<h3 align="center">ThreatScore > 75 — Procédure d'investigation</h3>
 
 1. Ouvrir dashboard → Kill Chain → identifier les IPs en phase EXPLOIT/BRUTE
 2. Pour chaque IP suspecte → clic `⊙` → modal IP Deep (GeoIP, réputation, historique)

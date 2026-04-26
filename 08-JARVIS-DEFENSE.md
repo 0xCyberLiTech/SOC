@@ -42,7 +42,7 @@
 
 ---
 
-## Rôle dans le SOC
+<h2 align="center">Rôle dans le SOC</h2>
 
 JARVIS est l'**interface IA** du SOC — il tourne sur la machine Windows (<LAN-IP>, port 5000).
 
@@ -62,7 +62,7 @@ JARVIS (Windows localhost:5000)
 
 ---
 
-## Stack technique JARVIS
+<h2 align="center">Stack technique JARVIS</h2>
 
 | Composant | Détail |
 |-----------|--------|
@@ -75,7 +75,7 @@ JARVIS (Windows localhost:5000)
 
 ---
 
-## Boucle autonome (60s)
+<h2 align="center">Boucle autonome (60s)</h2>
 
 ```python
 # Logique simplifiée de la boucle auto-engine
@@ -107,7 +107,7 @@ while True:
 
 ---
 
-## 12 déclencheurs automatiques
+<h2 align="center">12 déclencheurs automatiques</h2>
 
 | # | Condition | Action | Raison ban |
 |---|-----------|--------|------------|
@@ -126,7 +126,7 @@ while True:
 
 ---
 
-## Routes soc.py (API Flask sur srv-ngix)
+<h2 align="center">Routes soc.py (API Flask sur srv-ngix)</h2>
 
 `soc.py` tourne sur `srv-ngix` et expose des routes locales consommées par JARVIS via SSH tunnel ou réseau LAN.
 
@@ -142,7 +142,7 @@ Chaque appel exécute la commande `cscli` ou `systemctl` correspondante sur srv-
 
 ---
 
-## Alertes TTS
+<h2 align="center">Alertes TTS</h2>
 
 Deux moteurs TTS, en cascade :
 
@@ -162,7 +162,7 @@ Jamais : window.speechSynthesis (voix Windows exclue)
 
 ---
 
-## Onglet SOC dans JARVIS
+<h2 align="center">Onglet SOC dans JARVIS</h2>
 
 L'interface JARVIS (port 5000) contient un onglet `◈ SOC` qui affiche :
 
@@ -173,7 +173,7 @@ L'interface JARVIS (port 5000) contient un onglet `◈ SOC` qui affiche :
 
 ---
 
-## Intégration dashboard SOC → JARVIS
+<h2 align="center">Intégration dashboard SOC → JARVIS</h2>
 
 La tuile JARVIS dans le dashboard SOC fait des requêtes vers `http://localhost:5000/api/status` pour afficher l'état de JARVIS en temps réel.
 
@@ -181,7 +181,7 @@ Cette route est appelée depuis le navigateur Windows (même machine que JARVIS)
 
 ---
 
-## Démarrage / Arrêt JARVIS
+<h2 align="center">Démarrage / Arrêt JARVIS</h2>
 
 ```bash
 # Démarrage

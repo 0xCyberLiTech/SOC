@@ -46,7 +46,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## Instructions
+<h2 align="center">Instructions</h2>
 
 - ✅ = Vérifié OK
 - ❌ = Problème à corriger
@@ -55,7 +55,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 1 — Système de base
+<h2 align="center">BLOC 1 — Système de base</h2>
 
 - [ ] **OS** : `cat /etc/debian_version` → 13.x (Trixie)
 - [ ] **Kernel** : `uname -r` → 6.12.x ou supérieur
@@ -66,7 +66,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 2 — UFW pare-feu
+<h2 align="center">BLOC 2 — UFW pare-feu</h2>
 
 - [ ] **UFW actif** : `ufw status` → Status: active
 - [ ] **Default policies** : deny incoming, deny outgoing, disabled routed
@@ -79,7 +79,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 3 — nginx
+<h2 align="center">BLOC 3 — nginx</h2>
 
 - [ ] **nginx actif** : `systemctl is-active nginx` → active
 - [ ] **nginx version** : `nginx -v` → 1.26.x
@@ -94,7 +94,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 4 — CrowdSec
+<h2 align="center">BLOC 4 — CrowdSec</h2>
 
 - [ ] **LAPI actif** : `systemctl is-active crowdsec` → active
 - [ ] **Bouncer nftables** : `cscli bouncers list` → `cs-nftables-bouncer` inscrit
@@ -106,7 +106,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 5 — Fail2ban
+<h2 align="center">BLOC 5 — Fail2ban</h2>
 
 - [ ] **Fail2ban actif** : `systemctl is-active fail2ban` → active
 - [ ] **Jail sshd** : `fail2ban-client status sshd` → Jail is up
@@ -116,7 +116,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 6 — Suricata
+<h2 align="center">BLOC 6 — Suricata</h2>
 
 - [ ] **Suricata actif** : `systemctl is-active suricata` → active
 - [ ] **Mode AF_PACKET** : `ps aux | grep suricata` → `--af-packet` présent
@@ -127,7 +127,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 7 — AppArmor
+<h2 align="center">BLOC 7 — AppArmor</h2>
 
 - [ ] **AppArmor actif** : `aa-status | head -5` → apparmor module is loaded
 - [ ] **nginx en enforce** : `aa-status | grep nginx` → `/usr/sbin/nginx` en enforce
@@ -136,7 +136,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 8 — Scripts Python / Dashboard
+<h2 align="center">BLOC 8 — Scripts Python / Dashboard</h2>
 
 - [ ] **monitoring_gen.py** : `python3 /opt/site-01/monitoring_gen.py --dry-run` → OK, pas d'erreur
 - [ ] **Cron actif** : `crontab -l` → `*/5 * * * * /opt/site-01/monitoring.sh`
@@ -147,7 +147,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 9 — rsyslog
+<h2 align="center">BLOC 9 — rsyslog</h2>
 
 - [ ] **rsyslog actif** : `systemctl is-active rsyslog` → active
 - [ ] **Port 514 ouvert** : `ss -ulnp | grep 514` + `ss -tlnp | grep 514` → présent
@@ -157,7 +157,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## BLOC 10 — AIDE intégrité
+<h2 align="center">BLOC 10 — AIDE intégrité</h2>
 
 - [ ] **AIDE installé** : `aide --version` → version affichée
 - [ ] **Base de données** : `ls -la /var/lib/aide/aide.db.gz` → présent
@@ -166,7 +166,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 ---
 
-## Récapitulatif
+<h2 align="center">Récapitulatif</h2>
 
 ```
 BLOC 1 Système       : _/6

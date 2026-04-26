@@ -47,9 +47,9 @@
 
 ---
 
-## PHASE 1 — Avant de créer l'archive (audit live srv-ngix)
+<h2 align="center">PHASE 1 — Avant de créer l'archive (audit live srv-ngix)</h2>
 
-### Réseau — BLOC 0
+<h3 align="center">Réseau — BLOC 0</h3>
 - [ ] `/etc/network/interfaces` contient IP statique <SRV-NGIX-IP>, GW <LAN-IP>, DNS
 - [ ] `/etc/hostname` = `srv-ngix`
 - [ ] `/etc/hosts` contient entrée localhost + srv-ngix
@@ -59,7 +59,7 @@
 - [ ] `/etc/exim4/passwd.client` — credentials SMTP <MAIL-PROVIDER> (alertes mail SOC)
 - [ ] `/etc/nftables.conf` — règles de base présentes
 
-### nginx — BLOC 1
+<h3 align="center">nginx — BLOC 1</h3>
 - [ ] `/etc/nginx/nginx.conf` — config principale présente
 - [ ] `/etc/nginx/sites-available/` — tous les vhosts (0xcyberlitech.com, site-02, monitoring...)
 - [ ] `/etc/nginx/sites-enabled/` — symlinks actifs vérifiés
@@ -68,7 +68,7 @@
 - [ ] `/etc/letsencrypt/` — certificats valides (expiration vérifiée)
 - [ ] `/etc/nginx/api-keys.conf` — clés NVD + AbuseIPDB (via BLOC 11 api-keys)
 
-### CrowdSec — BLOC 2
+<h3 align="center">CrowdSec — BLOC 2</h3>
 - [ ] `/etc/crowdsec/config.yaml` — LAPI url, db path, log level
 - [ ] `/etc/crowdsec/local_api_credentials.yaml` — token LAPI (sensible 🔴)
 - [ ] `/etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml` — bouncer nftables
@@ -78,35 +78,35 @@
 - [ ] `cscli collections list -o json` — liste collections installées
 - [ ] `cscli bouncers list -o json` — bouncer actif
 
-### Fail2ban — BLOC 3
+<h3 align="center">Fail2ban — BLOC 3</h3>
 - [ ] `/etc/fail2ban/jail.local` — jails custom (sshd, nginx-cve, nginx-botsearch)
 - [ ] `/etc/fail2ban/action.d/crowdsec-sync.conf` — **CLÉ chaîne défense F2B→CS**
 - [ ] `/etc/fail2ban/filter.d/` — 102 filtres dont custom 0xclt
 
-### Suricata — BLOC 4
+<h3 align="center">Suricata — BLOC 4</h3>
 - [ ] `/etc/suricata/suricata.yaml` — interface af-packet configurée
 - [ ] `/etc/suricata/rules/` — règles custom (pas les 106k ET qui seront re-téléchargées)
 - [ ] `/etc/suricata/update.yaml` — sources rules (si présent)
 
-### rsyslog — BLOC 5
+<h3 align="center">rsyslog — BLOC 5</h3>
 - [ ] `/etc/rsyslog.conf` — config receiver UDP 514
 - [ ] `/etc/rsyslog.d/` — règles par hôte (site-01, site-02, pve, <ROUTER>)
 
-### AppArmor — BLOC 6
+<h3 align="center">AppArmor — BLOC 6</h3>
 - [ ] `/etc/apparmor.d/usr.sbin.nginx` — profil nginx
 - [ ] `/etc/apparmor.d/usr.bin.suricata` — profil suricata
 - [ ] `aa-status --json` — état référence
 
-### UFW — BLOC 7
+<h3 align="center">UFW — BLOC 7</h3>
 - [ ] `/etc/ufw/` complet (before.rules, after.rules, user.rules...)
 - [ ] `ufw status verbose` exporté lisible
 
-### Scripts — BLOC 8
+<h3 align="center">Scripts — BLOC 8</h3>
 - [ ] `/opt/site-01/` — 72 fichiers (monitoring_gen.py, soc.py, soc-daily-report.py, monitoring.sh...)
 - [ ] `/usr/local/bin/pve-monitor-write` — script réception stats Proxmox
 - [ ] `/var/www/monitoring/` — dashboard HTML+JS+CSS (sans monitoring.json live)
 
-### Crons — BLOC 9
+<h3 align="center">Crons — BLOC 9</h3>
 - [ ] `/etc/cron.d/aide-soc` — AIDE 03h00
 - [ ] `/etc/cron.d/site-01-cve-fetch` — CVE 3x/jour
 - [ ] `/etc/cron.d/site-01-threat-fetch` — Threat 03h00
@@ -120,26 +120,26 @@
 - [ ] `/etc/cron.d/ufw-snapshot` — UFW snapshot 1h
 - [ ] **11 fichiers total dans `/etc/cron.d/`**
 
-### Systemd — BLOC 10
+<h3 align="center">Systemd — BLOC 10</h3>
 - [ ] `/etc/systemd/system/soc-report-trigger.service` — service SOC custom
 - [ ] `/etc/systemd/system/sshd.service` — SSH custom (port <SSH-PORT>)
 - [ ] `systemctl list-units` — référence services actifs
 
-### AIDE — BLOC 11 (via complement)
+<h3 align="center">AIDE — BLOC 11 (via complement)</h3>
 - [ ] `/etc/aide/` — 247 fichiers (aide.conf + règles)
 - [ ] ⚠ `/var/lib/aide/aide.db.gz` absent = NORMAL (recalculé après restore)
 
-### Logrotate — BLOC 11
+<h3 align="center">Logrotate — BLOC 11</h3>
 - [ ] `/etc/logrotate.d/` — 20 fichiers (nginx, fail2ban, suricata, crowdsec...)
 
-### GeoIP — BLOC 11
+<h3 align="center">GeoIP — BLOC 11</h3>
 - [ ] `/etc/GeoIP.conf` — Account ID + License Key MaxMind (sensible 🟡)
 - [ ] ⚠ `/etc/default/geoipupdate` absent = NORMAL sur ce serveur
 
-### Clés API — BLOC 11
+<h3 align="center">Clés API — BLOC 11</h3>
 - [ ] `/etc/nginx/api-keys.conf` — NVD_API_KEY + ABUSEIPDB_API_KEY (sensible 🔴)
 
-### Clés SSH — BLOC 11
+<h3 align="center">Clés SSH — BLOC 11</h3>
 - [ ] `/root/.ssh/authorized_keys` — clé pve-monitor (Proxmox → srv-ngix)
 - [ ] `/root/.ssh/id_site-01_sync` + `.pub` — connexion root@<CLT-IP>
 - [ ] `/root/.ssh/id_site-02_sync` + `.pub` — connexion root@<PA85-IP>
@@ -147,7 +147,7 @@
 
 ---
 
-## PHASE 2 — Vérification de l'archive produite
+<h2 align="center">PHASE 2 — Vérification de l'archive produite</h2>
 
 ```bash
 # Lister le contenu de l'archive
@@ -167,7 +167,7 @@ tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep "crons/cron.d/" | wc -l
 tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep README-RESTORE
 ```
 
-### Checklist blocs attendus
+<h3 align="center">Checklist blocs attendus</h3>
 - [ ] `network/` présent (interfaces, hostname, ssh/, sysctl/, exim4/)
 - [ ] `nginx/` présent (nginx.conf, sites-available/, snippets/, geoip/, letsencrypt/)
 - [ ] `crowdsec/` présent (config/, bouncers/, decisions-export.json, collections.json)
@@ -187,7 +187,7 @@ tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep README-RESTORE
 - [ ] `metadata/` présent (versions.txt, dpkg-selections.txt)
 - [ ] `README-RESTORE.md` présent à la racine
 
-### Vérification simulation restauration
+<h3 align="center">Vérification simulation restauration</h3>
 ```bash
 bash restore-soc.sh soc-config-AAAA-MM-JJ.tar.gz --dry-run 2>&1 | tee restore-simulation.txt
 
@@ -204,9 +204,9 @@ grep -c "DIFFÉRENT\|NOUVEAU" restore-simulation.txt
 
 ---
 
-## PHASE 3 — Vérification post-restauration (nouveau serveur)
+<h2 align="center">PHASE 3 — Vérification post-restauration (nouveau serveur)</h2>
 
-### Réseau
+<h3 align="center">Réseau</h3>
 - [ ] `hostname` → `srv-ngix`
 - [ ] `ip addr show` → <SRV-NGIX-IP>/24
 - [ ] `ip route` → default via <LAN-IP>
@@ -214,7 +214,7 @@ grep -c "DIFFÉRENT\|NOUVEAU" restore-simulation.txt
 - [ ] `sysctl net.ipv4.conf.all.rp_filter` → `2`
 - [ ] `echo "test SOC" | mail -s test admin@domain.fr` → mail reçu (exim4 SMTP <MAIL-PROVIDER>)
 
-### Services actifs
+<h3 align="center">Services actifs</h3>
 ```bash
 systemctl is-active nginx crowdsec suricata fail2ban rsyslog
 # Attendu : active × 5
@@ -225,7 +225,7 @@ systemctl is-active nginx crowdsec suricata fail2ban rsyslog
 - [ ] fail2ban → active
 - [ ] rsyslog → active
 
-### CrowdSec
+<h3 align="center">CrowdSec</h3>
 ```bash
 cscli decisions list | wc -l      # > 0
 cscli bouncers list                # crowdsec-firewall-bouncer présent
@@ -235,7 +235,7 @@ cscli collections list | grep linux-lpe  # collection installée
 - [ ] Décisions restaurées
 - [ ] Collections installées
 
-### nginx
+<h3 align="center">nginx</h3>
 ```bash
 nginx -t                           # OK
 curl -sI https://0xcyberlitech.com/ | head -3  # 200 ou 301
@@ -245,7 +245,7 @@ curl -sI http://<SRV-NGIX-IP>:8080/ | head -3   # dashboard
 - [ ] Sites répondent (0xcyberlitech.com, site-02)
 - [ ] Dashboard SOC accessible http://<SRV-NGIX-IP>:8080/
 
-### Crons
+<h3 align="center">Crons</h3>
 ```bash
 ls -la /etc/cron.d/               # 11 fichiers
 ls -la /etc/cron.d/ | wc -l       # ≥ 13 (11 + . + ..)
@@ -253,7 +253,7 @@ ls -la /etc/cron.d/ | wc -l       # ≥ 13 (11 + . + ..)
 - [ ] 11 fichiers présents dans `/etc/cron.d/`
 - [ ] permissions 644 sur tous les fichiers cron.d
 
-### Suricata
+<h3 align="center">Suricata</h3>
 ```bash
 suricata-update                   # téléchargement règles ET
 systemctl reload suricata
@@ -263,7 +263,7 @@ tail -5 /var/log/suricata/suricata.log  # pas d'erreur AF_PACKET
 - [ ] Suricata rechargé sans erreur
 - [ ] Log ne contient pas "rp_filter" warning
 
-### AIDE
+<h3 align="center">AIDE</h3>
 ```bash
 aide --init                       # 1-2 min
 mv /var/lib/aide/aide.db.new.gz /var/lib/aide/aide.db.gz
@@ -272,7 +272,7 @@ aide --check                      # 0 changement
 - [ ] `aide --init` termine sans erreur
 - [ ] `aide --check` → aucune modification détectée
 
-### Clés API
+<h3 align="center">Clés API</h3>
 ```bash
 grep -v "^#" /etc/nginx/api-keys.conf  # NVD_API_KEY + ABUSEIPDB_API_KEY présentes
 stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
@@ -280,7 +280,7 @@ stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
 - [ ] api-keys.conf présent avec les deux clés
 - [ ] Permissions 600 root:root
 
-### Dashboard SOC
+<h3 align="center">Dashboard SOC</h3>
 - [ ] http://<SRV-NGIX-IP>:8080/ charge sans erreur JS
 - [ ] ThreatScore affiché (pas N/A)
 - [ ] Tuile Services : nginx/crowdsec/suricata/fail2ban tous verts
@@ -288,7 +288,7 @@ stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
 
 ---
 
-## Récapitulatif fichiers sensibles à protéger
+<h2 align="center">Récapitulatif fichiers sensibles à protéger</h2>
 
 | Fichier | Risque | Action |
 |---------|--------|--------|
@@ -304,7 +304,7 @@ stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
 
 ---
 
-## Commandes de vérification rapide (one-liner)
+<h2 align="center">Commandes de vérification rapide (one-liner)</h2>
 
 ```bash
 # Vérifier que l'archive est complète (16 blocs attendus)

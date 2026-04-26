@@ -48,9 +48,9 @@
 
 ---
 
-## Contenu vérifié — bloc par bloc
+<h2 align="center">Contenu vérifié — bloc par bloc</h2>
 
-### network/ ✅ (nouveau — BLOC 0)
+<h3 align="center">network/ ✅ (nouveau — BLOC 0)</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `interfaces` | `/etc/network/interfaces` (IP <SRV-NGIX-IP>, GW .254, DNS) | ✅ |
@@ -72,7 +72,7 @@
 
 > `rp_filter=2` dans `sysctl.d/99-hardening.conf` est **critique** pour Suricata AF_PACKET.
 
-### nginx/ ✅
+<h3 align="center">nginx/ ✅</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `nginx.conf` | `/etc/nginx/nginx.conf` | ✅ |
@@ -83,7 +83,7 @@
 | `geoip/` | `/usr/share/GeoIP/` (3 fichiers .mmdb) | ✅ |
 | `letsencrypt/` | `/etc/letsencrypt/` (40 fichiers) | ✅ ⚠️ clés privées incluses |
 
-### crowdsec/ ✅
+<h3 align="center">crowdsec/ ✅</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `config/` | `/etc/crowdsec/` (321 fichiers) | ✅ |
@@ -96,7 +96,7 @@
 | Scenarios custom | `/etc/crowdsec/scenarios/0xclt-*.yaml` (3 fichiers) | ✅ inclus dans config/ |
 | Parsers custom | `/etc/crowdsec/parsers/s02-enrich/whitelist-lan.yaml` | ✅ inclus dans config/ |
 
-### fail2ban/ ✅
+<h3 align="center">fail2ban/ ✅</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `jail.local` | `/etc/fail2ban/jail.local` | ✅ |
@@ -105,7 +105,7 @@
 | `action.d/` | `/etc/fail2ban/action.d/` (67 fichiers) | ✅ |
 | `action.d/crowdsec-sync.conf` | Custom — clé chaîne défense F2B→CS | ✅ |
 
-### suricata/ ✅
+<h3 align="center">suricata/ ✅</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `suricata.yaml` | `/etc/suricata/suricata.yaml` | ✅ |
@@ -115,33 +115,33 @@
 > Les ~106k règles Emerging Threats ne sont PAS dans l'archive.  
 > Elles sont retéléchargées via `suricata-update` lors de la restauration.
 
-### rsyslog/ ✅
+<h3 align="center">rsyslog/ ✅</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `rsyslog.conf` | `/etc/rsyslog.conf` | ✅ |
 | `rsyslog.d/` | `/etc/rsyslog.d/` (2 fichiers) | ✅ |
 
-### apparmor/ ✅
+<h3 align="center">apparmor/ ✅</h3>
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `usr.sbin.nginx` | `/etc/apparmor.d/usr.sbin.nginx` | ✅ |
 | `usr.bin.suricata` | `/etc/apparmor.d/usr.bin.suricata` | ✅ |
 | `aa-status.json` | `aa-status --json` | ✅ |
 
-### ufw/ ✅
+<h3 align="center">ufw/ ✅</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `/etc/ufw/` complet | 22 fichiers (before.rules, after.rules, user.rules...) | ✅ |
 | `ufw-status-verbose.txt` | `ufw status verbose` | ✅ |
 
-### scripts/ ✅
+<h3 align="center">scripts/ ✅</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `opt-site-01/` | `/opt/site-01/` (72 fichiers) | ✅ |
 | `usr-local-bin/pve-monitor-write` | `/usr/local/bin/pve-monitor-write` | ✅ |
 | `dashboard/` | `/var/www/monitoring/` (HTML+JS+CSS, sans .json live) | ✅ |
 
-### crons/ ✅
+<h3 align="center">crons/ ✅</h3>
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `cron.d/aide-soc` | AIDE vérification 03h00 | ✅ |
@@ -157,35 +157,35 @@
 | `cron.d/ufw-snapshot` | Snapshot UFW toutes les heures | ✅ |
 | `crontab-root.txt` | `crontab -l` (vide — crons dans cron.d) | ✅ |
 
-### systemd/ ✅
+<h3 align="center">systemd/ ✅</h3>
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `soc-report-trigger.service` | Service custom SOC | ✅ |
 | `sshd.service` | SSH config custom (port <SSH-PORT>) | ✅ |
 | `services-actifs.txt` | `systemctl list-units` (référence) | ✅ |
 
-### aide/ ✅
+<h3 align="center">aide/ ✅</h3>
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `/etc/aide/` | 247 fichiers (aide.conf + règles) | ✅ |
 | `aide.db.gz` | `/var/lib/aide/aide.db.gz` | ⚠️ absent (recalculée après restore) |
 
-### logrotate/ ✅
+<h3 align="center">logrotate/ ✅</h3>
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `/etc/logrotate.d/` | 20 fichiers (nginx, fail2ban, suricata...) | ✅ |
 
-### geoip/ ✅
+<h3 align="center">geoip/ ✅</h3>
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `GeoIP.conf` | `/etc/GeoIP.conf` (Account ID + License Key MaxMind) | ✅ ⚠️ sensible |
 
-### api-keys/ ✅ (nouveau — v3+)
+<h3 align="center">api-keys/ ✅ (nouveau — v3+)</h3>
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `api-keys.conf` | `/etc/nginx/api-keys.conf` (NVD_API_KEY + ABUSEIPDB_API_KEY) | ✅ ⚠️ sensible |
 
-### ssh/ ✅
+<h3 align="center">ssh/ ✅</h3>
 | Fichier | Source | Statut |
 |---------|--------|--------|
 | `authorized_keys` | `/root/.ssh/authorized_keys` (clé pve-monitor) | ✅ ⚠️ sensible |
@@ -193,7 +193,7 @@
 | `id_site-02_sync` + `.pub` | `/root/.ssh/id_site-02_sync` (connexion site-02) | ✅ ⚠️ clé privée |
 | `id_proxmox_sync` + `.pub` | `/root/.ssh/id_proxmox_sync` (connexion pve) | ✅ ⚠️ clé privée |
 
-### metadata/ ✅
+<h3 align="center">metadata/ ✅</h3>
 | Fichier | Contenu |
 |---------|---------|
 | `versions.txt` | Versions nginx, crowdsec, suricata, fail2ban, rsyslog, apparmor, aide |
@@ -203,7 +203,7 @@
 
 ---
 
-## Fichiers sensibles dans l'archive
+<h2 align="center">Fichiers sensibles dans l'archive</h2>
 
 | Fichier | Sensibilité | Raison |
 |---------|------------|--------|
@@ -219,7 +219,7 @@
 
 ---
 
-## Ce que l'archive NE contient PAS (intentionnel)
+<h2 align="center">Ce que l'archive NE contient PAS (intentionnel)</h2>
 
 | Élément | Raison |
 |---------|--------|
@@ -232,7 +232,7 @@
 
 ---
 
-## Flux restauration plug-and-play
+<h2 align="center">Flux restauration plug-and-play</h2>
 
 ```
 1. Nouvelle VM Debian 13 — IP <SRV-NGIX-IP> — port SSH 22 (temporaire)
@@ -247,7 +247,7 @@
 
 ---
 
-## Utilisation par blocs
+<h2 align="center">Utilisation par blocs</h2>
 
 ```bash
 # Simulation complète

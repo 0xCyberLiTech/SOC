@@ -42,7 +42,7 @@
 
 ---
 
-## Principe : Défense en profondeur
+<h2 align="center">Principe : Défense en profondeur</h2>
 
 Chaque couche opère **indépendamment**. Si une couche est contournée, les suivantes continuent à opérer. L'attaquant doit franchir 8 obstacles distincts.
 
@@ -68,16 +68,16 @@ INTERNET
 
 ---
 
-## [1] UFW + nftables bouncer
+<h2 align="center">[1] UFW + nftables bouncer</h2>
 
-### UFW (pare-feu Linux)
+<h3 align="center">UFW (pare-feu Linux)</h3>
 - **Default** : `deny incoming` · `deny outgoing` · `disabled routed`
 - SSH port <SSH-PORT> : LAN uniquement (<LAN-SUBNET> + <ROUTER-SUBNET>)
 - Dashboard :8080 : LAN uniquement
 - rsyslog :514 : LAN uniquement
 - 80/443 : public
 
-### nftables bouncer CrowdSec
+<h3 align="center">nftables bouncer CrowdSec</h3>
 Trois sets nftables gérés automatiquement :
 - `crowdsec_blacklists` — IPs bannies via CAPI (communauté mondiale)
 - `crowdsec_cscli` — IPs bannies manuellement ou par JARVIS
@@ -85,9 +85,9 @@ Trois sets nftables gérés automatiquement :
 
 ---
 
-## [2] CrowdSec LAPI + Fail2ban
+<h2 align="center">[2] CrowdSec LAPI + Fail2ban</h2>
 
-### CrowdSec — 8 collections actives
+<h3 align="center">CrowdSec — 8 collections actives</h3>
 
 | Collection | Rôle |
 |-----------|------|
@@ -100,7 +100,7 @@ Trois sets nftables gérés automatiquement :
 | `crowdsecurity/whitelist-good-actors` | Bots légitimes (Googlebot...) |
 | AppSec WAF | 207 vpatch CVE + OWASP CRS (module inline) |
 
-### Fail2ban — 3 jails (rôle : détecteur → alimente CrowdSec)
+<h3 align="center">Fail2ban — 3 jails (rôle : détecteur → alimente CrowdSec)</h3>
 Depuis 2026-04-12, Fail2ban ne gère plus les bans nftables directement.
 Il parse les logs et transmet à CrowdSec via `crowdsec-sync`.
 
@@ -112,7 +112,7 @@ Il parse les logs et transmet à CrowdSec via `crowdsec-sync`.
 
 ---
 
-## [3] AppSec WAF CrowdSec
+<h2 align="center">[3] AppSec WAF CrowdSec</h2>
 
 - **207 vpatch CVE** actifs (correctifs virtuels pour vulnérabilités connues)
 - **OWASP Core Rule Set** — protection SQLi, XSS, LFI, RFI, traversal
@@ -121,7 +121,7 @@ Il parse les logs et transmet à CrowdSec via `crowdsec-sync`.
 
 ---
 
-## [4] Suricata IDS
+<h2 align="center">[4] Suricata IDS</h2>
 
 - **Mode** : IDS (détection + log, pas de blocage inline)
 - **Règles** : 106 789 (Emerging Threats Pro + ET Open)
@@ -135,7 +135,7 @@ Alertes classées : sév.1 (critique), sév.2 (élevée), sév.3 (info)
 
 ---
 
-## [5] AppArmor — confinement processus
+<h2 align="center">[5] AppArmor — confinement processus</h2>
 
 9 profils en mode **enforce** (actif + bloquant) :
 
@@ -150,7 +150,7 @@ Si nginx ou Suricata tente d'accéder à des ressources interdites → blocage +
 
 ---
 
-## [6] nginx — Headers sécurité
+<h2 align="center">[6] nginx — Headers sécurité</h2>
 
 Tous présents sur HTTPS (vérifiés) :
 
@@ -166,7 +166,7 @@ Tous présents sur HTTPS (vérifiés) :
 
 ---
 
-## [7] SOC Dashboard
+<h2 align="center">[7] SOC Dashboard</h2>
 
 - **ThreatScore** : calcul temps réel 0-100 (24 briques, voir doc 06)
 - **Kill Chain MITRE ATT&CK** : RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ
@@ -176,7 +176,7 @@ Tous présents sur HTTPS (vérifiés) :
 
 ---
 
-## [8] JARVIS IA — Réponse autonome
+<h2 align="center">[8] JARVIS IA — Réponse autonome</h2>
 
 Boucle 60s permanente (voir doc 08) :
 - Ban auto IPs critiques → CrowdSec
@@ -186,7 +186,7 @@ Boucle 60s permanente (voir doc 08) :
 
 ---
 
-## Matrice couverture par vecteur d'attaque
+<h2 align="center">Matrice couverture par vecteur d'attaque</h2>
 
 | Vecteur | Couches actives |
 |---------|----------------|

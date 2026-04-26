@@ -47,16 +47,16 @@
 
 ---
 
-## Prérequis
+<h2 align="center">Prérequis</h2>
 
-### VM à préparer (nouveau srv-ngix)
+<h3 align="center">VM à préparer (nouveau srv-ngix)</h3>
 - OS : **Debian 13 (Trixie)** installation minimale
 - IP : **<SRV-NGIX-IP>** (configurée pendant l'install Debian — DHCP ou statique, peu importe pour l'instant)
 - SSH : port **22** (par défaut — sera changé à <SSH-PORT> par le script de restauration)
 - Accès : root avec mot de passe (le script SSH clés sera restauré)
 - Réseau : accessible depuis votre poste Windows
 
-### Fichiers à avoir sur Windows
+<h3 align="center">Fichiers à avoir sur Windows</h3>
 - **Archive** : `D:\BACKUP-PROXMOX\soc-config-AAAA-MM-JJ.tar.gz` (38 Mo)
 - **Dossier DEPLOY** : `C:\Users\mmsab\Documents\0xCyberLiTech\SOC\docs\PROJET-SOC\DEPLOY\`
   - `deploy-soc.sh` — installe les paquets (nginx, crowdsec, suricata...)
@@ -64,7 +64,7 @@
 
 ---
 
-## Étape 1 — Transférer les fichiers sur la nouvelle VM
+<h2 align="center">Étape 1 — Transférer les fichiers sur la nouvelle VM</h2>
 
 Depuis **Git Bash sur Windows** :
 
@@ -95,7 +95,7 @@ scp "${ARCHIVE}" root@${NEW_VM}:/root/deploy-soc/
 
 ---
 
-## Étape 2 — Se connecter à la nouvelle VM
+<h2 align="center">Étape 2 — Se connecter à la nouvelle VM</h2>
 
 ```bash
 ssh root@<SRV-NGIX-IP>
@@ -104,7 +104,7 @@ cd /root/deploy-soc
 
 ---
 
-## Étape 3 — Installer les paquets (deploy-soc.sh)
+<h2 align="center">Étape 3 — Installer les paquets (deploy-soc.sh)</h2>
 
 ```bash
 # Simulation d'abord (sans rien modifier)
@@ -118,7 +118,7 @@ bash deploy-soc.sh
 
 ---
 
-## Étape 4 — Simuler la restauration (--dry-run)
+<h2 align="center">Étape 4 — Simuler la restauration (--dry-run)</h2>
 
 ```bash
 bash restore-soc.sh soc-config-2026-04-25_2159.tar.gz --dry-run
@@ -131,7 +131,7 @@ bash restore-soc.sh soc-config-2026-04-25_2159.tar.gz --dry-run
 
 ---
 
-## Étape 5 — Restaurer toutes les configurations
+<h2 align="center">Étape 5 — Restaurer toutes les configurations</h2>
 
 ```bash
 bash restore-soc.sh soc-config-2026-04-25_2159.tar.gz
@@ -159,7 +159,7 @@ Le script restaure dans l'ordre :
 
 ---
 
-## Étape 6 — Rebooter
+<h2 align="center">Étape 6 — Rebooter</h2>
 
 ```bash
 reboot
@@ -169,7 +169,7 @@ reboot
 
 ---
 
-## Étape 7 — Reconnexion sur le bon port
+<h2 align="center">Étape 7 — Reconnexion sur le bon port</h2>
 
 Depuis **Git Bash sur Windows** (après le reboot) :
 
@@ -179,7 +179,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP>
 
 ---
 
-## Étape 8 — Validation finale
+<h2 align="center">Étape 8 — Validation finale</h2>
 
 ```bash
 # Services actifs ?
@@ -195,7 +195,7 @@ cscli decisions list | head -5
 cscli bouncers list
 ```
 
-### Accès dashboard SOC (depuis n'importe quel PC du LAN)
+<h3 align="center">Accès dashboard SOC (depuis n'importe quel PC du LAN)</h3>
 
 | URL | Description | Disponible sans JARVIS ? |
 |-----|-------------|--------------------------|
@@ -208,7 +208,7 @@ Suivre ensuite la **CHECKLIST-DEPLOY.md** (61 points de validation).
 
 ---
 
-## En cas de problème — Rollback
+<h2 align="center">En cas de problème — Rollback</h2>
 
 Le script `restore-soc.sh` crée automatiquement une sauvegarde avant d'écraser quoi que ce soit :
 ```
@@ -229,7 +229,7 @@ bash restore-soc.sh archive.tar.gz --step crons
 
 ---
 
-## Récapitulatif des commandes (copier-coller)
+<h2 align="center">Récapitulatif des commandes (copier-coller)</h2>
 
 ```bash
 # ─── Depuis Git Bash Windows ──────────────────────────────────────────
