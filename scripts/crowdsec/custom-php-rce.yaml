@@ -1,0 +1,33 @@
+type: leaky
+name: <GITHUB-USER>/http-php-rce
+description: "Detect PHP-CGI RCE (CVE-2024-4577 soft-hyphen), PHP Remote File Include, CGI path traversal"
+filter: >
+  evt.Meta.service == 'http' &&
+  (
+    evt.Meta.http_path contains 'allow_url_include'  ||
+    evt.Meta.http_path contains 'auto_prepend_file'  ||
+    evt.Meta.http_path contains 'php://input'        ||
+    evt.Meta.http_path contains 'php://filter'       ||
+    evt.Meta.http_path contains 'php://fd'           ||
+    evt.Meta.http_path contains '/cgi-bin/'          ||
+    evt.Meta.http_path contains '/bin/sh'            ||
+    evt.Meta.http_path contains '/bin/bash'          ||
+    evt.Meta.http_path contains '%ADd+'              ||
+    evt.Meta.http_path contains 'passthru('          ||
+    evt.Meta.http_path contains 'system('            ||
+    evt.Meta.http_path contains 'base64_decode('     ||
+    evt.Meta.http_path contains 'eval('              ||
+    evt.Meta.http_path contains 'assert('
+  )
+groupby: evt.Meta.source_ip
+leakspeed: "10s"
+capacity: 1
+blackhole: 10m
+labels:
+  service: http
+  type: exploit
+  remediation: true
+  confidence: 4
+  spoofable: 0
+  behavior: "http:exploit"
+  label: "PHP-CGI RCE / RFI (CVE-2024-4577)"

@@ -1,0 +1,41 @@
+type: leaky
+name: <GITHUB-USER>/http-bad-useragent
+description: "Detect known scanner/tool User-Agents (zgrab, masscan, nuclei, nikto, sqlmap, dirbuster, gobuster, etc.)"
+filter: >
+  evt.Meta.service == 'http' &&
+  (
+    evt.Meta.http_user_agent contains 'zgrab'         ||
+    evt.Meta.http_user_agent contains 'masscan'       ||
+    evt.Meta.http_user_agent contains 'nuclei'        ||
+    evt.Meta.http_user_agent contains 'nikto'         ||
+    evt.Meta.http_user_agent contains 'sqlmap'        ||
+    evt.Meta.http_user_agent contains 'dirbuster'     ||
+    evt.Meta.http_user_agent contains 'gobuster'      ||
+    evt.Meta.http_user_agent contains 'wfuzz'         ||
+    evt.Meta.http_user_agent contains 'ffuf'          ||
+    evt.Meta.http_user_agent contains 'feroxbuster'   ||
+    evt.Meta.http_user_agent contains 'dirb'          ||
+    evt.Meta.http_user_agent contains 'nmap'          ||
+    evt.Meta.http_user_agent contains 'libwww-perl'   ||
+    evt.Meta.http_user_agent contains 'Python-urllib' ||
+    evt.Meta.http_user_agent contains 'Go-http-client/1.1' ||
+    evt.Meta.http_user_agent contains 'WPScan'        ||
+    evt.Meta.http_user_agent contains 'Acunetix'      ||
+    evt.Meta.http_user_agent contains 'Nessus'        ||
+    evt.Meta.http_user_agent contains 'OpenVAS'       ||
+    evt.Meta.http_user_agent contains 'w3af'          ||
+    evt.Meta.http_user_agent contains 'Havij'         ||
+    evt.Meta.http_user_agent contains 'ZAP/'
+  )
+groupby: evt.Meta.source_ip
+leakspeed: "30s"
+capacity: 2
+blackhole: 5m
+labels:
+  service: http
+  type: scan
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  behavior: "http:scan"
+  label: "Known scanner User-Agent"

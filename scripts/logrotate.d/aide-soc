@@ -1,0 +1,10 @@
+/var/log/aide/aide.log {
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    maxsize 10M
+    create 640 root root
+}

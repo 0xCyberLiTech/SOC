@@ -1,0 +1,146 @@
+<!-- monitoring-index.html — v3.97.155 Date: 2026-04-25 Changelog: v3.97.152 — Passe 82 NDT-216→220 : 09-modals-core.js v.cpu/v.mem_pct ||0 + ifc.name guard · 07-render.js iface.name guard + font-size:7px→var(--fs-3xs) · soc-menu.sh changelog nettoyé | v3.97.151 — Passe 81 NDT-207→215 : 22-ip-deep.js 8 gardes ||0/||'—' champs numériques (cs.alerts_30d/f2b.total_records/abn.count/r.nginx_hits/cs.count/r.ts) · 07-render.js NDT-215 gpuVU/gpuVT ||0 (NaN Go fix) | v3.97.150 — AbuseIPDB supprimé intégralement : 22-ip-deep.js réécriture (GeoIP+CrowdSec+Fail2ban+WHOIS/ASN · verdict local · scénarios décodés · zéro quota) · jail.local nftables seul · cron abuseipdb-stats retiré · 02-canvas-kc/07-render nettoyés | v3.97.17 — Tuile PROTOCOLES ACTIFS refondée : arc gauge SVG santé trafic + 2 colonnes légitimes/menaces + badges (07-render) · suppression donut tuile + buildProtoLegend + buildProtoTopThreats + buildSuricataProtoBar + drawProtocolDonut + _clDrawProtoDonut (05-canvas-leaflet) · live refresh _refreshProtoTile (17-fetch) · détection modal #proto-health-arc (09-modals-core) · v3.97.16 — NDT-132 10-modals-win: ds.used_gb||0 / ds.quota_gb||0 guards dans datasets loop (calc % + affichage) · v3.97.15 — Modal SAUVEGARDES 2 onglets : ◎ PROXMOX→TRUENAS (NFS backups · schedule · NAS pool · intégrité) + ◫ WINDOWS D:\ (sauvegardes manuelles à la demande · quota) · tab switcher event delegation · v3.97.14 — Tuile+modal SAUVEGARDES : logique unique TrueNAS NFS vzdump (arc NFS data/backups + pool total · zone À LA DEMANDE D:\ · schedule Dim.02h00 keep-3 · NFS window 01h55→02h30) · suppression zone AUTO D:\ + tâche Windows (07-render + 10-modals-win) · cron TrueNAS 01h55/02h30 |  Changelog: v3.97.12 — TrueNAS SSH port:null→parseInt(SOC_INFRA.SSH_PORT) tuile SSH infra (07-render) · v3.97.11 — NDT-130 18-jarvis-chat:516 e.text||'' guard (localStorage history entry) · score 10/10 · v3.97.10 — drawReqCurve enrichi : PAD_L axe Y + graduation dynamique (nice numbers) + fond verre + annotation pic (diamant ▲ val/h) + curseur NOW bord droit + label req/h · v3.97.9 — ACTIVITÉ TEMPS RÉEL : suppression définitive CPU/RAM/DSK gauges + RX/TX sparklines (tuile + modal) | v3.97.8 — integrityRow NAS : grid 4 col symétriques label/val stackés + uptime · IP investigation intégrée KC (kc-deep-btn hover + kci-btn-deep + popup header) · tuile standalone supprimée | v3.97.7 — vmDots symétrie (07-render) : _zoneBox helper · même poids visuel MANUEL(cyan)/AUTO(vert) · séparateur header | v3.97.6 — 18-jarvis-ui CVE label dynamique t.banExploitMin (was hardcoded "1 tentative") | v3.97.5 — VM list dynamique (07-render + 10-modals-win) : union Object.keys(manual∪auto).sort() — zéro hardcode | v3.97.1 — HEATMAP ATTAQUES 24H extraite en tuile dédiée wide (07-render) | v3.97.0 — INVESTIGATION IP : tuile 22-ip-deep.js · route /api/soc/ip-deep (soc.py) · GeoIP+CrowdSec+Fail2ban+rsyslog+WHOIS · ban permanent/temp/unban inline · 7j fenêtre unifiée |  Changelog: v3.96.7 — openRsyslogModal h+= dette A soldée (07-render) · score 10/10 | v3.96.6 — XDR COLLECT flex:0 0 300px fix chevauchement (19-xdr) | v3.96.5 — XDR layout overflow-x:auto + widths fixes (19-xdr) | v3.96.4 — XDR COLLECT grid 2 colonnes 300px + semantic pairs (19-xdr) | v3.96.3 — XDR brique APACHE VMs ajoutée + 12 sources (19-xdr) | v3.96.2 — XDR brique AP wire CSS + events APACHE_ATTACK (19-xdr) | v3.96.1 — XDR TypeError router_dst forEach fix + port 514 known (14-modal-firewall + 19-xdr) | v3.96.0 — Apache syslog clt+pa85 centralisé : apache_access.log via local7.info → /var/log/central · cross-host correlation apache_hits · XDR events APACHE_ATTACK · kill chain apache_vms badge | v3.95.9 — XDR 2 nouvelles sources : ⊙RTR routeur + ⊛VM fail2ban VMs (CSS wires + events + logigramme) · computeThreatScore : C2 sortant max 15pts + bans VMs + rsyslog DOWN | v3.95.8 — Kill chain confiance 6 sources : +⊙RTR routeur +⊛VM fail2ban VMs · modal investigation 6 sources · barre conf 6 pips (07-render + 02-canvas-kc) | v3.95.7 — Migration fail2ban : get_local_fail2ban() fallback SSH → /var/log/central/ · get_remote_fail2ban() hybride | v3.95.6 — Corrélation fail2ban VMs : f2b_bans clt+pa85 → badge ⊛VM kill chain · fail2ban.local SYSLOG clt+pa85 | v3.95.5 — Modal LOGS CENTRAUX (openRsyslogModal · recent_lines · router_top_dst · handler 11-bind) | v3.95.4 — Corrélation cross-hôtes : get_cross_host_correlation() · badges ⊙RTR/⚠C2 kill chain · compteur LOGS CENTRAUX · _main_enrich_crosshost | v3.95.3 — LOGS CENTRAUX : ajout GT-BE98 routeur (5 hôtes) | v3.95.2 — LOGS CENTRAUX : ajout hôte truenas (4 hôtes) · monitoring_gen + 07-render | v3.95.1 — Tuile LOGS CENTRAUX verbeux : taille/hôte · L/min · espace libre · dernière rotation · en-têtes colonnes · ?v=3.96.0 | v3.95.0 — Tuile LOGS CENTRAUX rsyslog · service/hôtes/disque/délai | v3.94.1 — GeoIP modal enrichi (openGeoModal 06-canvas-geomap : 6 stat-boxes glassmorphism · carte 400px · grille kill-chain/pays/scénarios/IPs) · Backup tile segmenté MANUEL/AUTO (07-render) · Backup modal dynamique nextRun+quota (10-modals-win) · DT-I cache-busters ?v=3.96.0 uniformes 25 ressources · chemin déploiement js/ + css/ corrigé · score 10/10 | v3.94.0 — P-A 21-truenas.js supprimé (IIFE sans export — dead code complet, TrueNAS intégré dans 07-render OSSH) · P-B/C/D/E déjà soldés · score 10/10 | v3.93.17 — N1 var _lfMap/_lfMarkers supprimés 04-canvas-misc · N2 var _jvActiveModel supprimé 17-fetch · score 10/10 | v3.93.16 — P5 annulée (ReferenceError strict mode bare-assign) · P1-P4 soldés | v3.93.15 — P4 IPs hardcodées→SOC_INFRA dans 21-truenas.js (9 occ.) + footer index.html via span+11-bind | v3.93.14 — P3 var _winCpuHistory/_winGpuHistory/_winVramHistory supprimés 10-win (remplacés par shims _SOC) | v3.93.13 — P2 computeThreatScore+_BOT_JAILS+_f2bNonBotBanned déplacés 05→01-utils · P1 KC_PALETTE centralisé 01-utils (02/03/05/06) | v3.93.9 — F1 'use strict' ajouté 17 modules JS (01→17) · score 10/10 dette 0 | v3.93.8 — E1 except bare→ValueError/TypeError (monitoring_gen:1092) · E2 catch(e) documenté QuotaExceededError (07-render) · E3 catch(e) documenté AudioContext (18-jarvis-chat) · E4 <SRV-NGIX-IP>→SOC_INFRA.SRV_NGIX (19-xdr popup) · E5 <SRV-NGIX-IP>→SOC_INFRA.SRV_NGIX (20-aide titre) | v3.93.7 — C1 localStorage('soc_ai')→_LS_KEYS.SOC_AI (19-xdr) · C2 _FW_SNAP_KEY supprimé→_LS_KEYS.JV_FW_SNAPS (18-jarvis-ui) · C3 except bare→PermissionError/LookupError/OSError (proto-live.py) | v3.93.6 — B1 _esc() doublon supprimé 20-aide→esc() global · B2 localhost:5000→JV_URL (16b+19-xdr — fix IPv6 latent) · B3 IPs hardcodées→SOC_INFRA.CLT/PA85 (16b) | v3.93.5 — Dette technique P1/A1-A4 : except bare→ValueError/TypeError (monitoring_gen) · purge classes stale avant ouverture XDR (19-xdr) · 4 catch(e){} Leaflet documentés (05-leaflet) · fallback 49945 hardcodé retiré (20-aide) · 03-canvas-kci IIFE+strict+deps | v3.93.4 — Tuile AIDE : 20-aide.js intégrité fichiers (base 49 295 entrées · exclusions JSON+hub CrowdSec) · monitoring_gen.py get_aide_status() | v3.93.3 — Audit passe 18 : TTS durée _durToTTS() 18-jarvis-engine (24h/48h/72h→texte parlé) · soc.py _dur_to_tts() backend | v3.93.2 — Audit 16b : A1 .dc-node:hover doublon CSS supprimé · A2 .75rem→var(--fs-xs) dc-branch-ico | v3.93.1 — CHAÎNE DE DÉFENSE : modal SOC restauré — suppression de tous les blocages (data-no-modal + guards) | v3.92.9 — Audit passe 16 : F4 font-size:.95rem→var(--fs-md) 16b-defense-chain · score 10/10 | v3.92.8 — CHAÎNE DE DÉFENSE : suppression modal principal + popup nœuds (11-bind + 16b) | v3.92.7 — Suppression popup nœuds CHAÎNE DE DÉFENSE (16b) | v3.92.7 — Audit passe 15 : F3 font-size:9px→calc(var(--fs-xs)-2px) 18-jarvis-engine ×2 · X3 esc(getVal) 16b-defense-chain · score 10/10 | v3.92.7 — ModSec enrichi : mode BLOCAGE/DÉTECTION + blocs 1h/24h + attaques/FP dans chaîne défense + tuile protection (monitoring_gen.py v3.6.0) | v3.92.7 — Audit passe 14 : XSS esc(model) 19-xdr · font-size var(--fs-*) 19-xdr+16b · onclick→data-* 19-xdr · esc(m.v) 16b popup · cache-busters uniformes | v3.92.7 — DT-C 02-canvas-kc · TTS fix dedup · map gzip+cache | v3.91.3 — DT-E · DT-F · dead code | v3.91.2 — DT-A JV_URL · DT-B 13×AbortSignal | v3.91.1 — BUG fixes NDT-99 | v3.91.0 — NDT-95→98 | v3.90.0→v3.90.8 -->
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<title>0xCyberLiTech — SOC Monitor</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="css/monitoring.css?v=3.97.30">
+<link id="leaflet-css" rel="stylesheet" href="" data-src="/libs/leaflet/leaflet.css" disabled>
+</head>
+<body>
+<div class="scanlines"></div>
+<!-- ── LEAFLET FULLSCREEN OVERLAY (hors tuile, jamais détruit par les refreshs) ── -->
+<div id="lf-fullscreen">
+  <div id="lf-topbar">
+    <div id="lf-topbar-left">
+      <span id="lf-live-dot"></span>
+      <span id="lf-topbar-title">&#9670; SOC MAP</span>
+      <span id="lf-ip-count"></span>
+      <span id="lf-refresh-at" style="font:var(--fs-xs) 'Courier New';color:rgba(0,255,136,.35)"></span>
+    </div>
+    <div id="lf-threat-bar"></div>
+    <div id="lf-topbar-right">
+      <span id="lf-time"></span>
+      <button id="lf-close-btn">ESC &nbsp;&#10005;</button>
+    </div>
+  </div>
+  <div id="lf-map-container"></div>
+  <div id="lf-bottombar"></div>
+</div>
+<div class="page">
+
+<div class="header">
+  <div class="header-left">
+    <div>
+      <div class="logo-text"><span class="logo-bracket">[</span> 0xCyberLiTech <span class="logo-bracket">]</span></div>
+      <div class="logo-sub">SOC MONITORING DASHBOARD — srv-ngix</div>
+    </div>
+    <div class="status-pill"><span class="status-dot-sm"></span>ONLINE</div>
+  </div>
+  <div class="header-center">
+    <button class="fw-btn hdr-btn" id="fw-btn">&#9632; FIREWALL</button>
+    <button class="tr-btn hdr-btn" id="tr-btn">&#9672; TRAFIC</button>
+    <button class="rpt-btn hdr-btn" id="rpt-btn" title="Envoyer le rapport SOC maintenant [E]">&#9993; RAPPORT</button>
+    <button class="hdr-btn" id="pro-ping-btn" style="border-color:rgba(0,255,136,0.3);color:rgba(0,255,136,0.8);background:rgba(0,255,136,0.04)">&#11042; PING JARVIS</button>
+    <button class="hdr-btn" id="ip-deep-hdr-btn" style="border-color:rgba(0,217,255,0.3);color:rgba(0,217,255,0.8);background:rgba(0,217,255,0.04)" title="Investigation IP approfondie [I]">&#10753; IP</button>
+    <button class="fs-btn" id="fs-btn" title="Mode projection SOC [Z]">&#9633;</button>
+  </div>
+  <div class="header-right">
+    <div class="header-clock">
+      <div class="soc-clock" id="soc-clock">--:--:--</div>
+      <div class="gen-time">LAST UPDATE <span id="gen-at">—</span></div>
+      <div class="refresh-track"><div class="refresh-fill" id="fill"></div></div>
+    </div>
+    <div id="hdr-jarvis"></div>
+  </div>
+</div>
+
+<div class="as-strip ok" id="as-strip">
+  <span class="as-lbl ok" id="as-lbl">◉ NOMINAL</span>
+  <span id="as-items"><span class="as-tag as-ok">✓ EN ATTENTE DES DONNÉES...</span></span>
+  <div class="as-r">
+    <span class="fr-dot" id="fr-dot"></span>
+    <span id="as-age">—</span>
+  </div>
+</div>
+<div class="summary" id="summary"></div>
+<div class="grid" id="grid">
+  <div class="card wide loading-card">INITIALISATION...</div>
+</div>
+
+<!-- MODAL OVERLAY -->
+<div class="modal-overlay" id="overlay">
+  <div class="modal-card" id="modal-card">
+    <div class="corner bl"></div><div class="corner br"></div>
+    <div class="modal-header">
+      <span class="modal-header-title" id="modal-header-title">// DÉTAIL</span>
+      <button class="modal-close" id="modal-close" title="Fermer [Esc]">&#215; ESC</button>
+    </div>
+    <div class="modal-body-inner" id="modal-body"></div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="footer-left">srv-ngix &mdash; <span id="footer-srv-ip"><SRV-NGIX-IP></span>:8080 &mdash; LAN ONLY &mdash; <span id="footer-lan-cidr"><LAN-CIDR></span></div>
+  <a class="goa-btn" href="/goaccess.html" target="_blank" rel="noopener noreferrer">&#62; RAPPORT GOACCESS</a>
+</div>
+
+</div>
+
+<div id="ip-deep-popup" style="display:none;position:fixed;top:3.8rem;right:1.5rem;z-index:9500;background:#0c1822;border:1px solid rgba(0,217,255,.4);border-radius:4px;padding:.7rem;box-shadow:0 6px 30px rgba(0,0,0,.85);min-width:330px">
+  <div style="font-size:calc(var(--fs-xs) - 1px);color:rgba(0,217,255,.5);font-family:'Courier New',monospace;letter-spacing:.8px;margin-bottom:.4rem;text-transform:uppercase">&#10753; Investigation IP — 30 jours</div>
+  <div style="display:flex;gap:.4rem;align-items:center">
+    <input id="ip-deep-popup-input" type="text" placeholder="ex: 1.2.3.4" style="flex:1;background:rgba(0,0,0,.45);border:1px solid rgba(0,217,255,.25);border-radius:3px;color:var(--text);font-family:'Courier New',monospace;font-size:var(--fs-xs);padding:.38rem .55rem;outline:none">
+    <button id="ip-deep-popup-btn" style="background:rgba(0,217,255,.09);border:1px solid rgba(0,217,255,.35);color:var(--cyan);padding:.35rem .75rem;border-radius:3px;cursor:pointer;font-family:'Courier New',monospace;font-size:var(--fs-xs);font-weight:700;white-space:nowrap">&#10753;</button>
+    <button id="ip-deep-popup-close" style="background:transparent;border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.35);padding:.35rem .5rem;border-radius:3px;cursor:pointer;font-size:var(--fs-xs)">&#10005;</button>
+  </div>
+</div>
+<div class="map-tooltip" id="map-tip"></div>
+<div id="ip-hud">
+  <div class="ih-corner tl"></div><div class="ih-corner tr"></div>
+  <div class="ih-corner bl"></div><div class="ih-corner br"></div>
+  <div class="ih-hdr">
+    <div><span class="ih-ip" id="ih-ip-val">—</span><span class="ih-cc" id="ih-cc-val"></span></div>
+    <div class="ih-close" id="ih-close">✕</div>
+  </div>
+  <div class="ih-body" id="ih-body"></div>
+</div>
+
+<script src="js/01-utils.js?v=3.97.8"></script>
+<script src="js/02-canvas-kc.js?v=3.97.52"></script>
+<script src="js/03-canvas-kci.js?v=3.97.1"></script>
+<script src="js/04-canvas-misc.js?v=3.97.2"></script>
+<script src="js/05-canvas-leaflet.js?v=3.97.19"></script>
+<script src="js/06-canvas-geomap.js?v=3.97.49"></script>
+<script src="js/07-render.js?v=3.97.168"></script>
+<script src="js/08-modals-fbx.js?v=3.97.59"></script>
+<script src="js/09-modals-core.js?v=3.97.120"></script>
+<script src="js/10-modals-win.js?v=3.97.28"></script>
+<script src="js/11-bind.js?v=3.97.6"></script>
+<script src="js/12-router.js?v=3.97.64"></script>
+<script src="js/13-fw-fetch.js?v=3.97.55"></script>
+<script src="js/14-modal-firewall.js?v=3.97.24"></script>
+<script src="js/15-modal-traffic.js?v=3.97.25"></script>
+<script src="js/16-soc-enhancements.js?v=3.97.1"></script>
+<script src="js/16b-defense-chain.js?v=3.97.2"></script>
+<script src="js/17-fetch.js?v=3.97.20"></script>
+<script src="js/19-xdr.js?v=3.97.41"></script>
+<script src="js/20-aide.js?v=3.97.1"></script>
+<script src="js/22-ip-deep.js?v=3.97.40"></script>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     JARVIS AI EXTENSION — v1.1.0 — DT-09 : 3 modules (ui/chat/engine)
+     Extension optionnelle : SOC reste 100% opérationnel sans JARVIS
+     Activation : toggle dans l'en-tête  |  État : localStorage 'soc_ai'
+     JARVIS URL : http://localhost:5000 (Windows local, RTX 5080)
+     TTS : /api/speak — lecture vocale des réponses sur haut-parleurs Windows
+     ═══════════════════════════════════════════════════════════════════ -->
+<!-- DT-09 : 18-jarvis.js splitté en 3 modules — ordre impératif, pas de async/defer -->
+<script src="js/18-jarvis-ui.js?v=3.97.66"></script>
+<script src="js/18-jarvis-chat.js?v=3.97.61"></script>
+<script src="js/18-jarvis-engine.js?v=3.97.58"></script>
+</body>
+</html>
