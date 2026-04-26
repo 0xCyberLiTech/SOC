@@ -50,7 +50,7 @@ INTERNET
     │ HTTP/HTTPS (80/443)
     ▼
 ┌─────────────────────────────────────────────────────┐
-│  srv-ngix — <SRV-NGIX-IP>  (VM Proxmox 108)          │
+│  srv-ngix — <SRV-NGIX-IP>  (VM Proxmox 108)         │
 │                                                     │
 │  ┌──────────┐  ┌──────────────┐  ┌───────────────┐  │
 │  │  UFW     │  │  nftables    │  │  CrowdSec     │  │
@@ -96,14 +96,14 @@ INTERNET
                     └─────────────────────────┘
 
                     ┌──────────────────────────┐
-                    │ JARVIS <LAN-IP>     │
+                    │ JARVIS <LAN-IP>          │
                     │ Windows · localhost:5000 │
                     │ Ollama phi4-reasoning    │
                     └──────────────────────────┘
 
                     ┌──────────────────────┐
-                    │ Routeur <ROUTER>      │
-                    │ <ROUTER-IP>         │
+                    │ Routeur <ROUTER>     │
+                    │ <ROUTER-IP>          │
                     │ Source logs WAN/DHCP │
                     └──────────────────────┘
 ```
