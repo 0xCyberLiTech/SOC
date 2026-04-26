@@ -1,5 +1,5 @@
 #!/bin/bash
-# /opt/clt/monitoring.sh — Monitoring data refresh wrapper
+# <SCRIPTS-DIR>/monitoring.sh — Monitoring data refresh wrapper
 # Version : 1.1.0 — 2026-03-11
 # Log format nginx (v1.1) : IP [date:time TZ] "REQUEST" STATUS BYTES "REFERER" "UA" country=XX
 
@@ -17,11 +17,11 @@ fi
 echo $$ > "$LOCK"
 trap 'rm -f "$LOCK"' EXIT
 
-python3 /opt/clt/monitoring_gen.py
+python3 <SCRIPTS-DIR>/monitoring_gen.py
 
 if command -v goaccess >/dev/null 2>&1 && [ -f "$LOG_DIR/access.log" ]; then
     # CSS dans le webroot (GoAccess crée un <link href=...>, pas d'inline)
-    cp /opt/clt/goaccess-soc-theme.css /var/www/monitoring/goaccess-soc-theme.css
+    cp <SCRIPTS-DIR>/goaccess-soc-theme.css /var/www/monitoring/goaccess-soc-theme.css
     # Pipe stdin : root lit les logs (rw-r----- www-data:adm), GoAccess lit stdin
     # 14 jours : archives .gz + .1 (delaycompress) + log courant
     (zcat "$LOG_DIR"/access.log.*.gz 2>/dev/null; \

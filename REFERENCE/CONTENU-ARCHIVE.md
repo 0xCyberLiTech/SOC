@@ -146,7 +146,7 @@
 
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
-| `opt-site-01/` | `/opt/site-01/` (72 fichiers) | ✅ |
+| `opt-soc/` | `/opt/soc/` (72 fichiers) | ✅ |
 | `usr-local-bin/pve-monitor-write` | `/usr/local/bin/pve-monitor-write` | ✅ |
 | `dashboard/` | `/var/www/monitoring/` (HTML+JS+CSS, sans .json live) | ✅ |
 

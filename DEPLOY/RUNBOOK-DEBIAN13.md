@@ -119,7 +119,7 @@ SSH_KEY_PVE="<SSH-KEY-PVE>"
 DOMAIN_COM="<DOMAIN-COM>"
 DOMAIN_FR="<DOMAIN-FR>"
 MONITORING_DIR="/var/www/monitoring"
-SCRIPTS_DIR="/opt/site-01"
+SCRIPTS_DIR="/opt/soc"
 GEOIP_ACCOUNT_ID=""         # Renseigner votre MaxMind Account ID
 GEOIP_LICENSE_KEY=""        # Renseigner votre MaxMind License Key
 MAIL_DEST="admin@example.com"
@@ -841,7 +841,7 @@ Les étapes 12 (scripts) et 13 (dashboard) de `deploy-soc.sh` copient et configu
 
 ```bash
 # Vérifier que les fichiers sont bien en place
-ls -la /opt/site-01/*.py /opt/site-01/*.sh
+ls -la /opt/soc/*.py /opt/soc/*.sh
 ls -la /var/www/monitoring/js/01-utils.js
 grep "VM_IP\|CLT_IP\|PA85_IP" /var/www/monitoring/js/01-utils.js | head -5
 ```

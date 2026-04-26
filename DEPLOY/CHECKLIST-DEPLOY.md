@@ -138,8 +138,8 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 <h2 align="center">BLOC 8 — Scripts Python / Dashboard</h2>
 
-- [ ] **monitoring_gen.py** : `python3 /opt/site-01/monitoring_gen.py --dry-run` → OK, pas d'erreur
-- [ ] **Cron actif** : `crontab -l` → `*/5 * * * * /opt/site-01/monitoring.sh`
+- [ ] **monitoring_gen.py** : `python3 /opt/soc/monitoring_gen.py --dry-run` → OK, pas d'erreur
+- [ ] **Cron actif** : `crontab -l` → `*/5 * * * * /opt/soc/monitoring.sh`
 - [ ] **monitoring.json généré** : `ls -la /var/www/monitoring/monitoring.json` → < 5 min
 - [ ] **monitoring.json valide** : `python3 -c "import json; json.load(open('/var/www/monitoring/monitoring.json'))"` → OK
 - [ ] **Dashboard accessible** : `curl http://<SRV-NGIX-IP>:8080/` → HTML complet
@@ -161,7 +161,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 - [ ] **AIDE installé** : `aide --version` → version affichée
 - [ ] **Base de données** : `ls -la /var/lib/aide/aide.db.gz` → présent
-- [ ] **Cron nightly** : `crontab -l | grep aide` → 0 3 * * * /opt/site-01/aide-check.sh
+- [ ] **Cron nightly** : `crontab -l | grep aide` → 0 3 * * * /opt/soc/aide-check.sh
 - [ ] **Dernier rapport** : `ls -la /var/log/aide/aide.log` → présent, < 24h
 
 ---

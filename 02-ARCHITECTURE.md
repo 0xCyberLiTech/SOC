@@ -233,7 +233,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 │   └── monitoring.css      ← Styles (1 400 lignes, tokens CSS --fs-*)
 └── libs/                   ← Librairies tierces (Leaflet...)
 
-/opt/site-01/
+/opt/soc/
 ├── monitoring_gen.py       ← Générateur monitoring.json
 ├── monitoring.sh           ← Wrapper bash (appelé par cron)
 ├── soc.py                  ← API Flask ban/unban/restart (port interne)

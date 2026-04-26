@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# /opt/clt/soc-daily-report.py — Rapport quotidien SOC 0xCyberLiTech
+# <SCRIPTS-DIR>/soc-daily-report.py — Rapport quotidien SOC 0xCyberLiTech
 # Version : 2.5.0
 # Date    : 2026-03-31
-# Usage   : python3 /opt/clt/soc-daily-report.py
-# Cron    : 0 8 * * * root python3 /opt/clt/soc-daily-report.py
+# Usage   : python3 <SCRIPTS-DIR>/soc-daily-report.py
+# Cron    : 0 8 * * * root python3 <SCRIPTS-DIR>/soc-daily-report.py
 
 import json, os, re, configparser, smtplib
 from html import escape as he
@@ -12,7 +12,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
 MONITORING_JSON = '/var/www/monitoring/monitoring.json'
-ALERT_CONF      = '/opt/clt/alert.conf'
+ALERT_CONF      = '<SCRIPTS-DIR>/alert.conf'
 DASHBOARD_URL   = 'http://<SRV-NGIX-IP>:8080/'
 
 # IPs internes à exclure des listes d'attaquants

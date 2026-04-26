@@ -204,7 +204,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 ```bash
 # Exécuter le script d'archive depuis srv-ngix
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
-  "/opt/site-01/scripts/create-archive.sh"
+  "/opt/soc/scripts/create-archive.sh"
 ```
 
 - [ ] Archive créée dans `/opt/backup-config/`

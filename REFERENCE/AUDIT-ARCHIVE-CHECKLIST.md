@@ -111,7 +111,7 @@
 
 <h3 align="center">Scripts — BLOC 8</h3>
 
-- [ ] `/opt/site-01/` — 72 fichiers (monitoring_gen.py, soc.py, soc-daily-report.py, monitoring.sh...)
+- [ ] `/opt/soc/` — 72 fichiers (monitoring_gen.py, soc.py, soc-daily-report.py, monitoring.sh...)
 - [ ] `/usr/local/bin/pve-monitor-write` — script réception stats Proxmox
 - [ ] `/var/www/monitoring/` — dashboard HTML+JS+CSS (sans monitoring.json live)
 
@@ -193,7 +193,7 @@ tar tzf soc-config-AAAA-MM-JJ.tar.gz | grep README-RESTORE
 - [ ] `rsyslog/` présent (rsyslog.conf, rsyslog.d/)
 - [ ] `apparmor/` présent (profils nginx + suricata + aa-status.json)
 - [ ] `ufw/` présent (configs + ufw-status-verbose.txt)
-- [ ] `scripts/` présent (opt-site-01/, usr-local-bin/, dashboard/)
+- [ ] `scripts/` présent (opt-soc/, usr-local-bin/, dashboard/)
 - [ ] `crons/` présent (cron.d/ avec 11 fichiers)
 - [ ] `systemd/` présent (soc-report-trigger.service + services-actifs.txt)
 - [ ] `aide/` présent (/etc/aide/ complet)

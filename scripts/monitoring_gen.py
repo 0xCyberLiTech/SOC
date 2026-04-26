@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# /opt/clt/monitoring_gen.py — Monitoring dashboard data generator
+# <SCRIPTS-DIR>/monitoring_gen.py — Monitoring dashboard data generator
 # Version : 3.6.6
 # Date    : 2026-03-10
 # Modifié le : 2026-04-25
 # Serveur : srv-ngix (<SRV-NGIX-IP>)
-# Usage   : python3 /opt/clt/monitoring_gen.py
+# Usage   : python3 <SCRIPTS-DIR>/monitoring_gen.py
 # Sortie  : /var/www/monitoring/monitoring.json
 # Cron    : /etc/cron.d/monitoring (*/5 min via monitoring.sh)
 # Changelog : v1.1.0 — geo_blocks, error_rate, top_scanners, threat_sync, nginx_connections
@@ -127,12 +127,12 @@ PROXMOX_HOST  = IP_PROXMOX
 PROXMOX_PORT  = 8006
 PROXMOX_USER  = '<PROXMOX-USER>'   # ex: 'root@pam' ou 'monitor@pam'
 try:
-    PROXMOX_PASS = open('/opt/clt/.proxmox_pass').read().strip() if __import__('os').path.exists('/opt/clt/.proxmox_pass') else ''  # srv-ngix : /opt/clt/.proxmox_pass (chmod 600)
+    PROXMOX_PASS = open('<SCRIPTS-DIR>/.proxmox_pass').read().strip() if __import__('os').path.exists('<SCRIPTS-DIR>/.proxmox_pass') else ''  # srv-ngix : <SCRIPTS-DIR>/.proxmox_pass (chmod 600)
 except Exception:
     PROXMOX_PASS = ''
 PROXMOX_TOKEN = ''            # PVEAPIToken=user@realm!tokenid=uuid (alternatif)
 
-ALERT_CONF   = '/opt/clt/alert.conf'
+ALERT_CONF   = '<SCRIPTS-DIR>/alert.conf'
 ALERT_STATE  = '/var/www/monitoring/alert-state.json'
 AUTOBAN_LOG  = '/var/www/monitoring/autoban-log.json'
 ALERT_COOLDOWNS = {
@@ -1623,7 +1623,7 @@ def get_wan_ip():
 
 FREEBOX_BASE  = 'http://' + WAN_BOX_IP + '/api/v8'
 FREEBOX_APP   = 'soc.monitoring'
-FREEBOX_TOKEN = '/opt/clt/freebox_token.txt'
+FREEBOX_TOKEN = '<SCRIPTS-DIR>/freebox_token.txt'
 
 
 def _fbx_get(sess, path):

@@ -50,6 +50,7 @@ DRY_CHANGED=0
 DRY_NEW=0
 DRY_ABSENT=0
 CHANGED_FILES=()
+SCRIPTS_DIR="/opt/soc"           # Répertoire scripts SOC (doit correspondre à deploy-soc.sh)
 
 # ─── Parsing arguments ───────────────────────────────────────────────────────
 ARCHIVE=""
@@ -136,7 +137,7 @@ if ! $DRY_RUN; then
                 /etc/ssh/sshd_config /etc/sysctl.conf /etc/sysctl.d \
                 /etc/nftables.conf /etc/exim4 /etc/hosts.allow /etc/hosts.deny \
                 /etc/nginx /etc/crowdsec /etc/fail2ban /etc/suricata \
-                /etc/rsyslog.conf /etc/rsyslog.d /etc/ufw /opt/site-01 \
+                /etc/rsyslog.conf /etc/rsyslog.d /etc/ufw ${SCRIPTS_DIR} \
                 /etc/cron.d /etc/systemd/system/soc-report-trigger.service \
                 /etc/systemd/system/sshd.service /etc/aide \
                 /etc/logrotate.d /etc/GeoIP.conf /etc/nginx/api-keys.conf \
@@ -510,11 +511,11 @@ fi
 if run_bloc scripts; then
     step "8/13 Scripts Python + usr-local-bin + Dashboard"
 
-    if [[ -d "$TMPDIR/scripts/opt-site-01" ]]; then
-        restore_dir "$TMPDIR/scripts/opt-site-01" "/opt/site-01" "scripts /opt/site-01"
+    if [[ -d "$TMPDIR/scripts/opt-soc" ]]; then
+        restore_dir "$TMPDIR/scripts/opt-soc" "${SCRIPTS_DIR}" "scripts ${SCRIPTS_DIR}"
         if ! $DRY_RUN; then
-            chmod +x /opt/site-01/monitoring.sh 2>/dev/null || true
-            chmod +x /opt/site-01/*.py 2>/dev/null || true
+            chmod +x ${SCRIPTS_DIR}/monitoring.sh 2>/dev/null || true
+            chmod +x ${SCRIPTS_DIR}/*.py 2>/dev/null || true
             ok "Permissions scripts restaurées"
         fi
     fi

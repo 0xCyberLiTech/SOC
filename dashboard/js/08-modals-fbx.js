@@ -152,7 +152,7 @@ function _fbxAuthBodyHtml(errDesc,isInvalid){
     +'<div style="display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.6rem">'
     +'<span style="font-size:var(--fs-md);font-weight:700;color:rgba(0,217,255,0.6);min-width:1.2rem">②</span>'
     +'<div><div style="font-size:var(--fs-xs);font-weight:700;color:rgba(180,200,220,0.85);margin-bottom:.25rem">Lancer le script de pairing</div>'
-    +'<div style="padding:.35rem .5rem;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:3px;font-size:var(--fs-xs);color:var(--cyan)">bash /opt/clt/setup-freebox-token.sh</div></div>'
+    +'<div style="padding:.35rem .5rem;background:rgba(0,0,0,0.35);border:1px solid rgba(255,255,255,0.08);border-radius:3px;font-size:var(--fs-xs);color:var(--cyan)">bash <SCRIPTS-DIR>/setup-freebox-token.sh</div></div>'
     +'</div>'
     +'<div style="display:flex;gap:.7rem;align-items:flex-start;margin-bottom:.6rem">'
     +'<span style="font-size:var(--fs-md);font-weight:700;color:rgba(255,160,0,0.8);min-width:1.2rem">③</span>'
@@ -303,7 +303,7 @@ function openFbxAuthModal(){
       var el=e.target.closest('[data-fbx-action]');
       if(!el) return;
       var a=el.getAttribute('data-fbx-action');
-      if(a==='copy-cmd') navigator.clipboard&&navigator.clipboard.writeText('bash /opt/clt/setup-freebox-token.sh').catch(function(){});
+      if(a==='copy-cmd') navigator.clipboard&&navigator.clipboard.writeText('bash <SCRIPTS-DIR>/setup-freebox-token.sh').catch(function(){});
       else if(a==='reload') location.reload();
     });
   })();

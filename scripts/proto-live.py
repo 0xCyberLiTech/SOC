@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# /opt/clt/proto-live.py — Protocoles nginx temps réel (fenêtre 5 min)
+# <SCRIPTS-DIR>/proto-live.py — Protocoles nginx temps réel (fenêtre 5 min)
 # Version : 2.0.0 — 2026-03-11
 
 import re, json, os

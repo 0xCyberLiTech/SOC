@@ -36,6 +36,7 @@ set -euo pipefail
 # ─── Configuration ───────────────────────────────────────────────────────────
 ARCHIVE_DATE=$(date +%Y-%m-%d_%H%M)
 ARCHIVE_NAME="soc-config-${ARCHIVE_DATE}"
+SCRIPTS_DIR="/opt/soc"           # Répertoire scripts SOC (doit correspondre à deploy-soc.sh)
 DEFAULT_OUTPUT="/opt/backup-config"
 OUTPUT_DIR="${DEFAULT_OUTPUT}"
 DRY_RUN=false
@@ -339,7 +340,7 @@ fi
 # ─── BLOC 8 : Scripts Python + Dashboard ─────────────────────────────────────
 step "8/13 Scripts + Dashboard"
 
-backup_dir  "/opt/site-01"                                 "scripts/opt-site-01"
+backup_dir  "${SCRIPTS_DIR}"                                 "scripts/opt-soc"
 
 # /usr/local/bin — scripts système custom (pve-monitor-write etc.)
 if ! $DRY_RUN; then
@@ -568,8 +569,8 @@ cat ufw/ufw-status-verbose.txt  # lire et recréer les règles manuellement
 ufw enable
 
 # Scripts Python
-cp -rp scripts/opt-site-01/. /opt/site-01/
-chmod +x /opt/site-01/monitoring.sh
+cp -rp scripts/opt-soc/. ${SCRIPTS_DIR}/
+chmod +x ${SCRIPTS_DIR}/monitoring.sh
 
 # Crontab
 crontab crons/crontab-root.txt
