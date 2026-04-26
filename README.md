@@ -199,6 +199,16 @@ INTERNET
 > Ce dépôt contient **l'intégralité du SOC** : infrastructure · configuration · scripts Python · dashboard HTML/JS/CSS.
 > Toutes les valeurs sensibles sont remplacées par des placeholders `<NOM>` — adapter à votre infra avant déploiement.
 
+> **Infrastructure de référence** : ce SOC tourne sur **Proxmox VE** (machine physique) hébergeant 3 VMs Debian 13.
+> La reconstruction sur un autre hyperviseur (KVM, VMware, bare-metal) est possible en adaptant les 4 IPs du bloc CONFIG de `deploy-soc.sh` :
+>
+> | Placeholder | Rôle | Exemple générique |
+> |-------------|------|-------------------|
+> | `<SRV-NGIX-IP>` | VM nginx + SOC dashboard | `10.0.0.10` |
+> | `<CLT-IP>` | VM site-01 (Apache) | `10.0.0.11` |
+> | `<PA85-IP>` | VM site-02 (Apache) | `10.0.0.12` |
+> | `<PROXMOX-IP>` | Hyperviseur Proxmox VE | `10.0.0.1` |
+
 ---
 
 <h2 align="center">Documentation</h2>
