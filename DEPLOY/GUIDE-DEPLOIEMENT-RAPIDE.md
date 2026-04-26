@@ -60,7 +60,7 @@
 <h3 align="center">Fichiers à avoir sur Windows</h3>
 
 - **Archive** : `D:\BACKUP-PROXMOX\soc-config-AAAA-MM-JJ.tar.gz` (38 Mo)
-- **Dossier DEPLOY** : `C:\Users\mmsab\Documents\0xCyberLiTech\SOC\docs\PROJET-SOC\DEPLOY\`
+- **Dossier DEPLOY** : clone du dépôt GitHub, sous-dossier `DEPLOY/`
   - `deploy-soc.sh` — installe les paquets (nginx, crowdsec, suricata...)
   - `restore-soc.sh` — restaure toutes les configs depuis l'archive
 
@@ -73,15 +73,16 @@ Depuis **Git Bash sur Windows** :
 ```bash
 # Variables (adapter si besoin)
 NEW_VM="<SRV-NGIX-IP>"
-ARCHIVE="D:/BACKUP-PROXMOX/soc-config-2026-04-25_2159.tar.gz"
-DEPLOY="C:/Users/mmsab/Documents/0xCyberLiTech/SOC/docs/PROJET-SOC/DEPLOY"
-
-# Créer le dossier de travail sur la VM (port 22 — avant restore SSH)
+ARCHIVE="/path/to/backups/soc-config-AAAA-MM-JJ_HHMM.tar.gz"
+# Cloner le dépôt SOC sur la VM directement
 ssh root@${NEW_VM} "mkdir -p /root/deploy-soc"
 
-# Copier les scripts de déploiement
-scp "${DEPLOY}/deploy-soc.sh"    root@${NEW_VM}:/root/deploy-soc/
-scp "${DEPLOY}/restore-soc.sh"   root@${NEW_VM}:/root/deploy-soc/
+# Cloner le dépôt depuis GitHub
+ssh root@${NEW_VM} "git clone https://github.com/<GITHUB-USER>/SOC /root/deploy-soc/repo"
+
+# OU : copier les scripts depuis votre poste local
+scp <YOUR-LOCAL-SOC-PATH>/DEPLOY/deploy-soc.sh    root@${NEW_VM}:/root/deploy-soc/
+scp <YOUR-LOCAL-SOC-PATH>/DEPLOY/restore-soc.sh   root@${NEW_VM}:/root/deploy-soc/
 
 # Copier l'archive de configuration (peut prendre 30-60s selon le réseau)
 scp "${ARCHIVE}" root@${NEW_VM}:/root/deploy-soc/
@@ -236,8 +237,8 @@ bash restore-soc.sh archive.tar.gz --step crons
 ```bash
 # ─── Depuis Git Bash Windows ──────────────────────────────────────────
 NEW_VM="<SRV-NGIX-IP>"
-ARCHIVE="/d/BACKUP-PROXMOX/soc-config-2026-04-25_2159.tar.gz"
-DEPLOY="/c/Users/mmsab/Documents/0xCyberLiTech/SOC/docs/PROJET-SOC/DEPLOY"
+ARCHIVE="/path/to/backups/soc-config-AAAA-MM-JJ_HHMM.tar.gz"
+DEPLOY="<YOUR-LOCAL-SOC-PATH>/DEPLOY"
 
 ssh root@${NEW_VM} "mkdir -p /root/deploy-soc"
 scp "${DEPLOY}/deploy-soc.sh" "${DEPLOY}/restore-soc.sh" root@${NEW_VM}:/root/deploy-soc/

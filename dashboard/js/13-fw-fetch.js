@@ -106,7 +106,7 @@ function buildFwMatrix(hosts){
   var ROWS=[
     {p:'80',  s:'HTTP',       ng:'PUB',ct:'LAN',p85:'LAN',pve:'—'},
     {p:'443', s:'HTTPS',      ng:'PUB',ct:'—',  p85:'—',  pve:'—'},
-    {p:'2272',s:'SSH-LAN',    ng:'LAN',ct:'LAN',p85:'LAN',pve:'LAN'},
+    {p:'<SSH-PORT>',s:'SSH-LAN',    ng:'LAN',ct:'LAN',p85:'LAN',pve:'LAN'},
     {p:'8080',s:'MONITORING', ng:'LAN',ct:'—',  p85:'—',  pve:'—'},
     {p:'8006',s:'PROXMOX',    ng:'—',  ct:'—',  p85:'—',  pve:'LAN'},
     {p:'587', s:'SMTP-OUT',   ng:'—',  ct:'—',  p85:'OUT',pve:'—'},
@@ -116,7 +116,7 @@ function buildFwMatrix(hosts){
   var rowsHtml=ROWS.map(function(r){
     return `<tr><td>:${r.p}</td><td style="color:var(--muted);font-size:var(--fs-xs)">${r.s}</td><td>${_fwMatrixCell(r.ng,r.p,'srv-ngix',hm)}</td><td>${_fwMatrixCell(r.ct,r.p,'clt',hm)}</td><td>${_fwMatrixCell(r.p85,r.p,'pa85',hm)}</td><td>${_fwMatrixCell(r.pve,r.p,'proxmox',hm)}</td></tr>`;
   }).join('');
-  var known=[80,443,2272,8080,8006,587,25,22];
+  var known=[80,443,<SSH-PORT>,8080,8006,587,25,22];
   var extra={};
   (hosts||[]).forEach(function(hh){
     (hh.listening_ports||[]).forEach(function(p){
@@ -155,7 +155,7 @@ function _fwRenderJails(jails){
   }).join('');
 }
 
-var _PORT_SVC={'22':'SSH','80':'HTTP','443':'HTTPS','2272':'SSH custom','8080':'Monitoring',
+var _PORT_SVC={'22':'SSH','80':'HTTP','443':'HTTPS','<SSH-PORT>':'SSH custom','8080':'Monitoring',
   '587':'SMTP Exim4','53':'DNS','8006':'Proxmox UI','123':'NTP','3306':'MySQL','5432':'PostgreSQL'};
 function _parseUfwLine(line){
   var parts=line.split(/\s{2,}/);
@@ -258,7 +258,7 @@ function drawFwFlux(d){
     {id:'srv-ngix',lbl:'srv-ngix', sub:SOC_INFRA.SRV_NGIX,     c:'#00d9ff',zc:'0,217,255', role:'PROXY+FW',  xf:0.50,zone:'dmz',          ports:[{t:':80→clt',c:'#00ff88'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':80→pa85',c:'#00d9ff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':8006',c:'#bf5fff'}]},
     {id:'clt',     lbl:'clt',      sub:SOC_INFRA.CLT,     c:'#00ff88',zc:'0,255,136', role:'WEB',       xf:0.28,zone:'int',          ports:[{t:':80 ← ngix',c:'#00ff88'}]},
     {id:'pa85',    lbl:'pa85',     sub:SOC_INFRA.PA85,     c:'#00d9ff',zc:'0,217,255', role:'WEB+SMTP',  xf:0.72,zone:'int',          ports:[{t:':80 ← ngix',c:'#00d9ff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':587→smtp',c:'#f97316'}]},
-    {id:'proxmox', lbl:'proxmox',  sub:SOC_INFRA.PROXMOX,     c:'#bf5fff',zc:'191,95,255',role:'HYPERVISOR',xf:0.50,zone:'mgt',          ports:[{t:':8006',c:'#bf5fff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':2272',c:'#ffd700'}]},
+    {id:'proxmox', lbl:'proxmox',  sub:SOC_INFRA.PROXMOX,     c:'#bf5fff',zc:'191,95,255',role:'HYPERVISOR',xf:0.50,zone:'mgt',          ports:[{t:':8006',c:'#bf5fff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':<SSH-PORT>',c:'#ffd700'}]},
     // VMs Proxmox — nagios vmbr0 gauche · opnsense centre · labo VMs symétrie ±0.15 autour de 0.50
     // Row 1 PVE (yf=0.60) : nagios(vmbr0 gauche) · opnsense(centre gateway)
     {id:'nagios',  lbl:'nagios',   sub:'VM 104 · vmbr0',      c:'#00d9ff',zc:'0,217,255', role:'MON/LAN', xf:0.35,yf:0.66,zone:'pve',vm:true,vmid:104},
@@ -283,8 +283,8 @@ function drawFwFlux(d){
   var WALLS=[
     {y:_fwZBound('ext'),wide:true,host:'srv-ngix',c:'#00d9ff',
      lbl:'UFW srv-ngix',
-     inTxt:'IN: :443/:80 (PUB) · :2272/:8080 (LAN)',
-     outTxt:'OUT: clt:80 · pa85:80 · :8006 · :2272 SSH · DNS'},
+     inTxt:'IN: :443/:80 (PUB) · :<SSH-PORT>/:8080 (LAN)',
+     outTxt:'OUT: clt:80 · pa85:80 · :8006 · :<SSH-PORT> SSH · DNS'},
     {y:_fwZBound('dmz'),split:true,
      left: {x:W*0.28,host:'clt', c:'#00ff88',lbl:'UFW clt', inTxt:'IN: :80 ← ngix',outTxt:'OUT: :443 :80 DNS'},
      right:{x:W*0.72,host:'pa85',c:'#00ff88',lbl:'UFW pa85',inTxt:'IN: :80 ← ngix',outTxt:'OUT: :443 :80 :587 DNS'}},
@@ -301,13 +301,13 @@ function drawFwFlux(d){
     {f:'internet',t:'srv-ngix',port:':80',   type:'HTTP',    c:'#f97316',w:1.3,           xOff:13},
     // srv-ngix → clt : HTTP + SSH (deux parallèles, côté gauche)
     {f:'srv-ngix',t:'clt',     port:':80',   type:'HTTP',    c:'#00ff88',w:1.5,           xOff:-14},
-    {f:'srv-ngix',t:'clt',     port:':2272', type:'SSH',     c:'#ffd700',w:1.1,dash:true, xOff:2},
+    {f:'srv-ngix',t:'clt',     port:':<SSH-PORT>', type:'SSH',     c:'#ffd700',w:1.1,dash:true, xOff:2},
     // srv-ngix → pa85 : HTTP + SSH (miroir — symétrie)
     {f:'srv-ngix',t:'pa85',    port:':80',   type:'HTTP',    c:'#00d9ff',w:1.5,           xOff:14},
-    {f:'srv-ngix',t:'pa85',    port:':2272', type:'SSH',     c:'#ffd700',w:1.1,dash:true, xOff:-2},
+    {f:'srv-ngix',t:'pa85',    port:':<SSH-PORT>', type:'SSH',     c:'#ffd700',w:1.1,dash:true, xOff:-2},
     // srv-ngix → proxmox : :8006 MGMT + SSH (symétrie ±11)
     {f:'srv-ngix',t:'proxmox', port:':8006', type:'MGMT',    c:'#bf5fff',w:1.2,dash:true, xOff:-11},
-    {f:'srv-ngix',t:'proxmox', port:':2272', type:'SSH',     c:'#ffd700',w:1.0,dash:true, xOff:11},
+    {f:'srv-ngix',t:'proxmox', port:':<SSH-PORT>', type:'SSH',     c:'#ffd700',w:1.0,dash:true, xOff:11},
     // pa85 → internet : SMTP sortant (rev, côté droit)
     {f:'pa85',    t:'internet',port:':587',  type:'SMTP OUT',c:'#f97316',w:1.5,dash:true, rev:true,xOff:42,label_t:0.22},
     // proxmox → nagios (vmbr0 direct) + opnsense (gateway vmbr0↔vmbr1)
@@ -492,7 +492,7 @@ function drawFwFlux(d){
     for(var sl=0;sl<H;sl+=3){ctx.fillStyle='rgba(0,0,0,0.025)';ctx.fillRect(0,sl,W,1);}
     ctx.fillStyle='rgba(0,0,0,0.65)';ctx.fillRect(0,H-22,W,22);
     ctx.textAlign='left';ctx.font='7px "Courier New"';
-    [{c:'#ff3b5c',t:':443 HTTPS'},{c:'#f97316',t:':80 HTTP'},{c:'#00ff88',t:'LAN\u2192clt'},{c:'#00d9ff',t:'LAN\u2192pa85'},{c:'#ffd700',t:':2272 SSH'},{c:'#bf5fff',t:':8006 MGMT'},{c:'#f97316',t:':587 SMTP'}]
+    [{c:'#ff3b5c',t:':443 HTTPS'},{c:'#f97316',t:':80 HTTP'},{c:'#00ff88',t:'LAN\u2192clt'},{c:'#00d9ff',t:'LAN\u2192pa85'},{c:'#ffd700',t:':<SSH-PORT> SSH'},{c:'#bf5fff',t:':8006 MGMT'},{c:'#f97316',t:':587 SMTP'}]
     .forEach(function(l,i){ctx.fillStyle=l.c;ctx.fillText('\u25a0 '+l.t,8+i*Math.floor((W-16)/7),H-7);});
   }
 
@@ -595,7 +595,7 @@ function drawFwTopo(d){
   });
 
   // Proxmox — centré à y=0.5
-  N.push({id:'proxmox',lbl:'proxmox',sub:(hm['proxmox']||{}).ip||SOC_INFRA.PROXMOX,ports:[{t:':8006',c:'#bf5fff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':2272',c:'#ffd700'}],
+  N.push({id:'proxmox',lbl:'proxmox',sub:(hm['proxmox']||{}).ip||SOC_INFRA.PROXMOX,ports:[{t:':8006',c:'#bf5fff'},{t:' · ',c:'rgba(180,200,230,0.3)'},{t:':<SSH-PORT>',c:'#ffd700'}],
     x:0.5,y:0.5,c:'#bf5fff',w:116,h:mainH,pveStats:pveStats,fwh:hm['proxmox']||{}});
 
   // Extras — distribution symétrique autour de y=0.5

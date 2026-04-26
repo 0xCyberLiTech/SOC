@@ -185,7 +185,7 @@ Cette route est appelée depuis le navigateur Windows (même machine que JARVIS)
 
 ```bash
 # Démarrage
-cd C:\Users\mmsab\Documents\0xCyberLiTech\JARVIS\scripts
+cd <YOUR-JARVIS-PATH>\scripts
 python jarvis.py
 # → accessible sur http://localhost:5000
 

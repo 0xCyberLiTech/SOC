@@ -750,7 +750,7 @@ else
     echo -e "╠═══════════════════════════════════════════════════════════════╣"
     echo -e "║   Étapes suivantes :                                         ║"
     echo -e "║   1. Valider : bash CHECKLIST-DEPLOY.md (61 points)          ║"
-    echo -e "║   2. nginx   : curl -sI https://0xcyberlitech.com/           ║"
+    echo -e "║   2. nginx   : curl -sI https://<DOMAIN-COM>/                ║"
     echo -e "║   3. bans    : cscli decisions list                          ║"
     echo -e "║   4. crons   : crontab -l && ls /etc/cron.d/                 ║"
     echo -e "║   5. dash    : http://<SRV-NGIX-IP>:8080/                     ║"

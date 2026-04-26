@@ -111,8 +111,8 @@ PA85_IP="<PA85-IP>"
 LAN_CIDR="<LAN-SUBNET>"
 LAN2_CIDR="<ROUTER-SUBNET>"
 SSH_PORT="<SSH-PORT>"
-DOMAIN_COM="0xcyberlitech.com"
-DOMAIN_FR="0xcyberlitech.fr"
+DOMAIN_COM="<DOMAIN-COM>"
+DOMAIN_FR="<DOMAIN-FR>"
 MONITORING_DIR="/var/www/monitoring"
 SCRIPTS_DIR="/opt/site-01"
 GEOIP_ACCOUNT_ID=""         # Renseigner votre MaxMind Account ID
@@ -596,11 +596,24 @@ if step_active "scripts"; then
 
   run "mkdir -p $SCRIPTS_DIR"
 
-  # Copier les scripts depuis le poste de dev
-  warn "⚠️  Copier manuellement les scripts depuis votre poste :"
-  warn "  scp monitoring_gen.py soc.py soc-daily-report.py proto-live.py root@${VM_IP}:${SCRIPTS_DIR}/"
+  # Copie des scripts depuis le dépôt cloné
+  for f in monitoring_gen.py soc-daily-report.py proto-live.py monitoring.sh; do
+    run "cp '${REPO_DIR}/scripts/$f' '${SCRIPTS_DIR}/$f'"
+  done
 
-  ok "Répertoire scripts : $SCRIPTS_DIR"
+  # Substitution des placeholders dans les scripts
+  run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g;
+               s/<CLT-IP>/${CLT_IP}/g;
+               s/<PA85-IP>/${PA85_IP}/g;
+               s/<PROXMOX-IP>/${PROXMOX_IP}/g;
+               s/<DOMAIN-COM>/${DOMAIN_COM}/g;
+               s/<DOMAIN-FR>/${DOMAIN_FR}/g' \
+    ${SCRIPTS_DIR}/monitoring_gen.py \
+    ${SCRIPTS_DIR}/soc-daily-report.py \
+    ${SCRIPTS_DIR}/proto-live.py"
+
+  run "chmod +x ${SCRIPTS_DIR}/monitoring.sh"
+  ok "Scripts déployés depuis le dépôt : $SCRIPTS_DIR"
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -611,13 +624,24 @@ if step_active "dashboard"; then
 
   run "mkdir -p ${MONITORING_DIR}/{js,css,libs}"
 
-  warn "⚠️  Copier manuellement les fichiers dashboard depuis votre poste :"
-  warn "  scp index.html root@${VM_IP}:${MONITORING_DIR}/"
-  warn "  scp js/*.js root@${VM_IP}:${MONITORING_DIR}/js/"
-  warn "  scp css/monitoring.css root@${VM_IP}:${MONITORING_DIR}/css/"
+  # Copie des fichiers dashboard depuis le dépôt cloné
+  run "cp '${REPO_DIR}/dashboard/index.html' '${MONITORING_DIR}/index.html'"
+  run "cp ${REPO_DIR}/dashboard/js/*.js '${MONITORING_DIR}/js/'"
+  run "cp '${REPO_DIR}/dashboard/css/monitoring.css' '${MONITORING_DIR}/css/monitoring.css'"
+
+  # Substitution des placeholders dans tous les fichiers JS
+  run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g;
+               s/<CLT-IP>/${CLT_IP}/g;
+               s/<PA85-IP>/${PA85_IP}/g;
+               s/<PROXMOX-IP>/${PROXMOX_IP}/g;
+               s/<ROUTER-IP>/${ROUTER_IP}/g;
+               s/<DOMAIN-COM>/${DOMAIN_COM}/g;
+               s|<LAN-CIDR>|${LAN_CIDR}|g;
+               s/<SSH-PORT>/${SSH_PORT}/g' \
+    ${MONITORING_DIR}/js/*.js"
 
   run "chown -R www-data:www-data $MONITORING_DIR"
-  ok "Répertoire dashboard préparé : $MONITORING_DIR"
+  ok "Dashboard déployé depuis le dépôt : $MONITORING_DIR"
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -754,16 +778,16 @@ echo ""
 # /etc/nginx/sites-available/site-01
 server {
     listen 80;
-    server_name 0xcyberlitech.com www.0xcyberlitech.com;
+    server_name <DOMAIN-COM> www.<DOMAIN-COM>;
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl;
-    server_name 0xcyberlitech.com www.0xcyberlitech.com;
+    server_name <DOMAIN-COM> www.<DOMAIN-COM>;
 
-    ssl_certificate     /etc/letsencrypt/live/0xcyberlitech.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/0xcyberlitech.com/privkey.pem;
+    ssl_certificate     /etc/letsencrypt/live/<DOMAIN-COM>/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/<DOMAIN-COM>/privkey.pem;
 
     # Headers sécurité
     add_header Strict-Transport-Security "max-age=63072000; includeSubDomains; preload" always;
@@ -806,29 +830,26 @@ server {
 }
 ```
 
-<h3 align="center">2. Copie des fichiers dashboard</h3>
+<h3 align="center">2. Scripts et dashboard</h3>
+
+Les étapes 12 (scripts) et 13 (dashboard) de `deploy-soc.sh` copient et configurent automatiquement tous les fichiers depuis le dépôt cloné. Il n'y a rien à copier manuellement — le script substitue les placeholders dans `01-utils.js` et `monitoring_gen.py` après la copie.
 
 ```bash
-# Depuis le poste de développement Windows
-scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
-  "C:/Users/mmsab/Documents/0xCyberLiTech/SOC/dashboard/index.html" \
-  root@<SRV-NGIX-IP>:/var/www/monitoring/index.html
-
-scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
-  "C:/Users/mmsab/Documents/0xCyberLiTech/SOC/dashboard/js/"*.js \
-  root@<SRV-NGIX-IP>:/var/www/monitoring/js/
-
-scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
-  "C:/Users/mmsab/Documents/0xCyberLiTech/SOC/dashboard/css/monitoring.css" \
-  root@<SRV-NGIX-IP>:/var/www/monitoring/css/
+# Vérifier que les fichiers sont bien en place
+ls -la /opt/site-01/*.py /opt/site-01/*.sh
+ls -la /var/www/monitoring/js/01-utils.js
+grep "VM_IP\|CLT_IP\|PA85_IP" /var/www/monitoring/js/01-utils.js | head -5
 ```
 
-<h3 align="center">3. Copie des scripts Python</h3>
+<h3 align="center">3. Vhosts nginx — adresses IP et domaines</h3>
+
+Les vhosts nginx référencent vos domaines et IPs. Adapter les fichiers dans `/etc/nginx/sites-available/` avec vos valeurs réelles.
+
+Exemples de valeurs à remplacer : `<DOMAIN-COM>`, `<CLT-IP>`, `<PA85-IP>`, `<SRV-NGIX-IP>`.
 
 ```bash
-scp -i ~/.ssh/id_nginx -P <SSH-PORT> -o IdentitiesOnly=yes \
-  "C:/Users/mmsab/Documents/0xCyberLiTech/SOC/scripts/"*.py \
-  root@<SRV-NGIX-IP>:/opt/site-01/
+# Vérifier après modification
+nginx -t && systemctl reload nginx
 ```
 
 <h3 align="center">4. Test final</h3>

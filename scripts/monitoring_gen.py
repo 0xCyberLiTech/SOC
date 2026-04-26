@@ -2077,7 +2077,7 @@ def get_active_attacks():
     except FileNotFoundError:
         pass
 
-    # SSH brute force — journalctl 15 min (port 2272, invisible à nginx)
+    # SSH brute force — journalctl 15 min (port <SSH-PORT>, invisible à nginx)
     _ssh_brute_re = re.compile(r'(?:Failed password|Invalid user).*from (\d{1,3}(?:\.\d{1,3}){3})')
     try:
         res = subprocess.run(
@@ -3821,7 +3821,7 @@ def _build_structured_events():
         except Exception:
             pass
 
-    # ── sshd-session : auth failures (clt, pa85, pve — port 2272) ──────────
+    # ── sshd-session : auth failures (clt, pa85, pve — port <SSH-PORT>) ──────────
     _ssh_re = re.compile(
         r'\b(Failed password|Invalid user)\b.*?from\s+'
         r'([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})',
