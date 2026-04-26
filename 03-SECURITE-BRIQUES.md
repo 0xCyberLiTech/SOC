@@ -206,6 +206,19 @@ Boucle 60s permanente (voir doc 08) :
 
 ---
 
+<h2 align="center">Configurations de référence</h2>
+
+Fichiers de configuration anonymisés pour chaque couche défensive :
+
+| Couche | Configuration |
+|--------|--------------|
+| nginx + SSL + headers | [CONFIGS/01-nginx.md](CONFIGS/01-nginx.md) |
+| CrowdSec LAPI + AppSec WAF | [CONFIGS/02-crowdsec.md](CONFIGS/02-crowdsec.md) |
+| Fail2ban + crowdsec-sync | [CONFIGS/03-fail2ban.md](CONFIGS/03-fail2ban.md) |
+| UFW + nftables + AppArmor | [CONFIGS/06-ufw-apparmor.md](CONFIGS/06-ufw-apparmor.md) |
+
+---
+
 <div align="center">
 
 ## Stack technique

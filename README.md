@@ -225,6 +225,22 @@ bash /tmp/soc-restore/restore-soc.sh             # restauration
 
 ---
 
+<h2 align="center">Configurations de référence</h2>
+
+Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNET>`, `<SSH-PORT>`, `<SRV-NGIX-IP>`, etc.
+
+| # | Fichier | Description |
+|---|---------|-------------|
+| 01 | [nginx.md](CONFIGS/01-nginx.md) | nginx.conf · vhosts · snippets SSL · headers sécurité · GeoIP block |
+| 02 | [crowdsec.md](CONFIGS/02-crowdsec.md) | Collections · LAPI · bouncer nftables · scénarios custom · whitelist LAN |
+| 03 | [fail2ban.md](CONFIGS/03-fail2ban.md) | jail.local · action crowdsec-sync · filtres nginx-cve · nginx-botsearch |
+| 04 | [suricata.md](CONFIGS/04-suricata.md) | AF_PACKET · ring buffer · eve.json · update.yaml · sysctl hardening |
+| 05 | [rsyslog.md](CONFIGS/05-rsyslog.md) | Récepteur central · 5 hôtes · template par hôte · logrotate · corrélations |
+| 06 | [ufw-apparmor.md](CONFIGS/06-ufw-apparmor.md) | Règles UFW entrantes/sortantes · bouncer nftables · profils AppArmor |
+| 07 | [crons.md](CONFIGS/07-crons.md) | 9 tâches planifiées : monitoring · Suricata · CrowdSec · rapport · GeoIP |
+
+---
+
 <div align="center">
 
 ## Stack technique

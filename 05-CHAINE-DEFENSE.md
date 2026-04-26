@@ -193,6 +193,16 @@ Classification automatique des IPs par phase d'attaque (fenêtre 15 min) :
 
 ---
 
+<h2 align="center">Configurations de référence</h2>
+
+| Composant | Configuration |
+|-----------|--------------|
+| Fail2ban → CrowdSec sync | [CONFIGS/03-fail2ban.md](CONFIGS/03-fail2ban.md) |
+| CrowdSec scénarios + bouncer | [CONFIGS/02-crowdsec.md](CONFIGS/02-crowdsec.md) |
+| Suricata IDS AF_PACKET | [CONFIGS/04-suricata.md](CONFIGS/04-suricata.md) |
+
+---
+
 <div align="center">
 
 ## Stack technique
