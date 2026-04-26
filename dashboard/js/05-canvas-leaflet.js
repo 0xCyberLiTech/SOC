@@ -3,7 +3,7 @@ var _lfLoaded=false, _lfLoading=false, _lfActive=false, _lfFailed=false;
 var _lfMap=null, _lfMarkers=[];
 var _LF_STAGE_COLOR={EXPLOIT:KC_PALETTE.EXPLOIT.color,BRUTE:KC_PALETTE.BRUTE.color,SCAN:KC_PALETTE.SCAN.color,RECON:KC_PALETTE.RECON.color,BLOCKED:KC_PALETTE.BLOCKED.color};
 var _lfArcData=[], _lfParticleCanvas=null, _lfParticleFrame=null;
-var _lfHeatData=[], _lfWanLatG=46.4978, _lfWanLonG=-1.7831;
+var _lfHeatData=[], _lfWanLatG=SOC_INFRA.WAN_LAT, _lfWanLonG=SOC_INFRA.WAN_LON;
 var _lfHistBuf=[];
 var _hmHover={idx:-1};
 var _rcHover={idx:-1};
@@ -565,7 +565,7 @@ function _buildLeafletHome(wanLat, wanLon, wanCity){
   _lfHomeMarker=window.L.marker([wanLat,wanLon],{
     icon:window.L.divIcon({className:'',html:html,iconSize:[sz,sz],iconAnchor:[sz/2,sz/2]}),
     zIndexOffset:1000
-  }).bindPopup('<div class="lf-popup-inner"><div class="lf-popup-stage" style="color:#00ff88;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3)">HOME</div><div class="lf-popup-ip">'+(wanCity||'Les Sables-d\'Olonne')+'</div><div class="lf-popup-loc">&#9670; Vendée · FR · Cible des attaques</div></div>',{className:'lf-popup',maxWidth:200});
+  }).bindPopup('<div class="lf-popup-inner"><div class="lf-popup-stage" style="color:#00ff88;background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3)">HOME</div><div class="lf-popup-ip">'+(wanCity||'<CITY>')+'</div><div class="lf-popup-loc">&#9670; Cible des attaques</div></div>',{className:'lf-popup',maxWidth:200});
   _lfHomeMarker.addTo(_lfMap);
 }
 
@@ -648,7 +648,7 @@ function _initLeafletMap(geoips){
   setTimeout(function(){
     if(!_lfMap)return;
     _lfMap.invalidateSize();
-    // Vue initiale centrée sur la France (depuis Les Sables-d'Olonne)
+    // Vue initiale centrée sur la France
     _lfInitBounds=window.L.latLngBounds([[41.2,-5.2],[51.3,9.8]]);
     _lfMap.fitBounds(_lfInitBounds,{maxZoom:6,animate:false});
   },200);

@@ -52,13 +52,13 @@ function _fbxLatStatHtml(lbl,ms){
 // NDT-45 : section WAN du modal Freebox
 function _fbxSecWanHtml(wm,wmSt2,stC2,stLbl2,fbx,hist,incidents){
   var probeGridHtml=_fbxP2('BOX',SOC_INFRA.FREEBOX,wm.box&&wm.box.ok,wm.box&&wm.box.ms!=null?wm.box.ms+' ms':'KO')
-    +_fbxP2('WAN INTERNET','82.65.147.2',wm.wan&&wm.wan.ok,wm.wan&&wm.wan.ms!=null?wm.wan.ms+' ms':'KO')
-    +_fbxP2('HTTP CHECK','free.fr · assistance',wm.http_ok,wm.http_ok?'OK':'FAIL');
+    +_fbxP2('WAN INTERNET',(fbx&&fbx.ipv4)||'<WAN-IP>',wm.wan&&wm.wan.ok,wm.wan&&wm.wan.ms!=null?wm.wan.ms+' ms':'KO')
+    +_fbxP2('HTTP CHECK','<ISP-HOST-1> · <ISP-HOST-2>',wm.http_ok,wm.http_ok?'OK':'FAIL');
   var latencyHtml=hist.length>1
     ?'<div style="font-size:var(--fs-xs);color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:.3rem">◇ Latence WAN — 4 dernières heures</div><canvas id="wan-modal-spark" height="110" style="width:100%;display:block;margin-bottom:.4rem"></canvas><div id="fbx-lat-stats" style="display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem;margin-bottom:.8rem"></div>'
     :'';
-  var sondesHtml=_fbxFp('Portail Free (www.free.fr)',wm.free_dns_ok,wm.free_dns_ms)
-    +_fbxFp('Assistance Free (assistance.free.fr)',wm.free_backbone_ok,wm.free_backbone_ms);
+  var sondesHtml=_fbxFp('<ISP-HOST-1>',wm.free_dns_ok,wm.free_dns_ms)
+    +_fbxFp('<ISP-HOST-2>',wm.free_backbone_ok,wm.free_backbone_ms);
   var incidentsListHtml=!incidents.length
     ?'<div style="color:var(--green);font-size:var(--fs-xs);padding:.3rem 0">✓ Aucun incident sur la période</div>'
     :incidents.slice().reverse().map(function(inc){
@@ -67,7 +67,7 @@ function _fbxSecWanHtml(wm,wmSt2,stC2,stLbl2,fbx,hist,incidents){
       var incStart=inc.start||'';
       return `<div style="display:flex;gap:.6rem;align-items:center;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:var(--fs-xs)"><span style="color:${ic};font-weight:700">${inc.status==='ONGOING'?'🔴 EN COURS':'⚠ RÉSOLU'}</span><span style="color:rgba(180,200,220,0.5)">${incStart.replace('T',' ').slice(0,16)} UTC</span>${dur?`<span style="color:var(--cyan);margin-left:auto">${dur}</span>`:''}</div>`;
     }).join('');
-  return `<div id="fbx-sec-wan"><div style="display:flex;gap:1rem;align-items:center;padding:.6rem .8rem;background:rgba(0,0,0,0.25);border:1px solid ${stC2}22;border-radius:4px;margin-bottom:.8rem"><span style="font-size:var(--fs-2xl);font-weight:700;color:${stC2}">${esc(stLbl2[wmSt2]||wmSt2)}</span><span style="font-size:var(--fs-md);color:var(--cyan);font-family:'Courier New',monospace">${fbx.ipv4||'—'}</span>${wm.uptime_24h!=null?`<span style="margin-left:auto;font-size:var(--fs-xs);font-weight:700;color:var(--green)">uptime 24h : ${wm.uptime_24h}%</span>`:''}</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.8rem">${probeGridHtml}</div>${latencyHtml}<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.8rem">${sondesHtml}</div><div style="font-size:var(--fs-xs);color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:.35rem">⚠ Incidents (${incidents.length})</div>${incidentsListHtml}<div style="margin-top:.7rem;padding:.5rem;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:4px;font-size:var(--fs-xs);color:var(--muted)">💡 Fibre Free Delta — Les Sables d'Olonne · Panne : <span style="color:var(--cyan)">downdetector.fr/statut/free</span> · Assistance : <span style="color:var(--cyan)">3244</span></div></div>`;
+  return `<div id="fbx-sec-wan"><div style="display:flex;gap:1rem;align-items:center;padding:.6rem .8rem;background:rgba(0,0,0,0.25);border:1px solid ${stC2}22;border-radius:4px;margin-bottom:.8rem"><span style="font-size:var(--fs-2xl);font-weight:700;color:${stC2}">${esc(stLbl2[wmSt2]||wmSt2)}</span><span style="font-size:var(--fs-md);color:var(--cyan);font-family:'Courier New',monospace">${fbx.ipv4||'—'}</span>${wm.uptime_24h!=null?`<span style="margin-left:auto;font-size:var(--fs-xs);font-weight:700;color:var(--green)">uptime 24h : ${wm.uptime_24h}%</span>`:''}</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:.6rem;margin-bottom:.8rem">${probeGridHtml}</div>${latencyHtml}<div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-bottom:.8rem">${sondesHtml}</div><div style="font-size:var(--fs-xs);color:var(--muted);text-transform:uppercase;letter-spacing:.7px;margin-bottom:.35rem">⚠ Incidents (${incidents.length})</div>${incidentsListHtml}<div style="margin-top:.7rem;padding:.5rem;background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.06);border-radius:4px;font-size:var(--fs-xs);color:var(--muted)">💡 Fibre <ISP-NAME> — <CITY> · Panne : <span style="color:var(--cyan)">downdetector.fr/statut/<ISP-SLUG></span> · Assistance : <span style="color:var(--cyan)"><ISP-SUPPORT-NUM></span></div></div>`;
 }
 
 // NDT-46 : section BOX & FIBRE — sous-helpers + orchestrateur

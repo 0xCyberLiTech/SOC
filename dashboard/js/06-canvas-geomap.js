@@ -138,8 +138,8 @@ function drawGeoMap(geoips, targetCanvas, wanInfo){
       ctx.fillStyle=_gg;ctx.beginPath();ctx.arc(d.x,d.y,_gr,0,Math.PI*2);ctx.fill();
     });
 
-    // === CIBLE FRANCE (point défendu) — Les Sables-d'Olonne, Vendée ===
-    var frX=_gmToX(-1.78,_zb,W), frY=_gmToY(46.50,_zb,H);
+    // === CIBLE (point défendu) ===
+    var frX=_gmToX(SOC_INFRA.WAN_LON,_zb,W), frY=_gmToY(SOC_INFRA.WAN_LAT,_zb,H);
     var frPulse=(Math.sin(elapsed*0.002)+1)*0.5;
     var _frFlash=window._mapFrFlash||0;
     // 3 anneaux pulsants concentriques
