@@ -12,7 +12,7 @@ logpath = /var/log/auth.log
 maxretry = 3
 action = nftables[name=sshd, port=<SSH-PORT>, protocol=tcp]
          crowdsec-sync[name=sshd]
-         abuseipdb[abuseipdb_apikey="REDACTED-ABUSEIPDB-KEY", abuseipdb_category="18,22"]
+         abuseipdb[abuseipdb_apikey="<ABUSEIPDB-API-KEY>", abuseipdb_category="18,22"]
 
 [nginx-http-auth]
 enabled = false
@@ -35,4 +35,4 @@ bantime  = 86400
 findtime = 3600
 action = nftables[name=nginx-cve, port=http, protocol=tcp]
          crowdsec-sync[name=nginx-cve]
-         abuseipdb[abuseipdb_apikey="REDACTED-ABUSEIPDB-KEY", abuseipdb_category="21,15"]
+         abuseipdb[abuseipdb_apikey="<ABUSEIPDB-API-KEY>", abuseipdb_category="21,15"]
