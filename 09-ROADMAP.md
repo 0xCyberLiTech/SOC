@@ -91,7 +91,7 @@ Script `create-archive.sh` livré — à planifier en cron hebdomadaire.
 
 ```bash
 # Cron srv-ngix — à ajouter
-0 2 * * 0  /opt/site-01/scripts/create-archive.sh --auto
+0 2 * * 0  /opt/soc/scripts/create-archive.sh --auto
 ```
 
 <h3 align="center">7. Dashboard mobile (responsive)</h3>

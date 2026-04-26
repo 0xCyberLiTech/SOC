@@ -70,10 +70,10 @@ SHELL=/bin/bash
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
 # Stats protocoles temps réel (chaque minute → tuile TRAFIC RÉSEAU)
-* * * * *   root  python3 /opt/site-01/proto-live.py >> /var/log/proto-live.log 2>&1
+* * * * *   root  python3 /opt/soc/proto-live.py >> /var/log/proto-live.log 2>&1
 
 # Génération monitoring.json (toutes les 5 min → dashboard SOC)
-*/5 * * * * root  /opt/site-01/monitoring.sh >> /var/log/monitoring-gen.log 2>&1
+*/5 * * * * root  /opt/soc/monitoring.sh >> /var/log/monitoring-gen.log 2>&1
 
 # Vérification intégrité AIDE (03h00 — re-baseline requis après modif système)
 0 3 * * *   root  /usr/bin/aide --config /etc/aide/aide.conf --check >> /var/log/aide/aide.log 2>&1
@@ -85,7 +85,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 30 3 * * *  root  cscli hub update && cscli hub upgrade >> /var/log/crowdsec-update.log 2>&1
 
 # Rapport SOC quotidien par mail (08h00)
-0 8 * * *   root  python3 /opt/site-01/soc-daily-report.py >> /var/log/soc-report.log 2>&1
+0 8 * * *   root  python3 /opt/soc/soc-daily-report.py >> /var/log/soc-report.log 2>&1
 ```
 
 ---
@@ -127,7 +127,7 @@ Le script `create-archive.sh` produit une archive complète du SOC (configs, scr
 ```bash
 # À ajouter dans /etc/cron.d/soc-monitoring sur srv-ngix
 # Archive automatique dimanche 02h00
-0 2 * * 0   root  /opt/site-01/scripts/create-archive.sh --auto >> /var/log/soc-archive.log 2>&1
+0 2 * * 0   root  /opt/soc/scripts/create-archive.sh --auto >> /var/log/soc-archive.log 2>&1
 ```
 
 ---
@@ -184,7 +184,7 @@ grep CRON /var/log/syslog | tail -30
 journalctl -u cron --since "24h ago"
 
 # Forcer une régénération immédiate du monitoring.json
-/opt/site-01/monitoring.sh
+/opt/soc/monitoring.sh
 
 # Forcer une mise à jour Suricata manuelle
 suricata-update && systemctl reload suricata

@@ -131,7 +131,7 @@ function _openModal(a){
     + diffHtml
     + '<div class="aide-m-section">'
     + '<div class="aide-m-title">◎ Périmètre surveillé</div>'
-    + '<div class="aide-m-row"><span class="lbl">Scripts SOC</span><span class="val">/opt/clt/</span></div>'
+    + '<div class="aide-m-row"><span class="lbl">Scripts SOC</span><span class="val"><SCRIPTS-DIR>/</span></div>'
     + '<div class="aide-m-row"><span class="lbl">Dashboard web</span><span class="val">/var/www/monitoring/</span></div>'
     + '<div class="aide-m-row"><span class="lbl">CrowdSec config</span><span class="val">/etc/crowdsec/</span></div>'
     + '<div class="aide-m-row"><span class="lbl">Firewall nftables</span><span class="val">/etc/nftables.conf</span></div>'

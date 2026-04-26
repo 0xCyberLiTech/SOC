@@ -305,7 +305,7 @@ var _DC_BRANCHES=[
             {k:'Cron',v:'03h00 — /etc/cron.d/aide-soc'}
           ];
         },
-        getDeps:function(){return 'Périmètre : /opt/clt/ · /var/www/ · /etc/crowdsec/ · nginx · SSH';}
+        getDeps:function(){return 'Périmètre : <SCRIPTS-DIR>/ · /var/www/ · /etc/crowdsec/ · nginx · SSH';}
       }
     ]
   },

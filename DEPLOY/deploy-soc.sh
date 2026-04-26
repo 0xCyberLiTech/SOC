@@ -47,9 +47,9 @@ ISP_HOST_2="<ISP-HOST-2>"      # Sonde ISP secondaire         ex: assistance.ora
 ISP_NAME="<ISP-NAME>"          # Nom de l'opérateur FAI       ex: Orange Fibre
 ISP_SLUG="<ISP-SLUG>"          # Slug downdetector.fr         ex: orange
 ISP_SUPPORT_NUM="<ISP-SUPPORT-NUM>" # N° hotline FAI         ex: 3900
+SCRIPTS_DIR="/opt/soc"             # Répertoire scripts SOC      ex: /opt/soc
 
 MONITORING_DIR="/var/www/monitoring"
-SCRIPTS_DIR="/opt/soc"
 GEOIP_ACCOUNT_ID=""            # MaxMind Account ID (gratuit sur maxmind.com)
 GEOIP_LICENSE_KEY=""           # MaxMind License Key
 # ═════════════════════════════════════════════════════════════════════════════
@@ -426,9 +426,12 @@ if step_active "scripts"; then
                s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
                s/<DOMAIN-FR>/${DOMAIN_FR}/g; \
                s/<ISP-HOST-1>/${ISP_HOST_1}/g; \
-               s/<ISP-HOST-2>/${ISP_HOST_2}/g' \
+               s/<ISP-HOST-2>/${ISP_HOST_2}/g; \
+               s|<SCRIPTS-DIR>|${SCRIPTS_DIR}|g' \
        ${SCRIPTS_DIR}/monitoring_gen.py \
-       ${SCRIPTS_DIR}/soc-daily-report.py 2>/dev/null || true"
+       ${SCRIPTS_DIR}/soc-daily-report.py \
+       ${SCRIPTS_DIR}/monitoring.sh \
+       ${SCRIPTS_DIR}/proto-live.py 2>/dev/null || true"
   run "chmod +x ${SCRIPTS_DIR}/monitoring.sh"
   ok "Scripts Python deployes dans ${SCRIPTS_DIR}/"
 fi
@@ -462,7 +465,8 @@ if step_active "dashboard"; then
                s/<ISP-HOST-2>/${ISP_HOST_2}/g; \
                s/<ISP-NAME>/${ISP_NAME}/g; \
                s/<ISP-SLUG>/${ISP_SLUG}/g; \
-               s/<ISP-SUPPORT-NUM>/${ISP_SUPPORT_NUM}/g' \
+               s/<ISP-SUPPORT-NUM>/${ISP_SUPPORT_NUM}/g; \
+               s|<SCRIPTS-DIR>|${SCRIPTS_DIR}|g' \
        ${MONITORING_DIR}/js/*.js 2>/dev/null || true"
   run "chown -R www-data:www-data $MONITORING_DIR"
   ok "Dashboard deploye dans ${MONITORING_DIR}/"
