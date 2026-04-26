@@ -26,7 +26,7 @@
 #     ├── aide/            ← config AIDE intégrité
 #     ├── logrotate/       ← /etc/logrotate.d/
 #     ├── geoip/           ← GeoIP.conf (Account ID + License Key MaxMind)
-#     ├── api-keys/        ← api-keys.conf (NVD + AbuseIPDB)
+#     ├── api-keys/        ← api-keys.conf (NVD_API_KEY)
 #     ├── ssh/             ← authorized_keys + clés privées sync
 #     └── README-RESTORE.md ← instructions de restauration
 # =============================================================================
@@ -442,13 +442,12 @@ else
     backup_file "/etc/default/geoipupdate"             "geoip"
 fi
 
-# Clés API nginx (NVD + AbuseIPDB)
+# Clés API nginx (NVD)
 if $PUBLIC_MODE; then
     if ! $DRY_RUN; then
         mkdir -p "${TMPDIR}/api-keys"
         echo "# api-keys.conf — CREDENTIALS EXCLUS (--public mode)" > "${TMPDIR}/api-keys/api-keys.conf"
         echo "# NVD_API_KEY=YOUR_NVD_API_KEY" >> "${TMPDIR}/api-keys/api-keys.conf"
-        echo "# ABUSEIPDB_API_KEY=YOUR_ABUSEIPDB_KEY" >> "${TMPDIR}/api-keys/api-keys.conf"
         ok "api-keys.conf → placeholder (mode public)"
     else
         echo -e "  ${YELLOW}[DRY]${NC} api-keys.conf → placeholder (credentials exclus)"

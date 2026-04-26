@@ -68,7 +68,7 @@
 - [ ] `/etc/nginx/snippets/` — security-headers, ssl-params, geoip-block présents
 - [ ] `/usr/share/GeoIP/*.mmdb` — 3 bases MaxMind (GeoLite2-Country, City, ASN)
 - [ ] `/etc/letsencrypt/` — certificats valides (expiration vérifiée)
-- [ ] `/etc/nginx/api-keys.conf` — clés NVD + AbuseIPDB (via BLOC 11 api-keys)
+- [ ] `/etc/nginx/api-keys.conf` — clé NVD (via BLOC 11 api-keys)
 
 <h3 align="center">CrowdSec — BLOC 2</h3>
 
@@ -152,7 +152,7 @@
 
 <h3 align="center">Clés API — BLOC 11</h3>
 
-- [ ] `/etc/nginx/api-keys.conf` — NVD_API_KEY + ABUSEIPDB_API_KEY (sensible 🔴)
+- [ ] `/etc/nginx/api-keys.conf` — NVD_API_KEY (sensible 🔴)
 
 <h3 align="center">Clés SSH — BLOC 11</h3>
 
@@ -300,10 +300,10 @@ aide --check                      # 0 changement
 <h3 align="center">Clés API</h3>
 
 ```bash
-grep -v "^#" /etc/nginx/api-keys.conf  # NVD_API_KEY + ABUSEIPDB_API_KEY présentes
+grep -v "^#" /etc/nginx/api-keys.conf  # NVD_API_KEY présente
 stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
 ```
-- [ ] api-keys.conf présent avec les deux clés
+- [ ] api-keys.conf présent avec la clé NVD
 - [ ] Permissions 600 root:root
 
 <h3 align="center">Dashboard SOC</h3>
@@ -321,7 +321,7 @@ stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
 |---------|--------|--------|
 | `nginx/letsencrypt/` | 🔴 Clés privées SSL | Archive sur support chiffré uniquement |
 | `crowdsec/local_api_credentials.yaml` | 🔴 Token API CrowdSec | Stocker hors NAS public |
-| `api-keys/api-keys.conf` | 🔴 NVD + AbuseIPDB API keys | Stocker hors NAS public |
+| `api-keys/api-keys.conf` | 🔴 NVD API key | Stocker hors NAS public |
 | `network/exim4/passwd.client` | 🔴 Password SMTP <MAIL-PROVIDER> | Stocker hors NAS public |
 | `geoip/GeoIP.conf` | 🟡 License Key MaxMind | Accès restreint |
 | `ssh/id_site-01_sync` + autres | 🟡 Clés SSH privées sync | Stocker hors NAS public |

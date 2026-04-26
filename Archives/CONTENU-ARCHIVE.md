@@ -198,7 +198,7 @@
 
 | Fichier | Source | Statut |
 |---------|--------|--------|
-| `api-keys.conf` | `/etc/nginx/api-keys.conf` (NVD_API_KEY + ABUSEIPDB_API_KEY) | ✅ ⚠️ sensible |
+| `api-keys.conf` | `/etc/nginx/api-keys.conf` (NVD_API_KEY) | ✅ ⚠️ sensible |
 
 <h3 align="center">ssh/ ✅</h3>
 
@@ -226,7 +226,7 @@
 |---------|------------|--------|
 | `nginx/letsencrypt/` | 🔴 Élevée | Clés privées SSL Let's Encrypt |
 | `crowdsec/local_api_credentials.yaml` | 🔴 Élevée | Token API CrowdSec LAPI |
-| `api-keys/api-keys.conf` | 🔴 Élevée | NVD API Key + AbuseIPDB API Key |
+| `api-keys/api-keys.conf` | 🔴 Élevée | NVD API Key |
 | `network/exim4/passwd.client` | 🔴 Élevée | Password SMTP <MAIL-PROVIDER> |
 | `ssh/id_site-01_sync` + autres | 🔴 Élevée | Clés SSH privées (sync vers VMs) |
 | `geoip/GeoIP.conf` | 🟡 Moyenne | License Key MaxMind |

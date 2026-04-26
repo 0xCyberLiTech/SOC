@@ -75,13 +75,7 @@ Actuellement : simulation via les logs nginx (404/403 patterns).
 
 Évolution : déployer un vrai honeypot HTTP (cowrie / opencanary) sur un port secondaire — détection plus précise des scanners.
 
-<h3 align="center">4. Feed AbuseIPDB automatique</h3>
-
-Actuellement : consultation manuelle AbuseIPDB depuis la tuile IP Deep.
-
-Évolution : `monitoring_gen.py` consulte AbuseIPDB API pour les top 10 IPs actives → score de réputation intégré dans le ThreatScore.
-
-<h3 align="center">5. Détection anomalies DNS (<ROUTER>)</h3>
+<h3 align="center">4. Détection anomalies DNS (<ROUTER>)</h3>
 
 Actuellement : logs <ROUTER> analysés pour C2 sortant.
 

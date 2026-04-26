@@ -636,7 +636,7 @@ if run_bloc complement; then
     # GeoIP (Account ID + License Key MaxMind)
     [[ -f "$TMPDIR/geoip/GeoIP.conf" ]] && restore_file "$TMPDIR/geoip/GeoIP.conf" "/etc/GeoIP.conf"
 
-    # Clés API nginx (NVD + AbuseIPDB)
+    # Clés API nginx (NVD)
     if [[ -f "$TMPDIR/api-keys/api-keys.conf" ]]; then
         restore_file "$TMPDIR/api-keys/api-keys.conf" "/etc/nginx/api-keys.conf"
         if ! $DRY_RUN; then
