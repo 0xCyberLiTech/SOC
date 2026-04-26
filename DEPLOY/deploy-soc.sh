@@ -26,7 +26,7 @@ set -euo pipefail
 VM_IP="<SRV-NGIX-IP>"          # IP de cette VM (nginx)
 CLT_IP="<CLT-IP>"              # IP backend site-01 (Apache)
 PA85_IP="<PA85-IP>"            # IP backend site-02 (Apache)
-LAN_CIDR="<LAN-CIDR>"         # Sous-réseau LAN ex: 192.168.1.0/24
+LAN_CIDR="<LAN-CIDR>"         # Sous-réseau LAN (ex: X.X.X.0/24)
 LAN2_CIDR="<ROUTER-SUBNET>"   # Sous-réseau routeur/gestion si différent
 SSH_PORT="<SSH-PORT>"          # Port SSH non standard
 DOMAIN_COM="<DOMAIN-COM>"      # Domaine principal ex: monsite.com

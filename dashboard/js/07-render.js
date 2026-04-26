@@ -7,7 +7,7 @@ var _RSYSLOG_JARVIS_CTX=[
   '  clt  = VM Apache + fail2ban (site cybersécurité, VM 106, <CLT-IP>)',
   '  pa85 = VM Apache + fail2ban (site associatif PA85, VM 107, <PA85-IP>)',
   '  pve  = Proxmox VE hyperviseur (hôte physique <PROXMOX-IP>, héberge clt/pa85/srv-ngix)',
-  '  <ROUTER-HOSTNAME> = Routeur ASUS WAN/LAN (192.168.1.1, firmware <ROUTER-FIRMWARE>)\n',
+  '  <ROUTER-HOSTNAME> = Routeur ASUS WAN/LAN (<ROUTER-IP>, firmware <ROUTER-FIRMWARE>)\n',
   'CONTEXTE programs_unused (sources présentes NON exploitées par le SOC) :',
   '  kernel sur clt/pa85 = fichiers VIDES (0 lignes actives) — aucun événement noyau en cours, pas urgent',
   '  pve-firewall = activé le 2026-04-24 (host.fw log_level_in:warning) — en remplissage, normal',
