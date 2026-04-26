@@ -1,43 +1,43 @@
 <div align="center">
 
-<br/>
+  <br></br>
 
-<a href="https://github.com/0xCyberLiTech/SOC">
-  <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=40&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=900&lines=%3EDASHBOARD+24+MODULES_" alt="SOC 0xCyberLiTech" />
-</a>
-
-<br/>
-
-<h3>📊 SPA vanilla JS &nbsp;·&nbsp; 24 modules &nbsp;·&nbsp; 35 tuiles &nbsp;·&nbsp; Zéro dépendance NPM</h3>
-
-<br/>
-
-<p>
-  <a href="https://0xcyberlitech.com">
-    <img src="https://img.shields.io/badge/🌐%20Site-0xcyberlitech.com-00B4D8?style=flat-square" alt="Site" />
+  <a href="https://github.com/0xCyberLiTech">
+    <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=50&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=1100&lines=%3EDASHBOARD_" alt="SOC 0xCyberLiTech" />
   </a>
-  &nbsp;
-  <a href="https://github.com/0xCyberLiTech/SOC">
-    <img src="https://img.shields.io/badge/GitHub-SOC-00B4D8?style=flat-square&logo=github&logoColor=white" alt="SOC" />
-  </a>
-  &nbsp;
-  <img src="https://img.shields.io/badge/JavaScript-Vanilla-F7DF1E?style=flat-square&logo=javascript&logoColor=white" alt="JavaScript" />
-  &nbsp;  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=flat-square&logo=python&logoColor=white" alt="Python" />
-  &nbsp;  <img src="https://img.shields.io/badge/Modules-24-00B4D8?style=flat-square" alt="Modules" />
-  &nbsp;  <img src="https://img.shields.io/badge/Tuiles-35-00FF88?style=flat-square" alt="Tuiles" />
-  &nbsp;
-</p>
 
-<br/>
+  <br></br>
 
-<p>
-  <a href="03-SECURITE-BRIQUES.md"><img src="https://img.shields.io/badge/◄-03+Défense-555555?style=flat-square" alt="← 03 Défense" /></a>
-  &nbsp;&nbsp;
-  <a href="README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>
-  &nbsp;&nbsp;
-  <a href="05-CHAINE-DEFENSE.md"><img src="https://img.shields.io/badge/05+Kill+Chain-►-555555?style=flat-square" alt="05 Kill Chain →" /></a>
-</p>
+  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
 
+  <p align="center">
+    <a href="https://0xcyberlitech.github.io/">
+      <img src="https://img.shields.io/badge/Portfolio-0xCyberLiTech-181717?logo=github&style=flat-square" alt="Portfolio" />
+    </a>
+    <a href="https://github.com/0xCyberLiTech">
+      <img src="https://img.shields.io/badge/Profil-GitHub-181717?logo=github&style=flat-square" alt="Profil GitHub" />
+    </a>
+    <a href="https://github.com/0xCyberLiTech/SOC">
+      <img src="https://img.shields.io/badge/Dépôt-SOC-00B4D8?logo=github&style=flat-square" alt="Dépôt SOC" />
+    </a>
+    <a href="README.md">
+      <img src="https://img.shields.io/badge/📄%20README-SOC-00B4D8?style=flat-square" alt="README" />
+    </a>
+    <a href="https://github.com/0xCyberLiTech?tab=repositories">
+      <img src="https://img.shields.io/badge/Dépôts-publics-blue?style=flat-square" alt="Dépôts publics" />
+    </a>
+  </p>
+
+</div>
+
+<div align="center">
+  <img src="https://img.icons8.com/fluency/96/000000/cyber-security.png" alt="CyberSec" width="80"/>
+</div>
+
+<div align="center">
+  <p>
+    <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
+  </p>
 </div>
 
 ---
@@ -202,51 +202,47 @@ Convention audit qualité — score cible 99/100 :
 Le dashboard est vanilla JS pur. Seule exception : **Leaflet.js** (carte) chargé depuis `/libs/`.
 
 ---
-
-*Document : 04-DASHBOARD-SOC.md · Projet SOC 0xCyberLiTech · 2026-04-25*
 ---
 
 <div align="center">
 
-<br/>
+  <br></br>
 
-<table>
-<tr>
-<td align="center" width="33%"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
-<td align="center" width="33%"><b>💻 Développement &amp; Web</b></td>
-<td align="center" width="33%"><b>🤖 Intelligence Artificielle</b></td>
-</tr>
-<tr>
-<td align="center">
-  <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>&nbsp;
-  <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>&nbsp;
-  <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>&nbsp;
-  <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="40" title="Git" /></a>
-</td>
-<td align="center">
-  <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>&nbsp;
-  <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>&nbsp;
-  <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>&nbsp;
-  <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code" /></a>
-</td>
-<td align="center">
-  <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
-  <br/><br/>
-  <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
-</td>
-</tr>
-</table>
+  <table>
+  <tr>
+  <td align="center" width="33%"><b>🖥️ Infrastructure &amp; Sécurité</b></td>
+  <td align="center" width="33%"><b>💻 Développement &amp; Web</b></td>
+  <td align="center" width="33%"><b>🤖 Intelligence Artificielle</b></td>
+  </tr>
+  <tr>
+  <td align="center">
+    <a href="https://www.debian.org"><img src="https://skillicons.dev/icons?i=debian" width="40" title="Debian" /></a>&nbsp;
+    <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="40" title="Nginx" /></a>&nbsp;
+    <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="40" title="Bash" /></a>&nbsp;
+    <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="40" title="Git" /></a>
+  </td>
+  <td align="center">
+    <a href="https://www.python.org"><img src="https://skillicons.dev/icons?i=python" width="40" title="Python" /></a>&nbsp;
+    <a href="https://flask.palletsprojects.com"><img src="https://skillicons.dev/icons?i=flask" width="40" title="Flask" /></a>&nbsp;
+    <a href="https://developer.mozilla.org/docs/Web/JavaScript"><img src="https://skillicons.dev/icons?i=js" width="40" title="JavaScript" /></a>&nbsp;
+    <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="40" title="VS Code" /></a>
+  </td>
+  <td align="center">
+    <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
+    <br/><br/>
+    <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
+  </td>
+  </tr>
+  </table>
 
-<br/>
+  <br></br>
 
-<sub>🔒 Projet <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> · Anthropic 🔒</sub>
+  <sub>🔒 Projet <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> &nbsp;·&nbsp; Co-développé avec <a href="https://claude.ai">Claude AI</a> · Anthropic 🔒</sub>
 
-</div>
+  <br></br>
 
-<div align="center">
-
-<p>
-  <a href="03-SECURITE-BRIQUES.md"><img src="https://img.shields.io/badge/◄-03+Défense-555555?style=flat-square" alt="← 03 Défense" /></a>&nbsp;&nbsp;<a href="README.md"><img src="https://img.shields.io/badge/⬡-SOC+0xCyberLiTech-00B4D8?style=flat-square" alt="Home" /></a>&nbsp;&nbsp;<a href="05-CHAINE-DEFENSE.md"><img src="https://img.shields.io/badge/05+Kill+Chain-►-555555?style=flat-square" alt="05 Kill Chain →" /></a>
-</p>
+  <a href="README.md">
+    <img src="https://img.shields.io/badge/↑%20Retour%20au%20README-SOC-00B4D8?style=flat-square&logo=github" alt="Retour README" />
+  </a>
 
 </div>
