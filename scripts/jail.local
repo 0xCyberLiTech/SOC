@@ -1,0 +1,38 @@
+[DEFAULT]
+ignoreip = 127.0.0.1/8 ::1 <LAN-CIDR>
+bantime = 3600
+findtime = 600
+maxretry = 3
+dbpurgeage = 2592000
+
+[sshd]
+enabled = true
+port = <SSH-PORT>
+logpath = /var/log/auth.log
+maxretry = 3
+action = nftables[name=sshd, port=<SSH-PORT>, protocol=tcp]
+         crowdsec-sync[name=sshd]
+         abuseipdb[abuseipdb_apikey="REDACTED-ABUSEIPDB-KEY", abuseipdb_category="18,22"]
+
+[nginx-http-auth]
+enabled = false
+port = http,https
+logpath = /var/log/nginx/error.log
+maxretry = 5
+
+[nginx-badbots]
+enabled = false
+port = http,https
+logpath = /var/log/nginx/access.log
+maxretry = 2
+
+[nginx-cve]
+enabled  = true
+filter   = nginx-cve
+logpath  = /var/log/nginx/access.log
+maxretry = 1
+bantime  = 86400
+findtime = 3600
+action = nftables[name=nginx-cve, port=http, protocol=tcp]
+         crowdsec-sync[name=nginx-cve]
+         abuseipdb[abuseipdb_apikey="REDACTED-ABUSEIPDB-KEY", abuseipdb_category="21,15"]

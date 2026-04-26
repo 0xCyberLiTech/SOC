@@ -1,0 +1,9 @@
+/var/log/clt-backfill.log {
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    maxsize 10M
+}

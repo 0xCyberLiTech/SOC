@@ -196,8 +196,8 @@ INTERNET
 | 📖 **Comprendre l'architecture** et les choix défensifs | Documentation [01](01-PRESENTATION.md) → [09](09-ROADMAP.md) |
 | ⚙️ **Adapter une configuration** à votre infrastructure | [CONFIGS/](CONFIGS/) — placeholders anonymisés |
 
-> **Périmètre de ce dépôt** : infrastructure · configuration système · guides de déploiement.
-> Les scripts Python (`monitoring_gen.py`, `soc-daily-report.py`, etc.) et le dashboard (HTML/JS/CSS) ne sont pas publiés ici — ils contiennent la logique applicative et sont distribués séparément.
+> Ce dépôt contient **l'intégralité du SOC** : infrastructure · configuration · scripts Python · dashboard HTML/JS/CSS.
+> Toutes les valeurs sensibles sont remplacées par des placeholders `<NOM>` — adapter à votre infra avant déploiement.
 
 ---
 
@@ -237,6 +237,49 @@ ssh root@<SRV-NGIX-IP> "tar -xzf /tmp/soc-config-*.tar.gz -C /tmp/soc-restore/"
 bash /tmp/soc-restore/restore-soc.sh --dry-run   # simulation complète
 bash /tmp/soc-restore/restore-soc.sh             # restauration
 ```
+
+---
+
+<h2 align="center">Scripts Python & Shell</h2>
+
+Sources anonymisées — remplacer les placeholders `<SRV-NGIX-IP>`, `<SSH-PORT>`, `<DOMAIN-COM>`, etc.
+
+| Fichier | Rôle |
+|---------|------|
+| [monitoring_gen.py](scripts/monitoring_gen.py) | **Moteur principal** — génère `monitoring.json` toutes les 5 min (4 600 lignes · 60+ fonctions) |
+| [monitoring.sh](scripts/monitoring.sh) | Wrapper cron + GoAccess HTML analytics |
+| [soc-daily-report.py](scripts/soc-daily-report.py) | Rapport HTML quotidien par mail (08h00) |
+| [proto-live.py](scripts/proto-live.py) | Statistiques protocoles temps réel (fenêtre 5 min) |
+| [alert.conf.example](scripts/alert.conf.example) | Configuration SMTP alertes — copier en `alert.conf` |
+| [jail.local](scripts/jail.local) | Fail2ban — 3 jails : sshd · nginx-cve · nginx-botsearch |
+| [rsyslog-10-central-receiver.conf](scripts/rsyslog-10-central-receiver.conf) | Récepteur rsyslog central (TCP+UDP 514) |
+| [rsyslog-99-forward-site01.conf](scripts/rsyslog-99-forward-site01.conf) | Émetteur rsyslog — site-01 → srv-ngix |
+| [rsyslog-99-forward-site02.conf](scripts/rsyslog-99-forward-site02.conf) | Émetteur rsyslog — site-02 → srv-ngix |
+| [apparmor-apache2-clt.conf](scripts/apparmor-apache2-clt.conf) | Profil AppArmor Apache2 — site-01 |
+| [apparmor-apache2-pa85.conf](scripts/apparmor-apache2-pa85.conf) | Profil AppArmor Apache2 — site-02 |
+| [crowdsec/](scripts/crowdsec/) | 4 scénarios CrowdSec custom (http-bad-ua · exploit-scan · php-rce · geo-block) |
+| [logrotate.d/](scripts/logrotate.d/) | 7 règles logrotate : nginx · fail2ban · monitoring · rsyslog · aide · ufw · sites |
+
+---
+
+<h2 align="center">Dashboard SOC</h2>
+
+Interface visuelle complète — SPA Vanilla JS, zéro dépendance NPM.
+
+| Fichier | Rôle |
+|---------|------|
+| [dashboard/index.html](dashboard/index.html) | Page principale — 35 tuiles · CSS intégré · cache-busters |
+| [dashboard/js/01-utils.js](dashboard/js/01-utils.js) | **⚙️ CONFIG** — `SOC_INFRA` : adapter les placeholders IPs/port/domaines ici |
+| [dashboard/js/07-render.js](dashboard/js/07-render.js) | Moteur de rendu — toutes les tuiles |
+| [dashboard/js/02-canvas-kc.js](dashboard/js/02-canvas-kc.js) | Kill Chain — canvas + modal tactique |
+| [dashboard/js/17-fetch.js](dashboard/js/17-fetch.js) | Fetch central — polling 60s → monitoring.json |
+| [dashboard/js/19-xdr.js](dashboard/js/19-xdr.js) | XDR — corrélation cross-sources |
+| [dashboard/js/22-ip-deep.js](dashboard/js/22-ip-deep.js) | Investigation IP — modal forensique |
+| [dashboard/js/11-bind.js](dashboard/js/11-bind.js) | Handlers globaux — panels · navigation |
+| [dashboard/css/monitoring.css](dashboard/css/monitoring.css) | Thème glassmorphism — variables CSS · responsive |
+| `dashboard/js/*.js` | 24 modules JS au total |
+
+> **Premier fichier à éditer** : [dashboard/js/01-utils.js](dashboard/js/01-utils.js) — bloc `SOC_INFRA` lignes 3-12, remplacer les placeholders par vos IPs/port.
 
 ---
 

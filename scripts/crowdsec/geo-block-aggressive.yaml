@@ -1,0 +1,23 @@
+type: leaky
+name: <GITHUB-USER>/geo-block-aggressive
+description: "Bloc périmétrique — pays à haute activité offensive confirmée (RU/CN/KP/IR)"
+filter: >
+  evt.Meta.service == 'http' &&
+  (
+    evt.Meta.IsoCode == 'RU' ||
+    evt.Meta.IsoCode == 'CN' ||
+    evt.Meta.IsoCode == 'KP' ||
+    evt.Meta.IsoCode == 'IR'
+  )
+groupby: evt.Meta.source_ip
+leakspeed: "5s"
+capacity: 3
+blackhole: 2m
+labels:
+  service: http
+  type: geo-block
+  remediation: true
+  confidence: 3
+  spoofable: 0
+  behavior: "http:scan"
+  label: "Bloc GeoIP périmétrique (RU/CN/KP/IR)"

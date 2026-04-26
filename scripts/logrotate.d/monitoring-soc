@@ -1,0 +1,37 @@
+/var/log/monitoring.log
+/var/log/clt-cve-fetch.log
+/var/log/clt-threat-fetch.log
+/var/log/clt-soc-report.log
+{
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    maxsize 20M
+    copytruncate
+}
+
+/var/www/monitoring/sfp-history.json
+/var/www/monitoring/wan-history.json
+/var/www/monitoring/net-history.json
+{
+    weekly
+    rotate 1
+    compress
+    missingok
+    notifempty
+    copytruncate
+}
+
+/var/www/monitoring/autoban-log.json
+/opt/clt/alert_state.json
+{
+    weekly
+    rotate 1
+    compress
+    missingok
+    notifempty
+    copytruncate
+}

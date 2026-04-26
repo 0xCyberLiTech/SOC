@@ -1,0 +1,14 @@
+/var/log/ufw.log
+{
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifempty
+    maxsize 20M
+    sharedscripts
+    postrotate
+        [ -x /usr/lib/rsyslog/rsyslog-rotate ] && /usr/lib/rsyslog/rsyslog-rotate || true
+    endscript
+}

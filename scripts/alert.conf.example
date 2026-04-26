@@ -1,0 +1,6 @@
+[smtp]
+host     = <SMTP-HOST>
+port     = 587
+login    = VOIR_CLES_API_<GITHUB-USER>/smtp_laposte/credentials.txt
+password = VOIR_CLES_API_<GITHUB-USER>/smtp_laposte/credentials.txt
+to       = VOIR_CLES_API_<GITHUB-USER>/smtp_laposte/credentials.txt
