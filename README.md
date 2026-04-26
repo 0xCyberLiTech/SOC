@@ -166,18 +166,18 @@ INTERNET
    │
    ▼
 ┌─────────────────────────────────────────────────────┐
-│                    srv-ngix                          │
-│                                                      │
-│  UFW + nftables ──→ GeoIP Block ──→ CrowdSec WAF   │
+│                    srv-ngix                         │
+│                                                     │
+│  UFW + nftables ──→ GeoIP Block ──→ CrowdSec WAF    │
 │       ──→ Suricata IDS ──→ Fail2ban ──→ nginx       │
 │       ──→ AppArmor · AID HIDS                       │
-│                                                      │
+│                                                     │
 │  ┌──────────────────────────────────────────────┐   │
-│  │         Dashboard SOC (port 8080)             │   │
+│  │         Dashboard SOC (port 8080)            │   │
 │  │  24 modules JS · polling 60s · Kill Chain    │   │
 │  └──────────────────────────────────────────────┘   │
-│                                                      │
-│  rsyslog ◄── site-01 · site-02 · pve · <ROUTER>    │
+│                                                     │
+│  rsyslog ◄── site-01 · site-02 · pve · <ROUTER>     │
 └─────────────────────────────────────────────────────┘
          │                    │
          ▼                    ▼
