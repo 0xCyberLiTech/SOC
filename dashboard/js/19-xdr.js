@@ -330,7 +330,7 @@ var _SRCS = [
   {id:'f2b', fam:'fail2ban', lbl:'FAIL2BAN',   ico:'🔒', col:'#f90', bc:'rgba(255,153,0,.25)', bg:'rgba(255,153,0,.06)', wc:'f2b',
    proc:'Bans actifs · jail multi-services', tags:'ssh · http-auth · botsearch · nginx-cve'},
   {id:'vlm', fam:'vmf2b',     lbl:'F2B VMs',    ico:'⊛', col:'#ffb300', bc:'rgba(255,179,0,.25)', bg:'rgba(255,179,0,.06)', wc:'vlm',
-   proc:'Fail2ban clt · fail2ban pa85', tags:'bans · ssh · apache · bruteforce'},
+   proc:'Fail2ban site-01 · fail2ban site-02', tags:'bans · ssh · apache · bruteforce'},
   /* paire 2 — WAF */
   {id:'msc', fam:'modsec',   lbl:'MODSEC/CLT',  ico:'⚔', col:'#f77', bc:'rgba(255,100,100,.25)',bg:'rgba(255,100,100,.06)',wc:'msc',
    proc:'WAF Layer-7 · OWASP CRS', tags:'SQLi · XSS · LFI · RCE · CVE patch'},
@@ -352,12 +352,12 @@ var _SRCS = [
   {id:'aid', fam:'aid',        lbl:'AID HIDS',   ico:'◉', col:'#0cf', bc:'rgba(0,200,255,.25)', bg:'rgba(0,200,255,.06)', wc:'aid',
    proc:'Intégrité fichiers · diff HIDS', tags:'modified · added · removed · baseline'},
   /* paire 6 — cross-host rsyslog */
-  {id:'rtr', fam:'router',    lbl:'ROUTEUR GT-BE98', ico:'⊙', col:'#00bcd4', bc:'rgba(0,188,212,.25)', bg:'rgba(0,188,212,.06)', wc:'rtr',
+  {id:'rtr', fam:'router',    lbl:'ROUTEUR',          ico:'⊙', col:'#00bcd4', bc:'rgba(0,188,212,.25)', bg:'rgba(0,188,212,.06)', wc:'rtr',
    proc:'Logs syslog routeur · DST sortants', tags:'kernel · firewall · C2 · conntrack'},
   {id:'ap', fam:'apache', lbl:'APACHE VMs', ico:'⊚', col:'#80deea', bc:'rgba(128,222,234,.25)', bg:'rgba(128,222,234,.06)', wc:'ap',
-   proc:'Apache clt · Apache pa85 · rsyslog', tags:'errors ≥5 · 4xx · SCAN · bruteforce'},
+   proc:'Apache site-01 · Apache site-02 · rsyslog', tags:'errors ≥5 · 4xx · SCAN · bruteforce'},
 ];
-var _FAM_SRC = {'fail2ban':'f2b','ufw':'ufw','apparmor':'aar','modsec_clt':'msc','modsec_pa85':'msp','suricata':'sur','autoban':'abn','nginx_drop':'ngx','aide':'aid','router':'rtr','vmf2b':'vlm','apache':'ap'};
+var _FAM_SRC = {'fail2ban':'f2b','ufw':'ufw','apparmor':'aar','modsec_site01':'msc','modsec_site02':'msp','suricata':'sur','autoban':'abn','nginx_drop':'ngx','aide':'aid','router':'rtr','vmf2b':'vlm','apache':'ap'};
 var _FAM_C   = {fail2ban:'#f90',ufw:'#4af',apparmor:'#c7f',modsec:'#f77',autoban:'#0f8',suricata:'#ff4',nginx_drop:'#f0a',aid:'#0cf',router:'#0bd',vmf2b:'#fb0',apache:'#80deea'};
 
 function _ss(src){
@@ -365,8 +365,8 @@ function _ss(src){
     fail2ban:   {c:'#f90',  bc:'rgba(255,153,0,.3)', bg:'rgba(255,153,0,.08)',  lbl:'F2B'},
     ufw:        {c:'#4af',  bc:'rgba(64,170,255,.3)',bg:'rgba(64,170,255,.08)', lbl:'UFW'},
     apparmor:   {c:'#c7f',  bc:'rgba(200,120,255,.3)',bg:'rgba(200,120,255,.08)',lbl:'AAR'},
-    modsec_clt: {c:'#f77',  bc:'rgba(255,100,100,.3)',bg:'rgba(255,100,100,.08)',lbl:'MODSEC'},
-    modsec_pa85:{c:'#f77',  bc:'rgba(255,100,100,.3)',bg:'rgba(255,100,100,.08)',lbl:'MODSEC'},
+    modsec_site01:{c:'#f77', bc:'rgba(255,100,100,.3)',bg:'rgba(255,100,100,.08)',lbl:'MODSEC'},
+    modsec_site02:{c:'#f77', bc:'rgba(255,100,100,.3)',bg:'rgba(255,100,100,.08)',lbl:'MODSEC'},
     autoban:    {c:'#0f8',  bc:'rgba(0,255,136,.3)', bg:'rgba(0,255,136,.08)', lbl:'AUTOBAN'},
     suricata:   {c:'#ff4',  bc:'rgba(255,240,0,.3)', bg:'rgba(255,240,0,.08)', lbl:'SURICATA'},
     nginx_drop: {c:'#f0a',  bc:'rgba(255,0,170,.3)', bg:'rgba(255,0,170,.08)', lbl:'NGX DROP'},
@@ -381,7 +381,7 @@ function _fam(src){
   if(src==='fail2ban')  return 'fail2ban';
   if(src==='ufw')       return 'ufw';
   if(src==='apparmor')  return 'apparmor';
-  if(src==='modsec_clt'||src==='modsec_pa85') return 'modsec';
+  if(src==='modsec_site01'||src==='modsec_site02') return 'modsec';
   if(src==='autoban')   return 'autoban';
   if(src==='suricata')  return 'suricata';
   if(src==='nginx_drop') return 'nginx_drop';
@@ -429,7 +429,7 @@ function _build(d){
         detail:'AIDE: '+(aid.changed||0)+' mod · '+(aid.added||0)+' add · '+(aid.removed||0)+' del',sev:4});
     }
   }
-  // Router GT-BE98 — DST sortants vers IPs de la kill chain (signal C2)
+  // Routeur — DST sortants vers IPs de la kill chain (signal C2)
   var _xh=d.xhosts||{};
   var _kcIpSet={};(d.kill_chain&&d.kill_chain.active_ips||[]).forEach(function(x){_kcIpSet[x.ip]=true;});
   Object.keys(_xh.router_dst||{}).forEach(function(ip){
@@ -438,8 +438,8 @@ function _build(d){
     ev.push({ts:'',ip:ip,src:'router',type:inKc?'C2_OUTBOUND':'OUTBOUND',
       detail:'RTR DST ×'+(cnt||1)+(inKc?' — ⚠ C2 sortant':''),sev:inKc?4:2});
   });
-  // VM Fail2ban (clt + pa85) via rsyslog syslog
-  ['clt','pa85'].forEach(function(host){
+  // VM Fail2ban (site01 + site02) via rsyslog syslog
+  ['site01','site02'].forEach(function(host){
     ((_xh.f2b_bans||{})[host]||[]).forEach(function(ban){
       if(!ban.ip) return;
       ev.push({ts:ban.ts||'',ip:ban.ip,src:'vmf2b',type:'BAN',

@@ -190,22 +190,22 @@ var _DC_MAIN=[
   {
     id:'f2b',ico:'◈',col:'rgba(0,217,255,.9)',
     lbl:'fail2ban',sub:'Bannissement adaptatif multi-hôtes',
-    role:'Analyse les logs nginx/SSH/Apache en temps réel. Bannit les IPs après N échecs via iptables/nftables. Couvre srv-ngix, Proxmox, CLT et PA85.',
+    role:'Analyse les logs nginx/SSH/Apache en temps réel. Bannit les IPs après N échecs via iptables/nftables. Couvre srv-ngix, Proxmox, SITE-01 et SITE-02.',
     getOk:function(d){var f=d.fail2ban||{};return !!(f.jails&&f.jails.length);},
     getLoadNum:function(d){
       var f=d.fail2ban||{};
       var tot=f.total_banned||0;
       if(f.proxmox&&f.proxmox.available)tot+=f.proxmox.total_banned||0;
-      if(f.clt&&f.clt.available)tot+=f.clt.total_banned||0;
-      if(f.pa85&&f.pa85.available)tot+=f.pa85.total_banned||0;
+      if(f.site01&&f.site01.available)tot+=f.site01.total_banned||0;
+      if(f.site02&&f.site02.available)tot+=f.site02.total_banned||0;
       return tot;
     },
     getVal:function(d){
       var f=d.fail2ban||{};
       var tot=f.total_banned||0;
       if(f.proxmox&&f.proxmox.available)tot+=f.proxmox.total_banned||0;
-      if(f.clt&&f.clt.available)tot+=f.clt.total_banned||0;
-      if(f.pa85&&f.pa85.available)tot+=f.pa85.total_banned||0;
+      if(f.site01&&f.site01.available)tot+=f.site01.total_banned||0;
+      if(f.site02&&f.site02.available)tot+=f.site02.total_banned||0;
       return tot>0?fmt(tot)+' IPs':'0 IP';
     },
     getMetrics:function(d){
@@ -213,8 +213,8 @@ var _DC_MAIN=[
       return [
         {k:'srv-ngix',v:fmt(f.total_banned||0)+' bans · '+((f.jails||[]).length)+' jails'},
         {k:'Proxmox',v:f.proxmox&&f.proxmox.available?fmt(f.proxmox.total_banned||0)+' bans':'N/A'},
-        {k:'CLT',v:f.clt&&f.clt.available?fmt(f.clt.total_banned||0)+' bans':'N/A'},
-        {k:'PA85',v:f.pa85&&f.pa85.available?fmt(f.pa85.total_banned||0)+' bans':'N/A'},
+        {k:'SITE-01',v:f.site01&&f.site01.available?fmt(f.site01.total_banned||0)+' bans':'N/A'},
+        {k:'SITE-02',v:f.site02&&f.site02.available?fmt(f.site02.total_banned||0)+' bans':'N/A'},
         {k:'Bantime',v:'24h (défaut)'}
       ];
     },
@@ -223,7 +223,7 @@ var _DC_MAIN=[
   {
     id:'nginx',ico:'⊘',col:'rgba(0,255,136,.9)',
     lbl:'nginx',sub:'Reverse proxy · vhosts · TLS',
-    role:'Serveur web principal. Termine les connexions TLS, route les requêtes vers les vhosts CLT/PA85, sert le dashboard SOC. Bouncer CrowdSec intégré comme module natif.',
+    role:'Serveur web principal. Termine les connexions TLS, route les requêtes vers les vhosts SITE-01/SITE-02, sert le dashboard SOC. Bouncer CrowdSec intégré comme module natif.',
     getOk:function(d){
       var svcs=d.services||{};
       var keys=Object.keys(svcs);
@@ -249,7 +249,7 @@ var _DC_MAIN=[
   {
     id:'xdr',ico:'◈',col:'rgba(0,200,255,.85)',
     lbl:'XDR — Corrélation rsyslog',sub:'Cross-host · kill chain · 5 hôtes',
-    role:'Moteur de corrélation XDR : centralise les logs de srv-ngix, Proxmox, CLT, PA85 et GT-BE98 via rsyslog. Corrèle les événements cross-hôtes pour détecter les IPs actives sur plusieurs vecteurs simultanément (C2 sortant, kill chain multi-étapes, récidivistes). Alimente directement le score de menace global.',
+    role:'Moteur de corrélation XDR : centralise les logs de srv-ngix, Proxmox, SITE-01, SITE-02 et ROUTEUR via rsyslog. Corrèle les événements cross-hôtes pour détecter les IPs actives sur plusieurs vecteurs simultanément (C2 sortant, kill chain multi-étapes, récidivistes). Alimente directement le score de menace global.',
     getOk:function(d){return (d.rsyslog||{}).available!==false;},
     getLoadNum:function(d){return (d.xhosts||{}).corr_count||0;},
     getVal:function(d){var v=(d.xhosts||{}).corr_count||0;return v>0?fmt(v)+' IP corr.':'0 corr.';},
@@ -259,9 +259,9 @@ var _DC_MAIN=[
         {k:'État',v:rs.available!==false?'ACTIF':'INACTIF'},
         {k:'IPs corrélées',v:fmt(xh.corr_count||0)},
         {k:'Destinations uniques',v:fmt(xh.total_dst||0)},
-        {k:'Hôtes couverts',v:'srv-ngix · proxmox · clt · pa85 · GT-BE98'},
+        {k:'Hôtes couverts',v:'srv-ngix · proxmox · site-01 · site-02 · routeur'},
         {k:'Kill chain cross-host',v:Object.keys(xh.kill_chain_ips||{}).length+' IPs'},
-        {k:'F2B bans VMs',v:fmt(((xh.f2b_bans||{}).clt||[]).length+((xh.f2b_bans||{}).pa85||[]).length)+' (clt+pa85)'}
+        {k:'F2B bans VMs',v:fmt(((xh.f2b_bans||{}).site01||[]).length+((xh.f2b_bans||{}).site02||[]).length)+' (site01+site02)'}
       ];
     },
     getDeps:function(){return 'Alimente computeThreatScore · C2 sortant · récidivistes · bans VMs';}
@@ -310,32 +310,32 @@ var _DC_BRANCHES=[
     ]
   },
   {
-    id:'clt',lbl:'CLT',
+    id:'site01',lbl:'SITE-01',
     subs:[
       {
-        id:'aa_clt',ico:'⬡',col:'rgba(0,160,200,.85)',
-        lbl:'AppArmor',sub:'Apache2 CLT confiné',
-        role:'Profil AppArmor enforce pour Apache2 sur VM CLT. Limite Apache2 aux ressources nécessaires pour servir le site cybersécurité.',
-        getOk:function(d){return (d.clt_apparmor||{}).enforce===true;},
-        getVal:function(d){return (d.clt_apparmor||{}).processes_confined||0;},
+        id:'aa_site01',ico:'⬡',col:'rgba(0,160,200,.85)',
+        lbl:'AppArmor',sub:'Apache2 SITE-01 confiné',
+        role:'Profil AppArmor enforce pour Apache2 sur VM SITE-01. Limite Apache2 aux ressources nécessaires pour servir le site.',
+        getOk:function(d){return (d.site01_apparmor||{}).enforce===true;},
+        getVal:function(d){return (d.site01_apparmor||{}).processes_confined||0;},
         getMetrics:function(d){
-          var a=d.clt_apparmor||{};
+          var a=d.site01_apparmor||{};
           return [
             {k:'Mode',v:a.enforce===true?'enforce':a.available===false?'N/A':'complain'},
             {k:'Workers confinés',v:fmt(a.processes_confined||0)},
-            {k:'VM',v:'CLT — '+SOC_INFRA.CLT}
+            {k:'VM',v:'SITE-01 — '+SOC_INFRA.CLT}
           ];
         },
-        getDeps:function(){return 'VM 106 — Apache2 + site cybersécurité';}
+        getDeps:function(){return 'VM '+SOC_INFRA.VM_ID_SITE01+' — Apache2 + site-01';}
       },
       {
-        id:'ms_clt',ico:'◈',col:'rgba(0,217,255,.85)',
+        id:'ms_site01',ico:'◈',col:'rgba(0,217,255,.85)',
         lbl:'ModSecurity',sub:'WAF OWASP CRS Apache',
         role:'WAF ModSecurity avec le Core Rule Set OWASP. Filtre les requêtes HTTP malveillantes (SQLi, XSS, LFI, RCE) au niveau Apache2 avant traitement applicatif.',
-        getOk:function(d){return (d.clt_modsec||{}).engine_on===true;},
-        getVal:function(d){var m=d.clt_modsec||{};if(!m.engine_on)return 'OFF';return m.blocking===true?'BLOCAGE':'DÉTECTION';},
+        getOk:function(d){return (d.site01_modsec||{}).engine_on===true;},
+        getVal:function(d){var m=d.site01_modsec||{};if(!m.engine_on)return 'OFF';return m.blocking===true?'BLOCAGE':'DÉTECTION';},
         getMetrics:function(d){
-          var m=d.clt_modsec||{};
+          var m=d.site01_modsec||{};
           return [
             {k:'Moteur',     v:m.engine_on===true?'ON':'OFF'},
             {k:'Mode',       v:m.blocking===true?'BLOCAGE (deny 403)':'DÉTECTION (pass)'},
@@ -350,32 +350,32 @@ var _DC_BRANCHES=[
     ]
   },
   {
-    id:'pa85',lbl:'PA85',
+    id:'site02',lbl:'SITE-02',
     subs:[
       {
-        id:'aa_pa85',ico:'⬡',col:'rgba(120,80,200,.85)',
-        lbl:'AppArmor',sub:'Apache2 PA85 confiné',
-        role:'Profil AppArmor enforce pour Apache2 sur VM PA85. Confine Apache2 pour le site associatif PA85 avec formulaires PHP (contact, RDV).',
-        getOk:function(d){return (d.pa85_apparmor||{}).enforce===true;},
-        getVal:function(d){return (d.pa85_apparmor||{}).processes_confined||0;},
+        id:'aa_site02',ico:'⬡',col:'rgba(120,80,200,.85)',
+        lbl:'AppArmor',sub:'Apache2 SITE-02 confiné',
+        role:'Profil AppArmor enforce pour Apache2 sur VM SITE-02. Confine Apache2 pour servir le site avec formulaires PHP (contact, RDV).',
+        getOk:function(d){return (d.site02_apparmor||{}).enforce===true;},
+        getVal:function(d){return (d.site02_apparmor||{}).processes_confined||0;},
         getMetrics:function(d){
-          var a=d.pa85_apparmor||{};
+          var a=d.site02_apparmor||{};
           return [
             {k:'Mode',v:a.enforce===true?'enforce':a.available===false?'N/A':'complain'},
             {k:'Workers confinés',v:fmt(a.processes_confined||0)},
-            {k:'VM',v:'PA85 — '+SOC_INFRA.PA85}
+            {k:'VM',v:'SITE-02 — '+SOC_INFRA.PA85}
           ];
         },
-        getDeps:function(){return 'VM 107 — Apache2 + site associatif PA85';}
+        getDeps:function(){return 'VM '+SOC_INFRA.VM_ID_SITE02+' — Apache2 + site-02';}
       },
       {
-        id:'ms_pa85',ico:'◈',col:'rgba(120,80,200,.75)',
+        id:'ms_site02',ico:'◈',col:'rgba(120,80,200,.75)',
         lbl:'ModSecurity',sub:'WAF OWASP CRS Apache',
-        role:'WAF ModSecurity avec le Core Rule Set OWASP sur VM PA85. Même protection que CLT — SQLi, XSS, LFI filtrés au niveau Apache2.',
-        getOk:function(d){return (d.pa85_modsec||{}).engine_on===true;},
-        getVal:function(d){var m=d.pa85_modsec||{};if(!m.engine_on)return 'OFF';return m.blocking===true?'BLOCAGE':'DÉTECTION';},
+        role:'WAF ModSecurity avec le Core Rule Set OWASP sur VM SITE-02. Protection SQLi, XSS, LFI filtrés au niveau Apache2.',
+        getOk:function(d){return (d.site02_modsec||{}).engine_on===true;},
+        getVal:function(d){var m=d.site02_modsec||{};if(!m.engine_on)return 'OFF';return m.blocking===true?'BLOCAGE':'DÉTECTION';},
         getMetrics:function(d){
-          var m=d.pa85_modsec||{};
+          var m=d.site02_modsec||{};
           return [
             {k:'Moteur',     v:m.engine_on===true?'ON':'OFF'},
             {k:'Mode',       v:m.blocking===true?'BLOCAGE (deny 403)':'DÉTECTION (pass)'},

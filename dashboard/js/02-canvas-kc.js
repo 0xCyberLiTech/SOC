@@ -630,14 +630,14 @@ function _kcInvestigateIP(ipStr){
     confSrcs.push({n:'FAIL2BAN \u26d4',v:'Non banni sur srv-ngix',on:false,col:'var(--red)'});
   }
   if(ipObj.router_seen){
-    conf++;confSrcs.push({n:'ROUTEUR GT-BE98 \u2299',v:'\u00d7'+(ipObj.router_hits||1)+' dans logs routeur'+(ipObj.router_out>0?' \u2014 \u26a0C2 sortant d\u00e9tect\u00e9':''),on:true,col:'#00bcd4'});
+    conf++;confSrcs.push({n:'ROUTEUR \u2299',v:'\u00d7'+(ipObj.router_hits||1)+' dans logs routeur'+(ipObj.router_out>0?' \u2014 \u26a0C2 sortant d\u00e9tect\u00e9':''),on:true,col:'#00bcd4'});
   } else {
-    confSrcs.push({n:'ROUTEUR GT-BE98 \u2299',v:'Non d\u00e9tect\u00e9 dans logs routeur',on:false,col:'#00bcd4'});
+    confSrcs.push({n:'ROUTEUR \u2299',v:'Non d\u00e9tect\u00e9 dans logs routeur',on:false,col:'#00bcd4'});
   }
   if(ipObj.f2b_vms&&ipObj.f2b_vms.length){
     conf++;confSrcs.push({n:'FAIL2BAN VMs \u229b',v:'Banni sur '+(ipObj.f2b_vms||[]).join(' + '),on:true,col:'#ffb300'});
   } else {
-    confSrcs.push({n:'FAIL2BAN VMs \u229b',v:'Non banni sur VMs (clt/pa85)',on:false,col:'#ffb300'});
+    confSrcs.push({n:'FAIL2BAN VMs \u229b',v:'Non banni sur VMs (site-01/site-02)',on:false,col:'#ffb300'});
   }
   var confCol=conf>=4?'var(--green)':conf>=3?'rgba(255,215,0,0.9)':'var(--orange)';
   var confLbl=conf>=5?'CONFIRM\u00c9':conf>=4?'\u00c9LEV\u00c9':conf>=3?'MOD\u00c9R\u00c9':'FAIBLE';

@@ -4,12 +4,12 @@
 // Mettre à jour ici si l'infrastructure change (nouveaux hôtes, nouvelles plages CDN, etc.)
 var _RSYSLOG_JARVIS_CTX=[
   'CONTEXTE INFRASTRUCTURE (rôle de chaque hôte) :',
-  '  clt  = VM Apache + fail2ban (site cybersécurité, VM 106, <CLT-IP>)',
-  '  pa85 = VM Apache + fail2ban (site associatif PA85, VM 107, <PA85-IP>)',
-  '  pve  = Proxmox VE hyperviseur (hôte physique <PROXMOX-IP>, héberge clt/pa85/srv-ngix)',
-  '  <ROUTER-HOSTNAME> = Routeur ASUS WAN/LAN (<ROUTER-IP>, firmware <ROUTER-FIRMWARE>)\n',
+  '  site-01 = VM Apache + fail2ban (site-01, VM <VM-ID-SITE01>, <CLT-IP>)',
+  '  site-02 = VM Apache + fail2ban (site-02, VM <VM-ID-SITE02>, <PA85-IP>)',
+  '  pve     = Proxmox VE hyperviseur (hôte physique <PROXMOX-IP>, héberge site-01/site-02/srv-ngix)',
+  '  <ROUTER-HOSTNAME> = Routeur WAN/LAN (<ROUTER-IP>)\n',
   'CONTEXTE programs_unused (sources présentes NON exploitées par le SOC) :',
-  '  kernel sur clt/pa85 = fichiers VIDES (0 lignes actives) — aucun événement noyau en cours, pas urgent',
+  '  kernel sur site-01/site-02 = fichiers VIDES (0 lignes actives) — aucun événement noyau en cours, pas urgent',
   '  pve-firewall = activé le 2026-04-24 (host.fw log_level_in:warning) — en remplissage, normal',
   '  RÈGLE : ne recommander d\'activer une source que si elle contient des données réelles\n',
   'CONTEXTE WAN <ROUTER-HOSTNAME> :',
@@ -361,13 +361,13 @@ function _mitreBuildTechniques(d){
   var surSev2=sur2.available?(sur2.sev2_high||0):0;
   var surTotal=sur2.available?(sur2.total_alerts||0):0;
   var sshFail=(d.ssh||[]).reduce(function(a,m){return a+(m.failed_24h||0);},0);
-  var f2bHosts=[f2b2.jails||[],(f2b2.proxmox&&f2b2.proxmox.jails)||[],(f2b2.clt&&f2b2.clt.jails)||[],(f2b2.pa85&&f2b2.pa85.jails)||[]];
+  var f2bHosts=[f2b2.jails||[],(f2b2.proxmox&&f2b2.proxmox.jails)||[],(f2b2.site01&&f2b2.site01.jails)||[],(f2b2.site02&&f2b2.site02.jails)||[]];
   var sshBansAll=f2bHosts.reduce(function(a,jls){return a+jls.filter(function(j){return j.jail==='sshd';}).reduce(function(x,j){return x+(j.cur_banned||0);},0);},0);
   var apacheJails=['apache-badbots','apache-noscript','apache-overflows'];
-  var webBotScore=[(f2b2.clt&&f2b2.clt.jails)||[],(f2b2.pa85&&f2b2.pa85.jails)||[]].reduce(function(a,jls){
+  var webBotScore=[(f2b2.site01&&f2b2.site01.jails)||[],(f2b2.site02&&f2b2.site02.jails)||[]].reduce(function(a,jls){
     return a+jls.filter(function(j){return apacheJails.indexOf(j.jail)>=0;}).reduce(function(x,j){return x+(j.cur_banned||0)+(j.tot_failed||0);},0);
   },0);
-  var _f2bHosts=[{v:f2b2.total_banned,ok:true},{v:(f2b2.proxmox||{}).total_banned,ok:!!(f2b2.proxmox&&f2b2.proxmox.available)},{v:(f2b2.clt||{}).total_banned,ok:!!(f2b2.clt&&f2b2.clt.available)},{v:(f2b2.pa85||{}).total_banned,ok:!!(f2b2.pa85&&f2b2.pa85.available)}];
+  var _f2bHosts=[{v:f2b2.total_banned,ok:true},{v:(f2b2.proxmox||{}).total_banned,ok:!!(f2b2.proxmox&&f2b2.proxmox.available)},{v:(f2b2.site01||{}).total_banned,ok:!!(f2b2.site01&&f2b2.site01.available)},{v:(f2b2.site02||{}).total_banned,ok:!!(f2b2.site02&&f2b2.site02.available)}];
   var _f2bActive=_f2bHosts.filter(function(h){return h.ok;}).length;
   var totalBansAll=_f2bHosts.reduce(function(a,h){return a+(h.ok?h.v||0:0);},0);
   var exploitScore=(sc.EXPLOIT||0)+(cs2.appsec&&cs2.appsec.blocked||0)+surSev1;
@@ -547,9 +547,9 @@ function _sdBuildLayers(d){
   var f2b=d.fail2ban||{}, ufw=d.ufw||{}, cs=d.crowdsec||{}, t=d.traffic||{};
   var pvf2b=f2b.proxmox||{};
   var f2bBansPvx=pvf2b.available?(pvf2b.total_banned||0):null;
-  var _aa=d.clt_apparmor||{}, _ms=d.clt_modsec||{}, _aan=d.apparmor_nginx||{};
-  var _aap=d.pa85_apparmor||{}, _msp=d.pa85_modsec||{};
-  var cltf2b=f2b.clt||{}, pa85f2b=f2b.pa85||{};
+  var _aa=d.site01_apparmor||{}, _ms=d.site01_modsec||{}, _aan=d.apparmor_nginx||{};
+  var _aap=d.site02_apparmor||{}, _msp=d.site02_modsec||{};
+  var cltf2b=f2b.site01||{}, pa85f2b=f2b.site02||{};
   var f2bBansClt=cltf2b.available?(cltf2b.total_banned||0):null;
   var f2bBansPa85=pa85f2b.available?(pa85f2b.total_banned||0):null;
   return [
@@ -559,12 +559,12 @@ function _sdBuildLayers(d){
     {ico:'⊛', lbl:'CrowdSec IPS',     sub:'Blocage automatique',      val:cs.active_decisions||0,        col:'rgba(255,107,53,.9)',   ok:cs.available||false},
     {ico:'◈', lbl:'fail2ban — srv-ngix', sub:'Protection SSH · Nginx',       val:f2b.total_banned||0,                          col:'rgba(0,217,255,.85)',  ok:!!(f2b.jails&&f2b.jails.length)},
     {ico:'◈', lbl:'fail2ban — Proxmox',  sub:'Protection SSH · Hyperviseur', val:f2bBansPvx!==null?f2bBansPvx:0,               col:'rgba(0,180,220,.7)',   ok:pvf2b.available===true,  na:f2bBansPvx===null},
-    {ico:'◈', lbl:'fail2ban — CLT',      sub:'Protection SSH · Apache2',     val:f2bBansClt!==null?f2bBansClt:0,               col:'rgba(0,160,200,.65)',  ok:cltf2b.available===true, na:f2bBansClt===null},
-    {ico:'◈', lbl:'fail2ban — PA85',     sub:'Protection SSH · Apache2',     val:f2bBansPa85!==null?f2bBansPa85:0,             col:'rgba(0,140,180,.6)',   ok:pa85f2b.available===true,na:f2bBansPa85===null},
-    {ico:'⬡', lbl:'AppArmor — CLT',   sub:'Confinement Apache2',      val:_aa.processes_confined||0,     col:'rgba(0,255,136,.75)',   ok:_aa.enforce===true,    na:_aa.available===false,  lbl2:_aa.available===true?(_aa.processes_confined||0)+' workers':null},
-    {ico:'⬡', lbl:'ModSec — CLT',     sub:'WAF OWASP CRS Apache',     val:_ms.attack_count||0,           col:'rgba(0,217,255,.75)',   ok:_ms.engine_on===true,  na:_ms.available===false,  lbl2:_ms.available===true?(_ms.engine_on===true?(_ms.blocking===true?'BLOCAGE':'DÉTECT'):'OFF'):null},
-    {ico:'⬡', lbl:'AppArmor — PA85',  sub:'Confinement Apache2',      val:_aap.processes_confined||0,    col:'rgba(0,255,136,.75)',   ok:_aap.enforce===true,   na:_aap.available===false, lbl2:_aap.available===true?(_aap.processes_confined||0)+' workers':null},
-    {ico:'⬡', lbl:'ModSec — PA85',    sub:'WAF OWASP CRS Apache',     val:_msp.attack_count||0,          col:'rgba(0,217,255,.75)',   ok:_msp.engine_on===true, na:_msp.available===false, lbl2:_msp.available===true?(_msp.engine_on===true?(_msp.blocking===true?'BLOCAGE':'DÉTECT'):'OFF'):null},
+    {ico:'◈', lbl:'fail2ban — SITE-01',  sub:'Protection SSH · Apache2',     val:f2bBansClt!==null?f2bBansClt:0,               col:'rgba(0,160,200,.65)',  ok:cltf2b.available===true, na:f2bBansClt===null},
+    {ico:'◈', lbl:'fail2ban — SITE-02',  sub:'Protection SSH · Apache2',     val:f2bBansPa85!==null?f2bBansPa85:0,             col:'rgba(0,140,180,.6)',   ok:pa85f2b.available===true,na:f2bBansPa85===null},
+    {ico:'⬡', lbl:'AppArmor — SITE-01',sub:'Confinement Apache2',      val:_aa.processes_confined||0,     col:'rgba(0,255,136,.75)',   ok:_aa.enforce===true,    na:_aa.available===false,  lbl2:_aa.available===true?(_aa.processes_confined||0)+' workers':null},
+    {ico:'⬡', lbl:'ModSec — SITE-01', sub:'WAF OWASP CRS Apache',     val:_ms.attack_count||0,           col:'rgba(0,217,255,.75)',   ok:_ms.engine_on===true,  na:_ms.available===false,  lbl2:_ms.available===true?(_ms.engine_on===true?(_ms.blocking===true?'BLOCAGE':'DÉTECT'):'OFF'):null},
+    {ico:'⬡', lbl:'AppArmor — SITE-02',sub:'Confinement Apache2',      val:_aap.processes_confined||0,    col:'rgba(0,255,136,.75)',   ok:_aap.enforce===true,   na:_aap.available===false, lbl2:_aap.available===true?(_aap.processes_confined||0)+' workers':null},
+    {ico:'⬡', lbl:'ModSec — SITE-02', sub:'WAF OWASP CRS Apache',     val:_msp.attack_count||0,          col:'rgba(0,217,255,.75)',   ok:_msp.engine_on===true, na:_msp.available===false, lbl2:_msp.available===true?(_msp.engine_on===true?(_msp.blocking===true?'BLOCAGE':'DÉTECT'):'OFF'):null},
     {ico:'⬡', lbl:'AppArmor — nginx', sub:'Confinement workers nginx', val:_aan.processes_confined||0,   col:'rgba(0,255,136,.75)',   ok:_aan.enforce===true,   na:_aan.available===false, lbl2:_aan.available===true?(_aan.processes_confined||0)+' workers':null},
   ];
 }
@@ -694,7 +694,7 @@ function _paCsPanel(cs, csStages){
 }
 // NDT-21c — panneau Fail2ban 4 hôtes (titre inclus)
 function _paF2bPanel(f2b){
-  var pvf2b=f2b.proxmox||{}, cltf2b=f2b.clt||{}, pa85f2b=f2b.pa85||{};
+  var pvf2b=f2b.proxmox||{}, cltf2b=f2b.site01||{}, pa85f2b=f2b.site02||{};
   var _f2bHostCount=[true,pvf2b.available===true,cltf2b.available===true,pa85f2b.available===true].filter(Boolean).length;
   var _totBan=(f2b.total_banned||0)+(pvf2b.available?(pvf2b.total_banned||0):0)+(cltf2b.available?(cltf2b.total_banned||0):0)+(pa85f2b.available?(pa85f2b.total_banned||0):0);
   var _allJails=(f2b.jails||[]).length+(pvf2b.available?(pvf2b.jails||[]).length:0)+(cltf2b.available?(cltf2b.jails||[]).length:0)+(pa85f2b.available?(pa85f2b.jails||[]).length:0);
@@ -710,8 +710,8 @@ function _paF2bPanel(f2b){
       +'<div style="font-size:var(--fs-xs);color:var(--muted);margin-bottom:.28rem">'+_activeJails+' jails actives · '+_allJails+' total · '+_f2bHostCount+' hôtes</div>'
       +_paHostMini('SRV-NGIX',f2b.jails||[],true,false)
       +_paHostMini('PROXMOX',pvf2b.jails||[],pvf2b.available,pvf2b.stale)
-      +_paHostMini('CLT',cltf2b.jails||[],cltf2b.available,false)
-      +_paHostMini('PA85',pa85f2b.jails||[],pa85f2b.available,false);
+      +_paHostMini('SITE-01',cltf2b.jails||[],cltf2b.available,false)
+      +_paHostMini('SITE-02',pa85f2b.jails||[],pa85f2b.available,false);
   return '<div style="font-size:var(--fs-xs);color:var(--orange);text-transform:uppercase;letter-spacing:.9px;font-weight:700;margin-bottom:.35rem;display:flex;align-items:center;gap:.35rem">⊘ Fail2ban — '+_f2bHostCount+' hôtes'
     +'<span data-panel="RÔLE : protection locale contre les attaques répétées — analyse les logs système en temps réel et bannit automatiquement les IPs qui dépassent les seuils configurés. Couvre 4 hôtes indépendants : srv-ngix · Proxmox · CLT · PA85.\n\nMÉCANISME : scrute les logs (nginx · SSH · Apache) → détecte les patterns répétés (X échecs en Y secondes) → ban IP via iptables/nftables pour une durée configurable. Chaque hôte a ses propres jails, seuils et bantimes. Réaction en secondes.\n\nMÉTRIQUES SURVEILLÉES : bans actifs par hôte · jails actives / total · bantimes configurés · IPs récidivistes. Un hôte avec 0 bans = calme ou jail inactive — vérifier que les jails sont bien enabled.\n\nCOMPORTEMENT ATTENDU : bans en hausse = attaque en cours mais maîtrisée. Jails actives > 0 sur chaque hôte = protection en place. Si bans = 0 sur un hôte exposé (srv-ngix · CLT), investiguer l état des jails.\n\nPIPELINE : logs nginx/SSH/Apache → fail2ban daemon → règles iptables/nftables → monitoring_gen.py collecte statuts 4 hôtes → monitoring.json → dashboard SOC.\n\nJARVIS (si online) : corrèle les bans fail2ban avec la Kill Chain. Les bans SSH contribuent au score BRUTE. JARVIS peut escalader un ban fail2ban (temporaire) en décision CrowdSec (communautaire · permanent) si l IP atteint le niveau CRITIQUE.\n\nVALEUR AJOUTÉE : réaction locale ultra-rapide (secondes) sur des règles simples et fiables. Complémentaire à CrowdSec : fail2ban réagit vite sur des patterns simples, CrowdSec détecte des comportements distribués sur plusieurs IPs et plusieurs jours. Ensemble ils couvrent 100% du spectre de bruteforce." data-panel-title="FAIL2BAN — ÉTAT DÉTAILLÉ · 4 HÔTES" class="soc-panel-i" style="--pi-dim:rgba(255,107,53,.45);--pi-bright:rgba(255,107,53,.9);--pi-glow:rgba(255,107,53,.5)">ⓘ</span>'
     +'</div>'+inner;
@@ -782,7 +782,7 @@ function _renderIntelMenaces(d,g){
   var kc=d.kill_chain||{}, sc=kc.stage_counts||{};
   var cs=d.crowdsec||{}, csStages=cs.stage_counts||{}, csSc=cs.scenarios||[];
   var sur=d.suricata||{};
-  var cltf2b=f2b.clt||{}, pa85f2b=f2b.pa85||{};
+  var cltf2b=f2b.site01||{}, pa85f2b=f2b.site02||{};
   var BOT_NGINX=['nginx-botsearch','nginx-badbots'];
   var BOT_APACHE=['apache-badbots','apache-noscript'];
   var botBan=0, botFail=0;
@@ -988,8 +988,8 @@ function openRsyslogModal(){
   var svc=rs.service||'unknown', svcOk=svc==='active';
   var svcCol=svcOk?'var(--green)':'#ff3b5c';
   var hosts=rs.hosts||{};
-  var hostKeys=['clt','pa85','pve','GT-BE98-87B0-011D764-C'];
-  var hostLabels={'GT-BE98-87B0-011D764-C':'<ROUTER-HOSTNAME>'};
+  var hostKeys=[SOC_INFRA.SITE01_HOST,SOC_INFRA.SITE02_HOST,'pve',SOC_INFRA.ROUTER_ID];
+  var hostLabels={};hostLabels[SOC_INFRA.ROUTER_ID]='<ROUTER-HOSTNAME>';
   var rotTs=rs.last_rotate_ts, rotStr='—';
   if(rotTs){var rd=new Date(rotTs);rotStr=rd.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'})+' '+rd.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});}
   var _rsBox='background:rgba(0,188,212,.07);border:1px solid rgba(0,188,212,.2);border-radius:4px;padding:.35rem .5rem';
@@ -1002,7 +1002,7 @@ function openRsyslogModal(){
       +'<animate attributeName="stroke-dashoffset" from="24" to="0" dur="'+dur+'" repeatCount="indefinite"/>'
       +'</path>';
   }
-  var colClt=_hCol('clt'), colPa85=_hCol('pa85'), colPve=_hCol('pve'), colGt=_hCol('GT-BE98-87B0-011D764-C');
+  var colClt=_hCol(SOC_INFRA.SITE01_HOST), colPa85=_hCol(SOC_INFRA.SITE02_HOST), colPve=_hCol('pve'), colGt=_hCol(SOC_INFRA.ROUTER_ID);
 
   // ── SVG animated schema ──────────────────────────────────────────────
   var jvAct2=0;try{jvAct2=((window._jvAutoState||{}).actionLog||[]).filter(function(a){return Date.now()-new Date(a.ts).getTime()<86400000;}).length;}catch(e){}
@@ -1014,14 +1014,14 @@ function openRsyslogModal(){
     +'<text x="202" y="13" font-family="Courier New" font-size="7.5" fill="rgba(0,188,212,.35)" text-anchor="middle">COLLECTEUR</text>'
     +'<text x="348" y="13" font-family="Courier New" font-size="7.5" fill="rgba(156,39,176,.35)" text-anchor="middle">MOTEUR</text>'
     +'<text x="493" y="13" font-family="Courier New" font-size="7.5" fill="rgba(185,215,240,.25)" text-anchor="middle">SORTIES</text>'
-    // Source: clt (center-y=34)
+    // Source: site-01 (center-y=34)
     +'<rect x="4" y="22" width="82" height="24" rx="3" fill="rgba(0,0,0,.45)" stroke="'+colClt+'" stroke-width="1.2"/>'
-    +'<text x="16" y="37" font-family="Courier New" font-size="9.5" fill="'+colClt+'" font-weight="700">● clt</text>'
-    +'<text x="84" y="37" font-family="Courier New" font-size="7.5" fill="rgba(185,215,240,.38)" text-anchor="end">'+_lm((hosts.clt||{}).lines_min||0)+' L/m</text>'
-    // Source: pa85 (center-y=82)
+    +'<text x="16" y="37" font-family="Courier New" font-size="9.5" fill="'+colClt+'" font-weight="700">● site-01</text>'
+    +'<text x="84" y="37" font-family="Courier New" font-size="7.5" fill="rgba(185,215,240,.38)" text-anchor="end">'+_lm((hosts[SOC_INFRA.SITE01_HOST]||{}).lines_min||0)+' L/m</text>'
+    // Source: site-02 (center-y=82)
     +'<rect x="4" y="70" width="82" height="24" rx="3" fill="rgba(0,0,0,.45)" stroke="'+colPa85+'" stroke-width="1.2"/>'
-    +'<text x="16" y="85" font-family="Courier New" font-size="9.5" fill="'+colPa85+'" font-weight="700">● pa85</text>'
-    +'<text x="84" y="85" font-family="Courier New" font-size="7.5" fill="rgba(185,215,240,.38)" text-anchor="end">'+_lm((hosts.pa85||{}).lines_min||0)+' L/m</text>'
+    +'<text x="16" y="85" font-family="Courier New" font-size="9.5" fill="'+colPa85+'" font-weight="700">● site-02</text>'
+    +'<text x="84" y="85" font-family="Courier New" font-size="7.5" fill="rgba(185,215,240,.38)" text-anchor="end">'+_lm((hosts[SOC_INFRA.SITE02_HOST]||{}).lines_min||0)+' L/m</text>'
     // Source: pve (center-y=130)
     +'<rect x="4" y="118" width="82" height="24" rx="3" fill="rgba(0,0,0,.45)" stroke="'+colPve+'" stroke-width="1.2"/>'
     +'<text x="16" y="133" font-family="Courier New" font-size="9.5" fill="'+colPve+'" font-weight="700">● pve</text>'
@@ -1029,12 +1029,12 @@ function openRsyslogModal(){
     // Source: <ROUTER-HOSTNAME> (center-y=188)
     +'<rect x="4" y="176" width="82" height="24" rx="3" fill="rgba(0,0,0,.45)" stroke="'+colGt+'" stroke-width="1.2"/>'
     +'<text x="16" y="191" font-family="Courier New" font-size="9" fill="'+colGt+'" font-weight="700">● <ROUTER-HOSTNAME></text>'
-    +'<text x="84" y="191" font-family="Courier New" font-size="7.5" fill="rgba(185,215,240,.38)" text-anchor="end">'+_lm((hosts['GT-BE98-87B0-011D764-C']||{}).lines_min||0)+' L/m</text>'
+    +'<text x="84" y="191" font-family="Courier New" font-size="7.5" fill="rgba(185,215,240,.38)" text-anchor="end">'+_lm((hosts[SOC_INFRA.ROUTER_ID]||{}).lines_min||0)+' L/m</text>'
     // Animated pulses on active sources
-    +((hosts.clt||{}).lines_min>0?'<circle cx="86" cy="34" r="2.5" fill="'+colClt+'" opacity="0"><animate attributeName="r" values="2;5;2" dur="2.1s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0;.55" dur="2.1s" repeatCount="indefinite"/></circle>':'')
-    +((hosts.pa85||{}).lines_min>0?'<circle cx="86" cy="82" r="2.5" fill="'+colPa85+'" opacity="0"><animate attributeName="r" values="2;5;2" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0;.55" dur="1.8s" repeatCount="indefinite"/></circle>':'')
+    +((hosts[SOC_INFRA.SITE01_HOST]||{}).lines_min>0?'<circle cx="86" cy="34" r="2.5" fill="'+colClt+'" opacity="0"><animate attributeName="r" values="2;5;2" dur="2.1s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0;.55" dur="2.1s" repeatCount="indefinite"/></circle>':'')
+    +((hosts[SOC_INFRA.SITE02_HOST]||{}).lines_min>0?'<circle cx="86" cy="82" r="2.5" fill="'+colPa85+'" opacity="0"><animate attributeName="r" values="2;5;2" dur="1.8s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0;.55" dur="1.8s" repeatCount="indefinite"/></circle>':'')
     +((hosts.pve||{}).lines_min>0?'<circle cx="86" cy="130" r="2.5" fill="'+colPve+'" opacity="0"><animate attributeName="r" values="2;5;2" dur="2.4s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0;.55" dur="2.4s" repeatCount="indefinite"/></circle>':'')
-    +((hosts['GT-BE98-87B0-011D764-C']||{}).lines_min>0?'<circle cx="86" cy="188" r="2.5" fill="'+colGt+'" opacity="0"><animate attributeName="r" values="2;5;2" dur="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0;.55" dur="1.5s" repeatCount="indefinite"/></circle>':'')
+    +((hosts[SOC_INFRA.ROUTER_ID]||{}).lines_min>0?'<circle cx="86" cy="188" r="2.5" fill="'+colGt+'" opacity="0"><animate attributeName="r" values="2;5;2" dur="1.5s" repeatCount="indefinite"/><animate attributeName="opacity" values=".55;0;.55" dur="1.5s" repeatCount="indefinite"/></circle>':'')
     // Animated flow: sources → collector
     +_flow('M 86 34 C 120 34 119 104 152 104',colClt,'1.4s')
     +_flow('M 86 82 C 120 82 119 108 152 108',colPa85,'1.7s')
@@ -1103,7 +1103,7 @@ function openRsyslogModal(){
       var st=hd.status||'absent';
       var col=st==='ok'?'var(--green)':st==='stale'?'#ffb300':'rgba(160,160,160,.4)';
       var dot=st==='ok'?'●':st==='stale'?'◉':'○';
-      var barId=hk==='GT-BE98-87B0-011D764-C'?'gtbe98':hk;
+      var barId=hk===SOC_INFRA.ROUTER_ID?'routeur':hk.replace(/[^a-z0-9]/gi,'-');
       return '<tr style="border-bottom:1px solid rgba(255,255,255,.04)">'
         +'<td style="padding:.2rem .3rem;font-family:\'Courier New\',monospace;color:'+col+'">'+dot+' '+esc(lbl)+'</td>'
         +'<td style="padding:.2rem .3rem;text-align:right;color:rgba(185,215,240,.6)">'+(hd.files||0)+'</td>'
@@ -1167,11 +1167,11 @@ function openRsyslogModal(){
       +'</div>'
     :'';
 
-  // ── Top outbound IPs (GT-BE98 router) ────────────────────────────────
+  // ── Top outbound IPs (routeur) ────────────────────────────────
   var topDst=rs.router_top_dst||[], topDstHtml='';
   if(topDst.length){
     var kc_ips=new Set((((window._lastData||{}).kill_chain||{}).active_ips||[]).map(function(e){return e.ip;}));
-    topDstHtml='<div style="font-size:var(--fs-xs);color:#00bcd4;letter-spacing:.5px;margin:.4rem 0 .3rem;border-bottom:1px solid rgba(0,188,212,.2);padding-bottom:.2rem">▸ TOP IPs OUTBOUND — GT-BE98 (LAN → internet)</div>'
+    topDstHtml='<div style="font-size:var(--fs-xs);color:#00bcd4;letter-spacing:.5px;margin:.4rem 0 .3rem;border-bottom:1px solid rgba(0,188,212,.2);padding-bottom:.2rem">▸ TOP IPs OUTBOUND — ROUTEUR (LAN → internet)</div>'
       +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.2rem .4rem">'
       +topDst.map(function(e){
         var inKc=kc_ips.has(e.ip);
@@ -1189,7 +1189,7 @@ function openRsyslogModal(){
   var _evtCol={'f2b_ban':'#ff3b5c','f2b_unban':'#00e676','http_scan':'#ff9800','vm_event':'#00bcd4','ssh_fail':'#ff3b5c','backup_fail':'#ff9800','backup_ok':'#00e676','fw_drop':'#ce93d8','dhcp_lease':'#4dd0e1','wan_restored':'#00e676','wan_down':'#ff9800'};
   var mc2=xh.multi_count||0;
   var multiWarnHtml=mc2>0
-    ?'<div style="background:rgba(255,152,0,.08);border:1px solid rgba(255,152,0,.3);border-radius:3px;padding:.25rem .45rem;margin-bottom:.3rem;font-size:var(--fs-xs);color:#ff9800">⚠ '+mc2+' IP'+(mc2>1?'s':'')+' en recon multi-cibles (clt + pa85, sous seuil fail2ban)</div>'
+    ?'<div style="background:rgba(255,152,0,.08);border:1px solid rgba(255,152,0,.3);border-radius:3px;padding:.25rem .45rem;margin-bottom:.3rem;font-size:var(--fs-xs);color:#ff9800">⚠ '+mc2+' IP'+(mc2>1?'s':'')+' en recon multi-cibles (site-01 + site-02, sous seuil fail2ban)</div>'
     :'';
   var eventsHtml=multiWarnHtml
     +'<div style="font-size:var(--fs-xs);color:rgba(185,215,240,.45);letter-spacing:.5px;margin:.4rem 0 .25rem;border-bottom:1px solid rgba(255,255,255,.06);padding-bottom:.2rem">▸ ÉVÉNEMENTS STRUCTURÉS — 24h</div>'
@@ -1237,7 +1237,7 @@ function openRsyslogModal(){
   // Animate L/min bars and disk gauge
   setTimeout(function(){
     var _lmMax=Math.max.apply(null,hostKeys.map(function(k){return (hosts[k]||{}).lines_min||0;}).concat([1]));
-    [['clt','rs-lm-clt'],['pa85','rs-lm-pa85'],['pve','rs-lm-pve'],['GT-BE98-87B0-011D764-C','rs-lm-gtbe98']].forEach(function(p){
+    [[SOC_INFRA.SITE01_HOST,'rs-lm-'+SOC_INFRA.SITE01_HOST.replace(/[^a-z0-9]/gi,'-')],[SOC_INFRA.SITE02_HOST,'rs-lm-'+SOC_INFRA.SITE02_HOST.replace(/[^a-z0-9]/gi,'-')],['pve','rs-lm-pve'],[SOC_INFRA.ROUTER_ID,'rs-lm-routeur']].forEach(function(p){
       var b=document.getElementById(p[1]);
       if(b)b.style.width=Math.min(100,Math.round(((hosts[p[0]]||{}).lines_min||0)/_lmMax*100))+'%';
     });
@@ -1294,8 +1294,8 @@ function _rsyslogJarvisSynth(rs,xh,hosts,hostKeys,hostLabels,btn){
   });
   var cc=xh.corr_count||0, mc=xh.multi_count||0;
   lines.push('=== CORRÉLATIONS ET MENACES ===');
-  lines.push(cc>0?'⚠ '+cc+' IP(s) kill chain dans trafic sortant GT-BE98 — risque C2':'Pas de corrélation kill chain / trafic sortant.');
-  lines.push(mc>0?'⚠ '+mc+' IP(s) recon multi-cibles (clt + pa85 sous seuil fail2ban)':'Pas de recon multi-cibles.');
+  lines.push(cc>0?'⚠ '+cc+' IP(s) kill chain dans trafic sortant routeur — risque C2':'Pas de corrélation kill chain / trafic sortant.');
+  lines.push(mc>0?'⚠ '+mc+' IP(s) recon multi-cibles (site-01 + site-02 sous seuil fail2ban)':'Pas de recon multi-cibles.');
   var wanC=rs.wan_reconnects_24h||0;
   lines.push('WAN reconnexions 24h: '+wanC+(wanC>=6?' — INSTABILITÉ CRITIQUE':wanC>=3?' — instabilité modérée':' — stable'));
   var td=rs.router_top_dst||[];
@@ -1349,9 +1349,9 @@ function _rsyslogShowThreatActions(xh){
   var panel=document.getElementById('rs-action-panel');
   if(!panel)return;
   var d=window._lastData||{};
-  // IPs C2 : présentes dans kill chain ET dans trafic outbound router GT-BE98
+  // IPs C2 : présentes dans kill chain ET dans trafic outbound routeur
   var c2Ips=(((d.kill_chain||{}).active_ips)||[]).filter(function(e){return e.router_seen;}).map(function(e){return e.ip;});
-  // IPs recon multi-cibles : ont frappé clt ET pa85, pas encore bannies
+  // IPs recon multi-cibles : ont frappé site-01 ET site-02, pas encore bannies
   var maIps=Object.keys(xh.multi_apache||{});
   var seen={};
   var threats=[];
@@ -1586,7 +1586,7 @@ function _renderRsyslogTile(d,g){
     +'<span style="font-size:calc(var(--fs-xs) - 1px);color:rgba(185,215,240,.3)">activité</span>'
     +'<span style="font-size:calc(var(--fs-xs) - 1px);color:rgba(185,215,240,.3);text-align:right">délai</span>'
     +'</div>'
-    +Object.keys(hosts).map(function(k){var lbl=k.match(/^GT-BE98/i)?'<ROUTER-HOSTNAME>':k;return _hostRow(k,lbl,hosts);}).join('')
+    +Object.keys(hosts).map(function(k){var lbl=k===SOC_INFRA.ROUTER_ID?'<ROUTER-HOSTNAME>':k;return _hostRow(k,lbl,hosts);}).join('')
     +'</div></div>';
   g.insertAdjacentHTML('beforeend',h);
 }
@@ -2013,12 +2013,12 @@ function _renderSSH(d,g){
   // Rôles par machine
   var ROLES={
     'srv-ngix': 'Reverse Proxy · SOC · WAF',
-    'clt':      'Backend Web · CLT',
-    'pa85':     'Backend Web · PA85',
+    'site-01':  'Backend Web · SITE-01',
+    'site-02':  'Backend Web · SITE-02',
     'proxmox':  'Hyperviseur · VMs',
     '<ROUTER-HOSTNAME>':  'Routeur LAN'
   };
-  var ORDER=['srv-ngix','clt','pa85'];
+  var ORDER=['srv-ngix','site-01','site-02'];
   var rows=ORDER.map(function(n){
     var h2=sshSt.find(function(x){return x.name===n;});
     if(!h2)return{name:n,ip:'?',port:parseInt(SOC_INFRA.SSH_PORT),role:ROLES[n]||'',status:'DOWN',uptime:'?'};
@@ -2429,7 +2429,7 @@ function _kcIpCardHtml(ip, sc, csDetail, surMap, subnets){
   var csBadge=ip.cs_decision?'<span style="font-size:var(--fs-xs);background:rgba(255,107,53,0.25);color:var(--orange);padding:.03rem .22rem;border-radius:2px;font-weight:700">⊛CS</span>':'';
   var surBadge=ip.sur_count?'<span style="font-size:var(--fs-xs);background:rgba(255,69,0,0.22);color:#ff6030;padding:.03rem .22rem;border-radius:2px;font-weight:700">◈IDS</span>':'';
   var cveBadge=cve?'<span style="font-size:var(--fs-xs);background:rgba(255,70,40,0.2);color:rgba(255,110,70,0.95);padding:.03rem .22rem;border-radius:2px;font-weight:700;border:1px solid rgba(255,70,40,0.3)">'+esc(cve)+'</span>':'';
-  var routerBadge=ip.router_seen?'<span style="font-size:var(--fs-xs);background:rgba(0,188,212,0.18);color:#00bcd4;padding:.03rem .22rem;border-radius:2px;font-weight:700" title="Vu dans logs routeur GT-BE98">⊙RTR</span>':'';
+  var routerBadge=ip.router_seen?'<span style="font-size:var(--fs-xs);background:rgba(0,188,212,0.18);color:#00bcd4;padding:.03rem .22rem;border-radius:2px;font-weight:700" title="Vu dans logs routeur">⊙RTR</span>':'';
   var c2Badge=(ip.router_out>0)?'<span style="font-size:var(--fs-xs);background:rgba(255,0,80,0.22);color:#ff2060;padding:.03rem .22rem;border-radius:2px;font-weight:700" title="Connexion LAN sortante vers cet attaquant — possible C2">⚠C2</span>':'';
   var vmBadge=(ip.f2b_vms&&ip.f2b_vms.length)?'<span style="font-size:var(--fs-xs);background:rgba(255,160,0,0.2);color:#ffb300;padding:.03rem .22rem;border-radius:2px;font-weight:700" title="Banni par fail2ban sur '+esc((ip.f2b_vms||[]).join('+'))+'">⊛VM</span>':'';
   var typeLine=attackType?'<div style="font-size:var(--fs-xs);color:rgba(170,210,255,0.55);letter-spacing:.2px;margin-top:.07rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%">▸ '+esc(attackType)+'</div>':'';
@@ -2590,7 +2590,7 @@ function _tsMenaceBlockHtml(ts, sys){
     :'<div style="font-size:var(--fs-xs);color:var(--green);margin-top:.3rem">✓ Aucune menace active détectée</div>';
   return h+factorsHtml;
 }
-// NDT-33b — bloc routeur GT-BE98 (optionnel) → retourne '' si routerData absent
+// NDT-33b — bloc routeur (optionnel) → retourne '' si routerData absent
 function _tsRouterBlockHtml(rd, fl){
   if(!rd||!rd.available)return '';
   var rs=computeRouterScore(rd,fl);
@@ -2598,7 +2598,7 @@ function _tsRouterBlockHtml(rd, fl){
   var rsBorder=rs.score>=70?'rgba(255,59,92,.3)':rs.score>=45?'rgba(255,107,53,.25)':rs.score>=20?'rgba(255,215,0,.2)':'rgba(0,217,100,.2)';
   var h='<div style="margin-top:.55rem;padding:.45rem .6rem;background:'+rsBg+';border:1px solid '+rsBorder+';border-radius:5px">'
     +'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.25rem">'
-    +'<span style="font-size:var(--fs-xs);color:rgba(160,220,255,.5);text-transform:uppercase;letter-spacing:1px">◈ Réseau routeur GT-BE98</span>'
+    +'<span style="font-size:var(--fs-xs);color:rgba(160,220,255,.5);text-transform:uppercase;letter-spacing:1px">◈ Réseau routeur</span>'
     +'<span style="font-size:var(--fs-xs);font-weight:700;color:'+rs.color+'">'+rs.level+'&nbsp;&nbsp;'+rs.score+' / 100</span>'
     +'</div>'
     +'<div style="background:rgba(255,255,255,.07);border-radius:2px;height:3px;margin-bottom:.3rem">'

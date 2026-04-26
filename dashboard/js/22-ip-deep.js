@@ -586,7 +586,7 @@ function _ipDeepColRsyslog(rs) {
   var col    = total > 0 ? '#a78bfa' : 'var(--muted)';
   var html   = '<div class="win-section"><div class="win-section-hdr"><span style="color:'+col+'">▸</span> RSYSLOG CENTRAL</div>';
   if (!total) {
-    return html + '<div style="font-size:var(--fs-xs);color:var(--muted)">Aucune entrée sur 7j<br><span style="opacity:.6">6 hôtes supervisés : srv-ngix · clt · pa85 · pve · jarvis · GT-BE98</span></div></div>';
+    return html + '<div style="font-size:var(--fs-xs);color:var(--muted)">Aucune entrée sur 7j<br><span style="opacity:.6">6 hôtes supervisés : srv-ngix · site-01 · site-02 · pve · jarvis · routeur</span></div></div>';
   }
   var sources = rs.sources || {};
   var keys = Object.keys(sources).sort(function(a,b){ return sources[b]-sources[a]; });

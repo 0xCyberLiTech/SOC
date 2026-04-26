@@ -83,31 +83,35 @@ def _mk_geoip(ip, v):
 
 # ── Infrastructure réseau ─────────────────────────────────────────────────────
 IP_SRV_NGIX   = '<SRV-NGIX-IP>'   # VM 108 — nginx · CrowdSec · dashboard SOC
-IP_CLT        = '<CLT-IP>'   # VM 106 — Apache · site CLT
-IP_PA85       = '<PA85-IP>'   # VM 107 — Apache · site PA85
+IP_CLT        = '<CLT-IP>'   # VM <VM-ID-SITE01> — Apache · site-01
+IP_PA85       = '<PA85-IP>'   # VM <VM-ID-SITE02> — Apache · site-02
 IP_PROXMOX    = '<PROXMOX-IP>'   # Machine physique — hyperviseur Proxmox VE
 SSH_PORT      = '<SSH-PORT>'   # ← ADAPTER: votre port SSH non-standard
 SSH_KEY_NGIX  = '<SSH-KEY-NGIX>'   # ex: /root/.ssh/id_nginx_sync
-SSH_KEY_CLT   = '<SSH-KEY-CLT>'    # ex: /root/.ssh/id_clt_sync
-SSH_KEY_PA85  = '<SSH-KEY-PA85>'   # ex: /root/.ssh/id_pa85_sync
+SSH_KEY_SITE01   = '<SSH-KEY-SITE01>'  # ex: /root/.ssh/id_site01_sync
+SSH_KEY_SITE02   = '<SSH-KEY-SITE02>'  # ex: /root/.ssh/id_site02_sync
 SSH_KEY_PVE   = '<SSH-KEY-PVE>'    # ex: /root/.ssh/id_proxmox_sync
+SITE01_HOST  = '<SITE-01-HOSTNAME>'  # hostname rsyslog VM site-01 (répertoire /var/log/central/)
+SITE02_HOST  = '<SITE-02-HOSTNAME>'  # hostname rsyslog VM site-02 (répertoire /var/log/central/)
+ROUTER_ID    = '<ROUTER-ID>'         # ID répertoire rsyslog routeur (ex: routeur-01)
+SITE01_WEB   = '<SITE01-WEBROOT>'    # nom répertoire web site-01 sous /var/www/
 DASHBOARD_URL = 'http://' + IP_SRV_NGIX + ':8080/'
 
 LOG_FILE      = '/var/log/nginx/access.log'
 OUTPUT_PATH   = '/var/www/monitoring/monitoring.json'
 SERVICES      = {
-    'clt (<DOMAIN-COM>)': 'http://' + IP_CLT,
-    'pa85 (<DOMAIN-FR>)': 'http://' + IP_PA85,
+    'site-01 (<DOMAIN-COM>)': 'http://' + IP_CLT,
+    'site-02 (<DOMAIN-FR>)': 'http://' + IP_PA85,
 }
 SSL_DOMAINS   = ['<DOMAIN-COM>', '<DOMAIN-FR>']
 SSH_MACHINES  = [
     {'name': 'srv-ngix', 'ip': IP_SRV_NGIX, 'port': SSH_PORT, 'local': True,  'role': 'Reverse Proxy'},
-    {'name': 'clt',      'ip': IP_CLT,       'port': SSH_PORT, 'local': False, 'role': 'Backend Web',  'ssh_key': SSH_KEY_CLT},
-    {'name': 'pa85',     'ip': IP_PA85,      'port': SSH_PORT, 'local': False, 'role': 'Backend Web',  'ssh_key': SSH_KEY_PA85},
+    {'name': 'site-01',  'ip': IP_CLT,       'port': SSH_PORT, 'local': False, 'role': 'Backend Web',  'ssh_key': SSH_KEY_SITE01},
+    {'name': 'site-02',  'ip': IP_PA85,      'port': SSH_PORT, 'local': False, 'role': 'Backend Web',  'ssh_key': SSH_KEY_SITE02},
     {'name': 'proxmox',  'ip': IP_PROXMOX,   'port': SSH_PORT, 'local': False, 'role': 'Hyperviseur',  'push_json': '/var/www/monitoring/proxmox-ufw.json', 'ssh_key': SSH_KEY_PVE},
 ]
-CVE_INDEX     = '/var/www/clt/assets/data/index.json'
-THREAT_STATS  = '/var/www/clt/assets/data/threat-stats.json'
+CVE_INDEX     = '/var/www/' + SITE01_WEB + '/assets/data/index.json'
+THREAT_STATS  = '/var/www/' + SITE01_WEB + '/assets/data/threat-stats.json'
 NET_HISTORY_FILE    = '/var/www/monitoring/net-history.json'
 PVE_CPU_HISTORY_FILE = '/var/www/monitoring/proxmox-cpu-history.json'
 SYS_CPU_HISTORY_FILE = '/var/www/monitoring/sys-cpu-history.json'
@@ -568,8 +572,8 @@ def get_nginx_info():
     return info
 
 
-CVE_RECENT  = '/var/www/clt/assets/data/cve-recent.json'
-CVE_SUMMARY = '/var/www/clt/assets/data/cve-summary.json'
+CVE_RECENT  = '/var/www/' + SITE01_WEB + '/assets/data/cve-recent.json'
+CVE_SUMMARY = '/var/www/' + SITE01_WEB + '/assets/data/cve-summary.json'
 
 def get_cve_sync():
     try:
@@ -1079,7 +1083,7 @@ def get_firewall_matrix():
             results.append({'name': m['name'], 'ip': m['ip'], 'role': m.get('role', 'Hyperviseur'),
                             'error': str(ex)[:80]})
 
-    # clt + pa85 via SSH (skip machines already handled via push_json)
+    # site-01 + site-02 via SSH (skip machines already handled via push_json)
     for m in SSH_MACHINES:
         if m.get('local') or not m.get('ssh_key') or m.get('push_json'):
             continue
@@ -1113,8 +1117,8 @@ def get_firewall_matrix():
 
 _PVE_SERVICES_ORDER = ['pveproxy', 'pvedaemon', 'pvestatd', 'pvescheduler', 'cron']
 _PVE_SSH_KEY = SSH_KEY_PVE
-_CLT_SSH_KEY = SSH_KEY_CLT
-_PA85_SSH_KEY= SSH_KEY_PA85
+_SITE01_SSH_KEY = SSH_KEY_SITE01
+_SITE02_SSH_KEY= SSH_KEY_SITE02
 
 
 def _pve_node_metrics(pve_get, name):
@@ -2758,9 +2762,9 @@ _CRON_JOBS_CFG = [
     {'label': 'proto-live',          'log': '/var/www/monitoring/proto-live.json',         'max_age_min': 5,           'schedule': '*/1 min', 'cat': 'Monitoring'},
     {'label': 'ufw-snapshot',        'log': '/var/log/ufw-snapshots/cron.log',             'max_age_min': 75,          'schedule': 'H:05',    'cat': 'Monitoring'},
     # ── Rapports & feeds ──
-    {'label': 'soc-daily-report',    'log': '/var/log/clt-soc-report.log',                'max_age_min': 26 * 60,     'schedule': '08h00',   'cat': 'Rapports'},
-    {'label': 'clt-cve-fetch',       'log': '/var/log/clt-cve-fetch.log',                 'max_age_min': 500,         'schedule': '06·13·21h','cat': 'Rapports'},
-    {'label': 'clt-threat-fetch',    'log': '/var/log/clt-threat-fetch.log',              'max_age_min': 26 * 60,     'schedule': '03h00',   'cat': 'Rapports'},
+    {'label': 'soc-daily-report',    'log': '/var/log/soc-report.log',                    'max_age_min': 26 * 60,     'schedule': '08h00',   'cat': 'Rapports'},
+    {'label': 'cve-fetch',           'log': '/var/log/cve-fetch.log',                     'max_age_min': 500,         'schedule': '06·13·21h','cat': 'Rapports'},
+    {'label': 'threat-fetch',        'log': '/var/log/threat-fetch.log',                  'max_age_min': 26 * 60,     'schedule': '03h00',   'cat': 'Rapports'},
     # ── Sécurité & intégrité ──
     {'label': 'crowdsec-hub-update', 'log': '/var/log/crowdsec-hub-update.log',           'max_age_min': 26 * 60,     'schedule': '03h45',   'cat': 'Sécurité'},
     {'label': 'suricata-update',     'log': '/var/log/suricata-update.log',               'max_age_min': 26 * 60,     'schedule': '03h30',   'cat': 'Sécurité'},
@@ -2884,7 +2888,7 @@ def get_local_fail2ban(hostname, label):
 
 
 def get_remote_fail2ban(host, port, ssh_key, label):
-    """Collecte fail2ban via SSH sur un hôte distant (clt, pa85)."""
+    """Collecte fail2ban via SSH sur un hôte distant (site-01, site-02)."""
     try:
         base_cmd = ['ssh', '-i', ssh_key, '-p', str(port),
                     '-o', 'IdentitiesOnly=yes', '-o', 'StrictHostKeyChecking=no',
@@ -2916,18 +2920,18 @@ def get_remote_fail2ban(host, port, ssh_key, label):
                 'total_banned': total_banned, 'total_failed': total_failed}
     except Exception:
         hostname = host.split('.')[-1] if '.' in host else host
-        _host_map = {IP_CLT: 'clt', IP_PA85: 'pa85'}
+        _host_map = {IP_CLT: SITE01_HOST, IP_PA85: SITE02_HOST}
         local_host = _host_map.get(host, hostname)
         return get_local_fail2ban(local_host, label)
 
 
 def get_updates():
-    """Vérifie les mises à jour disponibles sur srv-ngix, proxmox, clt, pa85 via SSH."""
+    """Vérifie les mises à jour disponibles sur srv-ngix, proxmox, site-01, site-02 via SSH."""
     machines_cfg = [
-        {'name': 'srv-ngix', 'ip': IP_SRV_NGIX, 'role': 'Reverse Proxy', 'local': True,  'ssh_key': None},
-        {'name': 'proxmox',  'ip': IP_PROXMOX,   'role': 'Hyperviseur',   'local': False, 'ssh_key': SSH_KEY_PVE},
-        {'name': 'clt',      'ip': IP_CLT,       'role': 'Backend CLT',   'local': False, 'ssh_key': SSH_KEY_CLT},
-        {'name': 'pa85',     'ip': IP_PA85,      'role': 'Backend PA85',  'local': False, 'ssh_key': SSH_KEY_PA85},
+        {'name': 'srv-ngix', 'ip': IP_SRV_NGIX, 'role': 'Reverse Proxy',    'local': True,  'ssh_key': None},
+        {'name': 'proxmox',  'ip': IP_PROXMOX,   'role': 'Hyperviseur',      'local': False, 'ssh_key': SSH_KEY_PVE},
+        {'name': 'site-01',  'ip': IP_CLT,       'role': 'Backend site-01',  'local': False, 'ssh_key': SSH_KEY_SITE01},
+        {'name': 'site-02',  'ip': IP_PA85,      'role': 'Backend site-02',  'local': False, 'ssh_key': SSH_KEY_SITE02},
     ]
 
     def parse_apt(output):
@@ -3258,8 +3262,8 @@ def _main_build_fail2ban():
             for ip in jail['banned_ips']
         ]
     f2b['proxmox'] = get_proxmox_fail2ban()
-    f2b['clt']     = get_remote_fail2ban(IP_CLT,  SSH_PORT, SSH_KEY_CLT,  'CLT')
-    f2b['pa85']    = get_remote_fail2ban(IP_PA85, SSH_PORT, SSH_KEY_PA85, 'PA85')
+    f2b['site01']  = get_remote_fail2ban(IP_CLT,  SSH_PORT, SSH_KEY_SITE01,  'SITE-01')
+    f2b['site02']  = get_remote_fail2ban(IP_PA85, SSH_PORT, SSH_KEY_SITE02, 'SITE-02')
     return traffic, f2b
 
 
@@ -3391,8 +3395,8 @@ def get_xdr_events():
         pass
 
     # ── ModSec CLT (Apache error.log via SSH) ─────────────────────────────────
-    for host, label, key in [(IP_CLT, 'clt', _CLT_SSH_KEY),
-                              (IP_PA85, 'pa85', _PA85_SSH_KEY)]:
+    for host, label, key in [(IP_CLT, 'site01', _SITE01_SSH_KEY),
+                              (IP_PA85, 'site02', _SITE02_SSH_KEY)]:
         try:
             cmd_ms = ['ssh', '-i', key, '-p', str(SSH_PORT),
                       '-o', 'IdentitiesOnly=yes', '-o', 'StrictHostKeyChecking=no',
@@ -3489,13 +3493,13 @@ def get_xdr_events():
     except Exception:
         pass
 
-    # ── Apache access logs clt / pa85 — IPs agressives (≥5 erreurs 4xx/5xx) ──
+    # ── Apache access logs site-01 / site-02 — IPs agressives (≥5 erreurs 4xx/5xx) ──
     _ap_re = re.compile(r'apache_access: ([\d.]+) [^ ]+ [^ ]+ \[([^\]]+)\] "[^"]*" (\d{3}) ')
     _ap_rfc = re.compile(r'^(10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.)')
     _ap_ts_fmt = '%d/%b/%Y:%H:%M:%S %z'
     for host_label, logf in [
-        ('CLT',  '/var/log/central/clt/apache_access.log'),
-        ('PA85', '/var/log/central/pa85/apache_access.log'),
+        ('SITE-01', f'/var/log/central/{SITE01_HOST}/apache_access.log'),
+        ('SITE-02', f'/var/log/central/{SITE02_HOST}/apache_access.log'),
     ]:
         if not os.path.exists(logf):
             continue
@@ -3619,7 +3623,7 @@ def get_cross_host_correlation():
     router_src = {}   # ip → count (SRC externe → inbound tentatives WAN)
     router_dst = {}   # ip → count (DST externe → outbound depuis LAN)
 
-    be98_pattern = os.path.join(central_dir, 'GT-BE98*', 'kernel.log')
+    be98_pattern = os.path.join(central_dir, ROUTER_ID + '*', 'kernel.log')
     for logf in _glob.glob(be98_pattern):
         try:
             with open(logf, 'r', errors='replace') as f:
@@ -3635,12 +3639,12 @@ def get_cross_host_correlation():
         except Exception:
             pass
 
-    # fail2ban bans depuis clt et pa85
+    # fail2ban bans depuis site-01 et site-02
     f2b_bans = {}  # ip → [hosts]
     _f2b_ban_re = re.compile(r'fail2ban\.actions.*\bBan\b.*?([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})')
     for host, logf in [
-        ('clt',  '/var/log/central/clt/fail2ban.actions.log'),
-        ('pa85', '/var/log/central/pa85/fail2ban.actions.log'),
+        ('site01', f'/var/log/central/{SITE01_HOST}/fail2ban.actions.log'),
+        ('site02', f'/var/log/central/{SITE02_HOST}/fail2ban.actions.log'),
     ]:
         if not os.path.exists(logf):
             continue
@@ -3657,12 +3661,12 @@ def get_cross_host_correlation():
         except Exception:
             pass
 
-    # Apache access logs depuis clt et pa85 (via rsyslog local7.info)
+    # Apache access logs depuis site-01 et site-02 (via rsyslog local7.info)
     apache_hits = {}  # ip → {'total': n, 'errors': n, 'hosts': []}
     _apache_re = re.compile(r'apache_access: ([\d.]+) [^ ]+ [^ ]+ \[[^\]]+\] "[^"]*" (\d{3}) ')
     for host, logf in [
-        ('clt',  '/var/log/central/clt/apache_access.log'),
-        ('pa85', '/var/log/central/pa85/apache_access.log'),
+        ('site01', f'/var/log/central/{SITE01_HOST}/apache_access.log'),
+        ('site02', f'/var/log/central/{SITE02_HOST}/apache_access.log'),
     ]:
         if not os.path.exists(logf):
             continue
@@ -3686,7 +3690,7 @@ def get_cross_host_correlation():
         except Exception:
             pass
 
-    # IPs ayant frappé clt ET pa85 sous le seuil fail2ban — recon multi-cibles
+    # IPs ayant frappé site-01 ET site-02 sous le seuil fail2ban — recon multi-cibles
     multi_apache = {
         ip: info for ip, info in apache_hits.items()
         if len(info['hosts']) >= 2 and ip not in f2b_bans
@@ -3740,8 +3744,8 @@ def _build_structured_events():
         r'\bfail2ban\.actions.*?\b(Ban|Unban)\b.*?'
         r'([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})'
     )
-    for host, logf in [('clt',  central_dir + '/clt/fail2ban.actions.log'),
-                        ('pa85', central_dir + '/pa85/fail2ban.actions.log')]:
+    for host, logf in [('site01', f'{central_dir}/{SITE01_HOST}/fail2ban.actions.log'),
+                        ('site02', f'{central_dir}/{SITE02_HOST}/fail2ban.actions.log')]:
         if not os.path.exists(logf):
             continue
         try:
@@ -3767,8 +3771,8 @@ def _build_structured_events():
         r'apache_access: ([\d.]+) [^ ]+ [^ ]+ \[[^\]]+\] '
         r'"(\w+) ([^ "]+)[^"]*" (\d{3}) '
     )
-    for host, logf in [('clt',  central_dir + '/clt/apache_access.log'),
-                        ('pa85', central_dir + '/pa85/apache_access.log')]:
+    for host, logf in [('site01', f'{central_dir}/{SITE01_HOST}/apache_access.log'),
+                        ('site02', f'{central_dir}/{SITE02_HOST}/apache_access.log')]:
         if not os.path.exists(logf):
             continue
         seen_scan = set()
@@ -3822,15 +3826,15 @@ def _build_structured_events():
         except Exception:
             pass
 
-    # ── sshd-session : auth failures (clt, pa85, pve — port <SSH-PORT>) ──────────
+    # ── sshd-session : auth failures (site-01, site-02, pve — port <SSH-PORT>) ──────────
     _ssh_re = re.compile(
         r'\b(Failed password|Invalid user)\b.*?from\s+'
         r'([\d]{1,3}\.[\d]{1,3}\.[\d]{1,3}\.[\d]{1,3})',
         re.IGNORECASE
     )
-    for host, logf in [('clt',  central_dir + '/clt/sshd-session.log'),
-                        ('pa85', central_dir + '/pa85/sshd-session.log'),
-                        ('pve',  central_dir + '/pve/sshd-session.log')]:
+    for host, logf in [('site01', f'{central_dir}/{SITE01_HOST}/sshd-session.log'),
+                        ('site02', f'{central_dir}/{SITE02_HOST}/sshd-session.log'),
+                        ('pve',   central_dir + '/pve/sshd-session.log')]:
         if not os.path.exists(logf):
             continue
         seen_ssh = set()
@@ -3911,7 +3915,7 @@ def _build_structured_events():
     _dhcp_re = re.compile(
         r'DHCPACK\(\w+\)\s+([\d.]+)\s+([\da-fA-F:]{17})(?:\s+(\S+))?'
     )
-    logf = central_dir + '/GT-BE98-87B0-011D764-C/dnsmasq-dhcp.log'
+    logf = f'{central_dir}/{ROUTER_ID}/dnsmasq-dhcp.log'
     if os.path.exists(logf):
         seen_mac = set()
         try:
@@ -3936,7 +3940,7 @@ def _build_structured_events():
             pass
 
     # ── WAN events : reconnexions WAN (<ROUTER-HOSTNAME>) ──────────────────────────────
-    logf = central_dir + '/GT-BE98-87B0-011D764-C/WAN.log'
+    logf = f'{central_dir}/{ROUTER_ID}/WAN.log'
     if os.path.exists(logf):
         try:
             with open(logf, 'r', errors='replace') as fh:
@@ -4001,10 +4005,10 @@ def _main_build_data(traffic, f2b, prx_stats, pve_cpu_hist, pve_net_hist,
         'suricata':        get_suricata_stats(),
         'tls':             get_tls_expiry(),
         'apparmor_nginx':  get_apparmor_nginx(),
-        'clt_apparmor':    get_apparmor_clt(),
-        'clt_modsec':      get_modsec_clt(),
-        'pa85_apparmor':   get_apparmor_pa85(),
-        'pa85_modsec':     get_modsec_pa85(),
+        'site01_apparmor': get_apparmor_site01(),
+        'site01_modsec':   get_modsec_site01(),
+        'site02_apparmor': get_apparmor_site02(),
+        'site02_modsec':   get_modsec_site02(),
         'autoupdate':      get_autoupdate(),
         'xdr_events':      get_xdr_events(),
         'aide':            get_aide_status(),
@@ -4104,7 +4108,7 @@ def _main_enrich_crosshost(data):
             entry['router_out']  = in_dst
             corr_count += 1
         if ip in f2b:
-            entry['f2b_vms'] = f2b[ip]   # ['clt','pa85'] — banni sur ces VMs aussi
+            entry['f2b_vms'] = f2b[ip]   # ['site01','site02'] — banni sur ces VMs aussi
         apache = xh.get('apache_hits', {})
         if ip in apache:
             entry['apache_vms'] = apache[ip]['hosts']
@@ -4123,7 +4127,7 @@ def _main_enrich_ssh_uptime(data):
                 n = vm['name']
                 vm_uptime_map[n] = ut
                 if n.startswith('srv-'):
-                    vm_uptime_map[n[4:]] = ut   # srv-clt → clt, srv-pa85 → pa85
+                    vm_uptime_map[n[4:]] = ut   # srv-site01 → site01, etc.
     for entry in data['ssh']:
         if entry.get('uptime', '?') == '?':
             ut = vm_uptime_map.get(entry['name'])
@@ -4262,10 +4266,10 @@ def get_apparmor_nginx():
         return {'available': False, 'enforce': False, 'processes_confined': 0}
 
 
-def get_apparmor_clt():
-    """Verifie confinement AppArmor Apache2 sur CLT via SSH."""
+def get_apparmor_site01():
+    """Verifie confinement AppArmor Apache2 sur site-01 via SSH."""
     try:
-        cmd = ['ssh', '-i', _CLT_SSH_KEY, '-p', str(SSH_PORT),
+        cmd = ['ssh', '-i', _SITE01_SSH_KEY, '-p', str(SSH_PORT),
                '-o', 'IdentitiesOnly=yes', '-o', 'StrictHostKeyChecking=no',
                '-o', 'ConnectTimeout=8', '-o', 'BatchMode=yes',
                f'root@{IP_CLT}',
@@ -4418,15 +4422,15 @@ def _get_modsec_data(host_ip, ssh_key, port=SSH_PORT):
                 'attacks': [], 'last_updated': ''}
 
 
-def get_modsec_clt():
-    """ModSecurity statut + blocs audit log CLT (via SSH)."""
-    return _get_modsec_data(IP_CLT, _CLT_SSH_KEY)
+def get_modsec_site01():
+    """ModSecurity statut + blocs audit log site-01 (via SSH)."""
+    return _get_modsec_data(IP_CLT, _SITE01_SSH_KEY)
 
 
-def get_apparmor_pa85():
-    """Verifie confinement AppArmor Apache2 sur PA85 via SSH."""
+def get_apparmor_site02():
+    """Verifie confinement AppArmor Apache2 sur site-02 via SSH."""
     try:
-        cmd = ['ssh', '-i', _PA85_SSH_KEY, '-p', str(SSH_PORT),
+        cmd = ['ssh', '-i', _SITE02_SSH_KEY, '-p', str(SSH_PORT),
                '-o', 'IdentitiesOnly=yes', '-o', 'StrictHostKeyChecking=no',
                '-o', 'ConnectTimeout=8', '-o', 'BatchMode=yes',
                f'root@{IP_PA85}',
@@ -4448,9 +4452,9 @@ def get_apparmor_pa85():
         return {'available': False, 'enforce': False}
 
 
-def get_modsec_pa85():
-    """ModSecurity statut + blocs audit log PA85 (via SSH)."""
-    return _get_modsec_data(IP_PA85, SSH_KEY_PA85)
+def get_modsec_site02():
+    """ModSecurity statut + blocs audit log site-02 (via SSH)."""
+    return _get_modsec_data(IP_PA85, SSH_KEY_SITE02)
 
 
 def get_jarvis_status():
@@ -4474,16 +4478,16 @@ def get_jarvis_status():
 
 
 _RSYSLOG_EXPLOITED = {
-    'clt':                    {'apache_access', 'fail2ban.actions', 'sshd-session'},
-    'pa85':                   {'apache_access', 'fail2ban.actions', 'sshd-session'},
-    'pve':                    {'pvedaemon', 'sshd-session', 'vzdump', 'pvefw-logger'},
-    'GT-BE98-87B0-011D764-C': {'kernel', 'dnsmasq-dhcp', 'WAN'},
+    SITE01_HOST: {'apache_access', 'fail2ban.actions', 'sshd-session'},
+    SITE02_HOST: {'apache_access', 'fail2ban.actions', 'sshd-session'},
+    'pve':       {'pvedaemon', 'sshd-session', 'vzdump', 'pvefw-logger'},
+    ROUTER_ID:   {'kernel', 'dnsmasq-dhcp', 'WAN'},
 }
 _RSYSLOG_SECURITY = {
-    'clt':                    {'apache_access', 'fail2ban.actions', 'sshd-session', 'kernel'},
-    'pa85':                   {'apache_access', 'fail2ban.actions', 'sshd-session', 'kernel'},
-    'pve':                    {'pvedaemon', 'pve-firewall', 'pvefw-logger', 'vzdump', 'sshd-session'},
-    'GT-BE98-87B0-011D764-C': {'kernel', 'dnsmasq-dhcp', 'WAN'},
+    SITE01_HOST: {'apache_access', 'fail2ban.actions', 'sshd-session', 'kernel'},
+    SITE02_HOST: {'apache_access', 'fail2ban.actions', 'sshd-session', 'kernel'},
+    'pve':       {'pvedaemon', 'pve-firewall', 'pvefw-logger', 'vzdump', 'sshd-session'},
+    ROUTER_ID:   {'kernel', 'dnsmasq-dhcp', 'WAN'},
 }
 
 def get_rsyslog_status():
@@ -4541,7 +4545,7 @@ def get_rsyslog_status():
     except Exception:
         pass
     _lm_re = re.compile(r'^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2})')
-    for host in ('clt', 'pa85', 'pve', 'GT-BE98-87B0-011D764-C'):
+    for host in (SITE01_HOST, SITE02_HOST, 'pve', ROUTER_ID):
         host_dir = os.path.join(central_dir, host)
         if not os.path.isdir(host_dir):
             result['hosts'][host] = {'status': 'absent', 'last_ago_s': None, 'files': 0, 'size_kb': 0, 'lines_min': 0, 'recent_lines': [], 'last_file': '', 'programs_used': [], 'programs_unused': []}
@@ -4598,7 +4602,7 @@ def get_rsyslog_status():
         else:
             result['hosts'][host] = {'status': 'absent', 'last_ago_s': None, 'files': 0, 'size_kb': 0, 'lines_min': 0, 'recent_lines': [], 'last_file': '', 'programs_used': [], 'programs_unused': []}
     # Top 15 IPs routeur DST (outbound)
-    be98_pattern = os.path.join(central_dir, 'GT-BE98*', 'kernel.log')
+    be98_pattern = os.path.join(central_dir, ROUTER_ID + '*', 'kernel.log')
     router_top = {}
     _rfc1918 = re.compile(r'^(10\.|172\.(1[6-9]|2\d|3[01])\.|192\.168\.|127\.)')
     for logf in _glob.glob(be98_pattern):
@@ -4618,7 +4622,7 @@ def get_rsyslog_status():
     wan_24h = 0
     wan_cutoff = now_ts - 86400
     _wan_ts_re = re.compile(r'^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{2}:\d{2})')
-    for wan_f in _glob.glob(os.path.join(central_dir, 'GT-BE98*', 'WAN.log')):
+    for wan_f in _glob.glob(os.path.join(central_dir, ROUTER_ID + '*', 'WAN.log')):
         try:
             with open(wan_f, 'r', errors='replace') as fh:
                 for line in fh:
