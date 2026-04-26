@@ -88,6 +88,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 <h2 align="center">35 Tuiles en production</h2>
 
 <h3 align="center">Rangée 1 — Indicateurs globaux</h3>
+
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 1 | ThreatScore (0-100 + jauge) | 24 briques monitoring.json |
@@ -96,6 +97,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 4 | Métriques nginx (req/h, erreurs) | nginx access.log |
 
 <h3 align="center">Rangée 2 — Sécurité</h3>
+
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 5 | CrowdSec LAPI | cscli decisions + CAPI |
@@ -104,6 +106,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 8 | AppSec WAF | CrowdSec AppSec logs |
 
 <h3 align="center">Rangée 3 — Système</h3>
+
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 9 | UFW règles | ufw status |
@@ -112,6 +115,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 12 | Headers sécurité nginx | curl -I |
 
 <h3 align="center">Rangée 4 — Réseau / Corrélation</h3>
+
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 13 | XDR corrélation | cross-source signals |
@@ -120,6 +124,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 16 | Honeypot | fake services logs |
 
 <h3 align="center">Rangée 5 — Infrastructure</h3>
+
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 17 | Mise à jour système nginx | apt |
@@ -130,6 +135,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | 22 | JARVIS IA | localhost:5000/api/status |
 
 <h3 align="center">Rangée 6 — Hôtes distants + services</h3>
+
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 23 | Services systemd | systemctl --failed |
