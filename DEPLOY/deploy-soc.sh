@@ -173,7 +173,7 @@ if step_active "nginx"; then
   run "mkdir -p ${MONITORING_DIR}/{js,css}"
 
   # Déployer les vhosts depuis le dépôt
-  NGINX_CONF_SRC="${REPO_DIR}/configs/nginx"
+  NGINX_CONF_SRC="${REPO_DIR}/CONFIGS/nginx"
   if [[ -d "$NGINX_CONF_SRC" ]]; then
     for f in monitoring.conf site-01.conf site-02.conf; do
       SRC="${NGINX_CONF_SRC}/$f"
@@ -212,7 +212,7 @@ if step_active "nginx"; then
     run "nginx -t && systemctl reload nginx 2>/dev/null || true"
     warn "Vhosts deployes — certificats TLS requis (voir etape 6)"
   else
-    warn "configs/nginx/ absent — vhosts non deployes (voir CONFIGS/01-nginx.md)"
+    warn "CONFIGS/nginx/ absent — vhosts non deployes (voir CONFIGS/01-nginx.md)"
   fi
   run "chown -R www-data:www-data ${MONITORING_DIR}"
   ok "nginx configure"
