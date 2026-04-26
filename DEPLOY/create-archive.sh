@@ -470,13 +470,13 @@ else
     if ! $DRY_RUN; then
         mkdir -p "${TMPDIR}/ssh"
         for f in /root/.ssh/authorized_keys \
-                  /root/.ssh/id_site-01_sync     /root/.ssh/id_site-01_sync.pub \
-                  /root/.ssh/id_site-02_sync    /root/.ssh/id_site-02_sync.pub \
-                  /root/.ssh/id_proxmox_sync /root/.ssh/id_proxmox_sync.pub; do
+                  /root/.ssh/<SSH-KEY-CLT>     /root/.ssh/<SSH-KEY-CLT>.pub \
+                  /root/.ssh/<SSH-KEY-PA85>    /root/.ssh/<SSH-KEY-PA85>.pub \
+                  /root/.ssh/<SSH-KEY-PVE>     /root/.ssh/<SSH-KEY-PVE>.pub; do
             [[ -f "$f" ]] && cp -p "$f" "${TMPDIR}/ssh/" && ok "$(basename "$f") → ssh/"
         done
     else
-        for f in authorized_keys id_site-01_sync id_site-02_sync id_proxmox_sync; do
+        for f in authorized_keys '<SSH-KEY-CLT>' '<SSH-KEY-PA85>' '<SSH-KEY-PVE>'; do
             echo -e "  ${YELLOW}[DRY]${NC} /root/.ssh/$f → ssh/"
         done
     fi

@@ -86,11 +86,11 @@ IP_SRV_NGIX   = '<SRV-NGIX-IP>'   # VM 108 — nginx · CrowdSec · dashboard SO
 IP_CLT        = '<CLT-IP>'   # VM 106 — Apache · site CLT
 IP_PA85       = '<PA85-IP>'   # VM 107 — Apache · site PA85
 IP_PROXMOX    = '<PROXMOX-IP>'   # Machine physique — hyperviseur Proxmox VE
-SSH_PORT      = 2272   # ← ADAPTER: votre port SSH non-standard
-SSH_KEY_NGIX  = '/root/.ssh/id_nginx_sync'
-SSH_KEY_CLT   = '/root/.ssh/id_clt_sync'
-SSH_KEY_PA85  = '/root/.ssh/id_pa85_sync'
-SSH_KEY_PVE   = '/root/.ssh/id_proxmox_sync'
+SSH_PORT      = '<SSH-PORT>'   # ← ADAPTER: votre port SSH non-standard
+SSH_KEY_NGIX  = '<SSH-KEY-NGIX>'   # ex: /root/.ssh/id_nginx_sync
+SSH_KEY_CLT   = '<SSH-KEY-CLT>'    # ex: /root/.ssh/id_clt_sync
+SSH_KEY_PA85  = '<SSH-KEY-PA85>'   # ex: /root/.ssh/id_pa85_sync
+SSH_KEY_PVE   = '<SSH-KEY-PVE>'    # ex: /root/.ssh/id_proxmox_sync
 DASHBOARD_URL = 'http://' + IP_SRV_NGIX + ':8080/'
 
 LOG_FILE      = '/var/log/nginx/access.log'

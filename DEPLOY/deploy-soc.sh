@@ -30,6 +30,11 @@ PROXMOX_IP="<PROXMOX-IP>"      # IP hyperviseur Proxmox VE   ex: 203.0.113.1
 LAN_CIDR="<LAN-CIDR>"         # Sous-réseau LAN             ex: 203.0.113.0/24
 LAN2_CIDR="<ROUTER-SUBNET>"   # Sous-réseau routeur/gestion ex: 203.0.113.128/25
 SSH_PORT="<SSH-PORT>"          # Port SSH non standard       ex: 2222
+SSH_KEY="<SSH-KEY>"            # Nom de clé SSH (dashboard)  ex: id_nginx
+SSH_KEY_NGIX="<SSH-KEY-NGIX>"  # Clé SSH monitoring→ngix     ex: /root/.ssh/id_nginx_sync
+SSH_KEY_CLT="<SSH-KEY-CLT>"    # Clé SSH monitoring→clt      ex: /root/.ssh/id_clt_sync
+SSH_KEY_PA85="<SSH-KEY-PA85>"  # Clé SSH monitoring→pa85     ex: /root/.ssh/id_pa85_sync
+SSH_KEY_PVE="<SSH-KEY-PVE>"    # Clé SSH monitoring→proxmox  ex: /root/.ssh/id_proxmox_sync
 DOMAIN_COM="<DOMAIN-COM>"      # Domaine principal           ex: monsite.com
 DOMAIN_FR="<DOMAIN-FR>"        # Domaine secondaire          ex: monsite.fr
 MAIL_DEST="<MAIL-DEST>"        # Email alertes SOC           ex: admin@monsite.com
@@ -402,6 +407,11 @@ if step_active "scripts"; then
                s/<PA85-IP>/${PA85_IP}/g; \
                s/<PROXMOX-IP>/${PROXMOX_IP}/g; \
                s|<LAN-CIDR>|${LAN_CIDR}|g; \
+               s/<SSH-PORT>/${SSH_PORT}/g; \
+               s|<SSH-KEY-NGIX>|${SSH_KEY_NGIX}|g; \
+               s|<SSH-KEY-CLT>|${SSH_KEY_CLT}|g; \
+               s|<SSH-KEY-PA85>|${SSH_KEY_PA85}|g; \
+               s|<SSH-KEY-PVE>|${SSH_KEY_PVE}|g; \
                s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
                s/<DOMAIN-FR>/${DOMAIN_FR}/g' \
        ${SCRIPTS_DIR}/monitoring_gen.py \
@@ -426,6 +436,7 @@ if step_active "dashboard"; then
                s/<PA85-IP>/${PA85_IP}/g; \
                s|<LAN-CIDR>|${LAN_CIDR}|g; \
                s/<SSH-PORT>/${SSH_PORT}/g; \
+               s/<SSH-KEY>/${SSH_KEY}/g; \
                s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
                s/<DOMAIN-FR>/${DOMAIN_FR}/g' \
        ${MONITORING_DIR}/js/*.js 2>/dev/null || true"

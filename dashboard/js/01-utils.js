@@ -9,7 +9,7 @@ var SOC_INFRA={
   ROUTER:   '<ROUTER-IP>',
   LAN_CIDR: '<LAN-CIDR>',
   SSH_PORT: '<SSH-PORT>',
-  SSH_KEY:  'id_nginx'
+  SSH_KEY:  '<SSH-KEY>'
 };
 
 // ── PALETTE KILL CHAIN — source unique (hex + rgb) pour 02/03/05/06 ─────────
@@ -309,7 +309,7 @@ function _tsTraffic(d){
 }
 function _tsSshUfw(d){
   var s=0,f=[];
-  // SSH brute force (max 15pts) — port non-standard 2272 = peu exposé
+  // SSH brute force (max 15pts) — port non-standard <SSH-PORT> = peu exposé
   var sshFail=0;(d.ssh||[]).forEach(function(m){sshFail+=m.failed_24h||0;});
   if(sshFail>100){s+=15;f.push({t:'Brute force SSH',c:'r'});}
   else if(sshFail>20){s+=7;f.push({t:'SSH attaques',c:'y'});}
