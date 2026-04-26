@@ -75,7 +75,7 @@
 - [ ] `/etc/crowdsec/config.yaml` — LAPI url, db path, log level
 - [ ] `/etc/crowdsec/local_api_credentials.yaml` — token LAPI (sensible 🔴)
 - [ ] `/etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml` — bouncer nftables
-- [ ] `/etc/crowdsec/scenarios/0xclt-*.yaml` — 3 scénarios custom présents
+- [ ] `/etc/crowdsec/scenarios/custom-*.yaml` — 3 scénarios custom présents
 - [ ] `/etc/crowdsec/parsers/s02-enrich/whitelist-lan.yaml` — whitelist LAN
 - [ ] `cscli decisions list -o json` — export décisions actives
 - [ ] `cscli collections list -o json` — liste collections installées
@@ -85,7 +85,7 @@
 
 - [ ] `/etc/fail2ban/jail.local` — jails custom (sshd, nginx-cve, nginx-botsearch)
 - [ ] `/etc/fail2ban/action.d/crowdsec-sync.conf` — **CLÉ chaîne défense F2B→CS**
-- [ ] `/etc/fail2ban/filter.d/` — 102 filtres dont custom 0xclt
+- [ ] `/etc/fail2ban/filter.d/` — 102 filtres dont custom
 
 <h3 align="center">Suricata — BLOC 4</h3>
 

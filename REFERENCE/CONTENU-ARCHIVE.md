@@ -96,7 +96,7 @@
 | `decisions-export.json` | `cscli decisions list -o json` | ✅ |
 | `bouncers.json` | `cscli bouncers list -o json` | ✅ |
 | `collections.json` | `cscli collections list -o json` | ✅ |
-| Scenarios custom | `/etc/crowdsec/scenarios/0xclt-*.yaml` (3 fichiers) | ✅ inclus dans config/ |
+| Scenarios custom | `/etc/crowdsec/scenarios/custom-*.yaml` (3 fichiers) | ✅ inclus dans config/ |
 | Parsers custom | `/etc/crowdsec/parsers/s02-enrich/whitelist-lan.yaml` | ✅ inclus dans config/ |
 
 <h3 align="center">fail2ban/ ✅</h3>

@@ -172,11 +172,11 @@ nftables:
 
 <h2 align="center">Scénarios custom</h2>
 
-`/etc/crowdsec/scenarios/0xclt-nginx-404-scan.yaml`
+`/etc/crowdsec/scenarios/custom-nginx-404-scan.yaml`
 
 ```yaml
 type: leaky
-name: 0xclt/nginx-404-scan
+name: <GITHUB-USER>/nginx-404-scan
 description: "Détection scan 404 intensif — 30 erreurs en 2 min"
 filter: "evt.Meta.service == 'nginx' && evt.Meta.http_status == '404'"
 groupby: "evt.Meta.source_ip"
@@ -189,11 +189,11 @@ labels:
   remediation: true
 ```
 
-`/etc/crowdsec/scenarios/0xclt-nginx-bot-ua.yaml`
+`/etc/crowdsec/scenarios/custom-nginx-bot-ua.yaml`
 
 ```yaml
 type: leaky
-name: 0xclt/nginx-bot-useragent
+name: <GITHUB-USER>/nginx-bot-useragent
 description: "User-Agent de bot/scanner connu"
 filter: >
   evt.Meta.service == 'nginx' &&
@@ -208,11 +208,11 @@ labels:
   remediation: true
 ```
 
-`/etc/crowdsec/scenarios/0xclt-ssh-slowbrute.yaml`
+`/etc/crowdsec/scenarios/custom-ssh-slowbrute.yaml`
 
 ```yaml
 type: leaky
-name: 0xclt/ssh-slow-bruteforce
+name: <GITHUB-USER>/ssh-slow-bruteforce
 description: "Brute force SSH lent — évite les seuils fail2ban"
 filter: "evt.Meta.log_type == 'ssh_failed-auth'"
 groupby: "evt.Meta.source_ip"
