@@ -138,7 +138,7 @@
 | 🔍 | **XDR** | Corrélation Fail2ban + ModSec + UFW + Suricata + rsyslog + routeur |
 | 🗺️ | **GeoIP** | Cartographie Leaflet + MaxMind · arcs d'attaque animés · top pays |
 | 🔄 | **Plug-and-play** | Archive 13 blocs · restauration complète sur VM vierge en < 30 min |
-| ✅ | **Audit 10/10** | Zéro dette technique · 85 passes · 120 NDT corrigés |
+| ✅ | **Audit 10/10** | Zéro dette technique · 90 passes · 144 NDT corrigés |
 
 ---
 
@@ -196,8 +196,9 @@ INTERNET
 | 📖 **Comprendre l'architecture** et les choix défensifs | Documentation [01](01-PRESENTATION.md) → [09](09-ROADMAP.md) |
 | ⚙️ **Adapter une configuration** à votre infrastructure | [CONFIGS/](CONFIGS/) — placeholders anonymisés |
 
-> Ce dépôt contient **l'intégralité du SOC** : infrastructure · configuration · scripts Python · dashboard HTML/JS/CSS.
-> Toutes les valeurs sensibles sont remplacées par des placeholders `<NOM>` — adapter à votre infra avant déploiement.
+> Ce dépôt publie **l'architecture, la documentation et le framework de déploiement**.
+> Les sources du dashboard JS (24 modules) et des scripts opérationnels restent privées.
+> Les configs d'exemple sont anonymisées — placeholders `<NOM>` à adapter à votre infra.
 
 > **Infrastructure de référence** : ce SOC tourne sur **Proxmox VE** (machine physique) hébergeant 3 VMs Debian 13.
 > La reconstruction sur un autre hyperviseur (KVM, VMware, bare-metal) est possible en adaptant les 4 IPs du bloc CONFIG de `deploy-soc.sh` :
@@ -253,44 +254,41 @@ bash /tmp/soc-restore/restore-soc.sh             # restauration
 
 <h2 align="center">Scripts Python & Shell</h2>
 
-Sources anonymisées — remplacer les placeholders `<SRV-NGIX-IP>`, `<SSH-PORT>`, `<DOMAIN-COM>`, etc.
-
-| Fichier | Rôle |
-|---------|------|
-| [monitoring_gen.py](scripts/monitoring_gen.py) | **Moteur principal** — génère `monitoring.json` toutes les 5 min (4 600 lignes · 60+ fonctions) |
-| [monitoring.sh](scripts/monitoring.sh) | Wrapper cron + GoAccess HTML analytics |
-| [soc-daily-report.py](scripts/soc-daily-report.py) | Rapport HTML quotidien par mail (08h00) |
-| [proto-live.py](scripts/proto-live.py) | Statistiques protocoles temps réel (fenêtre 5 min) |
-| [alert.conf.example](scripts/alert.conf.example) | Configuration SMTP alertes — copier en `alert.conf` |
-| [jail.local](scripts/jail.local) | Fail2ban — 3 jails : sshd · nginx-cve · nginx-botsearch |
-| [rsyslog-10-central-receiver.conf](scripts/rsyslog-10-central-receiver.conf) | Récepteur rsyslog central (TCP+UDP 514) |
-| [rsyslog-99-forward-site01.conf](scripts/rsyslog-99-forward-site01.conf) | Émetteur rsyslog — site-01 → srv-ngix |
-| [rsyslog-99-forward-site02.conf](scripts/rsyslog-99-forward-site02.conf) | Émetteur rsyslog — site-02 → srv-ngix |
-| [apparmor-apache2-clt.conf](scripts/apparmor-apache2-clt.conf) | Profil AppArmor Apache2 — site-01 |
-| [apparmor-apache2-pa85.conf](scripts/apparmor-apache2-pa85.conf) | Profil AppArmor Apache2 — site-02 |
-| [crowdsec/](scripts/crowdsec/) | 4 scénarios CrowdSec custom (http-bad-ua · exploit-scan · php-rce · geo-block) |
-| [logrotate.d/](scripts/logrotate.d/) | 7 règles logrotate : nginx · fail2ban · monitoring · rsyslog · aide · ufw · sites |
+| Fichier | Rôle | Statut |
+|---------|------|--------|
+| `monitoring_gen.py` | **Moteur principal** — génère `monitoring.json` toutes les 5 min · 60+ fonctions · parsing nginx / CrowdSec / Suricata / Fail2ban / rsyslog | 🔒 privé |
+| `soc-daily-report.py` | Rapport HTML quotidien par mail (08h00) | 🔒 privé |
+| `monitoring.sh` | Wrapper cron + GoAccess HTML analytics | 🔒 privé |
+| `proto-live.py` | Statistiques protocoles temps réel (fenêtre 5 min) | 🔒 privé |
+| [alert.conf.example](scripts/alert.conf.example) | Configuration SMTP alertes — copier en `alert.conf` | ✅ public |
+| [jail.local](scripts/jail.local) | Fail2ban — 3 jails : sshd · nginx-cve · nginx-botsearch | ✅ public |
+| [rsyslog-10-central-receiver.conf](scripts/rsyslog-10-central-receiver.conf) | Récepteur rsyslog central (TCP+UDP 514) | ✅ public |
+| [rsyslog-99-forward-site01.conf](scripts/rsyslog-99-forward-site01.conf) | Émetteur rsyslog — site-01 → srv-ngix | ✅ public |
+| [rsyslog-99-forward-site02.conf](scripts/rsyslog-99-forward-site02.conf) | Émetteur rsyslog — site-02 → srv-ngix | ✅ public |
+| [apparmor-apache2-clt.conf](scripts/apparmor-apache2-clt.conf) | Profil AppArmor Apache2 — site-01 | ✅ public |
+| [apparmor-apache2-pa85.conf](scripts/apparmor-apache2-pa85.conf) | Profil AppArmor Apache2 — site-02 | ✅ public |
+| [crowdsec/](scripts/crowdsec/) | 4 scénarios CrowdSec custom (http-bad-ua · exploit-scan · php-rce · geo-block) | ✅ public |
+| [logrotate.d/](scripts/logrotate.d/) | 7 règles logrotate : nginx · fail2ban · monitoring · rsyslog · aide · ufw · sites | ✅ public |
 
 ---
 
 <h2 align="center">Dashboard SOC</h2>
 
-Interface visuelle complète — SPA Vanilla JS, zéro dépendance NPM.
+SPA Vanilla JS — zéro dépendance NPM · 24 modules · 35 tuiles.
 
-| Fichier | Rôle |
-|---------|------|
-| [dashboard/index.html](dashboard/index.html) | Page principale — 35 tuiles · CSS intégré · cache-busters |
-| [dashboard/js/01-utils.js](dashboard/js/01-utils.js) | **⚙️ CONFIG** — `SOC_INFRA` : adapter les placeholders IPs/port/domaines ici |
-| [dashboard/js/07-render.js](dashboard/js/07-render.js) | Moteur de rendu — toutes les tuiles |
-| [dashboard/js/02-canvas-kc.js](dashboard/js/02-canvas-kc.js) | Kill Chain — canvas + modal tactique |
-| [dashboard/js/17-fetch.js](dashboard/js/17-fetch.js) | Fetch central — polling 60s → monitoring.json |
-| [dashboard/js/19-xdr.js](dashboard/js/19-xdr.js) | XDR — corrélation cross-sources |
-| [dashboard/js/22-ip-deep.js](dashboard/js/22-ip-deep.js) | Investigation IP — modal forensique |
-| [dashboard/js/11-bind.js](dashboard/js/11-bind.js) | Handlers globaux — panels · navigation |
-| [dashboard/css/monitoring.css](dashboard/css/monitoring.css) | Thème glassmorphism — variables CSS · responsive |
-| `dashboard/js/*.js` | 24 modules JS au total |
+> Les sources JS ne sont pas publiées dans ce dépôt. La page HTML et le CSS sont disponibles à titre de référence.
 
-> **Premier fichier à éditer** : [dashboard/js/01-utils.js](dashboard/js/01-utils.js) — bloc `SOC_INFRA` lignes 3-12, remplacer les placeholders par vos IPs/port.
+| Caractéristique | Détail |
+|---|---|
+| **Architecture** | 24 modules JS à responsabilité unique — rendu, canvas, fetch, modals, XDR, investigation IP… |
+| **35 tuiles** | Kill Chain · GeoIP · XDR · Fail2ban · CrowdSec · Suricata · AIDE HIDS · rsyslog · nginx · Freebox · JARVIS |
+| **Kill Chain** | Canvas 2D — tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ · score menace par IP |
+| **Investigation IP** | Modal forensique — CrowdSec · Fail2ban · GeoIP · WHOIS · verdict · historique 30j |
+| **XDR Engine** | Corrélation cross-source 6 flux · score 0-200 · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
+| **GeoIP** | Leaflet.js + MaxMind GeoLite2 — cartographie mondiale · arcs d'attaque animés |
+| **Polling** | Cycle 60s — toutes les tuiles se rafraîchissent automatiquement · zéro rechargement de page |
+| **Thème** | Glassmorphism — tokens CSS `--fs-*` · responsive · zéro framework CSS |
+| **Qualité** | Audit 10/10 · 90 passes · 144 NDT corrigés · zéro dette technique |
 
 ---
 
@@ -379,7 +377,6 @@ L'IA n'a fait qu'exécuter. L'intelligence du système, elle, est humaine.
   <a href="https://www.gnu.org/software/bash/"><img src="https://skillicons.dev/icons?i=bash" width="48" title="Bash" /></a>
   <br/>
   <a href="https://nginx.org"><img src="https://skillicons.dev/icons?i=nginx" width="48" title="Nginx" /></a>
-  <a href="https://www.docker.com"><img src="https://skillicons.dev/icons?i=docker" width="48" title="Docker" /></a>
   <a href="https://git-scm.com"><img src="https://skillicons.dev/icons?i=git" width="48" title="Git" /></a>
 </td>
 <td align="center">
@@ -392,12 +389,8 @@ L'IA n'a fait qu'exécuter. L'intelligence du système, elle, est humaine.
   <a href="https://code.visualstudio.com"><img src="https://skillicons.dev/icons?i=vscode" width="48" title="VS Code" /></a>
 </td>
 <td align="center">
-  <a href="https://pytorch.org"><img src="https://skillicons.dev/icons?i=pytorch" width="48" title="PyTorch" /></a>
-  <a href="https://www.tensorflow.org"><img src="https://skillicons.dev/icons?i=tensorflow" width="48" title="TensorFlow" /></a>
-  <a href="https://www.raspberrypi.com"><img src="https://skillicons.dev/icons?i=raspberrypi" width="48" title="Raspberry Pi" /></a>
-  <br/><br/>
   <a href="https://ollama.com"><img src="https://img.shields.io/badge/Ollama-000000?style=for-the-badge&logo=ollama&logoColor=white" alt="Ollama" /></a>
-  &nbsp;
+  <br/><br/>
   <a href="https://anthropic.com"><img src="https://img.shields.io/badge/Anthropic-D97757?style=for-the-badge&logo=anthropic&logoColor=white" alt="Anthropic" /></a>
 </td>
 </tr>
