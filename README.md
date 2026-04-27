@@ -8,7 +8,16 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>SOC homelab en production · 8 couches défense · Kill Chain temps réel · IA locale</h2>
+
+  <p align="center">
+    <img src="https://img.shields.io/badge/Statut-Production-00C853?style=flat-square" alt="Production" />
+    <img src="https://img.shields.io/badge/Version-v3.97-00B4D8?style=flat-square" alt="Version" />
+    <img src="https://img.shields.io/badge/Audit-10%2F10-00C853?style=flat-square" alt="Audit 10/10" />
+    <img src="https://img.shields.io/badge/Modules_JS-24-00B4D8?style=flat-square" alt="24 modules JS" />
+    <img src="https://img.shields.io/badge/Couches_défense-8-DC143C?style=flat-square" alt="8 couches" />
+    <img src="https://img.shields.io/badge/Licence-Propriétaire-FF6B35?style=flat-square" alt="Propriétaire" />
+  </p>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -33,7 +42,7 @@
 
 <div align="center">
   <p>
-    <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
+    <strong>8 couches défense actives</strong> &nbsp;•&nbsp; <strong>~170 IPs neutralisées / 24h</strong> &nbsp;•&nbsp; <strong>5 hôtes supervisés</strong> &nbsp;•&nbsp; <strong>JARVIS IA proactive intégrée</strong>
   </p>
 </div>
 
