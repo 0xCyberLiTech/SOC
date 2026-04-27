@@ -231,9 +231,9 @@ INTERNET
 
 <h2 align="center">Framework de déploiement</h2>
 
-> **Contexte** : Ces scripts constituent le framework de **disaster recovery personnel** de ce SOC.
-> La restauration complète (`restore-soc.sh`) nécessite une archive de configuration privée non publiée dans ce dépôt.
-> `deploy-soc.sh` reste utilisable indépendamment pour installer la stack logicielle sur Debian 13.
+> ⚠️ **Disaster recovery personnel — non reproductible depuis ce dépôt seul.**
+> `restore-soc.sh` nécessite une archive de configuration privée (configs, clés SSH, scripts opérationnels) conservée hors dépôt.
+> `deploy-soc.sh` est utilisable indépendamment pour installer la stack logicielle sur n'importe quel Debian 13.
 
 | Script / Guide | Rôle | Utilisable sans archive |
 |----------------|------|:-----------------------:|
