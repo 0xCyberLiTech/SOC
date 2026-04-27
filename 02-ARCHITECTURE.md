@@ -115,8 +115,8 @@ INTERNET
 | VM ID | Nom | IP | RAM | Disque | Rôle |
 |-------|-----|----|-----|--------|------|
 | 108 | srv-ngix | <SRV-NGIX-IP> | 14 Go | 50 Go | Reverse proxy · SOC · sécurité |
-| 106 | srv-site-01 | <CLT-IP> | 2 Go | 50 Go | Backend Apache · site CLT |
-| 107 | srv-site-02 | <PA85-IP> | 2 Go | 50 Go | Backend Apache · site PA85 |
+| 106 | srv-site-01 | <srv-site-01-IP> | 2 Go | 50 Go | Backend Apache · site 01 |
+| 107 | srv-site-02 | <srv-site-02-IP> | 2 Go | 50 Go | Backend Apache · site 02 |
 
 **Proxmox VE** : <PROXMOX-IP> · SSH port <SSH-PORT> · clé `~/.ssh/id_proxmox`
 
@@ -138,12 +138,12 @@ INTERNET
 
 | Port | Proto | Destination | Usage |
 |------|-------|-------------|-------|
-| 80 | TCP | <CLT-IP>/13 | Proxy → backends |
+| 80 | TCP | <srv-site-01-IP>/13 | Proxy → backends |
 | 443 | TCP | Anywhere | Updates, CrowdSec CAPI, edge-tts |
 | 53 | UDP | Anywhere | DNS |
 | 123 | UDP | Anywhere | NTP |
 | 587 | TCP | Anywhere | SMTP (alertes mail) |
-| <SSH-PORT> | TCP | <CLT-IP>/13/20 | SSH monitoring |
+| <SSH-PORT> | TCP | <srv-site-01-IP>/13/20 | SSH monitoring |
 
 ---
 
@@ -213,8 +213,8 @@ JARVIS soc.py (boucle 60s)
 | Clé | Machine cible | Chemin local |
 |-----|--------------|--------------|
 | id_nginx | srv-ngix (<SRV-NGIX-IP>) | ~/.ssh/id_nginx |
-| id_site-01 | site-01 (<CLT-IP>) | ~/.ssh/id_site-01 |
-| id_site-02 | site-02 (<PA85-IP>) | ~/.ssh/id_site-02 |
+| id_site-01 | site-01 (<srv-site-01-IP>) | ~/.ssh/id_site-01 |
+| id_site-02 | site-02 (<srv-site-02-IP>) | ~/.ssh/id_site-02 |
 | id_proxmox | Proxmox (<PROXMOX-IP>) | ~/.ssh/id_proxmox |
 
 Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode=yes**
