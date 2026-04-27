@@ -40,6 +40,9 @@ SSH_KEY_PVE="<SSH-KEY-PVE>"            # Clé SSH monitoring→proxmox  ex: /roo
 SITE01_HOST="<SITE-01-HOSTNAME>"       # Hostname rsyslog VM site-01 ex: srv-site01
 SITE02_HOST="<SITE-02-HOSTNAME>"       # Hostname rsyslog VM site-02 ex: srv-site02
 ROUTER_ID="<ROUTER-ID>"               # Identifiant répertoire rsyslog routeur
+ROUTER_HOSTNAME="<ROUTER-HOSTNAME>"    # Hostname affiché du routeur         ex: asus-rog-be98
+CITY="<CITY>"                          # Ville pour la carte Leaflet          ex: Paris
+GITHUB_USER="<GITHUB-USER>"            # Compte GitHub du déploiement         ex: 0xCyberLiTech
 SITE01_WEB="<SITE01-WEBROOT>"          # Nom répertoire web site-01 sous /var/www/
 VM_ID_SITE01="<VM-ID-SITE01>"          # VM ID Proxmox de site-01    ex: 106
 VM_ID_SITE02="<VM-ID-SITE02>"          # VM ID Proxmox de site-02    ex: 107
@@ -207,7 +210,7 @@ if step_active "nginx"; then
                      s|<LAN-CIDR>|${LAN_CIDR}|g; \
                      s/<DOMAIN-COM>/${DOMAIN_COM}/g; \
                      s/<DOMAIN-FR>/${DOMAIN_FR}/g; \
-                     s/<GITHUB-USER>/<GITHUB-USER>/g' \
+                     s/<GITHUB-USER>/${GITHUB_USER}/g' \
              /etc/nginx/sites-available/${VHOST_NAME}"
         ok "nginx vhost : ${VHOST_NAME}"
       fi
@@ -480,6 +483,9 @@ if step_active "dashboard"; then
                s/<SITE-01-HOSTNAME>/${SITE01_HOST}/g; \
                s/<SITE-02-HOSTNAME>/${SITE02_HOST}/g; \
                s/<ROUTER-ID>/${ROUTER_ID}/g; \
+               s/<ROUTER-HOSTNAME>/${ROUTER_HOSTNAME}/g; \
+               s/<CITY>/${CITY}/g; \
+               s/<GITHUB-USER>/${GITHUB_USER}/g; \
                s/<VM-ID-SITE01>/${VM_ID_SITE01}/g; \
                s/<VM-ID-SITE02>/${VM_ID_SITE02}/g' \
        ${MONITORING_DIR}/js/*.js 2>/dev/null || true"
