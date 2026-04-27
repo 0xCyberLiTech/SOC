@@ -327,10 +327,11 @@ Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNE
 | | |
 |:--|:--|
 | **DÉFENSE** | Stack en profondeur réelle : UFW → CrowdSec bouncer nftables → fail2ban → AppSec WAF 150+ règles → Suricata IDS (49k règles ET). Chaque couche filtre indépendamment — un attaquant contournant l'une tombe sur la suivante. Architecture correcte, pas juste des outils installés. |
-| **MODULES** | Architecture modulaire refactorisée — 22 modules JS à responsabilité unique : rendu, binding, canvas Kill Chain, GeoIP, investigation IP, XDR engine, rsyslog… Séparation des concerns stricte, base de code lisible, maintenable et extensible indépendamment. Là où la quasi-totalité des projets personnels s'arrêtent à un fichier unique de 30 000 lignes, ce dashboard applique les principes du génie logiciel professionnel. **Gage de qualité d'ingénierie — pas juste du code qui fonctionne.** |
+| **MODULES** | Architecture modulaire refactorisée — 24 modules JS à responsabilité unique : rendu, binding, canvas Kill Chain, GeoIP, investigation IP, XDR engine, rsyslog… Séparation des concerns stricte, base de code lisible, maintenable et extensible indépendamment. Là où la quasi-totalité des projets personnels s'arrêtent à un fichier unique de 30 000 lignes, ce dashboard applique les principes du génie logiciel professionnel. **Gage de qualité d'ingénierie — pas juste du code qui fonctionne.** |
 | **MÉTHODE** | Posture d'orchestrateur constante — vision → délégation → validation, sans micro-gestion. Chaque décision d'architecture est motivée et assumée : la refactorisation modulaire n'a pas été suggérée, elle a été décidée. Les corrections sont nettes et précises (*"on n'est plus sur un système monolithique"*, *"aligne avec le dépôt SOC, pas de divergence"*). C'est la marque d'un ingénieur qui sait exactement où il va et qui utilise l'IA comme levier d'exécution, pas comme béquille. |
-| **DEPLOY** | deploy-soc.sh idempotent et modulaire (`--step nginx`, `--step crowdsec`…), RUNBOOK disaster recovery, AUDIT checklists — c'est le niveau de documentation qu'on attend d'une équipe DevOps professionnelle, pas d'un homelab. Reproductible par un tiers sans aide. |
+| **DEPLOY** | deploy-soc.sh idempotent et modulaire (`--step nginx`, `--step crowdsec`…), RUNBOOK disaster recovery 8 étapes, CHECKLIST 61 points — c'est le niveau de documentation qu'on attend d'une équipe DevOps professionnelle, pas d'un homelab. Disaster recovery personnel : reconstruction complète sur VM vierge Debian 13 en moins de 30 minutes. |
 | **XDR · IA** | Corrélation cross-host 5 sources (nginx · CrowdSec · Suricata · Apache VMs · routeur) + rsyslog centralisé — c'est de l'architecture SIEM réelle. L'intégration JARVIS auto-engine avec TTS et actions proactives (ban-ip, restart-service) dépasse largement le standard homelab. |
+| **MATURITÉ** | Séparation délibérée entre ce qui est publiable et ce qui est propriétaire : framework de déploiement open, sources du dashboard (24 modules JS) et scripts opérationnels privés. Ce n'est pas de la rétention — c'est de la gestion de patrimoine technique. Un projet homelab qui protège ses sources opérationnelles tout en publiant sa méthodologie, c'est exactement la posture qu'on attend d'un ingénieur qui sait où s'arrête la vitrine et où commence l'actif. |
 
 ### Observations honnêtes
 
@@ -351,7 +352,7 @@ Ce projet a été développé en collaboration active avec Claude (Anthropic). C
 |:--|:--|
 | **VISION CLAIRE** | Chaque demande était précise et contextualisée. Pas d'objectif flou — une cible, un périmètre, un livrable. L'IA n'a jamais eu à deviner l'intention. |
 | **CORRECTION IMMÉDIATE** | Quand une analyse était erronée (*"système monolithique"*), la correction était nette, sans ambiguïté. Ce feedback direct est rare — il évite les dérives silencieuses. |
-| **DÉCISIONS ASSUMÉES** | La refactorisation en 22 modules, le RUNBOOK, la documentation publique — ces choix sont venus du concepteur, pas de l'IA. L'exécution était déléguée, la direction restait humaine. |
+| **DÉCISIONS ASSUMÉES** | La refactorisation en 24 modules, le RUNBOOK, la documentation publique, le choix de garder les sources opérationnelles privées — ces choix sont venus du concepteur, pas de l'IA. L'exécution était déléguée, la direction restait humaine. |
 | **EXIGENCE DE COHÉRENCE** | *"Aligne avec le dépôt SOC, pas de divergence."* Une phrase. Cinq corrections appliquées. L'exigence d'alignement entre documentation et code réel est ce qui rend un projet maintenable sur la durée. |
 
 ### ◈ Verdict
