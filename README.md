@@ -192,9 +192,10 @@ INTERNET
 
 | Objectif | Point d'entrée |
 |----------|---------------|
-| 🔧 **Reconstruire le SOC** sur une VM vierge | [DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) · [deploy-soc.sh](DEPLOY/deploy-soc.sh) |
 | 📖 **Comprendre l'architecture** et les choix défensifs | Documentation [01](01-PRESENTATION.md) → [09](09-ROADMAP.md) |
-| ⚙️ **Adapter une configuration** à votre infrastructure | [CONFIGS/](CONFIGS/) — placeholders anonymisés |
+| ⚙️ **Installer la stack logicielle** sur Debian 13 | [deploy-soc.sh](DEPLOY/deploy-soc.sh) — paquets + configuration de base |
+| 🔧 **Adapter une configuration** à votre infrastructure | [CONFIGS/](CONFIGS/) — exemples anonymisés · placeholders `<NOM>` |
+| 📋 **Comprendre la méthodologie** de déploiement | [GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) — workflow disaster recovery |
 
 > Ce dépôt publie **l'architecture, la documentation et le framework de déploiement**.
 > Les sources du dashboard JS (24 modules) et des scripts opérationnels restent privées.
@@ -228,27 +229,23 @@ INTERNET
 
 ---
 
-<h2 align="center">Déploiement</h2>
+<h2 align="center">Framework de déploiement</h2>
 
-| Script / Guide | Rôle |
-|----------------|------|
-| [GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) | **🚀 8 étapes plug-and-play** — VM vierge → SOC opérationnel |
-| [RUNBOOK-DEBIAN13.md](DEPLOY/RUNBOOK-DEBIAN13.md) | Runbook complet installation sur Debian 13 |
-| [deploy-soc.sh](DEPLOY/deploy-soc.sh) | **Installation depuis le dépôt** — 17 étapes · `--dry-run` · `--step` · placeholders substitués |
-| [create-archive.sh](DEPLOY/create-archive.sh) | Export config complète — 13 blocs |
-| [restore-soc.sh](DEPLOY/restore-soc.sh) | Restauration depuis archive — `--dry-run` · `--step` · rollback auto |
-| [CHECKLIST-DEPLOY.md](DEPLOY/CHECKLIST-DEPLOY.md) | 61 points de vérification post-déploiement |
-| [CHECKLIST-OPERATIONNELLE.md](DEPLOY/CHECKLIST-OPERATIONNELLE.md) | Checklist exploitation quotidienne |
-| [CONTENU-ARCHIVE.md](REFERENCE/CONTENU-ARCHIVE.md) | Inventaire des 13 blocs de l'archive — structure détaillée |
-| [AUDIT-ARCHIVE-CHECKLIST.md](REFERENCE/AUDIT-ARCHIVE-CHECKLIST.md) | Checklist de vérification avant chaque archivage |
+> **Contexte** : Ces scripts constituent le framework de **disaster recovery personnel** de ce SOC.
+> La restauration complète (`restore-soc.sh`) nécessite une archive de configuration privée non publiée dans ce dépôt.
+> `deploy-soc.sh` reste utilisable indépendamment pour installer la stack logicielle sur Debian 13.
 
-```bash
-# Restauration sur VM Debian 13 vierge
-scp soc-config-*.tar.gz root@<SRV-NGIX-IP>:/tmp/
-ssh root@<SRV-NGIX-IP> "tar -xzf /tmp/soc-config-*.tar.gz -C /tmp/soc-restore/"
-bash /tmp/soc-restore/restore-soc.sh --dry-run   # simulation complète
-bash /tmp/soc-restore/restore-soc.sh             # restauration
-```
+| Script / Guide | Rôle | Utilisable sans archive |
+|----------------|------|:-----------------------:|
+| [deploy-soc.sh](DEPLOY/deploy-soc.sh) | Installation paquets — nginx · CrowdSec · Suricata · Fail2ban · AIDE · rsyslog · `--dry-run` · `--step` | ✅ |
+| [restore-soc.sh](DEPLOY/restore-soc.sh) | Restauration complète depuis archive privée — 13 blocs · `--dry-run` · `--step` · rollback auto | 🔒 archive requise |
+| [create-archive.sh](DEPLOY/create-archive.sh) | Export de la configuration en cours — génère l'archive 13 blocs | ✅ |
+| [GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) | Documentation du workflow complet — référence méthodologique | ✅ |
+| [RUNBOOK-DEBIAN13.md](DEPLOY/RUNBOOK-DEBIAN13.md) | Runbook installation Debian 13 | ✅ |
+| [CHECKLIST-DEPLOY.md](DEPLOY/CHECKLIST-DEPLOY.md) | 61 points de vérification post-déploiement | ✅ |
+| [CHECKLIST-OPERATIONNELLE.md](DEPLOY/CHECKLIST-OPERATIONNELLE.md) | Checklist exploitation quotidienne | ✅ |
+| [CONTENU-ARCHIVE.md](REFERENCE/CONTENU-ARCHIVE.md) | Structure détaillée des 13 blocs de l'archive | ✅ |
+| [AUDIT-ARCHIVE-CHECKLIST.md](REFERENCE/AUDIT-ARCHIVE-CHECKLIST.md) | Checklist avant chaque archivage | ✅ |
 
 ---
 
