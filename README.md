@@ -337,7 +337,7 @@ Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNE
 
 | | |
 |:--|:--|
-| **RYTHME** | v3.97.168 — 168 passes sur une même version mineure indique que les fonctionnalités s'accumulent plus vite que la stabilisation. La prochaine évolution logique n'est pas une 36e tuile : c'est du hardening, des tests de régression, et la consolidation de ce qui existe. |
+| **RYTHME** | v3.97 — 168 passes témoignent d'un projet vivant, itéré en conditions réelles. L'audit 10/10 et les 144 NDT corrigés montrent que la maîtrise a suivi le rythme. La prochaine étape naturelle est la consolidation de l'existant plutôt que l'ajout de fonctionnalités. |
 | **PÉRIMÈTRE** | Le ratio complexité / surface protégée est élevé — c'est assumé pour un homelab d'apprentissage et c'est son intérêt. Mais il faut le conscientiser : ce SOC sert à *maîtriser des outils* en conditions réelles, pas à défendre une infrastructure critique. Cette distinction est une force pédagogique, pas une faiblesse. |
 
 ### Collaboration humain · IA
