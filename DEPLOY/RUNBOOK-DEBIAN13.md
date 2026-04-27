@@ -601,9 +601,9 @@ if step_active "scripts"; then
 
   run "mkdir -p $SCRIPTS_DIR"
 
-  # Copie des scripts depuis le dépôt cloné
+  # Sources privées — copie uniquement si présentes dans le dépôt
   for f in monitoring_gen.py soc-daily-report.py proto-live.py monitoring.sh; do
-    run "cp '${REPO_DIR}/scripts/$f' '${SCRIPTS_DIR}/$f'"
+    [[ -f "${REPO_DIR}/scripts/$f" ]] && run "cp '${REPO_DIR}/scripts/$f' '${SCRIPTS_DIR}/$f'"
   done
 
   # Substitution des placeholders dans les scripts
@@ -631,7 +631,8 @@ if step_active "dashboard"; then
 
   # Copie des fichiers dashboard depuis le dépôt cloné
   run "cp '${REPO_DIR}/dashboard/index.html' '${MONITORING_DIR}/index.html'"
-  run "cp ${REPO_DIR}/dashboard/js/*.js '${MONITORING_DIR}/js/'"
+  compgen -G "${REPO_DIR}/dashboard/js/*.js" > /dev/null 2>&1 && \
+    run "cp ${REPO_DIR}/dashboard/js/*.js '${MONITORING_DIR}/js/'"
   run "cp '${REPO_DIR}/dashboard/css/monitoring.css' '${MONITORING_DIR}/css/monitoring.css'"
 
   # Substitution des placeholders dans tous les fichiers JS
@@ -837,13 +838,12 @@ server {
 
 <h3 align="center">2. Scripts et dashboard</h3>
 
-Les étapes 12 (scripts) et 13 (dashboard) de `deploy-soc.sh` copient et configurent automatiquement tous les fichiers depuis le dépôt cloné. Il n'y a rien à copier manuellement — le script substitue les placeholders dans `01-utils.js` et `monitoring_gen.py` après la copie.
+Les étapes 12 (scripts) et 13 (dashboard) de `deploy-soc.sh` installent la structure et copient les fichiers présents dans le dépôt. Les sources privées (scripts Python, modules JS) doivent être déployées séparément depuis l'archive de configuration personnelle.
 
 ```bash
-# Vérifier que les fichiers sont bien en place
-ls -la /opt/soc/*.py /opt/soc/*.sh
-ls -la /var/www/monitoring/js/01-utils.js
-grep "VM_IP\|CLT_IP\|PA85_IP" /var/www/monitoring/js/01-utils.js | head -5
+# Vérifier que les fichiers opérationnels sont bien en place
+ls -la /opt/soc/*.py /opt/soc/*.sh 2>/dev/null || echo "Sources privées à déployer manuellement"
+ls -la /var/www/monitoring/js/ | wc -l
 ```
 
 <h3 align="center">3. Vhosts nginx — adresses IP et domaines</h3>

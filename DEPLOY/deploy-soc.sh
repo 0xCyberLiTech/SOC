@@ -405,14 +405,17 @@ if step_active "scripts"; then
       || run "pip3 install $pkg --break-system-packages"
   done
   run "mkdir -p $SCRIPTS_DIR"
-  # Copie depuis le depot
+  # Sources privees — skip si absentes du depot (deployer manuellement)
+  _scripts_copied=0
   for f in monitoring_gen.py soc-daily-report.py proto-live.py monitoring.sh; do
     SRC="${REPO_DIR}/scripts/$f"
     if [[ -f "$SRC" ]]; then
       run "cp '$SRC' '${SCRIPTS_DIR}/$f'"
       [[ "$f" == *.sh ]] && run "chmod +x '${SCRIPTS_DIR}/$f'"
+      _scripts_copied=$((_scripts_copied+1))
     fi
   done
+  [[ $_scripts_copied -eq 0 ]] && warn "Scripts Python absents de ce depot (sources privees) — a deployer manuellement dans ${SCRIPTS_DIR}/"
   # alert.conf depuis l'exemple (a remplir manuellement)
   ALERT_EXAMPLE="${REPO_DIR}/scripts/alert.conf.example"
   if [[ -f "$ALERT_EXAMPLE" && ! -f "${SCRIPTS_DIR}/alert.conf" ]]; then
@@ -455,9 +458,13 @@ fi
 if step_active "dashboard"; then
   log "== ETAPE 13 — Dashboard SOC =="
   run "mkdir -p ${MONITORING_DIR}/{js,css}"
-  # Copie depuis le depot
+  # Copie depuis le depot (sources JS privees — skip si absentes)
   run "cp '${REPO_DIR}/dashboard/index.html' '${MONITORING_DIR}/index.html'"
-  run "cp ${REPO_DIR}/dashboard/js/*.js '${MONITORING_DIR}/js/'"
+  if compgen -G "${REPO_DIR}/dashboard/js/*.js" > /dev/null 2>&1; then
+    run "cp ${REPO_DIR}/dashboard/js/*.js '${MONITORING_DIR}/js/'"
+  else
+    warn "Sources JS absentes de ce depot (sources privees) — deployer les 24 modules manuellement dans ${MONITORING_DIR}/js/"
+  fi
   run "cp '${REPO_DIR}/dashboard/css/monitoring.css' '${MONITORING_DIR}/css/monitoring.css'"
   # Substitution des placeholders dans tous les fichiers JS
   run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g; \
