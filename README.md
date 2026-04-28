@@ -16,6 +16,7 @@
     <img src="https://img.shields.io/badge/Audit-10%2F10-00C853?style=flat-square" alt="Audit 10/10" />
     <img src="https://img.shields.io/badge/Modules_JS-24-00B4D8?style=flat-square" alt="24 modules JS" />
     <img src="https://img.shields.io/badge/Couches_défense-8-DC143C?style=flat-square" alt="8 couches" />
+    <img src="https://img.shields.io/badge/DR_Validé-2026--04--28-00C853?style=flat-square" alt="DR Validé" />
     <img src="https://img.shields.io/badge/Licence-Propriétaire-FF6B35?style=flat-square" alt="Propriétaire" />
   </p>
 
@@ -147,6 +148,7 @@
 | 🔍 | **XDR** | Corrélation Fail2ban + ModSec + UFW + Suricata + rsyslog + routeur |
 | 🗺️ | **GeoIP** | Cartographie Leaflet + MaxMind · arcs d'attaque animés · top pays |
 | 🔄 | **Plug-and-play** | Archive 13 blocs · restauration complète sur VM vierge en < 30 min |
+| 🔥 | **DR validé en conditions réelles** | Exercice Phase A/B/C exécuté le 2026-04-28 · basculement réseau · 8 écarts corrigés · [rapport](DEPLOY/DR-EXERCISE-2026-04-28.md) |
 | ✅ | **Audit 10/10** | Zéro dette technique · 90 passes · 144 NDT corrigés |
 
 ---
@@ -253,6 +255,7 @@ INTERNET
 | [RUNBOOK-DEBIAN13.md](DEPLOY/RUNBOOK-DEBIAN13.md) | Runbook installation Debian 13 | ✅ |
 | [CHECKLIST-DEPLOY.md](DEPLOY/CHECKLIST-DEPLOY.md) | 61 points de vérification post-déploiement | ✅ |
 | [CHECKLIST-OPERATIONNELLE.md](DEPLOY/CHECKLIST-OPERATIONNELLE.md) | Checklist exploitation quotidienne | ✅ |
+| [DR-EXERCISE-2026-04-28.md](DEPLOY/DR-EXERCISE-2026-04-28.md) | **Rapport exercice DR réel** — Phase A/B/C · 8 écarts détectés et corrigés | ✅ |
 | [CONTENU-ARCHIVE.md](REFERENCE/CONTENU-ARCHIVE.md) | Structure détaillée des 13 blocs de l'archive | ✅ |
 | [AUDIT-ARCHIVE-CHECKLIST.md](REFERENCE/AUDIT-ARCHIVE-CHECKLIST.md) | Checklist avant chaque archivage | ✅ |
 

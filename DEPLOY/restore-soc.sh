@@ -50,7 +50,6 @@ DRY_CHANGED=0
 DRY_NEW=0
 DRY_ABSENT=0
 CHANGED_FILES=()
-SCRIPTS_DIR="/opt/soc"           # Répertoire scripts SOC (doit correspondre à deploy-soc.sh)
 
 # ─── Parsing arguments ───────────────────────────────────────────────────────
 ARCHIVE=""
@@ -137,12 +136,12 @@ if ! $DRY_RUN; then
                 /etc/ssh/sshd_config /etc/sysctl.conf /etc/sysctl.d \
                 /etc/nftables.conf /etc/exim4 /etc/hosts.allow /etc/hosts.deny \
                 /etc/nginx /etc/crowdsec /etc/fail2ban /etc/suricata \
-                /etc/rsyslog.conf /etc/rsyslog.d /etc/ufw ${SCRIPTS_DIR} \
+                /etc/rsyslog.conf /etc/rsyslog.d /etc/ufw /opt/clt \
                 /etc/cron.d /etc/systemd/system/soc-report-trigger.service \
                 /etc/systemd/system/sshd.service /etc/aide \
                 /etc/logrotate.d /etc/GeoIP.conf /etc/nginx/api-keys.conf \
-                /root/.ssh/authorized_keys /root/.ssh/<SSH-KEY-CLT> \
-                /root/.ssh/<SSH-KEY-PA85> /root/.ssh/<SSH-KEY-PVE>; do
+                /root/.ssh/authorized_keys /root/.ssh/id_clt_sync \
+                /root/.ssh/id_pa85_sync /root/.ssh/id_proxmox_sync; do
         [[ ! -e "$src" ]] && continue
         dest_name=$(echo "$src" | tr '/' '_' | sed 's/^_//')
         if [[ -d "$src" ]]; then
@@ -190,7 +189,8 @@ restore_dir() {
     if $DRY_RUN; then
         sim "DOSSIER    : $dest/ ($count fichiers)"
         find "$src" -type f | while read -r f; do
-            local rel="${f#$src/}" target="$dest/$rel"
+            local rel="${f#$src/}"
+            local target="$dest/$rel"
             if [[ ! -e "$target" ]]; then
                 sim "  NOUVEAU    : $target"; ((DRY_NEW++)) || true
             elif ! diff -q "$f" "$target" > /dev/null 2>&1; then
@@ -241,12 +241,12 @@ if run_bloc network; then
     restore_file "$TMPDIR/network/nsswitch.conf"    "/etc/nsswitch.conf"
     restore_file "$TMPDIR/network/mailname"         "/etc/mailname"
 
-    # Interfaces réseau (IP statique <SRV-NGIX-IP>)
+    # Interfaces réseau (IP statique 192.168.1.50)
     restore_file "$TMPDIR/network/interfaces"       "/etc/network/interfaces"
     [[ -d "$TMPDIR/network/interfaces.d" ]] && \
         restore_dir "$TMPDIR/network/interfaces.d"  "/etc/network/interfaces.d" "interfaces.d"
 
-    # SSH daemon (port <SSH-PORT>, PasswordAuthentication no, MaxAuthTries 3)
+    # SSH daemon (port 2272, PasswordAuthentication no, MaxAuthTries 3)
     restore_file "$TMPDIR/network/ssh/sshd_config"  "/etc/ssh/sshd_config"
     [[ -d "$TMPDIR/network/ssh/sshd_config.d" ]] && \
         restore_dir "$TMPDIR/network/ssh/sshd_config.d" "/etc/ssh/sshd_config.d" "sshd_config.d"
@@ -261,7 +261,7 @@ if run_bloc network; then
     [[ -f "$TMPDIR/network/nftables.conf" ]] && \
         restore_file "$TMPDIR/network/nftables.conf"    "/etc/nftables.conf"
 
-    # exim4 (SMTP sortant — alertes mail SOC → smtp.<MAIL-PROVIDER>)
+    # exim4 (SMTP sortant — alertes mail SOC → smtp.laposte.net)
     [[ -d "$TMPDIR/network/exim4" ]] && \
         restore_dir "$TMPDIR/network/exim4"             "/etc/exim4" "exim4"
 
@@ -277,23 +277,23 @@ if run_bloc network; then
         done
         ok "sysctl appliqué (rp_filter=2 pour Suricata, IPv6 désactivé)"
 
-        # SSH restart (port <SSH-PORT> — se reconnecter sur le nouveau port si changement)
+        # SSH restart (port 2272 — se reconnecter sur le nouveau port si changement)
         systemctl restart ssh 2>/dev/null || systemctl restart sshd 2>/dev/null || true
-        ok "SSH redémarré — port <SSH-PORT> actif"
+        ok "SSH redémarré — port 2272 actif"
 
         # exim4 rebuild + restart
         if command -v update-exim4.conf > /dev/null 2>&1; then
             update-exim4.conf > /dev/null 2>&1 || true
             systemctl restart exim4 2>/dev/null || true
-            ok "exim4 reconfiguré + redémarré (SMTP <MAIL-PROVIDER>)"
+            ok "exim4 reconfiguré + redémarré (SMTP laposte.net)"
         fi
 
         warn "INTERFACES : /etc/network/interfaces restauré — prend effet au REBOOT"
         warn "HOSTNAME   : appliquer maintenant : hostname -F /etc/hostname"
     else
         sim "SYSCTL     : sysctl -p (rp_filter=2 pour Suricata AF_PACKET)"
-        sim "SSH        : systemctl restart ssh (port <SSH-PORT>)"
-        sim "EXIM4      : update-exim4.conf + restart (SMTP <MAIL-PROVIDER>)"
+        sim "SSH        : systemctl restart ssh (port 2272)"
+        sim "EXIM4      : update-exim4.conf + restart (SMTP laposte.net)"
         sim "INTERFACES : prend effet au reboot — vérifier avant de rebooter"
     fi
     bloc_ok "BLOC 0/13 RÉSEAU"
@@ -315,9 +315,11 @@ if run_bloc nginx; then
 
     if [[ -d "$TMPDIR/nginx/letsencrypt" ]]; then
         if $DRY_RUN; then
-            sim "CERTIFS    : Let's Encrypt présents dans l'archive (restauration manuelle recommandée)"
+            sim "CERTIFS    : Let's Encrypt → /etc/letsencrypt/ (restauration complète)"
         else
-            warn "Certificats Let's Encrypt : relancer certbot renew --force-renewal après restore"
+            restore_dir "$TMPDIR/nginx/letsencrypt" "/etc/letsencrypt" "letsencrypt"
+            chmod -R go-rwx /etc/letsencrypt/live /etc/letsencrypt/archive 2>/dev/null || true
+            ok "Certificats Let's Encrypt restaurés → /etc/letsencrypt/"
         fi
     fi
 
@@ -443,13 +445,13 @@ if run_bloc rsyslog; then
     restore_dir  "$TMPDIR/rsyslog/rsyslog.d"         "/etc/rsyslog.d"              "rsyslog.d"
 
     if ! $DRY_RUN; then
-        for host in site-01 site-02 pve <ROUTER> srv-ngix; do
+        for host in clt pa85 pve GT-BE98 srv-ngix; do
             mkdir -p "/var/log/central/$host"
             chown syslog:adm "/var/log/central/$host" 2>/dev/null || true
         done
         ok "Dossiers /var/log/central/ recréés"
     else
-        sim "DOSSIERS   : /var/log/central/{site-01,site-02,pve,<ROUTER>,srv-ngix}/ à créer"
+        sim "DOSSIERS   : /var/log/central/{clt,pa85,pve,GT-BE98,srv-ngix}/ à créer"
     fi
 
     reload_service rsyslog
@@ -511,11 +513,11 @@ fi
 if run_bloc scripts; then
     step "8/13 Scripts Python + usr-local-bin + Dashboard"
 
-    if [[ -d "$TMPDIR/scripts/opt-soc" ]]; then
-        restore_dir "$TMPDIR/scripts/opt-soc" "${SCRIPTS_DIR}" "scripts ${SCRIPTS_DIR}"
+    if [[ -d "$TMPDIR/scripts/opt-clt" ]]; then
+        restore_dir "$TMPDIR/scripts/opt-clt" "/opt/clt" "scripts /opt/clt"
         if ! $DRY_RUN; then
-            chmod +x ${SCRIPTS_DIR}/monitoring.sh 2>/dev/null || true
-            chmod +x ${SCRIPTS_DIR}/*.py 2>/dev/null || true
+            chmod +x /opt/clt/monitoring.sh 2>/dev/null || true
+            chmod +x /opt/clt/*.py 2>/dev/null || true
             ok "Permissions scripts restaurées"
         fi
     fi
@@ -571,7 +573,7 @@ if run_bloc crons; then
         if $DRY_RUN; then
             sim "CRONTAB    : crontab -l → restauré depuis archive"
             grep -v '^#' "$TMPDIR/crons/crontab-root.txt" | grep -v '^$' | \
-                while read -r l; do sim "  $l"; done
+                while read -r l; do sim "  $l"; done || true
         else
             crontab "$TMPDIR/crons/crontab-root.txt" 2>/dev/null || true
             ok "Crontab root restauré"
@@ -751,10 +753,10 @@ else
     echo -e "╠═══════════════════════════════════════════════════════════════╣"
     echo -e "║   Étapes suivantes :                                         ║"
     echo -e "║   1. Valider : bash CHECKLIST-DEPLOY.md (61 points)          ║"
-    echo -e "║   2. nginx   : curl -sI https://<DOMAIN-COM>/                ║"
+    echo -e "║   2. nginx   : curl -sI https://0xcyberlitech.com/           ║"
     echo -e "║   3. bans    : cscli decisions list                          ║"
     echo -e "║   4. crons   : crontab -l && ls /etc/cron.d/                 ║"
-    echo -e "║   5. dash    : http://<SRV-NGIX-IP>:8080/                     ║"
+    echo -e "║   5. dash    : http://192.168.1.50:8080/                     ║"
     echo -e "╚═══════════════════════════════════════════════════════════════╝${NC}"
 fi
 
