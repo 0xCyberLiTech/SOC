@@ -50,6 +50,38 @@
 
 ---
 
+<h2 align="center">Philosophie du projet</h2>
+
+<div align="center">
+<table>
+<tr>
+<td align="center" width="33%">
+
+**🎯 Conditions réelles**
+
+Apprendre la cyberdéfense sur une infrastructure exposée à internet — pas un lab isolé. Chaque outil est confronté à de vrais scans, de vrais bots, de vraies tentatives d'exploit. Ce qui fonctionne ici fonctionne.
+
+</td>
+<td align="center" width="33%">
+
+**🔒 Savoir construit, pas redistribué**
+
+Le framework de déploiement et la documentation sont publics — la méthode est partageable. Les sources du dashboard (24 modules JS) et les scripts opérationnels restent privés : connaissance acquise, pas distribuée.
+
+</td>
+<td align="center" width="33%">
+
+**🛡️ Résilience face à la compromission**
+
+Si le serveur est compromis, l'attaquant ne récupère pas la configuration complète depuis ce dépôt. Les configs publiées sont anonymisées. L'archive de restauration reste hors ligne — rebuild en moins de 30 min sur VM vierge.
+
+</td>
+</tr>
+</table>
+</div>
+
+---
+
 <h2 align="center">Cartographie des menaces — Live</h2>
 
 <div align="center">
@@ -134,6 +166,22 @@
 *JARVIS (Ollama phi4-reasoning) · réponse proactive automatique · alertes TTS · analyse LLM événements critiques · ban auto*
 
 </div>
+
+---
+
+<h2 align="center">Construction par phases</h2>
+
+| # | Phase | Ce qui a été construit | Pourquoi ce choix |
+|---|-------|----------------------|-------------------|
+| 1 | **Reverse proxy + SSL** | nginx · TLS Let's Encrypt · vhosts · headers sécurité · access_log JSON structuré | Point d'entrée unique — logs structurés dès le départ pour tout le pipeline |
+| 2 | **CrowdSec WAF + bouncer nftables** | AppSec 150+ règles · bouncer kernel-space · scénarios custom · whitelist LAN | Blocage comportemental avant que nginx traite la requête — kernel-space = zéro bypass applicatif |
+| 3 | **fail2ban + UFW + GeoIP block** | 3 jails nginx/ssh · nftables · blocage géographique MaxMind GeoLite2 | Compléter CrowdSec : patterns ciblés, firewall stateful, filtrage géo en entrée |
+| 4 | **Dashboard monitoring** | monitoring_gen.py · monitoring.json · SPA Vanilla JS · premières tuiles système | Sans visibilité temps réel, la défense est aveugle — dashboard avant tout ajout |
+| 5 | **Kill Chain + GeoIP cartographie** | Classification 5 stages · score 0–100 · canvas monde · heatmap 24h · top IPs | Transformer les logs bruts en renseignement tactique — qui fait quoi, d'où, quand |
+| 6 | **Suricata IDS 7 + rsyslog centralisé** | 49k règles Emerging Threats · AF_PACKET · eve.json · 5 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
+| 7 | **JARVIS IA défensive** | Ollama phi4-reasoning · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
+| 8 | **AppArmor + AIDE HIDS** | Confinement processus · base intégrité 49k fichiers · exclusions CrowdSec hub | Dernier rempart : un attaquant qui passe tout le reste ne peut ni s'étendre ni persister |
+| 9 | **DR exercice réel + audit 10/10** | Exercice Phase A/B/C (2026-04-28) · 8 écarts corrigés · 144 NDT · 90 passes | Valider que le système se reconstruit réellement, pas juste sur le papier |
 
 ---
 
