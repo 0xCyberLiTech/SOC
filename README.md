@@ -364,8 +364,6 @@ Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNE
 
 <div align="center">
 
-## Technologies
-
 <table>
 <tr>
 <td align="center"><b>🖥️ Infrastructure & Sécurité</b></td>
