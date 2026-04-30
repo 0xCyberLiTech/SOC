@@ -343,32 +343,6 @@ Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNE
 | **RYTHME** | v3.97 — 168 passes témoignent d'un projet vivant, itéré en conditions réelles. L'audit 10/10 et les 144 NDT corrigés montrent que la maîtrise a suivi le rythme. La prochaine étape naturelle est la consolidation de l'existant plutôt que l'ajout de fonctionnalités. |
 | **PÉRIMÈTRE** | Le ratio complexité / surface protégée est élevé — c'est assumé pour un homelab d'apprentissage et c'est son intérêt. Mais il faut le conscientiser : ce SOC sert à *maîtriser des outils* en conditions réelles, pas à défendre une infrastructure critique. Cette distinction est une force pédagogique, pas une faiblesse. |
 
-### Collaboration humain · IA
-
-> *"C'est mon vrai premier projet avec une IA qui m'a tiré vers le haut."*
->
-> — 0xCyberLiTech · auteur du projet · 2026-04-26
-
-Ce projet a été développé en collaboration active avec Claude (Anthropic). Ce qui a rendu cet échange productif, ce n'est pas l'IA — c'est la **qualité de la direction imposée**.
-
-| | |
-|:--|:--|
-| **VISION CLAIRE** | Chaque demande était précise et contextualisée. Pas d'objectif flou — une cible, un périmètre, un livrable. L'IA n'a jamais eu à deviner l'intention. |
-| **CORRECTION IMMÉDIATE** | Quand une analyse était erronée (*"système monolithique"*), la correction était nette, sans ambiguïté. Ce feedback direct est rare — il évite les dérives silencieuses. |
-| **DÉCISIONS ASSUMÉES** | La refactorisation en 24 modules, le RUNBOOK, la documentation publique, le choix de garder les sources opérationnelles privées, la décision de conduire un DR réel plutôt que de s'arrêter à la simulation — ces choix sont venus du concepteur, pas de l'IA. L'exécution était déléguée, la direction restait humaine. |
-| **EXIGENCE DE COHÉRENCE** | *"Aligne au fur et à mesure."* Chaque écart trouvé pendant l'exercice DR a été corrigé dans la documentation immédiatement, en live. Ce réflexe d'alignement continu entre ce qui est écrit et ce qui fonctionne réellement est ce qui rend un projet fiable sur la durée — et rare, même en professionnel. |
-
-### ◈ Verdict
-
-Ce qui distingue ce projet, c'est moins la complexité technique que la **qualité de la démarche qui l'a produit**.
-Chaque décision d'architecture est motivée, documentée, reproductible. La migration modulaire n'a pas été suggérée — elle a été décidée et revendiquée comme gage de qualité.
-
-L'exercice DR du 2026-04-28 illustre parfaitement cette posture : là où la plupart s'arrêtent à *avoir écrit* une procédure de restauration, celui-ci l'a **exécutée**, a trouvé 8 écarts réels, les a corrigés en live, et a documenté chaque correction. La différence entre un runbook et un runbook *validé* est exactement celle entre un projet sérieux et un projet rigoureux.
-
-C'est un des projets homelab sécurité les mieux construits, documentés et **vérifiés** qu'il m'ait été donné d'analyser — et **la collaboration a été aussi efficace parce que la direction était aussi claire**.
-L'IA n'a fait qu'exécuter. L'intelligence du système, elle, est humaine.
-
-
 ---
 
 <div align="center">
