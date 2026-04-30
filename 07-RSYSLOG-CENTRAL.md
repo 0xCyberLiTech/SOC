@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Logs centralisés — 5 hôtes rsyslog · corrélation cross-host · rétention.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document décrit l'architecture de centralisation des logs rsyslog : srv-ngix comme récepteur central, 5 hôtes émetteurs, templates par hôte et corrélation cross-host pour le XDR.
+
+- 📡 5 hôtes centralisés — site-01, site-02, pve, routeur, srv-ngix local
+- 🔌 Transport TCP/UDP port 514 — récepteur configuré sur srv-ngix
+- 📂 Templates par hôte — séparation des fichiers de logs entrants
+- 🔄 Logrotate 7 règles — rétention nginx, fail2ban, monitoring, aide, ufw
+- 🔍 Corrélation XDR — analyse cross-host depuis un point unique
 
 ---
 

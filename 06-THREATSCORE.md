@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Score de menace — 24 briques · formule de calcul · anti-doublons · seuils.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document explique le moteur de calcul du ThreatScore global (0–100) : les 24 briques contributrices, leurs poids respectifs, le système anti-doublons et les seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE.
+
+- 📊 24 briques indépendantes — chacune contribue avec un poids fixe
+- 🔢 Formule de normalisation — score global 0 à 100
+- 🚫 Système anti-doublons — évite l'inflation artificielle des signaux corrélés
+- 🚨 Seuils : FAIBLE (<30) · MOYEN (30–49) · ÉLEVÉ (50–69) · CRITIQUE (≥70)
+- ⚡ Recalcul toutes les 60 secondes par monitoring_gen.py
 
 ---
 

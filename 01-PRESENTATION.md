@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Présentation du projet SOC — objectifs, architecture, positionnement.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document introduit le projet **SOC homelab 0xCyberLiTech** : pourquoi il a été construit, ce qu'il surveille, et comment il s'articule autour d'une défense en profondeur en conditions réelles.
+
+- 🎯 Comprendre l'objectif global et la philosophie du projet
+- 🏗️ Visualiser l'architecture à haut niveau (VMs, stack, relations)
+- 🔒 Saisir le positionnement honnête (homelab d'apprentissage, non professionnel)
+- 📋 Identifier les composants clés et leurs interactions
 
 ---
 

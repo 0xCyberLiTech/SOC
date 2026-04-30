@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Configuration UFW & AppArmor — pare-feu stateful · bouncer nftables · confinement.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document couvre les règles UFW et nftables (pare-feu) ainsi que les profils AppArmor (confinement processus) sur srv-ngix, site-01 et site-02.
+
+- 🔥 UFW — règles entrantes (SSH, HTTP, HTTPS, rsyslog) · règles sortantes limitées
+- 🛡️ Bouncer nftables CrowdSec — sets IP dynamiques kernel-space
+- 🔒 AppArmor nginx — profil enforce, accès restreint aux répertoires web
+- 🔒 AppArmor apache2 — profils site-01 et site-02, isolation par vhost
 
 ---
 

@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Checklist de déploiement — 61 points de validation post-installation.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Cette checklist de 61 points valide que l'installation du SOC est complète et opérationnelle. Elle est exécutée après `deploy-soc.sh` pour vérifier chaque composant avant mise en service.
+
+- ✅ Services actifs — nginx, crowdsec, suricata, fail2ban, aide, rsyslog
+- 🔒 Sécurité — AppArmor enforce, UFW actif, bouncer nftables en place
+- 📊 Dashboard — monitoring.json généré, tuiles actives, polling opérationnel
+- 📋 Documentation — runbook, checklist et guide disponibles pour le DR
 
 ---
 

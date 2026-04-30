@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Défense proactive IA — auto-engine · 12 déclencheurs · TTS · actions autonomes.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document couvre l'intégration JARVIS dans le SOC : auto-engine de surveillance, déclencheurs, routes SOC (ban-ip, restart-service), alertes TTS vocales. JARVIS est une couche optionnelle — le SOC se défend sans lui.
+
+- 🤖 Auto-engine — boucle 60s, lit monitoring.json, analyse les deltas
+- 📢 Alertes TTS vocales — edge-tts fr-CA-AntoineNeural si niveau ÉLEVÉ/CRITIQUE
+- ⚡ Actions proactives — ban-ip via cscli, restart-service avec liste blanche
+- 🔒 Garde-fou LLM — blocklist des tool calls non autorisés, journal traçabilité
+- 🖥️ Couche optionnelle — actif quand la machine Windows est en service
 
 ---
 

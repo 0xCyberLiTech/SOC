@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Audit archive — checklist avant archivage · validations · tests post-restauration.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Cette checklist valide l'archive avant de la conserver comme référence DR. Elle s'exécute avant chaque create-archive.sh pour garantir que l'archive capture un état cohérent et restaurable.
+
+- ✅ Services — tous les services sont actifs et opérationnels avant archivage
+- 📋 Configs — tous les fichiers de configuration sont à jour
+- 🧪 Test restauration — validation que restore-soc.sh fonctionne depuis l'archive
+- 📝 Horodatage — nom d'archive avec date/heure pour traçabilité
 
 ---
 

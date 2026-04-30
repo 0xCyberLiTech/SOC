@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Architecture technique — infrastructure Proxmox · stack défensive · schéma réseau.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document détaille l'infrastructure du SOC : 3 VMs Debian 13 sur Proxmox VE, la stack logicielle complète et les relations entre composants. Il sert de référence pour comprendre comment les briques s'articulent.
+
+- 🖥️ Infrastructure hyperviseur Proxmox VE — 3 VMs (srv-ngix, site-01, site-02)
+- 🔗 Relations réseau et flux de données entre les VMs
+- ⚙️ Stack logicielle complète — nginx, CrowdSec, Suricata, fail2ban, rsyslog
+- 📐 Schémas d'architecture réseau avec placeholders anonymisés
 
 ---
 

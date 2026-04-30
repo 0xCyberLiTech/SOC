@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>8 couches de défense — matrice de couverture par vecteur d'attaque.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document décrit chaque brique de sécurité : son rôle, sa position dans la chaîne, les vecteurs qu'elle couvre. La philosophie est la défense en profondeur — chaque couche opère indépendamment.
+
+- 🛡️ UFW + nftables — pare-feu stateful kernel-space
+- 🤖 CrowdSec WAF + bouncer — blocage comportemental + AppSec 150+ règles
+- 🔒 Fail2ban — jails par pattern (SSH, nginx-CVE, botsearch)
+- 🕵️ Suricata IDS 7 — détection réseau passive, 49k règles Emerging Threats
+- 🔐 AppArmor + AIDE HIDS — confinement processus + intégrité fichiers
 
 ---
 

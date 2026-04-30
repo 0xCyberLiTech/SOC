@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Roadmap — axes d'évolution · décisions d'architecture · pistes explorées.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document trace les orientations futures du projet SOC : fonctionnalités envisagées, décisions d'architecture prises, pistes non retenues et leur justification.
+
+- ✅ Fonctionnalités livrées et validées en production
+- 🔄 Axes d'évolution envisagés — priorités et dépendances
+- ❌ Pistes non retenues — avec les raisons du choix
+- 📋 Décisions d'architecture assumées et documentées
 
 ---
 

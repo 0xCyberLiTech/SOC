@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Configuration rsyslog — récepteur central · 5 hôtes · templates · logrotate.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document détaille la configuration rsyslog : récepteur central TCP/UDP 514 sur srv-ngix, émetteurs sur chaque VM, templates de nommage par hôte et règles logrotate associées.
+
+- 📡 Récepteur central — /etc/rsyslog.d/10-central-receiver.conf sur srv-ngix
+- 📤 Émetteurs — site-01, site-02, pve : config rsyslog-99-forward-*.conf
+- 📂 Templates — un fichier de log par hôte distant sous /var/log/remote/
+- 🔄 Logrotate — rétention 14j, compression, dateext, sharedscripts
 
 ---
 

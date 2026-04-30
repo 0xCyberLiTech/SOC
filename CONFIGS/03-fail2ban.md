@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Configuration Fail2ban — jails · filtres nginx · synchronisation CrowdSec.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document détaille la configuration fail2ban : jail.local avec 3 jails actives, action de synchronisation bidirectionnelle avec CrowdSec, filtres nginx-cve et nginx-botsearch.
+
+- 🔒 3 jails actives — sshd, nginx-cve, nginx-botsearch
+- ⏱️ Paramètres — bantime 24h, findtime 10min, maxretry par jail
+- 🔗 Sync CrowdSec — action crowdsec-sync : ban F2B → décision CS
+- 📝 Filtres custom — regex nginx-cve (CVE paths), nginx-botsearch (UA malveillants)
 
 ---
 
