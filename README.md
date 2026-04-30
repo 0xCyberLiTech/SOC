@@ -9,7 +9,6 @@
   <br></br>
 
   <h2>SOC homelab · défense en profondeur · Kill Chain temps réel · IA intégrée</h2>
-  <p><sub>Défense construite outil par outil, en conditions réelles — expertise acquise sur infrastructure personnelle Proxmox VE.</sub></p>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
