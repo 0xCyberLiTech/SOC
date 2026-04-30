@@ -140,7 +140,7 @@
 
 | | Capacité | Détail |
 |--|----------|--------|
-| 🛡️ | **8 couches défense** | UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban · AppArmor · AID HIDS |
+| 🛡️ | **8 couches défense** | UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban · AppArmor · AIDE HIDS |
 | 🧠 | **IA défensive** | JARVIS (Ollama phi4-reasoning) — ban auto · alertes TTS · analyse LLM |
 | 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
@@ -156,7 +156,7 @@
 <h2 align="center">Stack technique</h2>
 
 ```
-OS          Debian 13 (Bookworm)
+OS          Debian 13 (Trixie)
 Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
 Sécurité    CrowdSec (WAF AppSec ~207 vpatch CVE) · Suricata IDS (96k règles)
             Fail2ban · AppArmor · UFW + nftables · AID HIDS
