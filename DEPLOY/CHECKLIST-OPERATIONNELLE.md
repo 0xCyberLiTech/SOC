@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Checklist opérationnelle — exploitation quotidienne du SOC homelab.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Cette checklist guide l'exploitation quotidienne du SOC : vérifications des services, lecture des alertes, contrôle des logs, état des certificats SSL et des sauvegardes.
+
+- 🔍 Vérification quotidienne — services UP, dashboard actif, aucune alerte critique
+- 📧 Rapport matinal — soc-daily-report.py à 08h00, lecture des métriques 24h
+- 🔒 SSL — contrôle expiration certificats (alerte automatique si < 7 jours)
+- 💾 Sauvegardes — état dernière backup Proxmox, quota D: machine Windows
 
 ---
 

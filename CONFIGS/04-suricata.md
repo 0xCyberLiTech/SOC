@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Configuration Suricata IDS 7 — AF_PACKET · 49k règles ET · eve.json · sysctl.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document couvre la configuration Suricata 7 en mode IDS passif : AF_PACKET sur interface réseau, ring buffer, sortie eve.json, mise à jour automatique des règles Emerging Threats et hardening sysctl.
+
+- 📡 Mode IDS passif — AF_PACKET sur ens18, zero-copy, ring buffer 128Mo
+- 📋 49 343 règles Emerging Threats — mise à jour quotidienne via suricata-update
+- 📄 Sortie eve.json — alertes structurées, parsées par CrowdSec acquis
+- ⚙️ sysctl hardening — net.core.rmem_max, disable_ipv6, forwarding
+- 🔗 Pipeline IDS→IPS — Suricata détecte → CrowdSec lit eve.json → nftables bloque
 
 ---
 

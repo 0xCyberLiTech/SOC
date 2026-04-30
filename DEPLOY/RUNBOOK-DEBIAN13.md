@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Runbook Debian 13 Trixie — installation · configuration de base · post-install.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce runbook décrit l'installation et la configuration initiale d'une VM Debian 13 Trixie destinée à héberger la stack SOC. Il précède l'exécution de deploy-soc.sh.
+
+- 💿 Installation Debian 13 — partitionnement, locale, SSH, sudo
+- 🌐 Configuration réseau — IP statique, DNS, hostname
+- 🔐 Sécurisation initiale — désactivation root SSH, clé publique, UFW minimal
+- ⚙️ Post-install — mise à jour, paquets de base, préparation au déploiement SOC
 
 ---
 

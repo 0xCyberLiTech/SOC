@@ -1,3 +1,61 @@
+<div align="center">
+
+  <br></br>
+
+  <a href="https://github.com/0xCyberLiTech">
+    <img src="https://readme-typing-svg.herokuapp.com?font=JetBrains+Mono&size=50&duration=6000&pause=1000000000&color=00B4D8&center=true&vCenter=true&width=1100&lines=%3EDR-EXERCISE_" alt="SOC 0xCyberLiTech" />
+  </a>
+
+  <br></br>
+
+  <h2>Rapport exercice DR — Phase A/B/C · 8 écarts détectés · reconstruction validée.</h2>
+
+  <p align="center">
+    <a href="https://0xcyberlitech.github.io/">
+      <img src="https://img.shields.io/badge/Portfolio-0xCyberLiTech-181717?logo=github&style=flat-square" alt="Portfolio" />
+    </a>
+    <a href="https://github.com/0xCyberLiTech">
+      <img src="https://img.shields.io/badge/Profil-GitHub-181717?logo=github&style=flat-square" alt="Profil GitHub" />
+    </a>
+    <a href="https://github.com/0xCyberLiTech/SOC">
+      <img src="https://img.shields.io/badge/Dépôt-SOC-00B4D8?logo=github&style=flat-square" alt="Dépôt SOC" />
+    </a>
+    <a href="../README.md">
+      <img src="https://img.shields.io/badge/%F0%9F%93%84%20README-SOC-00B4D8?style=flat-square" alt="README" />
+    </a>
+    <a href="https://github.com/0xCyberLiTech?tab=repositories">
+      <img src="https://img.shields.io/badge/Dépôts-publics-blue?style=flat-square" alt="Dépôts publics" />
+    </a>
+  </p>
+
+</div>
+
+<div align="center">
+  <img src="https://img.icons8.com/fluency/96/000000/cyber-security.png" alt="CyberSec" width="80"/>
+</div>
+
+<div align="center">
+  <p>
+    <strong>Disaster Recovery</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Exercice réel 2026-04-28</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>Reconstruction validée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
+  </p>
+</div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document est le rapport de l'exercice Disaster Recovery réel exécuté le 2026-04-28. Il documente la procédure Phase A/B/C, les 8 écarts détectés en conditions réelles et les corrections apportées.
+
+- 🧪 Phase A — déploiement VM test depuis zéro avec deploy-soc.sh
+- 🔄 Phase B — restauration depuis archive (restore-soc.sh)
+- ✅ Phase C — basculement réseau et validation en conditions réelles
+- 🐛 8 écarts détectés — documentés et corrigés pendant l'exercice
+- ⏱️ Durée totale — reconstruction complète en moins de 30 minutes
+
+---
+
 # Exercice DR — Rapport d'exécution (2026-04-28)
 
 > Disaster Recovery réel · Phase A/B/C · VM test → basculement prod · Durée totale ~1h15

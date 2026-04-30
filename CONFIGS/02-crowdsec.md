@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Configuration CrowdSec — WAF AppSec · bouncer nftables · scénarios custom.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document couvre l'installation et la configuration CrowdSec : collections communautaires, LAPI locale, bouncer nftables kernel-space, AppSec WAF 150+ règles, scénarios custom et whitelist LAN.
+
+- 📦 Collections installées — linux, nginx, http-cve, sshd, WordPress scan
+- 🔌 LAPI locale — API CrowdSec interrogée par monitoring_gen.py
+- 🛡️ Bouncer nftables — blocage kernel-space, sets IP dynamiques
+- 🔒 AppSec WAF — 150+ règles vpatch CVE, intégration nginx port 7422
+- 📝 Scénarios custom — http-bad-ua, exploit-scan, php-rce, geo-block
 
 ---
 

@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Contenu de l'archive — 13 blocs · structure détaillée · ordre de restauration.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,19 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document décrit la structure complète de l'archive de configuration SOC : les 13 blocs, leur contenu, l'ordre de restauration et les dépendances entre blocs.
+
+- 📦 13 blocs — réseau, SSL, nginx, CrowdSec, Suricata, fail2ban, crons, systemd…
+- 🔢 Ordre de restauration — dépendances entre blocs documentées
+- 🔒 Contenu sensible — configs réelles conservées hors dépôt public
+- 📋 Audit de référence — état validé le 2026-04-25 sur srv-ngix
 
 ---
 

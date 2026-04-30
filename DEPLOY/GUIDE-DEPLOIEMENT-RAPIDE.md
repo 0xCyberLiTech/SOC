@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Guide de déploiement rapide — workflow disaster recovery · référence méthodologique.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce guide décrit le workflow complet de déploiement ou restauration du SOC depuis une VM Debian 13 vierge. Il est la référence méthodologique utilisée lors de l'exercice DR du 2026-04-28.
+
+- 1️⃣ Installation Debian 13 Trixie depuis le RUNBOOK
+- 2️⃣ Déploiement stack logicielle via deploy-soc.sh (--dry-run disponible)
+- 3️⃣ Restauration configuration depuis archive privée via restore-soc.sh
+- 4️⃣ Validation 61 points via CHECKLIST-DEPLOY.md
+- ⏱️ Objectif — système opérationnel en moins de 30 minutes
 
 ---
 

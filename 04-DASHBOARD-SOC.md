@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Dashboard SOC — SPA vanilla JS · 35 tuiles · 24 modules · Kill Chain temps réel.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document couvre l'architecture du dashboard SOC : Single Page Application vanilla JS sans dépendance NPM, pipeline JSON, système de modules, anti-freeze et Kill Chain canvas.
+
+- 📊 35 tuiles organisées par domaine (menaces, trafic, infrastructure, IA)
+- 🧩 24 modules JS à responsabilité unique — rendu, canvas, XDR, investigation IP
+- 🔄 Pipeline JSON 60s avec If-Modified-Since + requestIdleCallback anti-freeze
+- 🎯 Kill Chain canvas — classification RECON → DELIVERY, score 0–100 par IP
+- ✅ Audit 10/10 · 90 passes · 144 NDT corrigés · zéro dette technique
 
 ---
 

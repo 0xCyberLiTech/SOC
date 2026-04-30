@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Chaîne de défense — flux attaque · détection · neutralisation · intégrations.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document trace le chemin complet d'une attaque depuis l'entrée réseau jusqu'à la neutralisation. Il documente les intégrations entre les briques et les scénarios de détection qui déclenchent le ban.
+
+- 🌐 Flux réseau : internet → UFW → GeoIP → CrowdSec → nginx
+- 🔍 Scénarios de détection : CrowdSec, fail2ban, Suricata → décision ban
+- ⚡ Ban automatique : bouncer nftables (kernel-space) + fail2ban jails
+- 🤖 Escalade JARVIS : analyse LLM + TTS si niveau ÉLEVÉ/CRITIQUE
+- 📋 Intégrations inter-briques : Suricata → CrowdSec acquis → firewall-bouncer
 
 ---
 

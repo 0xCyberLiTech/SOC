@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Tâches planifiées — 9 crons actifs · monitoring · Suricata · GeoIP · rapports.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document liste et explique les 9 tâches planifiées (cron) actives sur srv-ngix : collecte monitoring, mise à jour règles IDS, synchronisation GeoIP, rapport quotidien, proto-live et nettoyage logs.
+
+- ⏱️ Toutes les minutes — proto-live.py (statistiques protocoles réseau)
+- ⏱️ Toutes les 5 min — monitoring.sh + router-report.py
+- 📅 Quotidien 03h00 — suricata-update, geoipupdate, threat-fetch.sh
+- 📧 Quotidien 08h00 — soc-daily-report.py (rapport HTML par mail)
+- 🔄 Hebdomadaire — log-rotate-clean.sh, snapshots UFW
 
 ---
 

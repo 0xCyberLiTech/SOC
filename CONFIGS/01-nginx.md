@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard sécurité homelab · CrowdSec WAF · Suricata IDS · JARVIS IA.</h2>
+  <h2>Configuration nginx — reverse proxy · TLS · vhosts · headers sécurité · GeoIP.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -39,6 +39,20 @@
     <strong>Cybersécurité défensive</strong> <img src="https://img.icons8.com/color/24/000000/lock--v1.png"/> &nbsp;•&nbsp; <strong>Homelab en production</strong> <img src="https://img.icons8.com/color/24/000000/linux.png"/> &nbsp;•&nbsp; <strong>IA locale intégrée</strong> <img src="https://img.icons8.com/color/24/000000/shield-security.png"/>
   </p>
 </div>
+
+---
+
+<div align="center">
+## À propos & Objectifs.
+</div>
+
+Ce document contient les configurations nginx anonymisées : nginx.conf principal, vhosts par domaine, snippets SSL, headers de sécurité (CSP, HSTS, X-Frame-Options) et blocage GeoIP.
+
+- ⚙️ nginx.conf — worker_processes, gzip, keepalive, log_format JSON
+- 🌐 Vhosts — site-01, site-02, monitoring (port 8080), snippets SSL
+- 🔒 Headers sécurité — CSP, HSTS, X-Frame-Options, Referrer-Policy
+- 🗺️ GeoIP block — blocage par pays avec MaxMind GeoLite2
+- 🍯 Honeypot — URLs pièges intégrées aux vhosts (ban auto CrowdSec)
 
 ---
 
