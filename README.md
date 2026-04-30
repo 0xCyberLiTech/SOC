@@ -8,8 +8,8 @@
 
   <br></br>
 
-  <h2>SOC homelab personnel · 8 couches défense · Kill Chain temps réel · IA locale</h2>
-  <p><sub>Projet d'apprentissage et d'expérimentation en conditions réelles — infrastructure personnelle, non professionnelle.</sub></p>
+  <h2>SOC homelab · défense en profondeur · Kill Chain temps réel · IA intégrée</h2>
+  <p><sub>Défense construite outil par outil, en conditions réelles — expertise acquise sur infrastructure personnelle Proxmox VE.</sub></p>
 
   <p align="center">
     <img src="https://img.shields.io/badge/Statut-Homelab_personnel-00C853?style=flat-square" alt="Homelab personnel" />
@@ -209,9 +209,10 @@ INTERNET
 | 🔧 **Adapter une configuration** à votre infrastructure | [CONFIGS/](CONFIGS/) — exemples anonymisés · placeholders `<NOM>` |
 | 📋 **Comprendre la méthodologie** de déploiement | [GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) — workflow disaster recovery |
 
-> Ce dépôt publie **l'architecture, la documentation et le framework de déploiement**.
-> Les sources du dashboard JS (24 modules) et des scripts opérationnels restent privées.
-> Les configs d'exemple sont anonymisées — placeholders `<NOM>` à adapter à votre infra.
+> **Ce dépôt met à disposition :**
+> Architecture complète · 9 documents techniques · framework de déploiement · configs anonymisées · rapport DR exercice réel (2026-04-28)
+>
+> 🔒 Les sources du dashboard (24 modules JS) et les scripts opérationnels restent privés — connaissance construite, pas redistribuée.
 
 > **Infrastructure de référence** : ce SOC tourne sur **Proxmox VE** (machine physique) hébergeant 3 VMs Debian 13.
 > La reconstruction sur un autre hyperviseur (KVM, VMware, bare-metal) est possible en adaptant les 4 IPs du bloc CONFIG de `deploy-soc.sh` :
@@ -320,7 +321,7 @@ Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNE
 
 <div align="center">
 
-## Stack technique
+## Technologies
 
 <table>
 <tr>
