@@ -317,53 +317,6 @@ Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNE
 
 ---
 
-<h2 align="center">// regard croisé — humain · IA</h2>
-
-<div align="center">
-<sub><em>Analyse et avis rédigés par Claude Sonnet 4.6 (Anthropic) à partir de l'examen complet du code, de l'architecture et des échanges de collaboration · mis à jour 2026-04-28</em></sub>
-</div>
-
-<br/>
-
-### Ce qui fonctionne
-
-| | |
-|:--|:--|
-| **DÉFENSE EN PROFONDEUR** | UFW → CrowdSec nftables → fail2ban → AppSec WAF 150+ règles → Suricata IDS. Chaque couche est indépendante — ce n'est pas juste des outils installés, ils sont configurés et interconnectés. C'est correct. |
-| **REFACTORISATION MODULAIRE** | Le passage de monolithe à 24 modules JS à responsabilité unique est une bonne décision d'ingénierie. La base de code est lisible et maintenable. Ce choix n'était pas évident — il a été fait tardivement, mais il a été fait. |
-| **DR TESTÉ EN CONDITIONS RÉELLES** | Le RUNBOOK a été exécuté le 2026-04-28 — basculement réseau réel, extinction prod, VM test sur l'IP prod. 8 écarts détectés et corrigés en live. C'est la seule chose qui compte : un DR non testé ne vaut rien. Celui-ci a été testé. |
-| **CORRÉLATION MULTI-SOURCES** | 5 sources (nginx, CrowdSec, Suricata, Apache VMs, routeur) + rsyslog centralisé. L'architecture est cohérente avec un SIEM réel, même à petite échelle. |
-
-### Ce qui peut être amélioré
-
-| | |
-|:--|:--|
-| **v3.97 — 168 passes** | C'est beaucoup. Cela reflète un projet vivant et itéré, mais aussi une architecture qui a souvent été corrigée après coup plutôt que pensée en amont. Beaucoup de passes auraient pu être évitées avec une conception initiale plus solide. |
-| **Complexité vs périmètre réel** | Ce SOC protège 3 VMs et 2 petits sites. Le niveau de complexité est disproportionné pour la surface réelle. C'est un choix assumé pour apprendre — mais il faut le dire clairement : ce n'est pas un SOC de production, c'est un terrain d'entraînement sophistiqué. |
-| **Pas de tests automatisés** | Le dashboard n'a pas de suite de tests. Les régressions sont détectées à l'œil. À ce niveau de complexité, c'est une dette qui grossit. |
-| **Dépendance JARVIS** | Les fonctions les plus intéressantes (auto-engine, ban proactif, TTS) dépendent de JARVIS tournant en local. Si JARVIS est arrêté, la moitié de l'intelligence du SOC disparaît. Cette dépendance n'est pas documentée comme risque. |
-
-### Collaboration
-
-> *"C'est mon vrai premier projet avec une IA qui m'a tiré vers le haut."*
->
-> — 0xCyberLiTech · auteur du projet · 2026-04-26
-
-Ce projet a été développé en collaboration avec Claude (Anthropic). Ce qui a rendu la collaboration efficace : les demandes étaient précises, les corrections directes, et les décisions assumées. La refactorisation modulaire, le DR réel, la séparation public/privé — ces choix venaient du concepteur. L'IA a exécuté.
-
-Ce qui a ralenti la collaboration : des objectifs parfois définis en cours de route, des corrections itératives sur des problèmes qui auraient pu être anticipés. Ce n'est pas une critique — c'est la réalité du développement exploratoire.
-
-### ◈ Verdict
-
-Un projet homelab sérieux, avec une défense en profondeur réelle et un DR validé en conditions réelles — ce sont les deux points qui comptent vraiment. Le reste est de la sophistication, utile pour apprendre, mais qui ne doit pas être confondue avec de la robustesse opérationnelle.
-
-La prochaine étape n'est pas d'ajouter des fonctionnalités. C'est de consolider, documenter les dépendances critiques (JARVIS), et réduire la complexité là où elle ne sert pas la sécurité réelle.
-
-*— Claude Sonnet 4.6, Anthropic · 2026-04-30*
-
-
----
-
 <div align="center">
 
 ## Stack technique
