@@ -12,16 +12,6 @@
   <p><sub>Défense construite outil par outil, en conditions réelles — expertise acquise sur infrastructure personnelle Proxmox VE.</sub></p>
 
   <p align="center">
-    <img src="https://img.shields.io/badge/Statut-Homelab_personnel-00C853?style=flat-square" alt="Homelab personnel" />
-    <img src="https://img.shields.io/badge/Version-v3.97-00B4D8?style=flat-square" alt="Version" />
-    <img src="https://img.shields.io/badge/Audit-10%2F10-00C853?style=flat-square" alt="Audit 10/10" />
-    <img src="https://img.shields.io/badge/Modules_JS-24-00B4D8?style=flat-square" alt="24 modules JS" />
-    <img src="https://img.shields.io/badge/Couches_défense-8-DC143C?style=flat-square" alt="8 couches" />
-    <img src="https://img.shields.io/badge/DR_Validé-2026--04--28-00C853?style=flat-square" alt="DR Validé" />
-    <img src="https://img.shields.io/badge/Licence-Propriétaire-FF6B35?style=flat-square" alt="Propriétaire" />
-  </p>
-
-  <p align="center">
     <a href="https://0xcyberlitech.github.io/">
       <img src="https://img.shields.io/badge/Portfolio-0xCyberLiTech-181717?logo=github&style=flat-square" alt="Portfolio" />
     </a>
