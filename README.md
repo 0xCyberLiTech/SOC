@@ -8,10 +8,11 @@
 
   <br></br>
 
-  <h2>SOC homelab en production · 8 couches défense · Kill Chain temps réel · IA locale</h2>
+  <h2>SOC homelab personnel · 8 couches défense · Kill Chain temps réel · IA locale</h2>
+  <p><sub>Projet d'apprentissage et d'expérimentation en conditions réelles — infrastructure personnelle, non professionnelle.</sub></p>
 
   <p align="center">
-    <img src="https://img.shields.io/badge/Statut-Production-00C853?style=flat-square" alt="Production" />
+    <img src="https://img.shields.io/badge/Statut-Homelab_personnel-00C853?style=flat-square" alt="Homelab personnel" />
     <img src="https://img.shields.io/badge/Version-v3.97-00B4D8?style=flat-square" alt="Version" />
     <img src="https://img.shields.io/badge/Audit-10%2F10-00C853?style=flat-square" alt="Audit 10/10" />
     <img src="https://img.shields.io/badge/Modules_JS-24-00B4D8?style=flat-square" alt="24 modules JS" />
@@ -43,7 +44,7 @@
 
 <div align="center">
   <p>
-    <strong>8 couches défense actives</strong> &nbsp;•&nbsp; <strong>~170 IPs neutralisées / 24h</strong> &nbsp;•&nbsp; <strong>5 hôtes supervisés</strong> &nbsp;•&nbsp; <strong>JARVIS IA proactive intégrée</strong>
+    <strong>6 couches blocage + 2 contrôle intégrité</strong> &nbsp;•&nbsp; <strong>~170 bots/scanners bloqués / 24h</strong> &nbsp;•&nbsp; <strong>5 hôtes supervisés</strong> &nbsp;•&nbsp; <strong>JARVIS IA proactive intégrée</strong>
   </p>
 </div>
 
@@ -140,7 +141,7 @@
 
 | | Capacité | Détail |
 |--|----------|--------|
-| 🛡️ | **8 couches défense** | UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban · AppArmor · AIDE HIDS |
+| 🛡️ | **8 couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers) |
 | 🧠 | **IA défensive** | JARVIS (Ollama phi4-reasoning) — ban auto · alertes TTS · analyse LLM |
 | 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
