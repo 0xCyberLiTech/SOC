@@ -142,7 +142,7 @@
 | | Capacité | Détail |
 |--|----------|--------|
 | 🛡️ | **8 couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers) |
-| 🧠 | **IA défensive** | JARVIS (Ollama phi4-reasoning) — ban auto · alertes TTS · analyse LLM |
+| 🧠 | **IA défensive** | JARVIS (Ollama phi4-reasoning) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
 | 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
 | 📊 | **Score menace** | 24 briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
@@ -160,7 +160,7 @@
 OS          Debian 13 (Trixie)
 Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
 Sécurité    CrowdSec (WAF AppSec ~207 vpatch CVE) · Suricata IDS (96k règles)
-            Fail2ban · AppArmor · UFW + nftables · AID HIDS
+            Fail2ban · AppArmor · UFW + nftables · AIDE HIDS
 Logs        rsyslog centralisé (5 hôtes) · GoAccess
 Dashboard   SPA vanilla JS — 24 modules · 35 tuiles · zéro dépendance NPM
 Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
@@ -182,7 +182,7 @@ INTERNET
 │                                                     │
 │  UFW + nftables ──→ GeoIP Block ──→ CrowdSec WAF    │
 │       ──→ Suricata IDS ──→ Fail2ban ──→ nginx       │
-│       ──→ AppArmor · AID HIDS                       │
+│       ──→ AppArmor · AIDE HIDS                      │
 │                                                     │
 │  ┌──────────────────────────────────────────────┐   │
 │  │         Dashboard SOC (port 8080)            │   │
