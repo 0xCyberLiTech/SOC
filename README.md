@@ -37,12 +37,6 @@
   <img src="https://img.icons8.com/fluency/96/000000/cyber-security.png" alt="CyberSec" width="80"/>
 </div>
 
-<div align="center">
-  <p>
-    <strong>6 couches blocage + 2 contrôle intégrité</strong> &nbsp;•&nbsp; <strong>~170 bots/scanners bloqués / 24h</strong> &nbsp;•&nbsp; <strong>5 hôtes supervisés</strong> &nbsp;•&nbsp; <strong>JARVIS IA proactive intégrée</strong>
-  </p>
-</div>
-
 ---
 
 <h2 align="center">Philosophie du projet</h2>
