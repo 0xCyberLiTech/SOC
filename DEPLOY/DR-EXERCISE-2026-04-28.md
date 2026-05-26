@@ -67,7 +67,7 @@ Ce document est le rapport de l'exercice Disaster Recovery réel exécuté le 20
 L'archive de configuration `soc-config-2026-04-28_2100.tar.gz` (38 Mo · 13 blocs) avait été auditée
 en simulation (`--dry-run`) mais jamais exécutée sur une VM vierge réelle.
 
-**Objectif** : valider que la procédure permet de reconstruire `srv-ngix` à l'identique sur une nouvelle
+**Objectif** : valider que la procédure permet de reconstruire `srv-nginx` à l'identique sur une nouvelle
 VM sans intervention manuelle imprévue, en conditions réelles avec basculement réseau.
 
 **Contrainte** : la VM de prod (`<SRV-NGINX-IP>`) ne doit pas être touchée pendant les phases A et C.
@@ -79,7 +79,7 @@ VM sans intervention manuelle imprévue, en conditions réelles avec basculement
 | Élément | Valeur |
 |---------|--------|
 | VM test | `srv-labo-01` (Proxmox ID 101) · IP temporaire `<VM-TEST-IP>` |
-| VM prod | `srv-ngix` (Proxmox ID 108) · IP `<SRV-NGINX-IP>` |
+| VM prod | `srv-nginx` (Proxmox ID 108) · IP `<SRV-NGINX-IP>` |
 | Hyperviseur | Proxmox VE `<PROXMOX-IP>` |
 | Archive utilisée | `soc-config-2026-04-28_2100.tar.gz` |
 | Piloté depuis | Git Bash Windows |
@@ -144,7 +144,7 @@ aide --config /etc/aide/aide.conf --init && mv /var/lib/aide/aide.db.new /var/li
 | Dashboard | ✅ HTTP 200 — monitoring.json à jour |
 | Crons | ✅ 14 fichiers dans `/etc/cron.d/` |
 | AIDE baseline | ✅ re-générée — 15 Mo |
-| Hostname | ✅ `srv-ngix` |
+| Hostname | ✅ `srv-nginx` |
 | IP | ✅ `<SRV-NGINX-IP>` |
 | SSH | ✅ port <SSH-PORT> |
 

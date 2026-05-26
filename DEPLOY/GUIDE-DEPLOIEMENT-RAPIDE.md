@@ -56,14 +56,14 @@ Ce guide décrit le workflow complet de déploiement ou restauration du SOC depu
 
 ---
 
-> Procédure complète pour reconstruire srv-ngix à l'identique sur une nouvelle VM Debian 13.  
+> Procédure complète pour reconstruire srv-nginx à l'identique sur une nouvelle VM Debian 13.  
 > Durée estimée : **15 à 30 minutes**.
 
 ---
 
 <h2 align="center">Prérequis</h2>
 
-<h3 align="center">VM à préparer (nouveau srv-ngix)</h3>
+<h3 align="center">VM à préparer (nouveau srv-nginx)</h3>
 
 - OS : **Debian 13 (Trixie)** installation minimale
 - IP : **<SRV-NGIX-IP>** (configurée pendant l'install Debian — DHCP ou statique, peu importe pour l'instant)
@@ -182,7 +182,7 @@ Le script restaure dans l'ordre :
 reboot
 ```
 
-> Le reboot applique : `/etc/network/interfaces` (IP statique) et `/etc/hostname` (srv-ngix).
+> Le reboot applique : `/etc/network/interfaces` (IP statique) et `/etc/hostname` (srv-nginx).
 
 ---
 

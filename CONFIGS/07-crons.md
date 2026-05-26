@@ -46,7 +46,7 @@
 ## À propos & Objectifs.
 </div>
 
-Ce document liste et explique les 9 tâches planifiées (cron) actives sur srv-ngix : collecte monitoring, mise à jour règles IDS, synchronisation GeoIP, rapport quotidien, proto-live et nettoyage logs.
+Ce document liste et explique les 9 tâches planifiées (cron) actives sur srv-nginx : collecte monitoring, mise à jour règles IDS, synchronisation GeoIP, rapport quotidien, proto-live et nettoyage logs.
 
 - ⏱️ Toutes les minutes — proto-live.py (statistiques protocoles réseau)
 - ⏱️ Toutes les 5 min — monitoring.sh + router-report.py
@@ -139,7 +139,7 @@ certbot renew --dry-run
 Le script `create-archive.sh` produit une archive complète du SOC (configs, scripts, clés publiques). À planifier en cron hebdomadaire :
 
 ```bash
-# À ajouter dans /etc/cron.d/soc-monitoring sur srv-ngix
+# À ajouter dans /etc/cron.d/soc-monitoring sur srv-nginx
 # Archive automatique dimanche 02h00
 0 2 * * 0   root  /opt/soc/scripts/create-archive.sh --auto >> /var/log/soc-archive.log 2>&1
 ```

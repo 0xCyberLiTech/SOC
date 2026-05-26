@@ -33,14 +33,14 @@ LAN_CIDR="<LAN-CIDR>"          # Sous-réseau LAN             ex: 203.0.113.0/24
 LAN2_CIDR="<ROUTER-SUBNET>"    # Sous-réseau routeur/gestion ex: 203.0.113.128/25
 SSH_PORT="<SSH-PORT>"          # Port SSH non standard       ex: 2222
 SSH_KEY="<SSH-KEY>"            # Nom de clé SSH (dashboard)  ex: id_nginx
-SSH_KEY_NGIX="<SSH-KEY-NGIX>"          # Clé SSH monitoring→ngix     ex: /root/.ssh/id_nginx_sync
+SSH_KEY_NGIX="<SSH-KEY-NGIX>"          # Clé SSH monitoring→nginx     ex: /root/.ssh/id_nginx_sync
 SSH_KEY_SITE01="<SSH-KEY-SITE01>"      # Clé SSH monitoring→site-01  ex: /root/.ssh/id_site01_sync
 SSH_KEY_SITE02="<SSH-KEY-SITE02>"      # Clé SSH monitoring→site-02  ex: /root/.ssh/id_site02_sync
 SSH_KEY_PVE="<SSH-KEY-PVE>"            # Clé SSH monitoring→proxmox  ex: /root/.ssh/id_proxmox_sync
 SITE01_HOST="<SITE-01-HOSTNAME>"       # Hostname rsyslog VM site-01 ex: srv-site01
 SITE02_HOST="<SITE-02-HOSTNAME>"       # Hostname rsyslog VM site-02 ex: srv-site02
 ROUTER_ID="<ROUTER-ID>"               # Identifiant répertoire rsyslog routeur
-ROUTER_HOSTNAME="<ROUTER-HOSTNAME>"    # Hostname affiché du routeur         ex: asus-rog-be98
+ROUTER_HOSTNAME="<ROUTER-HOSTNAME>"    # Hostname affiché du routeur         ex: home-router
 CITY="<CITY>"                          # Ville pour la carte Leaflet          ex: Paris
 GITHUB_USER="<GITHUB-USER>"            # Compte GitHub du déploiement         ex: 0xCyberLiTech
 SITE01_WEB="<SITE01-WEBROOT>"          # Nom répertoire web site-01 sous /var/www/
@@ -125,7 +125,7 @@ if step_active "system"; then
        python3-venv logrotate cron rsyslog ufw fail2ban apparmor apparmor-utils \
        exim4 mailutils nftables"
   run "timedatectl set-timezone Europe/Paris"
-  run "hostnamectl set-hostname srv-ngix"
+  run "hostnamectl set-hostname srv-nginx"
   ok "Systeme de base configure"
 fi
 

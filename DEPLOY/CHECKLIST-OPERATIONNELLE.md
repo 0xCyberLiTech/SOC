@@ -131,7 +131,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 <h3 align="center">7. Mises à jour système</h3>
 
 ```bash
-# srv-ngix
+# srv-nginx
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
   "apt-get update -qq && apt list --upgradable 2>/dev/null"
 
@@ -215,7 +215,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 <h3 align="center">13. Backup configuration SOC</h3>
 
 ```bash
-# Exécuter le script d'archive depuis srv-ngix
+# Exécuter le script d'archive depuis srv-nginx
 ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
   "/opt/soc/scripts/create-archive.sh"
 ```

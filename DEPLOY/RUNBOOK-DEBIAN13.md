@@ -71,7 +71,7 @@ Ce runbook décrit l'installation et la configuration initiale d'une VM Debian 1
 | Réseau | 1 interface | eth0 avec IP fixe |
 | Accès | root SSH | root SSH clé publique |
 
-**Backends à protéger :** deux serveurs Apache accessibles depuis srv-ngix
+**Backends à protéger :** deux serveurs Apache accessibles depuis srv-nginx
 - `site-01` : <CLT-IP>:80
 - `site-02` : <PA85-IP>:80
 
@@ -235,8 +235,8 @@ if step_active "system"; then
   ok "Timezone : Europe/Paris"
 
   # Hostname
-  run "hostnamectl set-hostname srv-ngix"
-  ok "Hostname : srv-ngix"
+  run "hostnamectl set-hostname srv-nginx"
+  ok "Hostname : srv-nginx"
 fi
 
 # ══════════════════════════════════════════════════════════════════════════════

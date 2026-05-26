@@ -209,7 +209,7 @@ Dashboard   SPA vanilla JS — 24 modules · 35 tuiles · zéro dépendance NPM
 Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
 IA          JARVIS — Ollama phi4-reasoning · Flask · edge-tts
 GeoIP       MaxMind GeoLite2 · Leaflet.js
-Infra       Proxmox VE — 3 VMs (srv-ngix · site-01 · site-02)
+Infra       Proxmox VE — 3 VMs (srv-nginx · site-01 · site-02)
 ```
 
 ---
@@ -221,7 +221,7 @@ INTERNET
    │
    ▼
 ┌─────────────────────────────────────────────────────┐
-│                    srv-ngix                         │
+│                    srv-nginx                         │
 │                                                     │
 │  UFW + nftables ──→ GeoIP Block ──→ CrowdSec WAF    │
 │       ──→ Suricata IDS ──→ Fail2ban ──→ nginx       │
@@ -317,8 +317,8 @@ INTERNET
 | [alert.conf.example](scripts/alert.conf.example) | Configuration SMTP alertes — copier en `alert.conf` | ✅ public |
 | [jail.local](scripts/jail.local) | Fail2ban — 3 jails : sshd · nginx-cve · nginx-botsearch | ✅ public |
 | [rsyslog-10-central-receiver.conf](scripts/rsyslog-10-central-receiver.conf) | Récepteur rsyslog central (TCP+UDP 514) | ✅ public |
-| [rsyslog-99-forward-site01.conf](scripts/rsyslog-99-forward-site01.conf) | Émetteur rsyslog — site-01 → srv-ngix | ✅ public |
-| [rsyslog-99-forward-site02.conf](scripts/rsyslog-99-forward-site02.conf) | Émetteur rsyslog — site-02 → srv-ngix | ✅ public |
+| [rsyslog-99-forward-site01.conf](scripts/rsyslog-99-forward-site01.conf) | Émetteur rsyslog — site-01 → srv-nginx | ✅ public |
+| [rsyslog-99-forward-site02.conf](scripts/rsyslog-99-forward-site02.conf) | Émetteur rsyslog — site-02 → srv-nginx | ✅ public |
 | [apparmor-apache2-clt.conf](scripts/apparmor-apache2-clt.conf) | Profil AppArmor Apache2 — site-01 | ✅ public |
 | [apparmor-apache2-pa85.conf](scripts/apparmor-apache2-pa85.conf) | Profil AppArmor Apache2 — site-02 | ✅ public |
 | [crowdsec/](scripts/crowdsec/) | 4 scénarios CrowdSec custom (http-bad-ua · exploit-scan · php-rce · geo-block) | ✅ public |

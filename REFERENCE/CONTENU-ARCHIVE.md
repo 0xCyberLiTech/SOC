@@ -51,11 +51,11 @@ Ce document décrit la structure complète de l'archive de configuration SOC : l
 - 📦 13 blocs — réseau, SSL, nginx, CrowdSec, Suricata, fail2ban, crons, systemd…
 - 🔢 Ordre de restauration — dépendances entre blocs documentées
 - 🔒 Contenu sensible — configs réelles conservées hors dépôt public
-- 📋 Audit de référence — état validé le 2026-04-25 sur srv-ngix
+- 📋 Audit de référence — état validé le 2026-04-25 sur srv-nginx
 
 ---
 
-> Audit effectué le 2026-04-25 sur srv-ngix (<SRV-NGIX-IP>)  
+> Audit effectué le 2026-04-25 sur srv-nginx (<SRV-NGIX-IP>)  
 > Archive de référence : `soc-config-2026-04-25_2159.tar.gz` (v4 — 38 Mo)  
 > Script : `create-archive.sh` · 13 blocs (0/13 → 12/13)
 
@@ -68,7 +68,7 @@ Ce document décrit la structure complète de l'archive de configuration SOC : l
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
 | `interfaces` | `/etc/network/interfaces` (IP <SRV-NGIX-IP>, GW .254, DNS) | ✅ |
-| `hostname` | `/etc/hostname` (srv-ngix) | ✅ |
+| `hostname` | `/etc/hostname` (srv-nginx) | ✅ |
 | `hosts` | `/etc/hosts` | ✅ |
 | `resolv.conf` | `/etc/resolv.conf` | ✅ |
 | `nsswitch.conf` | `/etc/nsswitch.conf` | ✅ |
@@ -256,7 +256,7 @@ Ce document décrit la structure complète de l'archive de configuration SOC : l
 | Règles Suricata ET Pro (~106k) | Trop volumineuses — retéléchargées via `suricata-update` |
 | `monitoring.json` | Données live — recalculées par monitoring_gen.py |
 | Logs `/var/log/` | Données opérationnelles, pas de config |
-| JARVIS | Tourne sur Windows (<LAN-IP>), hors périmètre srv-ngix |
+| JARVIS | Tourne sur Windows (<LAN-IP>), hors périmètre srv-nginx |
 | Base AIDE `/var/lib/aide/aide.db.gz` | Recalculée via `aide --init` après restore |
 | Clés SSH privées `~/.ssh/id_*` | Clés d'authentification personnelles — restaurer manuellement |
 

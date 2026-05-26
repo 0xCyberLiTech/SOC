@@ -72,7 +72,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 - [ ] **OS** : `cat /etc/debian_version` → 13.x (Trixie)
 - [ ] **Kernel** : `uname -r` → 6.12.x ou supérieur
-- [ ] **Hostname** : `hostname` → `srv-ngix`
+- [ ] **Hostname** : `hostname` → `srv-nginx`
 - [ ] **Réseau** : `ip a` → eth0 a l'IP <SRV-NGIX-IP>
 - [ ] **Heure système** : `timedatectl` → synchronized: yes + timezone Europe/Paris
 - [ ] **SSH** : port <SSH-PORT> uniquement — `ss -tlnp | grep sshd` → port <SSH-PORT>
@@ -164,7 +164,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 - [ ] **rsyslog actif** : `systemctl is-active rsyslog` → active
 - [ ] **Port 514 ouvert** : `ss -ulnp | grep 514` + `ss -tlnp | grep 514` → présent
-- [ ] **Dossier central** : `ls /var/log/central/` → site-01/ site-02/ pve/ <ROUTER>/ srv-ngix/
+- [ ] **Dossier central** : `ls /var/log/central/` → site-01/ site-02/ pve/ <ROUTER>/ srv-nginx/
 - [ ] **Logs site-01 reçus** : `ls -la /var/log/central/site-01/` → fichier du jour présent
 - [ ] **Logs site-02 reçus** : `ls -la /var/log/central/site-02/` → fichier du jour présent
 

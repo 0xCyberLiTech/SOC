@@ -48,7 +48,7 @@
 
 Ce document détaille l'infrastructure du SOC : 3 VMs Debian 13 sur Proxmox VE, la stack logicielle complète et les relations entre composants. Il sert de référence pour comprendre comment les briques s'articulent.
 
-- 🖥️ Infrastructure hyperviseur Proxmox VE — 3 VMs (srv-ngix, site-01, site-02)
+- 🖥️ Infrastructure hyperviseur Proxmox VE — 3 VMs (srv-nginx, site-01, site-02)
 - 🔗 Relations réseau et flux de données entre les VMs
 - ⚙️ Stack logicielle complète — nginx, CrowdSec, Suricata, fail2ban, rsyslog
 - 📐 Schémas d'architecture réseau avec placeholders anonymisés
@@ -63,7 +63,7 @@ INTERNET
     │ HTTP/HTTPS (80/443)
     ▼
 ┌─────────────────────────────────────────────────────┐
-│  srv-ngix — <SRV-NGIX-IP>  (VM Proxmox 108)         │
+│  srv-nginx — <SRV-NGIX-IP>  (VM Proxmox 108)         │
 │                                                     │
 │  ┌──────────┐  ┌──────────────┐  ┌───────────────┐  │
 │  │  UFW     │  │  nftables    │  │  CrowdSec     │  │
@@ -127,7 +127,7 @@ INTERNET
 
 | VM ID | Nom | IP | RAM | Disque | Rôle |
 |-------|-----|----|-----|--------|------|
-| 108 | srv-ngix | <SRV-NGIX-IP> | 14 Go | 50 Go | Reverse proxy · SOC · sécurité |
+| 108 | srv-nginx | <SRV-NGIX-IP> | 14 Go | 50 Go | Reverse proxy · SOC · sécurité |
 | 106 | srv-site-01 | <srv-site-01-IP> | 2 Go | 50 Go | Backend Apache · site 01 |
 | 107 | srv-site-02 | <srv-site-02-IP> | 2 Go | 50 Go | Backend Apache · site 02 |
 
@@ -137,7 +137,7 @@ INTERNET
 
 <h2 align="center">Ports exposés</h2>
 
-<h3 align="center">Entrants (srv-ngix)</h3>
+<h3 align="center">Entrants (srv-nginx)</h3>
 
 | Port | Proto | Source | Service |
 |------|-------|--------|---------|
@@ -147,7 +147,7 @@ INTERNET
 | 8080 | TCP | <LAN-SUBNET> | Dashboard SOC (LAN uniquement) |
 | 514 | TCP+UDP | <LAN-SUBNET> | rsyslog central (LAN uniquement) |
 
-<h3 align="center">Sortants (srv-ngix)</h3>
+<h3 align="center">Sortants (srv-nginx)</h3>
 
 | Port | Proto | Destination | Usage |
 |------|-------|-------------|-------|
@@ -160,7 +160,7 @@ INTERNET
 
 ---
 
-<h2 align="center">Stack logicielle srv-ngix</h2>
+<h2 align="center">Stack logicielle srv-nginx</h2>
 
 ```
 OS          : Debian 13 (Trixie)
@@ -200,7 +200,7 @@ Suricata (AF_PACKET eth0)
 
 rsyslog /var/log/central/
       │
-      ├──→ site-01/  site-02/  pve/  <ROUTER>/  srv-ngix/
+      ├──→ site-01/  site-02/  pve/  <ROUTER>/  srv-nginx/
       └──→ monitoring_gen.py (cross-host correlation)
 
 monitoring_gen.py (cron */5 min)
@@ -225,7 +225,7 @@ JARVIS soc.py (boucle 60s)
 
 | Clé | Machine cible | Chemin local |
 |-----|--------------|--------------|
-| id_nginx | srv-ngix (<SRV-NGIX-IP>) | ~/.ssh/id_nginx |
+| id_nginx | srv-nginx (<SRV-NGIX-IP>) | ~/.ssh/id_nginx |
 | id_site-01 | site-01 (<srv-site-01-IP>) | ~/.ssh/id_site-01 |
 | id_site-02 | site-02 (<srv-site-02-IP>) | ~/.ssh/id_site-02 |
 | id_proxmox | Proxmox (<PROXMOX-IP>) | ~/.ssh/id_proxmox |
@@ -234,7 +234,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 
 ---
 
-<h2 align="center">Structure fichiers srv-ngix</h2>
+<h2 align="center">Structure fichiers srv-nginx</h2>
 
 ```
 /var/www/monitoring/
@@ -268,7 +268,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 ├── site-02/
 ├── pve/
 ├── <ROUTER>/
-└── srv-ngix/
+└── srv-nginx/
 ```
 
 ---

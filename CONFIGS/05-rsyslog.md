@@ -46,9 +46,9 @@
 ## À propos & Objectifs.
 </div>
 
-Ce document détaille la configuration rsyslog : récepteur central TCP/UDP 514 sur srv-ngix, émetteurs sur chaque VM, templates de nommage par hôte et règles logrotate associées.
+Ce document détaille la configuration rsyslog : récepteur central TCP/UDP 514 sur srv-nginx, émetteurs sur chaque VM, templates de nommage par hôte et règles logrotate associées.
 
-- 📡 Récepteur central — /etc/rsyslog.d/10-central-receiver.conf sur srv-ngix
+- 📡 Récepteur central — /etc/rsyslog.d/10-central-receiver.conf sur srv-nginx
 - 📤 Émetteurs — site-01, site-02, pve : config rsyslog-99-forward-*.conf
 - 📂 Templates — un fichier de log par hôte distant sous /var/log/remote/
 - 🔄 Logrotate — rétention 14j, compression, dateext, sharedscripts
@@ -57,14 +57,14 @@ Ce document détaille la configuration rsyslog : récepteur central TCP/UDP 514 
 
 <h2 align="center">Architecture — récepteur central</h2>
 
-`srv-ngix` collecte les logs de **5 hôtes** du homelab via TCP/UDP port 514.
+`srv-nginx` collecte les logs de **5 hôtes** du homelab via TCP/UDP port 514.
 
 ```
 site-01 (<CLT-IP>)       ──→ rsyslog TCP :514
 site-02 (<PA85-IP>)      ──→ rsyslog TCP :514
 pve     (<PROXMOX-IP>)   ──→ rsyslog TCP :514
 <ROUTER> (<ROUTER-IP>)   ──→ rsyslog UDP :514
-srv-ngix (local)         ──→ fichiers locaux uniquement
+srv-nginx (local)         ──→ fichiers locaux uniquement
 
                               /var/log/central/
                               ├── site-01/
@@ -72,7 +72,7 @@ srv-ngix (local)         ──→ fichiers locaux uniquement
                               ├── site-02/
                               ├── pve/
                               ├── <ROUTER>/
-                              └── srv-ngix/
+                              └── srv-nginx/
 ```
 
 ---
@@ -117,7 +117,7 @@ systemctl restart rsyslog
 `/etc/rsyslog.conf` — section à ajouter sur chaque hôte émetteur
 
 ```conf
-# Envoyer tous les logs vers srv-ngix
+# Envoyer tous les logs vers srv-nginx
 # @@ = TCP (fiable · avec retransmission)
 # @  = UDP (léger · pour routeur/équipement sans client TCP)
 
@@ -135,7 +135,7 @@ systemctl restart rsyslog
 | **site-02** | auth.log · apache2/access.log · apache2/error.log · fail2ban.log · syslog |
 | **pve** | syslog · auth.log · pve-firewall.log · task.log (backups VM) |
 | **`<ROUTER>`** | syslog routeur (connexions WAN, DHCP, firewall, trafic sortant) |
-| **srv-ngix** | auth.log · nginx/access.log · nginx/error.log · fail2ban.log · crowdsec.log |
+| **srv-nginx** | auth.log · nginx/access.log · nginx/error.log · fail2ban.log · crowdsec.log |
 
 ---
 
@@ -163,7 +163,7 @@ systemctl restart rsyslog
 <h2 align="center">UFW — Règles entrantes rsyslog</h2>
 
 ```bash
-# Sur srv-ngix — autoriser la réception depuis le LAN
+# Sur srv-nginx — autoriser la réception depuis le LAN
 ufw allow from <LAN-SUBNET> to any port 514 proto tcp comment 'rsyslog-central-tcp'
 ufw allow from <LAN-SUBNET> to any port 514 proto udp comment 'rsyslog-central-udp'
 ufw allow from <ROUTER-SUBNET> to any port 514 proto udp comment 'rsyslog-router-udp'

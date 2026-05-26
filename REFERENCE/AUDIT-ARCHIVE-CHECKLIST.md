@@ -60,13 +60,13 @@ Cette checklist valide l'archive avant de la conserver comme référence DR. Ell
 
 ---
 
-<h2 align="center">PHASE 1 — Avant de créer l'archive (audit live srv-ngix)</h2>
+<h2 align="center">PHASE 1 — Avant de créer l'archive (audit live srv-nginx)</h2>
 
 <h3 align="center">Réseau — BLOC 0</h3>
 
 - [ ] `/etc/network/interfaces` contient IP statique <SRV-NGIX-IP>, GW <LAN-IP>, DNS
-- [ ] `/etc/hostname` = `srv-ngix`
-- [ ] `/etc/hosts` contient entrée localhost + srv-ngix
+- [ ] `/etc/hostname` = `srv-nginx`
+- [ ] `/etc/hosts` contient entrée localhost + srv-nginx
 - [ ] `/etc/ssh/sshd_config` — port <SSH-PORT>, PasswordAuthentication no, MaxAuthTries 3
 - [ ] `/etc/sysctl.d/99-hardening.conf` — `net.ipv4.conf.all.rp_filter = 2` (requis Suricata AF_PACKET)
 - [ ] `/etc/sysctl.d/99-disable-ipv6.conf` — IPv6 désactivé
@@ -169,7 +169,7 @@ Cette checklist valide l'archive avant de la conserver comme référence DR. Ell
 
 <h3 align="center">Clés SSH — BLOC 11</h3>
 
-- [ ] `/root/.ssh/authorized_keys` — clé pve-monitor (Proxmox → srv-ngix)
+- [ ] `/root/.ssh/authorized_keys` — clé pve-monitor (Proxmox → srv-nginx)
 - [ ] `/root/.ssh/<SSH-KEY-CLT>` + `.pub` — connexion root@<CLT-IP>
 - [ ] `/root/.ssh/<SSH-KEY-PA85>` + `.pub` — connexion root@<PA85-IP>
 - [ ] `/root/.ssh/<SSH-KEY-PVE>` + `.pub` — connexion root@<PROXMOX-IP>
@@ -239,10 +239,10 @@ grep -c "DIFFÉRENT\|NOUVEAU" restore-simulation.txt
 
 <h3 align="center">Réseau</h3>
 
-- [ ] `hostname` → `srv-ngix`
+- [ ] `hostname` → `srv-nginx`
 - [ ] `ip addr show` → <SRV-NGIX-IP>/24
 - [ ] `ip route` → default via <LAN-IP>
-- [ ] `ssh -p <SSH-PORT> root@<SRV-NGIX-IP> hostname` → `srv-ngix` (depuis LAN)
+- [ ] `ssh -p <SSH-PORT> root@<SRV-NGIX-IP> hostname` → `srv-nginx` (depuis LAN)
 - [ ] `sysctl net.ipv4.conf.all.rp_filter` → `2`
 - [ ] `echo "test SOC" | mail -s test admin@domain.fr` → mail reçu (exim4 SMTP <MAIL-PROVIDER>)
 
@@ -367,7 +367,7 @@ tar tzf "$ARCHIVE" | grep -E "(letsencrypt/live|api-keys\.conf|local_api_credent
 
 ---
 
-*Checklist créée le 2026-04-25 — basée sur audit live srv-ngix (archive v4)*
+*Checklist créée le 2026-04-25 — basée sur audit live srv-nginx (archive v4)*
 ---
 
 <div align="center">

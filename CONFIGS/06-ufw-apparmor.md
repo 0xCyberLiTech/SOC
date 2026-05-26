@@ -46,7 +46,7 @@
 ## À propos & Objectifs.
 </div>
 
-Ce document couvre les règles UFW et nftables (pare-feu) ainsi que les profils AppArmor (confinement processus) sur srv-ngix, site-01 et site-02.
+Ce document couvre les règles UFW et nftables (pare-feu) ainsi que les profils AppArmor (confinement processus) sur srv-nginx, site-01 et site-02.
 
 - 🔥 UFW — règles entrantes (SSH, HTTP, HTTPS, rsyslog) · règles sortantes limitées
 - 🛡️ Bouncer nftables CrowdSec — sets IP dynamiques kernel-space

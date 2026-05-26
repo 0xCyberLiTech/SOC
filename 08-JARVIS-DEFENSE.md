@@ -65,9 +65,9 @@ Il opère en **boucle autonome** toutes les 60 secondes : lit `monitoring.json`,
 ```
 JARVIS (Windows localhost:5000)
       │
-      ├── fetch monitoring.json (srv-ngix :8080)
+      ├── fetch monitoring.json (srv-nginx :8080)
       ├── Analyse LLM (phi4-reasoning via Ollama)
-      ├── Décisions → routes soc.py (srv-ngix)
+      ├── Décisions → routes soc.py (srv-nginx)
       │       ├── POST /ban-ip      → cscli decisions add
       │       ├── POST /unban-ip    → cscli decisions delete
       │       └── POST /restart-svc → systemctl restart
@@ -140,9 +140,9 @@ while True:
 
 ---
 
-<h2 align="center">Routes soc.py (API Flask sur srv-ngix)</h2>
+<h2 align="center">Routes soc.py (API Flask sur srv-nginx)</h2>
 
-`soc.py` tourne sur `srv-ngix` et expose des routes locales consommées par JARVIS via SSH tunnel ou réseau LAN.
+`soc.py` tourne sur `srv-nginx` et expose des routes locales consommées par JARVIS via SSH tunnel ou réseau LAN.
 
 ```python
 # Exemples de routes exposées
@@ -152,7 +152,7 @@ POST /restart-svc   body: {"service": "nginx"}
 GET  /status        → état courant services + décisions
 ```
 
-Chaque appel exécute la commande `cscli` ou `systemctl` correspondante sur srv-ngix.
+Chaque appel exécute la commande `cscli` ou `systemctl` correspondante sur srv-nginx.
 
 ---
 

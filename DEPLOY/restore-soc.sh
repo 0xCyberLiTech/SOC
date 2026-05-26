@@ -445,13 +445,13 @@ if run_bloc rsyslog; then
     restore_dir  "$TMPDIR/rsyslog/rsyslog.d"         "/etc/rsyslog.d"              "rsyslog.d"
 
     if ! $DRY_RUN; then
-        for host in clt pa85 pve GT-BE98 srv-ngix; do
+        for host in clt pa85 pve srv-dev-1 srv-nginx; do
             mkdir -p "/var/log/central/$host"
             chown syslog:adm "/var/log/central/$host" 2>/dev/null || true
         done
         ok "Dossiers /var/log/central/ recréés"
     else
-        sim "DOSSIERS   : /var/log/central/{clt,pa85,pve,GT-BE98,srv-ngix}/ à créer"
+        sim "DOSSIERS   : /var/log/central/{clt,pa85,pve,srv-dev-1,srv-nginx}/ à créer"
     fi
 
     reload_service rsyslog

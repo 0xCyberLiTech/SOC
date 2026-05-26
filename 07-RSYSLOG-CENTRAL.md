@@ -46,10 +46,10 @@
 ## À propos & Objectifs.
 </div>
 
-Ce document décrit l'architecture de centralisation des logs rsyslog : srv-ngix comme récepteur central, 5 hôtes émetteurs, templates par hôte et corrélation cross-host pour le XDR.
+Ce document décrit l'architecture de centralisation des logs rsyslog : srv-nginx comme récepteur central, 5 hôtes émetteurs, templates par hôte et corrélation cross-host pour le XDR.
 
-- 📡 5 hôtes centralisés — site-01, site-02, pve, routeur, srv-ngix local
-- 🔌 Transport TCP/UDP port 514 — récepteur configuré sur srv-ngix
+- 📡 5 hôtes centralisés — site-01, site-02, pve, routeur, srv-nginx local
+- 🔌 Transport TCP/UDP port 514 — récepteur configuré sur srv-nginx
 - 📂 Templates par hôte — séparation des fichiers de logs entrants
 - 🔄 Logrotate 7 règles — rétention nginx, fail2ban, monitoring, aide, ufw
 - 🔍 Corrélation XDR — analyse cross-host depuis un point unique
@@ -58,26 +58,26 @@ Ce document décrit l'architecture de centralisation des logs rsyslog : srv-ngix
 
 <h2 align="center">Architecture</h2>
 
-`srv-ngix` est le **récepteur rsyslog central** pour 5 hôtes du homelab.
+`srv-nginx` est le **récepteur rsyslog central** pour 5 hôtes du homelab.
 
 ```
 site-01 (<CLT-IP>)   ──→ rsyslog TCP/UDP :514
 site-02 (<PA85-IP>)  ──→ rsyslog TCP/UDP :514
 pve (<PROXMOX-IP>)   ──→ rsyslog TCP/UDP :514
 <ROUTER> (<ROUTER-IP>)──→ rsyslog UDP :514
-srv-ngix (local)     ──→ rsyslog fichiers locaux
+srv-nginx (local)     ──→ rsyslog fichiers locaux
                            │
                      /var/log/central/
                      ├── site-01/
                      ├── site-02/
                      ├── pve/
                      ├── <ROUTER>/
-                     └── srv-ngix/
+                     └── srv-nginx/
 ```
 
 ---
 
-<h2 align="center">Configuration rsyslog récepteur (srv-ngix)</h2>
+<h2 align="center">Configuration rsyslog récepteur (srv-nginx)</h2>
 
 ```
 # /etc/rsyslog.conf — section réception
@@ -118,7 +118,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 ```
 # /etc/rsyslog.conf — section émission (site-01 et site-02)
 
-# Envoyer tous les logs vers srv-ngix
+# Envoyer tous les logs vers srv-nginx
 *.* @@<SRV-NGIX-IP>:514    # @@ = TCP (fiable)
 ```
 
@@ -154,7 +154,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 | **site-02** | auth.log, apache2/access.log, apache2/error.log, fail2ban.log, syslog |
 | **pve** | syslog, auth.log, pve-firewall.log, task.log (backups VM) |
 | **<ROUTER>** | syslog routeur (connexions WAN, DHCP, firewall, trafic sortant) |
-| **srv-ngix** | auth.log, nginx/access.log, nginx/error.log, fail2ban.log, crowdsec.log |
+| **srv-nginx** | auth.log, nginx/access.log, nginx/error.log, fail2ban.log, crowdsec.log |
 
 ---
 
@@ -164,7 +164,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 
 <h3 align="center">Corrélation cross-hôte (XHC)</h3>
 
-Une IP est vue dans les logs **nginx (srv-ngix)** ET **apache (site-01)** ET **apache (site-02)** dans une fenêtre de 15 minutes.
+Une IP est vue dans les logs **nginx (srv-nginx)** ET **apache (site-01)** ET **apache (site-02)** dans une fenêtre de 15 minutes.
 
 → Badge `⊙XHC` dans le Kill Chain dashboard  
 → Score ThreatScore +10
@@ -194,7 +194,7 @@ La même IP source touche **plus de 5 hôtes distincts** dans la fenêtre 15 min
 <h2 align="center">Vérification du fonctionnement</h2>
 
 ```bash
-# Sur srv-ngix — vérifier réception logs site-01
+# Sur srv-nginx — vérifier réception logs site-01
 ls -la /var/log/central/site-01/
 tail -20 /var/log/central/site-01/$(date +%Y-%m-%d).log
 
@@ -203,7 +203,7 @@ ss -tlnup | grep 514
 
 # Tester envoi depuis site-01
 ssh -i ~/.ssh/id_site-01 -p <SSH-PORT> root@<CLT-IP> \
-  "logger -n <SRV-NGIX-IP> -P 514 -T 'TEST rsyslog site-01→ngix'"
+  "logger -n <SRV-NGIX-IP> -P 514 -T 'TEST rsyslog site-01→nginx'"
 
 # Vérifier réception immédiate
 grep 'TEST rsyslog' /var/log/central/site-01/$(date +%Y-%m-%d).log
@@ -214,7 +214,7 @@ grep 'TEST rsyslog' /var/log/central/site-01/$(date +%Y-%m-%d).log
 <h2 align="center">UFW — Règle autorisant rsyslog entrant</h2>
 
 ```bash
-# Sur srv-ngix — déjà configuré
+# Sur srv-nginx — déjà configuré
 ufw allow from <LAN-SUBNET> to any port 514 proto tcp
 ufw allow from <LAN-SUBNET> to any port 514 proto udp
 ufw allow from <ROUTER-SUBNET> to any port 514 proto udp  # <ROUTER>

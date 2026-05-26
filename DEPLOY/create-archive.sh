@@ -8,7 +8,7 @@
 #   ./create-archive.sh --output /mnt/usb/  → dossier de sortie personnalisé
 #
 # L'archive produite contient TOUTE la configuration nécessaire pour
-# reconstruire un srv-ngix identique sur une nouvelle VM Debian 13.
+# reconstruire un srv-nginx identique sur une nouvelle VM Debian 13.
 #
 # Structure de l'archive :
 #   soc-config-AAAA-MM-JJ.tar.gz
@@ -518,7 +518,7 @@ cat > "${TMPDIR}/README-RESTORE.md" << 'EOF'
 ## Prérequis
 - Debian 13 (Trixie) fraîche
 - IP : <SRV-NGIX-IP>
-- Hostname : srv-ngix
+- Hostname : srv-nginx
 
 ## Étape 1 — Décompresser l'archive
 ```bash

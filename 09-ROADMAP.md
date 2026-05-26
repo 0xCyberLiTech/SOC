@@ -103,7 +103,7 @@ Actuellement : logs <ROUTER> analysés pour C2 sortant.
 Script `create-archive.sh` livré — à planifier en cron hebdomadaire.
 
 ```bash
-# Cron srv-ngix — à ajouter
+# Cron srv-nginx — à ajouter
 0 2 * * 0  /opt/soc/scripts/create-archive.sh --auto
 ```
 
