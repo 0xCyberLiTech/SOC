@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Logs centralisés — 5 hôtes rsyslog · corrélation cross-host · rétention.</h2>
+  <h2>Logs centralisés — 6 hôtes rsyslog · corrélation cross-host · rétention.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -46,9 +46,9 @@
 ## À propos & Objectifs.
 </div>
 
-Ce document décrit l'architecture de centralisation des logs rsyslog : srv-nginx comme récepteur central, 5 hôtes émetteurs, templates par hôte et corrélation cross-host pour le XDR.
+Ce document décrit l'architecture de centralisation des logs rsyslog : srv-nginx comme récepteur central, 6 hôtes émetteurs, templates par hôte et corrélation cross-host pour le XDR.
 
-- 📡 5 hôtes centralisés — site-01, site-02, pve, routeur, srv-nginx local
+- 📡 6 hôtes centralisés — site-01, site-02, pve, routeur, srv-nginx local
 - 🔌 Transport TCP/UDP port 514 — récepteur configuré sur srv-nginx
 - 📂 Templates par hôte — séparation des fichiers de logs entrants
 - 🔄 Logrotate 7 règles — rétention nginx, fail2ban, monitoring, aide, ufw
@@ -58,7 +58,7 @@ Ce document décrit l'architecture de centralisation des logs rsyslog : srv-ngin
 
 <h2 align="center">Architecture</h2>
 
-`srv-nginx` est le **récepteur rsyslog central** pour 5 hôtes du homelab.
+`srv-nginx` est le **récepteur rsyslog central** pour 6 hôtes du homelab.
 
 ```
 site-01 (<CLT-IP>)   ──→ rsyslog TCP/UDP :514
@@ -119,7 +119,7 @@ if ($fromhost-ip == '<ROUTER-IP>') then {
 # /etc/rsyslog.conf — section émission (site-01 et site-02)
 
 # Envoyer tous les logs vers srv-nginx
-*.* @@<SRV-NGIX-IP>:514    # @@ = TCP (fiable)
+*.* @@<SRV-NGINX-IP>:514    # @@ = TCP (fiable)
 ```
 
 ---
@@ -184,7 +184,7 @@ Le routeur <ROUTER> logue une connexion sortante vers une IP connue (Threat Inte
 
 <h3 align="center">Scan multi-cibles</h3>
 
-La même IP source touche **plus de 5 hôtes distincts** dans la fenêtre 15 min.
+La même IP source touche **plus de 6 hôtes distincts** dans la fenêtre 15 min.
 
 → ThreatScore +5  
 → JARVIS alerte
@@ -203,7 +203,7 @@ ss -tlnup | grep 514
 
 # Tester envoi depuis site-01
 ssh -i ~/.ssh/id_site-01 -p <SSH-PORT> root@<CLT-IP> \
-  "logger -n <SRV-NGIX-IP> -P 514 -T 'TEST rsyslog site-01→nginx'"
+  "logger -n <SRV-NGINX-IP> -P 514 -T 'TEST rsyslog site-01→nginx'"
 
 # Vérifier réception immédiate
 grep 'TEST rsyslog' /var/log/central/site-01/$(date +%Y-%m-%d).log

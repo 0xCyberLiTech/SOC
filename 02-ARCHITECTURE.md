@@ -63,7 +63,7 @@ INTERNET
     │ HTTP/HTTPS (80/443)
     ▼
 ┌─────────────────────────────────────────────────────┐
-│  srv-nginx — <SRV-NGIX-IP>  (VM Proxmox 108)         │
+│  srv-nginx — <SRV-NGINX-IP>  (VM Proxmox 108)         │
 │                                                     │
 │  ┌──────────┐  ┌──────────────┐  ┌───────────────┐  │
 │  │  UFW     │  │  nftables    │  │  CrowdSec     │  │
@@ -83,7 +83,7 @@ INTERNET
 │  ┌──────────┐  ┌──────────┐  ┌───────────────────┐  │
 │  │ Suricata │  │ Fail2ban │  │ rsyslog récepteur │  │
 │  │ IDS      │  │ 3 jails  │  │ TCP+UDP :514      │  │
-│  │ 106k règ.│  │          │  │ 5 hôtes           │  │
+│  │ 106k règ.│  │          │  │ 6 hôtes           │  │
 │  └──────────┘  └──────────┘  └───────────────────┘  │
 │                                                     │
 │  ┌──────────────────────────────────────────────┐   │
@@ -111,7 +111,7 @@ INTERNET
                     ┌──────────────────────────┐
                     │ JARVIS <LAN-IP>          │
                     │ Windows · localhost:5000 │
-                    │ Ollama phi4-reasoning    │
+                    │ Ollama phi4:14b    │
                     └──────────────────────────┘
 
                     ┌──────────────────────┐
@@ -127,7 +127,7 @@ INTERNET
 
 | VM ID | Nom | IP | RAM | Disque | Rôle |
 |-------|-----|----|-----|--------|------|
-| 108 | srv-nginx | <SRV-NGIX-IP> | 14 Go | 50 Go | Reverse proxy · SOC · sécurité |
+| 108 | srv-nginx | <SRV-NGINX-IP> | 14 Go | 50 Go | Reverse proxy · SOC · sécurité |
 | 106 | srv-site-01 | <srv-site-01-IP> | 2 Go | 50 Go | Backend Apache · site 01 |
 | 107 | srv-site-02 | <srv-site-02-IP> | 2 Go | 50 Go | Backend Apache · site 02 |
 
@@ -225,7 +225,7 @@ JARVIS soc.py (boucle 60s)
 
 | Clé | Machine cible | Chemin local |
 |-----|--------------|--------------|
-| id_nginx | srv-nginx (<SRV-NGIX-IP>) | ~/.ssh/id_nginx |
+| id_nginx | srv-nginx (<SRV-NGINX-IP>) | ~/.ssh/id_nginx |
 | id_site-01 | site-01 (<srv-site-01-IP>) | ~/.ssh/id_site-01 |
 | id_site-02 | site-02 (<srv-site-02-IP>) | ~/.ssh/id_site-02 |
 | id_proxmox | Proxmox (<PROXMOX-IP>) | ~/.ssh/id_proxmox |
@@ -241,7 +241,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 ├── index.html              ← Dashboard SPA
 ├── monitoring.json         ← Données sécurité (généré par monitoring_gen.py)
 ├── *.json                  ← Autres données (router, proto-live, windows-disk)
-├── js/                     ← 24 modules JS (01-utils → 22-ip-deep)
+├── js/                     ← 28 modules JS (01-utils → 22-ip-deep)
 ├── css/
 │   └── monitoring.css      ← Styles (1 400 lignes, tokens CSS --fs-*)
 └── libs/                   ← Librairies tierces (Leaflet...)

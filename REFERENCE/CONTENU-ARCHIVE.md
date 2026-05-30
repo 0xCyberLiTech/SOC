@@ -55,7 +55,7 @@ Ce document décrit la structure complète de l'archive de configuration SOC : l
 
 ---
 
-> Audit effectué le 2026-04-25 sur srv-nginx (<SRV-NGIX-IP>)  
+> Audit effectué le 2026-04-25 sur srv-nginx (<SRV-NGINX-IP>)  
 > Archive de référence : `soc-config-2026-04-25_2159.tar.gz` (v4 — 38 Mo)  
 > Script : `create-archive.sh` · 13 blocs (0/13 → 12/13)
 
@@ -67,7 +67,7 @@ Ce document décrit la structure complète de l'archive de configuration SOC : l
 
 | Fichier / Dossier | Source | Statut |
 |-------------------|--------|--------|
-| `interfaces` | `/etc/network/interfaces` (IP <SRV-NGIX-IP>, GW .254, DNS) | ✅ |
+| `interfaces` | `/etc/network/interfaces` (IP <SRV-NGINX-IP>, GW .254, DNS) | ✅ |
 | `hostname` | `/etc/hostname` (srv-nginx) | ✅ |
 | `hosts` | `/etc/hosts` | ✅ |
 | `resolv.conf` | `/etc/resolv.conf` | ✅ |
@@ -265,13 +265,13 @@ Ce document décrit la structure complète de l'archive de configuration SOC : l
 <h2 align="center">Flux restauration plug-and-play</h2>
 
 ```
-1. Nouvelle VM Debian 13 — IP <SRV-NGIX-IP> — port SSH 22 (temporaire)
+1. Nouvelle VM Debian 13 — IP <SRV-NGINX-IP> — port SSH 22 (temporaire)
 2. Copier l'archive + les scripts de déploiement sur la VM
 3. bash deploy-soc.sh                        ← installe tous les paquets
 4. bash restore-soc.sh archive.tar.gz --dry-run   ← SIMULATION
 5. bash restore-soc.sh archive.tar.gz             ← RESTAURATION COMPLÈTE
 6. Reboot
-7. ssh -p <SSH-PORT> root@<SRV-NGIX-IP>             ← reconnexion sur port <SSH-PORT>
+7. ssh -p <SSH-PORT> root@<SRV-NGINX-IP>             ← reconnexion sur port <SSH-PORT>
 8. Valider CHECKLIST-DEPLOY.md (61 points)
 ```
 

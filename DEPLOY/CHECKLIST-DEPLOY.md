@@ -73,7 +73,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 - [ ] **OS** : `cat /etc/debian_version` → 13.x (Trixie)
 - [ ] **Kernel** : `uname -r` → 6.12.x ou supérieur
 - [ ] **Hostname** : `hostname` → `srv-nginx`
-- [ ] **Réseau** : `ip a` → eth0 a l'IP <SRV-NGIX-IP>
+- [ ] **Réseau** : `ip a` → eth0 a l'IP <SRV-NGINX-IP>
 - [ ] **Heure système** : `timedatectl` → synchronized: yes + timezone Europe/Paris
 - [ ] **SSH** : port <SSH-PORT> uniquement — `ss -tlnp | grep sshd` → port <SSH-PORT>
 
@@ -88,7 +88,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 - [ ] **Règle SSH** : <SSH-PORT>/tcp ALLOW <LAN-SUBNET>
 - [ ] **Règle Dashboard** : 8080/tcp ALLOW <LAN-SUBNET>
 - [ ] **Règle rsyslog** : 514/tcp+udp ALLOW <LAN-SUBNET>
-- [ ] **Accès dashboard** : depuis LAN → `curl http://<SRV-NGIX-IP>:8080/` → HTML reçu
+- [ ] **Accès dashboard** : depuis LAN → `curl http://<SRV-NGINX-IP>:8080/` → HTML reçu
 
 ---
 
@@ -99,7 +99,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 - [ ] **Module GeoIP2** : `nginx -V 2>&1 | grep geoip2` → présent
 - [ ] **Module headers-more** : `nginx -V 2>&1 | grep headers-more` → présent
 - [ ] **Test config** : `nginx -t` → syntax ok
-- [ ] **HTTP → HTTPS redirect** : `curl -I http://<SRV-NGIX-IP>/` → 301 Location: https://
+- [ ] **HTTP → HTTPS redirect** : `curl -I http://<SRV-NGINX-IP>/` → 301 Location: https://
 - [ ] **Header Server absent** : `curl -sI https://ton-domaine/ | grep -i server` → rien
 - [ ] **HSTS** : `curl -sI https://ton-domaine/ | grep Strict` → max-age=63072000
 - [ ] **CSP** : `curl -sI https://ton-domaine/ | grep Content-Security` → présent
@@ -155,7 +155,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 - [ ] **Cron actif** : `crontab -l` → `*/5 * * * * /opt/soc/monitoring.sh`
 - [ ] **monitoring.json généré** : `ls -la /var/www/monitoring/monitoring.json` → < 5 min
 - [ ] **monitoring.json valide** : `python3 -c "import json; json.load(open('/var/www/monitoring/monitoring.json'))"` → OK
-- [ ] **Dashboard accessible** : `curl http://<SRV-NGIX-IP>:8080/` → HTML complet
+- [ ] **Dashboard accessible** : `curl http://<SRV-NGINX-IP>:8080/` → HTML complet
 - [ ] **ThreatScore calculé** : `python3 -c "import json; d=json.load(open('/var/www/monitoring/monitoring.json')); print(d.get('threat_score','ABSENT'))"` → entier 0-100
 
 ---

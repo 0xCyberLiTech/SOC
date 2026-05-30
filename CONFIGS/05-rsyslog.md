@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Configuration rsyslog — récepteur central · 5 hôtes · templates · logrotate.</h2>
+  <h2>Configuration rsyslog — récepteur central · 6 hôtes · templates · logrotate.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -57,7 +57,7 @@ Ce document détaille la configuration rsyslog : récepteur central TCP/UDP 514 
 
 <h2 align="center">Architecture — récepteur central</h2>
 
-`srv-nginx` collecte les logs de **5 hôtes** du homelab via TCP/UDP port 514.
+`srv-nginx` collecte les logs de **6 hôtes** du homelab via TCP/UDP port 514.
 
 ```
 site-01 (<CLT-IP>)       ──→ rsyslog TCP :514
@@ -121,8 +121,8 @@ systemctl restart rsyslog
 # @@ = TCP (fiable · avec retransmission)
 # @  = UDP (léger · pour routeur/équipement sans client TCP)
 
-*.* @@<SRV-NGIX-IP>:514    # TCP — Linux (site-01, site-02, pve)
-# *.* @<SRV-NGIX-IP>:514   # UDP — routeur/équipement réseau
+*.* @@<SRV-NGINX-IP>:514    # TCP — Linux (site-01, site-02, pve)
+# *.* @<SRV-NGINX-IP>:514   # UDP — routeur/équipement réseau
 ```
 
 ---
@@ -180,7 +180,7 @@ ufw allow from <ROUTER-SUBNET> to any port 514 proto udp comment 'rsyslog-router
 | **XHC** Cross-Host Correlation | Même IP vue sur nginx + site-01 + site-02 (15 min) | +10 |
 | **SSH bannié connecté** | IP dans decisions CrowdSec tente SSH sur auth.log | +8 |
 | **C2 sortant** | `<ROUTER>` logue connexion vers port IRC/Tor/C2 connu | +15 |
-| **Scan multi-cibles** | Même IP source touche >5 hôtes distincts (15 min) | +5 |
+| **Scan multi-cibles** | Même IP source touche >6 hôtes distincts (15 min) | +5 |
 
 ---
 
@@ -198,7 +198,7 @@ tail -f /var/log/central/site-01/$(date +%Y-%m-%d).log
 ss -tlnup | grep 514
 
 # Tester l'envoi depuis site-01
-logger -n <SRV-NGIX-IP> -P 514 -T "TEST rsyslog site-01"
+logger -n <SRV-NGINX-IP> -P 514 -T "TEST rsyslog site-01"
 grep 'TEST rsyslog' /var/log/central/site-01/*.log
 
 # Statut rsyslog

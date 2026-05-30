@@ -23,9 +23,9 @@ set -euo pipefail
 # ═════════════════════════════════════════════════════════════════════════════
 # CONFIG — ADAPTER À VOTRE INFRASTRUCTURE AVANT DE LANCER
 # ═════════════════════════════════════════════════════════════════════════════
-VM_IP="<SRV-NGIX-IP>"          # IP VM nginx + SOC          ex: 203.0.113.10
+VM_IP="<SRV-NGINX-IP>"          # IP VM nginx + SOC          ex: 203.0.113.10
 CLT_IP="<CLT-IP>"              # IP VM site-01 (Apache)      ex: 203.0.113.11
-PA85_IP="<PA85-IP>"            # IP VM site-02 (Apache)      ex: <CLT-IP>
+PA85_IP="<PA85-IP>"            # IP VM site-02 (Apache)      ex: 203.0.113.12
 PROXMOX_IP="<PROXMOX-IP>"      # IP hyperviseur Proxmox VE   ex: 203.0.113.1
 BOX_IP="<BOX-IP>"              # IP locale de la box FAI     ex: 203.0.113.1
 ROUTER_IP="<ROUTER-IP>"        # IP du routeur               ex: 203.0.113.254
@@ -33,7 +33,7 @@ LAN_CIDR="<LAN-CIDR>"          # Sous-réseau LAN             ex: 203.0.113.0/24
 LAN2_CIDR="<ROUTER-SUBNET>"    # Sous-réseau routeur/gestion ex: 203.0.113.128/25
 SSH_PORT="<SSH-PORT>"          # Port SSH non standard       ex: 2222
 SSH_KEY="<SSH-KEY>"            # Nom de clé SSH (dashboard)  ex: id_nginx
-SSH_KEY_NGIX="<SSH-KEY-NGIX>"          # Clé SSH monitoring→nginx     ex: /root/.ssh/id_nginx_sync
+SSH_KEY_NGINX="<SSH-KEY-NGINX>"          # Clé SSH monitoring→nginx     ex: /root/.ssh/id_nginx_sync
 SSH_KEY_SITE01="<SSH-KEY-SITE01>"      # Clé SSH monitoring→site-01  ex: /root/.ssh/id_site01_sync
 SSH_KEY_SITE02="<SSH-KEY-SITE02>"      # Clé SSH monitoring→site-02  ex: /root/.ssh/id_site02_sync
 SSH_KEY_PVE="<SSH-KEY-PVE>"            # Clé SSH monitoring→proxmox  ex: /root/.ssh/id_proxmox_sync
@@ -49,8 +49,8 @@ VM_ID_SITE02="<VM-ID-SITE02>"          # VM ID Proxmox de site-02    ex: 107
 DOMAIN_COM="<DOMAIN-COM>"      # Domaine principal           ex: monsite.com
 DOMAIN_FR="<DOMAIN-FR>"        # Domaine secondaire          ex: monsite.fr
 MAIL_DEST="<MAIL-DEST>"        # Email alertes SOC           ex: admin@monsite.com
-WAN_LAT="0.0"                  # Latitude de la box (décimal) ex: 12.3456 (Paris)
-WAN_LON="0.0"                  # Longitude de la box (décimal) ex: 7.8910 (Paris)
+WAN_LAT="0.0"                  # Latitude de la box (décimal) ex: 12.3456 (votre ville)
+WAN_LON="0.0"                  # Longitude de la box (décimal) ex: 7.8910 (votre ville)
 ISP_HOST_1="<ISP-HOST-1>"      # Sonde ISP primaire           ex: www.orange.fr
 ISP_HOST_2="<ISP-HOST-2>"      # Sonde ISP secondaire         ex: assistance.orange.fr
 ISP_NAME="<ISP-NAME>"          # Nom de l'opérateur FAI       ex: Orange Fibre
@@ -107,7 +107,7 @@ echo -e "${NC}"
 
 # Verifications
 [[ $EUID -ne 0 ]] && { err "Root requis."; exit 1; }
-[[ "$VM_IP" == "<SRV-NGIX-IP>" ]] && {
+[[ "$VM_IP" == "<SRV-NGINX-IP>" ]] && {
   err "CONFIG non adaptee - editer le bloc CONFIG en haut du script."; exit 1; }
 [[ ! -d "$REPO_DIR/scripts" ]] && {
   err "Dossier scripts/ introuvable dans $REPO_DIR"; exit 1; }
@@ -204,7 +204,7 @@ if step_active "nginx"; then
         # Nom cible dans sites-available (sans extension .conf)
         VHOST_NAME="${f%.conf}"
         run "cp '$SRC' /etc/nginx/sites-available/${VHOST_NAME}"
-        run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g; \
+        run "sed -i 's/<SRV-NGINX-IP>/${VM_IP}/g; \
                      s/<CLT-IP>/${CLT_IP}/g; \
                      s/<PA85-IP>/${PA85_IP}/g; \
                      s|<LAN-CIDR>|${LAN_CIDR}|g; \
@@ -423,7 +423,7 @@ if step_active "scripts"; then
     warn "alert.conf copie - editer ${SCRIPTS_DIR}/alert.conf avec vos credentials SMTP"
   fi
   # Adapter les placeholders dans les scripts copies
-  run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g; \
+  run "sed -i 's/<SRV-NGINX-IP>/${VM_IP}/g; \
                s/<CLT-IP>/${CLT_IP}/g; \
                s/<PA85-IP>/${PA85_IP}/g; \
                s/<PROXMOX-IP>/${PROXMOX_IP}/g; \
@@ -431,7 +431,7 @@ if step_active "scripts"; then
                s/<ROUTER-IP>/${ROUTER_IP}/g; \
                s|<LAN-CIDR>|${LAN_CIDR}|g; \
                s/<SSH-PORT>/${SSH_PORT}/g; \
-               s|<SSH-KEY-NGIX>|${SSH_KEY_NGIX}|g; \
+               s|<SSH-KEY-NGINX>|${SSH_KEY_NGINX}|g; \
                s|<SSH-KEY-SITE01>|${SSH_KEY_SITE01}|g; \
                s|<SSH-KEY-SITE02>|${SSH_KEY_SITE02}|g; \
                s|<SSH-KEY-PVE>|${SSH_KEY_PVE}|g; \
@@ -467,7 +467,7 @@ if step_active "dashboard"; then
   fi
   run "cp '${REPO_DIR}/dashboard/css/monitoring.css' '${MONITORING_DIR}/css/monitoring.css'"
   # Substitution des placeholders dans tous les fichiers JS
-  run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g; \
+  run "sed -i 's/<SRV-NGINX-IP>/${VM_IP}/g; \
                s/<CLT-IP>/${CLT_IP}/g; \
                s/<PA85-IP>/${PA85_IP}/g; \
                s/<PROXMOX-IP>/${PROXMOX_IP}/g; \

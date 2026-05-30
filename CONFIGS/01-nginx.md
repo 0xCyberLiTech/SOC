@@ -124,7 +124,7 @@ http {
 ```nginx
 server {
     listen 8080;
-    server_name <SRV-NGIX-IP>;
+    server_name <SRV-NGINX-IP>;
 
     root /var/www/monitoring;
     index index.html;

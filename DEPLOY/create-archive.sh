@@ -517,7 +517,7 @@ cat > "${TMPDIR}/README-RESTORE.md" << 'EOF'
 
 ## Prérequis
 - Debian 13 (Trixie) fraîche
-- IP : <SRV-NGIX-IP>
+- IP : <SRV-NGINX-IP>
 - Hostname : srv-nginx
 
 ## Étape 1 — Décompresser l'archive
@@ -610,7 +610,7 @@ if ! $DRY_RUN; then
     echo -e "╚═══════════════════════════════════════════════════════╝${NC}"
     echo ""
     log "Pour copier sur Windows :"
-    echo "   scp -i ~/.ssh/id_nginx -P <SSH-PORT> root@<SRV-NGIX-IP>:${ARCHIVE_FILE} 'D:\\BACKUP-PROXMOX\\config\\'"
+    echo "   scp -i ~/.ssh/id_nginx -P <SSH-PORT> root@<SRV-NGINX-IP>:${ARCHIVE_FILE} 'D:\\BACKUP-PROXMOX\\config\\'"
 
 else
     echo ""

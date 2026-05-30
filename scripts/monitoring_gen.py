@@ -3,7 +3,7 @@
 # Version : 3.7.0
 # Date    : 2026-03-10
 # Modifié le : 2026-05-14
-# Serveur : srv-nginx (<SRV-NGIX-IP>)
+# Serveur : srv-nginx (<SRV-NGINX-IP>)
 # Usage   : python3 /opt/clt/monitoring_gen.py
 # Sortie  : /var/www/monitoring/monitoring.json
 # Cron    : /etc/cron.d/monitoring (*/5 min via monitoring.sh)
@@ -84,13 +84,13 @@ except ImportError:
 
 # IPs / ports / clés SSH — dérivés de soc_infra.yaml (Sprint 1A 2026-05-16).
 # Source unique : scripts/soc_infra.yaml. Pour ajouter un host : éditer le yaml.
-IP_SRV_NGIX   = _soc_infra.get_host('srv-nginx').get('ip', '')
+IP_SRV_NGINX   = _soc_infra.get_host('srv-nginx').get('ip', '')
 IP_CLT        = _soc_infra.get_host('clt').get('ip', '')
 IP_PA85       = _soc_infra.get_host('pa85').get('ip', '')
 IP_PROXMOX    = _soc_infra.get_host('proxmox').get('ip', '')
 IP_SRV_DEV1   = _soc_infra.get_host('srv-dev-1').get('ip', '')
 SSH_PORT      = _soc_infra.SSH_PORT
-SSH_KEY_NGIX  = _soc_infra.SSH_KEYS.get('nginx', '')
+SSH_KEY_NGINX  = _soc_infra.SSH_KEYS.get('nginx', '')
 SSH_KEY_CLT   = _soc_infra.SSH_KEYS.get('clt', '')
 SSH_KEY_PA85  = _soc_infra.SSH_KEYS.get('pa85', '')
 SSH_KEY_PVE   = _soc_infra.SSH_KEYS.get('proxmox', '')
@@ -106,7 +106,7 @@ SERVICES      = {
 }
 SSL_DOMAINS   = ['<DOMAIN-COM>', '<DOMAIN-FR>']
 SSH_MACHINES  = [
-    {'name': 'srv-nginx',  'ip': IP_SRV_NGIX,  'port': SSH_PORT, 'local': True,  'role': 'Reverse Proxy'},
+    {'name': 'srv-nginx',  'ip': IP_SRV_NGINX,  'port': SSH_PORT, 'local': True,  'role': 'Reverse Proxy'},
     {'name': 'clt',       'ip': IP_CLT,        'port': SSH_PORT, 'local': False, 'role': 'Backend Web',  'ssh_key': SSH_KEY_CLT},
     {'name': 'pa85',      'ip': IP_PA85,       'port': SSH_PORT, 'local': False, 'role': 'Backend Web',  'ssh_key': SSH_KEY_PA85},
     {'name': 'proxmox',   'ip': IP_PROXMOX,    'port': SSH_PORT, 'local': False, 'role': 'Hyperviseur',  'push_json': '/var/www/monitoring/proxmox-ufw.json', 'ssh_key': SSH_KEY_PVE},
@@ -974,12 +974,12 @@ def _fw_local_nginx():
         ports = _fw_parse_ss_ports(ss_out)
         score, issues = _fw_conformity(active, ports, rules)
         return {
-            'name': 'srv-nginx', 'ip': IP_SRV_NGIX, 'role': 'Reverse Proxy',
+            'name': 'srv-nginx', 'ip': IP_SRV_NGINX, 'role': 'Reverse Proxy',
             'ufw_active': active, 'ufw_rules': rules, 'ufw_rule_lines': rule_lines,
             'listening_ports': ports, 'conformity': score, 'issues': issues,
         }
     except Exception as ex:
-        return {'name': 'srv-nginx', 'ip': IP_SRV_NGIX, 'role': 'Reverse Proxy',
+        return {'name': 'srv-nginx', 'ip': IP_SRV_NGINX, 'role': 'Reverse Proxy',
                 'error': str(ex)[:80]}
 
 

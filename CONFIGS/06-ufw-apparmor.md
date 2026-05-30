@@ -85,7 +85,7 @@ ufw allow from <LAN-SUBNET>    to any port <SSH-PORT> proto tcp comment 'SSH fro
 ufw allow from <ROUTER-SUBNET> to any port <SSH-PORT> proto tcp comment 'SSH from LAN2'
 
 # Dashboard monitoring :8080 — LAN uniquement
-ufw allow from <LAN-SUBNET>    to <SRV-NGIX-IP> port 8080 proto tcp comment 'Monitoring LAN'
+ufw allow from <LAN-SUBNET>    to <SRV-NGINX-IP> port 8080 proto tcp comment 'Monitoring LAN'
 ufw allow from <ROUTER-SUBNET> to any           port 8080 proto tcp comment 'Monitoring LAN2'
 
 # rsyslog réception — LAN uniquement

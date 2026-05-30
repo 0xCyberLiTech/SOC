@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard SOC — SPA vanilla JS · 35 tuiles · 24 modules · Kill Chain temps réel.</h2>
+  <h2>Dashboard SOC — SPA vanilla JS · 35 tuiles · 28 modules · Kill Chain temps réel.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -49,7 +49,7 @@
 Ce document couvre l'architecture du dashboard SOC : Single Page Application vanilla JS sans dépendance NPM, pipeline JSON, système de modules, anti-freeze et Kill Chain canvas.
 
 - 📊 35 tuiles organisées par domaine (menaces, trafic, infrastructure, IA)
-- 🧩 24 modules JS à responsabilité unique — rendu, canvas, XDR, investigation IP
+- 🧩 28 modules JS à responsabilité unique — rendu, canvas, XDR, investigation IP
 - 🔄 Pipeline JSON 60s avec If-Modified-Since + requestIdleCallback anti-freeze
 - 🎯 Kill Chain canvas — classification RECON → DELIVERY, score 0–100 par IP
 - ✅ Audit 10/10 · 90 passes · 144 NDT corrigés · zéro dette technique
@@ -61,9 +61,9 @@ Ce document couvre l'architecture du dashboard SOC : Single Page Application van
 Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 
 - **Fichier** : `/var/www/monitoring/index.html`
-- **Version** : v3.97.x (ligne 1 du HTML)
+- **Version** : v3.108.x (ligne 1 du HTML)
 - **Polling** : toutes les 60 secondes vers `monitoring.json`
-- **Résolution** : 24 modules JS, 35 tuiles, 1 400 lignes CSS
+- **Résolution** : 28 modules JS, 35 tuiles, 1 400 lignes CSS
 
 ---
 
@@ -90,7 +90,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 ├── 17-honeypot.js       ← Tuile honeypot (touchés par phase Kill Chain)
 ├── 18-jarvis-chat.js    ← Widget JARVIS (TTS, chat, analyse LLM)
 ├── 19-xdr.js            ← Tuile XDR (corrélation cross-sources)
-├── 20-rsyslog.js        ← Tuile rsyslog (5 hôtes, log central)
+├── 20-rsyslog.js        ← Tuile rsyslog (6 hôtes, log central)
 ├── 21-cve.js            ← Tuile CVE (feed NVD, alertes critiques)
 ├── 22-ip-deep.js        ← Modal IP Deep (GeoIP+WHOIS+Fail2ban+CrowdSec 30j)
 ├── 23-network.js        ← Tuile réseau (proto-live, bande passante)
@@ -133,7 +133,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 13 | XDR corrélation | cross-source signals |
-| 14 | rsyslog central | /var/log/central/ (5 hôtes) |
+| 14 | rsyslog central | /var/log/central/ (6 hôtes) |
 | 15 | CVE actives | NVD feed + AppSec |
 | 16 | Honeypot | fake services logs |
 
@@ -170,7 +170,7 @@ monitoring_gen.py (cron */5 min)
       ├── AppArmor          → profils enforce/complain
       ├── AIDE              → dernière vérification, statut
       ├── apt (SSH site-01/site-02)→ paquets à mettre à jour
-      ├── rsyslog central   → logs 5 hôtes, corrélations
+      ├── rsyslog central   → logs 6 hôtes, corrélations
       ├── ThreatScore       → calcul 24 briques → score 0-100
       └── Kill Chain        → classification IPs actives
       │
@@ -209,7 +209,7 @@ Chaque module JS est chargé avec un cache-buster dans `index.html` :
 <h3 align="center">Versioning HTML</h3>
 
 ```html
-<!-- v3.97.155 — SOC Dashboard 0xCyberLiTech -->
+<!-- v3.108.1 — SOC Dashboard 0xCyberLiTech -->
 ```
 Format : `v{majeur}.{fonctionnel}.{patch}`
 

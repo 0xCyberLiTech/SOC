@@ -47,6 +47,8 @@
 
 <h2 align="center">Philosophie du projet</h2>
 
+<div align="center"><sub>Ce n'est « qu'un » homelab personnel — mais exposé à internet, en production 24h/24, et traité avec la rigueur d'un vrai SOC. Décrit ici tel qu'il est, sans survente.</sub></div>
+
 <div align="center">
 <table>
 <tr>
@@ -61,7 +63,7 @@ Apprendre la cyberdéfense sur une infrastructure exposée à internet — pas u
 
 **🔒 Savoir construit, pas redistribué**
 
-Le framework de déploiement et la documentation sont publics — la méthode est partageable. Les sources du dashboard (24 modules JS) et les scripts opérationnels restent privés : connaissance acquise, pas distribuée.
+Le framework de déploiement et la documentation sont publics — la méthode est partageable. Les sources du dashboard (28 modules JS) et les scripts opérationnels restent privés : connaissance acquise, pas distribuée.
 
 </td>
 <td align="center" width="33%">
@@ -81,7 +83,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![GeoIP World](assets/geoip-world.jpg)
+![GeoIP World](assets/geoip-world.png)
 
 *GeoIP — Cartographie mondiale des menaces 24h · arcs d'attaque animés · top pays · 169 IPs actives · 25 pays sources*
 
@@ -158,7 +160,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ![JARVIS AI](assets/jarvis-ai.png)
 
-*JARVIS (Ollama phi4-reasoning) · réponse proactive automatique · alertes TTS · analyse LLM événements critiques · ban auto*
+*JARVIS (Ollama phi4:14b) · réponse proactive automatique · alertes TTS · analyse LLM événements critiques · ban auto*
 
 </div>
 
@@ -173,10 +175,10 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 | 3 | **fail2ban + UFW + GeoIP block** | 3 jails nginx/ssh · nftables · blocage géographique MaxMind GeoLite2 | Compléter CrowdSec : patterns ciblés, firewall stateful, filtrage géo en entrée |
 | 4 | **Dashboard monitoring** | monitoring_gen.py · monitoring.json · SPA Vanilla JS · premières tuiles système | Sans visibilité temps réel, la défense est aveugle — dashboard avant tout ajout |
 | 5 | **Kill Chain + GeoIP cartographie** | Classification 5 stages · score 0–100 · canvas monde · heatmap 24h · top IPs | Transformer les logs bruts en renseignement tactique — qui fait quoi, d'où, quand |
-| 6 | **Suricata IDS 7 + rsyslog centralisé** | 49k règles Emerging Threats · AF_PACKET · eve.json · 5 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
-| 7 | **JARVIS IA défensive** | Ollama phi4-reasoning · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
+| 6 | **Suricata IDS 7 + rsyslog centralisé** | 49k règles Emerging Threats · AF_PACKET · eve.json · 6 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
+| 7 | **JARVIS IA défensive** | Ollama phi4:14b · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
 | 8 | **AppArmor + AIDE HIDS** | Confinement processus · base intégrité 49k fichiers · exclusions CrowdSec hub | Dernier rempart : un attaquant qui passe tout le reste ne peut ni s'étendre ni persister |
-| 9 | **DR exercice réel + audit 10/10** | Exercice Phase A/B/C (2026-04-28) · 8 écarts corrigés · 144 NDT · 90 passes | Valider que le système se reconstruit réellement, pas juste sur le papier |
+| 9 | **DR exercice réel + qualité auditée** | Exercice Phase A/B/C (2026-04-28) · 8 écarts corrigés · suite de tests · dette de code à zéro | Valider que le système se reconstruit réellement, pas juste sur le papier |
 
 ---
 
@@ -184,16 +186,21 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 | | Capacité | Détail |
 |--|----------|--------|
-| 🛡️ | **8 couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers) |
-| 🧠 | **IA défensive** | JARVIS (Ollama phi4-reasoning) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
-| 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
+| 🛡️ | **8 couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
+| 🧠 | **IA défensive** | JARVIS (Ollama phi4:14b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
+| 📡 | **Logs centralisés** | 6 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
 | 📊 | **Score menace** | 24 briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
+| 📈 | **Historique 30 jours** | Score menace tracé sur 30j · sparkline + modal · tendances et pics |
+| 🕸️ | **Corrélation temporelle** | Détection de campagnes lentes `/24` sur 14 jours — les attaques discrètes ne passent pas sous le radar |
+| 🩺 | **IoC post-compromission** | 6 signaux : intégrité AIDE · C2 Suricata · anomalies SSH · webshells PHP · AppArmor · sudo |
+| 📬 | **Hub mail centralisé** | Toutes les remontées mail par un point unique · déduplication · journal forensique |
 | 🔍 | **XDR** | Corrélation Fail2ban + ModSec + UFW + Suricata + rsyslog + routeur |
 | 🗺️ | **GeoIP** | Cartographie Leaflet + MaxMind · arcs d'attaque animés · top pays |
 | 🔄 | **Plug-and-play** | Archive 13 blocs · restauration complète sur VM vierge en < 30 min |
 | 🔥 | **DR validé en conditions réelles** | Exercice Phase A/B/C exécuté le 2026-04-28 · basculement réseau · 8 écarts corrigés · [rapport](DEPLOY/DR-EXERCISE-2026-04-28.md) |
-| ✅ | **Audit 10/10** | Zéro dette technique · 90 passes · 144 NDT corrigés |
+| 🧪 | **Qualité &amp; tests** | Suite pytest (1000+ tests) · ruff/eslint · dette de code à zéro · dette structurelle **assumée et documentée** |
+| 🧯 | **Résilience auto** | Auto-ban CrowdSec · auto-restart services · cooldowns anti-spam · journal forensique horodaté |
 
 ---
 
@@ -204,10 +211,10 @@ OS          Debian 13 (Trixie)
 Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
 Sécurité    CrowdSec (WAF AppSec ~207 vpatch CVE) · Suricata IDS (96k règles)
             Fail2ban · AppArmor · UFW + nftables · AIDE HIDS
-Logs        rsyslog centralisé (5 hôtes) · GoAccess
-Dashboard   SPA vanilla JS — 24 modules · 35 tuiles · zéro dépendance NPM
+Logs        rsyslog centralisé (6 hôtes) · GoAccess
+Dashboard   SPA vanilla JS — 28 modules · 35 tuiles · zéro dépendance NPM
 Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
-IA          JARVIS — Ollama phi4-reasoning · Flask · edge-tts
+IA          JARVIS — Ollama phi4:14b · Flask · edge-tts
 GeoIP       MaxMind GeoLite2 · Leaflet.js
 Infra       Proxmox VE — 3 VMs (srv-nginx · site-01 · site-02)
 ```
@@ -229,7 +236,7 @@ INTERNET
 │                                                     │
 │  ┌──────────────────────────────────────────────┐   │
 │  │         Dashboard SOC (port 8080)            │   │
-│  │  24 modules JS · polling 60s · Kill Chain    │   │
+│  │  28 modules JS · polling 60s · Kill Chain    │   │
 │  └──────────────────────────────────────────────┘   │
 │                                                     │
 │  rsyslog ◄── site-01 · site-02 · pve · <ROUTER>     │
@@ -255,14 +262,14 @@ INTERNET
 > **Ce dépôt met à disposition :**
 > Architecture complète · 9 documents techniques · framework de déploiement · configs anonymisées · rapport DR exercice réel (2026-04-28)
 >
-> 🔒 Les sources du dashboard (24 modules JS) et les scripts opérationnels restent privés — connaissance construite, pas redistribuée.
+> 🔒 Les sources du dashboard (28 modules JS) et les scripts opérationnels restent privés — connaissance construite, pas redistribuée.
 
 > **Infrastructure de référence** : ce SOC tourne sur **Proxmox VE** (machine physique) hébergeant 3 VMs Debian 13.
 > La reconstruction sur un autre hyperviseur (KVM, VMware, bare-metal) est possible en adaptant les 4 IPs du bloc CONFIG de `deploy-soc.sh` :
 >
 > | Placeholder | Rôle | Exemple générique |
 > |-------------|------|-------------------|
-> | `<SRV-NGIX-IP>` | VM nginx + SOC dashboard | `203.0.113.10` |
+> | `<SRV-NGINX-IP>` | VM nginx + SOC dashboard | `203.0.113.10` |
 > | `<CLT-IP>` | VM site-01 (Apache) | `203.0.113.11` |
 > | `<PA85-IP>` | VM site-02 (Apache) | `203.0.113.12` |
 > | `<PROXMOX-IP>` | Hyperviseur Proxmox VE | `203.0.113.1` |
@@ -279,7 +286,7 @@ INTERNET
 | 04 | [DASHBOARD-SOC.md](04-DASHBOARD-SOC.md) | Dashboard : modules JS · tuiles · polling · CSS |
 | 05 | [CHAINE-DEFENSE.md](05-CHAINE-DEFENSE.md) | Flux attaque → détection → ban · intégrations |
 | 06 | [THREATSCORE.md](06-THREATSCORE.md) | Score menace : 24 briques · formule · anti-doublons |
-| 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 5 hôtes · filtres · rétention |
+| 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 6 hôtes · filtres · rétention |
 | 08 | [JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md) | Défense proactive IA : boucle 60s · 12 déclencheurs |
 | 09 | [ROADMAP.md](09-ROADMAP.md) | Axes d'évolution · décisions d'architecture |
 
@@ -328,13 +335,13 @@ INTERNET
 
 <h2 align="center">Dashboard SOC</h2>
 
-SPA Vanilla JS — zéro dépendance NPM · 24 modules · 35 tuiles.
+SPA Vanilla JS — zéro dépendance NPM · 28 modules · 35 tuiles.
 
 > Les sources JS ne sont pas publiées dans ce dépôt. La page HTML et le CSS sont disponibles à titre de référence.
 
 | Caractéristique | Détail |
 |---|---|
-| **Architecture** | 24 modules JS à responsabilité unique — rendu, canvas, fetch, modals, XDR, investigation IP… |
+| **Architecture** | 28 modules JS à responsabilité unique — rendu, canvas, fetch, modals, XDR, investigation IP… |
 | **35 tuiles** | Kill Chain · GeoIP · XDR · Fail2ban · CrowdSec · Suricata · AIDE HIDS · rsyslog · nginx · Freebox · JARVIS |
 | **Kill Chain** | Canvas 2D — tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ · score menace par IP |
 | **Investigation IP** | Modal forensique — CrowdSec · Fail2ban · GeoIP · WHOIS · verdict · historique 30j |
@@ -342,13 +349,13 @@ SPA Vanilla JS — zéro dépendance NPM · 24 modules · 35 tuiles.
 | **GeoIP** | Leaflet.js + MaxMind GeoLite2 — cartographie mondiale · arcs d'attaque animés |
 | **Polling** | Cycle 60s — toutes les tuiles se rafraîchissent automatiquement · zéro rechargement de page |
 | **Thème** | Glassmorphism — tokens CSS `--fs-*` · responsive · zéro framework CSS |
-| **Qualité** | Audit 10/10 · 90 passes · 144 NDT corrigés · zéro dette technique |
+| **Qualité** | Dette de code à zéro (NDT) · suite pytest 1000+ · dette structurelle assumée · scores honnêtes |
 
 ---
 
 <h2 align="center">Configurations de référence</h2>
 
-Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNET>`, `<SSH-PORT>`, `<SRV-NGIX-IP>`, etc.
+Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNET>`, `<SSH-PORT>`, `<SRV-NGINX-IP>`, etc.
 
 | # | Fichier | Description |
 |---|---------|-------------|
@@ -356,7 +363,7 @@ Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNE
 | 02 | [crowdsec.md](CONFIGS/02-crowdsec.md) | Collections · LAPI · bouncer nftables · scénarios custom · whitelist LAN |
 | 03 | [fail2ban.md](CONFIGS/03-fail2ban.md) | jail.local · action crowdsec-sync · filtres nginx-cve · nginx-botsearch |
 | 04 | [suricata.md](CONFIGS/04-suricata.md) | AF_PACKET · ring buffer · eve.json · update.yaml · sysctl hardening |
-| 05 | [rsyslog.md](CONFIGS/05-rsyslog.md) | Récepteur central · 5 hôtes · template par hôte · logrotate · corrélations |
+| 05 | [rsyslog.md](CONFIGS/05-rsyslog.md) | Récepteur central · 6 hôtes · template par hôte · logrotate · corrélations |
 | 06 | [ufw-apparmor.md](CONFIGS/06-ufw-apparmor.md) | Règles UFW entrantes/sortantes · bouncer nftables · profils AppArmor |
 | 07 | [crons.md](CONFIGS/07-crons.md) | 9 tâches planifiées : monitoring · Suricata · CrowdSec · rapport · GeoIP |
 

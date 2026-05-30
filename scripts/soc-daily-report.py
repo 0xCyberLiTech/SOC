@@ -21,7 +21,7 @@ import soc_infra as _soc_infra
 MONITORING_JSON = '/var/www/monitoring/monitoring.json'
 ALERT_CONF      = '/opt/clt/alert.conf'
 DASHBOARD_URL   = _soc_infra.DASHBOARD_URL
-_SRV_NGIX_IP    = _soc_infra.DASHBOARD_HOST
+_SRV_NGINX_IP    = _soc_infra.DASHBOARD_HOST
 _LAN_CIDR       = _soc_infra.LAN_CIDR
 
 # IPs internes à exclure des listes d'attaquants
@@ -618,7 +618,7 @@ def build_html(d):
       <table width="100%" cellpadding="0" cellspacing="0">
         <tr>
           <td style="color:#7a9ab8;font-size:11px">&#128197; {now}</td>
-          <td style="color:#7a9ab8;font-size:11px;text-align:right">srv-nginx &middot; {_SRV_NGIX_IP}</td>
+          <td style="color:#7a9ab8;font-size:11px;text-align:right">srv-nginx &middot; {_SRV_NGINX_IP}</td>
         </tr>
       </table>
     </div>
@@ -660,7 +660,7 @@ def build_text(d):
     mem = sys_.get('memory', {}); disk = sys_.get('disk', {}); load = sys_.get('load', {})
     lines = [
         'SOC 0xCyberLiTech — Rapport quotidien',
-        f'Généré le {now} — srv-nginx ({_SRV_NGIX_IP})', '',
+        f'Généré le {now} — srv-nginx ({_SRV_NGINX_IP})', '',
         f'NIVEAU MENACE : {threat_info(kc,f2b,t,cs,sur)[0]}', '',
         sep, 'TRAFIC 24H', sep,
         f'  Requêtes totales  : {t.get("total_requests",0):,}',

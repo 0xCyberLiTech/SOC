@@ -64,7 +64,7 @@ Cette checklist valide l'archive avant de la conserver comme référence DR. Ell
 
 <h3 align="center">Réseau — BLOC 0</h3>
 
-- [ ] `/etc/network/interfaces` contient IP statique <SRV-NGIX-IP>, GW <LAN-IP>, DNS
+- [ ] `/etc/network/interfaces` contient IP statique <SRV-NGINX-IP>, GW <LAN-IP>, DNS
 - [ ] `/etc/hostname` = `srv-nginx`
 - [ ] `/etc/hosts` contient entrée localhost + srv-nginx
 - [ ] `/etc/ssh/sshd_config` — port <SSH-PORT>, PasswordAuthentication no, MaxAuthTries 3
@@ -240,9 +240,9 @@ grep -c "DIFFÉRENT\|NOUVEAU" restore-simulation.txt
 <h3 align="center">Réseau</h3>
 
 - [ ] `hostname` → `srv-nginx`
-- [ ] `ip addr show` → <SRV-NGIX-IP>/24
+- [ ] `ip addr show` → <SRV-NGINX-IP>/24
 - [ ] `ip route` → default via <LAN-IP>
-- [ ] `ssh -p <SSH-PORT> root@<SRV-NGIX-IP> hostname` → `srv-nginx` (depuis LAN)
+- [ ] `ssh -p <SSH-PORT> root@<SRV-NGINX-IP> hostname` → `srv-nginx` (depuis LAN)
 - [ ] `sysctl net.ipv4.conf.all.rp_filter` → `2`
 - [ ] `echo "test SOC" | mail -s test admin@domain.fr` → mail reçu (exim4 SMTP <MAIL-PROVIDER>)
 
@@ -274,11 +274,11 @@ cscli collections list | grep linux-lpe  # collection installée
 ```bash
 nginx -t                           # OK
 curl -sI https://<DOMAIN-COM>/ | head -3  # 200 ou 301
-curl -sI http://<SRV-NGIX-IP>:8080/ | head -3   # dashboard
+curl -sI http://<SRV-NGINX-IP>:8080/ | head -3   # dashboard
 ```
 - [ ] `nginx -t` → OK
 - [ ] Sites répondent (<DOMAIN-COM>, site-02)
-- [ ] Dashboard SOC accessible http://<SRV-NGIX-IP>:8080/
+- [ ] Dashboard SOC accessible http://<SRV-NGINX-IP>:8080/
 
 <h3 align="center">Crons</h3>
 
@@ -321,7 +321,7 @@ stat -c "%a %U" /etc/nginx/api-keys.conf  # 600 root
 
 <h3 align="center">Dashboard SOC</h3>
 
-- [ ] http://<SRV-NGIX-IP>:8080/ charge sans erreur JS
+- [ ] http://<SRV-NGINX-IP>:8080/ charge sans erreur JS
 - [ ] ThreatScore affiché (pas N/A)
 - [ ] Tuile Services : nginx/crowdsec/suricata/fail2ban tous verts
 - [ ] Tuile CrowdSec : bans affichés

@@ -66,7 +66,7 @@ Ce guide décrit le workflow complet de déploiement ou restauration du SOC depu
 <h3 align="center">VM à préparer (nouveau srv-nginx)</h3>
 
 - OS : **Debian 13 (Trixie)** installation minimale
-- IP : **<SRV-NGIX-IP>** (configurée pendant l'install Debian — DHCP ou statique, peu importe pour l'instant)
+- IP : **<SRV-NGINX-IP>** (configurée pendant l'install Debian — DHCP ou statique, peu importe pour l'instant)
 - SSH : port **22** (par défaut — sera changé à <SSH-PORT> par le script de restauration)
 - Accès : root avec mot de passe (le script SSH clés sera restauré)
 - Réseau : accessible depuis votre poste Windows
@@ -86,7 +86,7 @@ Depuis **Git Bash sur Windows** :
 
 ```bash
 # Variables (adapter si besoin)
-NEW_VM="<SRV-NGIX-IP>"
+NEW_VM="<SRV-NGINX-IP>"
 ARCHIVE="/path/to/backups/soc-config-AAAA-MM-JJ_HHMM.tar.gz"
 # Cloner le dépôt SOC sur la VM directement
 ssh root@${NEW_VM} "mkdir -p /root/deploy-soc"
@@ -115,7 +115,7 @@ scp "${ARCHIVE}" root@${NEW_VM}:/root/deploy-soc/
 <h2 align="center">Étape 2 — Se connecter à la nouvelle VM</h2>
 
 ```bash
-ssh root@<SRV-NGIX-IP>
+ssh root@<SRV-NGINX-IP>
 cd /root/deploy-soc
 ```
 
@@ -191,7 +191,7 @@ reboot
 Depuis **Git Bash sur Windows** (après le reboot) :
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP>
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP>
 ```
 
 ---
@@ -216,8 +216,8 @@ cscli bouncers list
 
 | URL | Description | Disponible sans JARVIS ? |
 |-----|-------------|--------------------------|
-| `http://<SRV-NGIX-IP>:8080/` | Dashboard SOC principal — ThreatScore, tuiles, Kill Chain | ✅ Oui |
-| `http://<SRV-NGIX-IP>:8080/goaccess.html` | Rapport GoAccess — stats HTTP nginx temps réel | ✅ Oui |
+| `http://<SRV-NGINX-IP>:8080/` | Dashboard SOC principal — ThreatScore, tuiles, Kill Chain | ✅ Oui |
+| `http://<SRV-NGINX-IP>:8080/goaccess.html` | Rapport GoAccess — stats HTTP nginx temps réel | ✅ Oui |
 
 > **Note** : Si JARVIS (Windows <LAN-IP>) est éteint, la tuile JARVIS affiche "OFFLINE" mais tout le reste du dashboard fonctionne normalement — CrowdSec, Suricata, bans, ThreatScore, Kill Chain, logs centraux.
 
@@ -250,7 +250,7 @@ bash restore-soc.sh archive.tar.gz --step crons
 
 ```bash
 # ─── Depuis Git Bash Windows ──────────────────────────────────────────
-NEW_VM="<SRV-NGIX-IP>"
+NEW_VM="<SRV-NGINX-IP>"
 ARCHIVE="/path/to/backups/soc-config-AAAA-MM-JJ_HHMM.tar.gz"
 DEPLOY="<YOUR-LOCAL-SOC-PATH>/DEPLOY"
 
@@ -268,7 +268,7 @@ bash restore-soc.sh soc-config-*.tar.gz                    # 3. restauration
 reboot                                                      # 4. reboot
 
 # ─── Depuis Git Bash Windows (après reboot) ───────────────────────────
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP>           # 5. reconnexion
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP>           # 5. reconnexion
 ```
 
 ---

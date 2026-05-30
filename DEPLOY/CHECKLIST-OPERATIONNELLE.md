@@ -64,7 +64,7 @@ Durée estimée : **5 à 10 minutes**.
 
 <h3 align="center">1. État global du dashboard</h3>
 
-Ouvrir `http://<SRV-NGIX-IP>:8080/` depuis le LAN.
+Ouvrir `http://<SRV-NGINX-IP>:8080/` depuis le LAN.
 
 - [ ] Dashboard se charge sans erreur
 - [ ] ThreatScore affiché (valeur entre 0 et 100)
@@ -74,7 +74,7 @@ Ouvrir `http://<SRV-NGIX-IP>:8080/` depuis le LAN.
 <h3 align="center">2. Services critiques</h3>
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "systemctl is-active nginx crowdsec suricata fail2ban rsyslog"
 ```
 
@@ -95,7 +95,7 @@ Résultat attendu : `active` × 5
 <h3 align="center">4. Bans CrowdSec</h3>
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "cscli decisions list | head -20"
 ```
 
@@ -110,7 +110,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 <h3 align="center">5. Mise à jour des règles CrowdSec</h3>
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "cscli hub update && cscli hub upgrade"
 ```
 
@@ -121,7 +121,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 <h3 align="center">6. Mise à jour des règles Suricata</h3>
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "suricata-update && systemctl reload suricata"
 ```
 
@@ -132,7 +132,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 
 ```bash
 # srv-nginx
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "apt-get update -qq && apt list --upgradable 2>/dev/null"
 
 # site-01
@@ -150,7 +150,7 @@ ssh -i ~/.ssh/id_site-02 -p <SSH-PORT> root@<PA85-IP> \
 <h3 align="center">8. Rotation logs</h3>
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "du -sh /var/log/central/ /var/log/nginx/ /var/log/suricata/"
 ```
 
@@ -162,7 +162,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 Vérifier que la vérification AIDE nocturne (03h00) s'est bien exécutée :
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "tail -20 /var/log/aide/aide.log"
 ```
 
@@ -177,7 +177,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 <h3 align="center">10. Revue des bans permanents</h3>
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "cscli decisions list --type ban | grep -v '24h' | grep -v '1h'"
 ```
 
@@ -188,14 +188,14 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 
 ```bash
 # Simuler un ban JARVIS
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "cscli decisions add --ip 203.0.113.1 --reason 'test-mensuel' --duration 5m"
 
 # Vérifier apparition dans dashboard
 # Attendre 60s → monitoring.json mis à jour → tuile CrowdSec
 
 # Nettoyer
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "cscli decisions delete --ip 203.0.113.1"
 ```
 
@@ -205,7 +205,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 <h3 align="center">12. Revue des règles UFW</h3>
 
 ```bash
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "ufw status verbose"
 ```
 
@@ -216,7 +216,7 @@ ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
 
 ```bash
 # Exécuter le script d'archive depuis srv-nginx
-ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGIX-IP> \
+ssh -i ~/.ssh/id_nginx -p <SSH-PORT> root@<SRV-NGINX-IP> \
   "/opt/soc/scripts/create-archive.sh"
 ```
 

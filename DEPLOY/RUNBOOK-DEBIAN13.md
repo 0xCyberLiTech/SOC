@@ -118,14 +118,14 @@ RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
 CYAN='\033[0;36m'; BOLD='\033[1m'; NC='\033[0m'
 
 # ── Configuration — ADAPTER À VOTRE ENVIRONNEMENT ────────────────────────────
-VM_IP="<SRV-NGIX-IP>"
+VM_IP="<SRV-NGINX-IP>"
 CLT_IP="<CLT-IP>"
 PA85_IP="<PA85-IP>"
 LAN_CIDR="<LAN-SUBNET>"
 LAN2_CIDR="<ROUTER-SUBNET>"
 SSH_PORT="<SSH-PORT>"
 SSH_KEY="<SSH-KEY>"
-SSH_KEY_NGIX="<SSH-KEY-NGIX>"
+SSH_KEY_NGINX="<SSH-KEY-NGINX>"
 SSH_KEY_CLT="<SSH-KEY-CLT>"
 SSH_KEY_PA85="<SSH-KEY-PA85>"
 SSH_KEY_PVE="<SSH-KEY-PVE>"
@@ -620,7 +620,7 @@ if step_active "scripts"; then
   done
 
   # Substitution des placeholders dans les scripts
-  run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g;
+  run "sed -i 's/<SRV-NGINX-IP>/${VM_IP}/g;
                s/<CLT-IP>/${CLT_IP}/g;
                s/<PA85-IP>/${PA85_IP}/g;
                s/<PROXMOX-IP>/${PROXMOX_IP}/g;
@@ -649,7 +649,7 @@ if step_active "dashboard"; then
   run "cp '${REPO_DIR}/dashboard/css/monitoring.css' '${MONITORING_DIR}/css/monitoring.css'"
 
   # Substitution des placeholders dans tous les fichiers JS
-  run "sed -i 's/<SRV-NGIX-IP>/${VM_IP}/g;
+  run "sed -i 's/<SRV-NGINX-IP>/${VM_IP}/g;
                s/<CLT-IP>/${CLT_IP}/g;
                s/<PA85-IP>/${PA85_IP}/g;
                s/<PROXMOX-IP>/${PROXMOX_IP}/g;
@@ -863,7 +863,7 @@ ls -la /var/www/monitoring/js/ | wc -l
 
 Les vhosts nginx référencent vos domaines et IPs. Adapter les fichiers dans `/etc/nginx/sites-available/` avec vos valeurs réelles.
 
-Exemples de valeurs à remplacer : `<DOMAIN-COM>`, `<CLT-IP>`, `<PA85-IP>`, `<SRV-NGIX-IP>`.
+Exemples de valeurs à remplacer : `<DOMAIN-COM>`, `<CLT-IP>`, `<PA85-IP>`, `<SRV-NGINX-IP>`.
 
 ```bash
 # Vérifier après modification
