@@ -70,7 +70,7 @@ Le projet démontre qu'il est possible de construire un SOC professionnel avec d
 | **Visibilité** | Voir en temps réel ce qui se passe sur l'infrastructure |
 | **Protection** | Bloquer automatiquement les attaques (scans, CVE, brute force) |
 | **Résilience** | Maintenir les services en ligne malgré les attaques |
-| **Traçabilité** | Centraliser les logs de 6 hôtes, détecter les corrélations |
+| **Traçabilité** | Centraliser les logs de 5 hôtes, détecter les corrélations |
 | **Autonomie** | Réagir sans intervention humaine via JARVIS IA |
 
 ---
@@ -150,7 +150,7 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 
 <h3 align="center">Couche collecte / corrélation</h3>
 
-- **rsyslog** — Récepteur central TCP+UDP :514 (6 hôtes)
+- **rsyslog** — Récepteur central TCP+UDP :514 (5 hôtes)
 - **nginx** — Reverse proxy + logs avec GeoIP country + format enrichi
 - **GeoIP2 MaxMind** — Géolocalisation IP temps réel
 

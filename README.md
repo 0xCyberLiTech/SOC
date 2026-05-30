@@ -173,7 +173,7 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 | 3 | **fail2ban + UFW + GeoIP block** | 3 jails nginx/ssh · nftables · blocage géographique MaxMind GeoLite2 | Compléter CrowdSec : patterns ciblés, firewall stateful, filtrage géo en entrée |
 | 4 | **Dashboard monitoring** | monitoring_gen.py · monitoring.json · SPA Vanilla JS · premières tuiles système | Sans visibilité temps réel, la défense est aveugle — dashboard avant tout ajout |
 | 5 | **Kill Chain + GeoIP cartographie** | Classification 5 stages · score 0–100 · canvas monde · heatmap 24h · top IPs | Transformer les logs bruts en renseignement tactique — qui fait quoi, d'où, quand |
-| 6 | **Suricata IDS 7 + rsyslog centralisé** | 49k règles Emerging Threats · AF_PACKET · eve.json · 6 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
+| 6 | **Suricata IDS 7 + rsyslog centralisé** | 49k règles Emerging Threats · AF_PACKET · eve.json · 5 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
 | 7 | **JARVIS IA défensive** | Ollama phi4:14b · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
 | 8 | **AppArmor + AIDE HIDS** | Confinement processus · base intégrité 49k fichiers · exclusions CrowdSec hub | Dernier rempart : un attaquant qui passe tout le reste ne peut ni s'étendre ni persister |
 | 9 | **DR exercice réel + qualité auditée** | Exercice Phase A/B/C (2026-04-28) · 8 écarts corrigés · suite de tests · dette de code à zéro | Valider que le système se reconstruit réellement, pas juste sur le papier |
@@ -186,7 +186,7 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 |--|----------|--------|
 | 🛡️ | **8 couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
 | 🧠 | **IA défensive** | JARVIS (Ollama phi4:14b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
-| 📡 | **Logs centralisés** | 6 hôtes via rsyslog — corrélation cross-host temps réel |
+| 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
 | 📊 | **Score menace** | 24 briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
 | 📈 | **Historique 30 jours** | Score menace tracé sur 30j · sparkline + modal · tendances et pics |
@@ -209,7 +209,7 @@ OS          Debian 13 (Trixie)
 Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
 Sécurité    CrowdSec (WAF AppSec ~207 vpatch CVE) · Suricata IDS (96k règles)
             Fail2ban · AppArmor · UFW + nftables · AIDE HIDS
-Logs        rsyslog centralisé (6 hôtes) · GoAccess
+Logs        rsyslog centralisé (5 hôtes) · GoAccess
 Dashboard   SPA vanilla JS — 28 modules · 35 tuiles · zéro dépendance NPM
 Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
 IA          JARVIS — Ollama phi4:14b · Flask · edge-tts
@@ -284,7 +284,7 @@ INTERNET
 | 04 | [DASHBOARD-SOC.md](04-DASHBOARD-SOC.md) | Dashboard : modules JS · tuiles · polling · CSS |
 | 05 | [CHAINE-DEFENSE.md](05-CHAINE-DEFENSE.md) | Flux attaque → détection → ban · intégrations |
 | 06 | [THREATSCORE.md](06-THREATSCORE.md) | Score menace : 24 briques · formule · anti-doublons |
-| 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 6 hôtes · filtres · rétention |
+| 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 5 hôtes · filtres · rétention |
 | 08 | [JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md) | Défense proactive IA : boucle 60s · 12 déclencheurs |
 | 09 | [ROADMAP.md](09-ROADMAP.md) | Axes d'évolution · décisions d'architecture |
 
@@ -361,7 +361,7 @@ Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNE
 | 02 | [crowdsec.md](CONFIGS/02-crowdsec.md) | Collections · LAPI · bouncer nftables · scénarios custom · whitelist LAN |
 | 03 | [fail2ban.md](CONFIGS/03-fail2ban.md) | jail.local · action crowdsec-sync · filtres nginx-cve · nginx-botsearch |
 | 04 | [suricata.md](CONFIGS/04-suricata.md) | AF_PACKET · ring buffer · eve.json · update.yaml · sysctl hardening |
-| 05 | [rsyslog.md](CONFIGS/05-rsyslog.md) | Récepteur central · 6 hôtes · template par hôte · logrotate · corrélations |
+| 05 | [rsyslog.md](CONFIGS/05-rsyslog.md) | Récepteur central · 5 hôtes · template par hôte · logrotate · corrélations |
 | 06 | [ufw-apparmor.md](CONFIGS/06-ufw-apparmor.md) | Règles UFW entrantes/sortantes · bouncer nftables · profils AppArmor |
 | 07 | [crons.md](CONFIGS/07-crons.md) | 9 tâches planifiées : monitoring · Suricata · CrowdSec · rapport · GeoIP |
 

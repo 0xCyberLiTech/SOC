@@ -174,7 +174,7 @@ fail2ban-client unbanip nginx-botsearch <IP>
 | Même IP dans logs nginx + fail2ban site-01 + site-02 | `cross_host_correlation` | Badge ⊙XHC kill chain |
 | Connexions SSH suspectes depuis IP bannies | Corrélation CrowdSec + sshd | Score +15 |
 | Trafic sortant inhabituel (C2 potentiel) | rsyslog routeur <ROUTER> | Score +15 · JARVIS alerte |
-| Scans multi-cibles (>6 hôtes touchés) | rsyslog correlation | Score +5 · JARVIS alerte |
+| Scans multi-cibles (>5 hôtes touchés) | rsyslog correlation | Score +5 · JARVIS alerte |
 
 ---
 

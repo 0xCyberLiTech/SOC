@@ -90,7 +90,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 ├── 17-honeypot.js       ← Tuile honeypot (touchés par phase Kill Chain)
 ├── 18-jarvis-chat.js    ← Widget JARVIS (TTS, chat, analyse LLM)
 ├── 19-xdr.js            ← Tuile XDR (corrélation cross-sources)
-├── 20-rsyslog.js        ← Tuile rsyslog (6 hôtes, log central)
+├── 20-rsyslog.js        ← Tuile rsyslog (5 hôtes, log central)
 ├── 21-cve.js            ← Tuile CVE (feed NVD, alertes critiques)
 ├── 22-ip-deep.js        ← Modal IP Deep (GeoIP+WHOIS+Fail2ban+CrowdSec 30j)
 ├── 23-network.js        ← Tuile réseau (proto-live, bande passante)
@@ -133,7 +133,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 | # | Tuile | Source données |
 |---|-------|----------------|
 | 13 | XDR corrélation | cross-source signals |
-| 14 | rsyslog central | /var/log/central/ (6 hôtes) |
+| 14 | rsyslog central | /var/log/central/ (5 hôtes) |
 | 15 | CVE actives | NVD feed + AppSec |
 | 16 | Honeypot | fake services logs |
 
@@ -170,7 +170,7 @@ monitoring_gen.py (cron */5 min)
       ├── AppArmor          → profils enforce/complain
       ├── AIDE              → dernière vérification, statut
       ├── apt (SSH site-01/site-02)→ paquets à mettre à jour
-      ├── rsyslog central   → logs 6 hôtes, corrélations
+      ├── rsyslog central   → logs 5 hôtes, corrélations
       ├── ThreatScore       → calcul 24 briques → score 0-100
       └── Kill Chain        → classification IPs actives
       │
