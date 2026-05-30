@@ -226,7 +226,7 @@ INTERNET
    │
    ▼
 ┌─────────────────────────────────────────────────────┐
-│                    srv-nginx                         │
+│                    srv-nginx                        │
 │                                                     │
 │  UFW + nftables ──→ GeoIP Block ──→ CrowdSec WAF    │
 │       ──→ Suricata IDS ──→ Fail2ban ──→ nginx       │
