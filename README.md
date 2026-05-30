@@ -83,7 +83,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![GeoIP World](assets/geoip-world.png)
+![Carte mondiale des menaces](assets/soc-map-world.jpg)
 
 *GeoIP — Cartographie mondiale des menaces 24h · arcs d'attaque animés · top pays · 169 IPs actives · 25 pays sources*
 
@@ -95,7 +95,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![Kill Chain](assets/kill-chain.png)
+![Kill Chain](assets/soc-killchain.jpg)
 
 *Tracking en temps réel : RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ · fenêtre 15 min · score menace par IP*
 
@@ -103,14 +103,13 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ---
 
-<h2 align="center">Vue tactique Europe & Investigation IP</h2>
+<h2 align="center">Vue tactique Europe</h2>
 
 <div align="center">
 
-| SOC Map — Vue Europe | Investigation IP |
-|:--------------------:|:----------------:|
-| ![SOC Map Europe](assets/socmap-europe.png) | ![IP Investigation](assets/ip-investigation.png) |
-| *Score ÉLEVÉ 53 · 169 hostiles · 78% neutralisation · arcs kill chain* | *Modal forensique : Kill Chain · CrowdSec · Fail2ban · WHOIS · verdict* |
+![SOC Map Europe](assets/soc-map-europe.jpg)
+
+*Carte tactique Europe — score menace en direct · hostiles actifs · % neutralisation · arcs kill chain animés*
 
 </div>
 
@@ -120,7 +119,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![GeoIP Stats](assets/geoip-stats.png)
+![Niveau de menace global](assets/soc-threat-level.jpg)
 
 *Kill Chain 15 min · Top pays attaquants · Scénarios CrowdSec · Heatmap activité · Top 60 IPs 24h*
 
@@ -134,21 +133,20 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 | XDR — Corrélation cross-source | Chaîne de défense — Pipeline sécurité |
 |:------------------------------:|:-------------------------------------:|
-| ![XDR Engine](assets/xdr-engine.png) | ![Defense Chain](assets/defense-chain.png) |
+| ![XDR Engine](assets/soc-xdr.jpg) | ![Chaîne de défense](assets/soc-defense.jpg) |
 | *COLLECT · NORMALIZE · CORRELATE · RESPOND · Score 200* | *UFW → GeoIP → WAF → CrowdSec → Suricata → Fail2ban → nginx · 8 couches* |
 
 </div>
 
 ---
 
-<h2 align="center">Heatmap & Monitoring système</h2>
+<h2 align="center">Heatmap des attaques — 24h</h2>
 
 <div align="center">
 
-| Heatmap Attaques 24h | Windows / GPU Metrics |
-|:--------------------:|:---------------------:|
-| ![Heatmap](assets/heatmap.png) | ![Windows Metrics](assets/windows-metrics.png) |
-| *13.2k req · 358 bloqués · 2.7% · pics horaires détectés* | *CPU · RAM · GPU RTX · disques — supervision machine hôte* |
+![Heatmap Attaques 24h](assets/soc-attacks-24h.jpg)
+
+*Activité d'attaque sur 24h · requêtes / bloquées · pics horaires détectés · ventilation par protocole*
 
 </div>
 
@@ -158,9 +156,9 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![JARVIS AI](assets/jarvis-ai.png)
+JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise optionnelle** : réponse proactive automatique · ban contextuel · alertes vocales TTS sur niveau ÉLEVÉ/CRITIQUE · analyse LLM des événements. Le SOC se défend seul 24h/24 — JARVIS amplifie quand la machine est active.
 
-*JARVIS (Ollama phi4:14b) · réponse proactive automatique · alertes TTS · analyse LLM événements critiques · ban auto*
+➡️ Projet complet : [**JARVIS — Assistant IA local**](https://github.com/0xCyberLiTech/JARVIS) · doc [08-JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md)
 
 </div>
 
