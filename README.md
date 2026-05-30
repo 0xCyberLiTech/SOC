@@ -70,7 +70,7 @@ Le framework de déploiement et la documentation sont publics — la méthode es
 
 **🛡️ Résilience face à la compromission**
 
-Si le serveur est compromis, l'attaquant ne récupère pas la configuration complète depuis ce dépôt. Les configs publiées sont anonymisées. L'archive de restauration reste hors ligne — rebuild en moins de 30 min sur VM vierge.
+Si le serveur est compromis, l'attaquant ne récupère pas la configuration complète depuis ce dépôt. Les configs publiées sont anonymisées. L'archive de restauration reste hors ligne — la reconstruction n'est **volontairement pas reproductible** depuis ce dépôt public seul (savoir protégé).
 
 </td>
 </tr>
@@ -195,7 +195,7 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 | 📬 | **Hub mail centralisé** | Toutes les remontées mail par un point unique · déduplication · journal forensique |
 | 🔍 | **XDR** | Corrélation Fail2ban + ModSec + UFW + Suricata + rsyslog + routeur |
 | 🗺️ | **GeoIP** | Cartographie Leaflet + MaxMind · arcs d'attaque animés · top pays |
-| 🔄 | **Plug-and-play** | Archive 13 blocs · restauration complète sur VM vierge en < 30 min |
+| 🔄 | **Plug-and-play** | Archive privée 13 blocs · procédure DR éprouvée en conditions réelles · non reproductible depuis ce dépôt seul |
 | 🔥 | **DR validé en conditions réelles** | Exercice Phase A/B/C exécuté le 2026-04-28 · basculement réseau · 8 écarts corrigés · [rapport](DEPLOY/DR-EXERCISE-2026-04-28.md) |
 | 🧪 | **Qualité &amp; tests** | Suite pytest (1000+ tests) · ruff/eslint · dette de code à zéro · dette structurelle **assumée et documentée** |
 | 🧯 | **Résilience auto** | Auto-ban CrowdSec · auto-restart services · cooldowns anti-spam · journal forensique horodaté |

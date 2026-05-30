@@ -52,7 +52,7 @@ Ce document est le rapport de l'exercice Disaster Recovery réel exécuté le 20
 - 🔄 Phase B — restauration depuis archive (restore-soc.sh)
 - ✅ Phase C — basculement réseau et validation en conditions réelles
 - 🐛 8 écarts détectés — documentés et corrigés pendant l'exercice
-- ⏱️ Durée totale — reconstruction complète en moins de 30 minutes
+- ⏱️ Reconstruction complète validée — durée non communiquée (procédure et archive privées, savoir protégé)
 
 ---
 
@@ -199,7 +199,7 @@ systemctl restart crowdsec
 | Phase C — validation + CrowdSec fix + AIDE | ~25 min |
 | **Total** | **~1h15** |
 
-> La durée cible sans les écarts (procédure corrigée) est estimée à **30 minutes**.
+> Procédure corrigée à l'issue de l'exercice. La durée n'est **volontairement pas communiquée** — sources et archive privées.
 
 ---
 

@@ -52,12 +52,12 @@ Ce guide décrit le workflow complet de déploiement ou restauration du SOC depu
 - 2️⃣ Déploiement stack logicielle via deploy-soc.sh (--dry-run disponible)
 - 3️⃣ Restauration configuration depuis archive privée via restore-soc.sh
 - 4️⃣ Validation 61 points via CHECKLIST-DEPLOY.md
-- ⏱️ Objectif — système opérationnel en moins de 30 minutes
+- ⏱️ Objectif — système opérationnel via la procédure DR (archive privée requise)
 
 ---
 
 > Procédure complète pour reconstruire srv-nginx à l'identique sur une nouvelle VM Debian 13.  
-> Durée estimée : **15 à 30 minutes**.
+> La reconstruction nécessite l'archive de configuration **privée** — non reproductible depuis ce dépôt public seul.
 
 ---
 
