@@ -209,7 +209,7 @@ Chaque module JS est chargé avec un cache-buster dans `index.html` :
 <h3 align="center">Versioning HTML</h3>
 
 ```html
-<!-- v3.108.1 — SOC Dashboard 0xCyberLiTech -->
+<!-- v3.108.24 — SOC Dashboard 0xCyberLiTech -->
 ```
 Format : `v{majeur}.{fonctionnel}.{patch}`
 

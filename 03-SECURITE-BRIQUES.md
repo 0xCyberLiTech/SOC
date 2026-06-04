@@ -53,6 +53,7 @@ Ce document décrit chaque brique de sécurité : son rôle, sa position dans la
 - 🔒 Fail2ban — jails par pattern (SSH, nginx-CVE, botsearch)
 - 🕵️ Suricata IDS 7 — détection réseau passive, 49k règles Emerging Threats
 - 🔐 AppArmor + AIDE HIDS — confinement processus + intégrité fichiers
+- 🛰️ Détection host auditd (Niveau 3) — sémantique *qui/quoi* (`auid` + `exe`) : altération de l'audit (Defense Evasion), persistence, mouvement latéral
 
 ---
 
@@ -216,6 +217,9 @@ Boucle 60s permanente (voir doc 08) :
 | XSS | AppSec OWASP CRS + nginx CSP |
 | LFI / Path traversal | AppSec vpatch CVE + OWASP CRS |
 | Escalade privilèges process | AppArmor enforce (deny /dev/mem, /proc/*/mem) |
+| Altération / désactivation de l'audit | **Détection host auditd** (Niveau 3, *qui/quoi* par auid+exe) + AIDE intégrité |
+| Persistence host (compte, cron, clé SSH, service) | **Détection host auditd** + AIDE intégrité |
+| Mouvement latéral interne (SSH inattendu) | **Détection host** (rsyslog central + baseline admin) |
 | IP malveillante connue | CrowdSec CAPI (communauté mondiale) + nftables |
 
 ---
