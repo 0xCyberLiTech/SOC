@@ -52,6 +52,8 @@ review : 0 faux positif prouvé**. Réversible à tout instant (ban court, kill-
 > 🟢 **enforce** = ban réel · 🟠 **dry-run** = simulé (accumule la preuve) · 🟡 **alert-only** = observation.
 > BRUTE reste en dry-run tant qu'aucune attaque réelle n'a fourni de donnée à juger (data-gated).
 
+> 🔗 **Comment ces détections alimentent la Kill Chain temps réel** (schéma du mécanisme *attaque → Sigma → ban*) → **[05-CHAINE-DEFENSE.md](05-CHAINE-DEFENSE.md)**.
+
 ---
 
 ## Le moteur — minimal, mais blindé

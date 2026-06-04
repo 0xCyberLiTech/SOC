@@ -192,6 +192,48 @@ Classification automatique des IPs par phase d'attaque (fenêtre 15 min) :
 
 ---
 
+<h2 align="center">Détection des maillons par Sigma (detection-as-code)</h2>
+
+Chaque maillon de la Kill Chain est détecté par une **règle Sigma versionnée** (honeypot 0xCyberLiTech),
+promue par **paliers de maturité contrôlés** : `alert-only → dry-run (ban simulé) → enforce (ban réel)`.
+On n'arme qu'après **review : 0 faux positif prouvé**.
+
+| Maillon Kill Chain | Règle Sigma | MITRE | Mode |
+|--------------------|-------------|-------|------|
+| **RECON** | `recon-sensitive-files` | T1595.003 | 🟢 enforce |
+| **SCAN** | `scan-admin-panels` | T1595.003 | 🟢 enforce |
+| **EXPLOIT** | `exploit-attempts` + `exploit-log4shell-jndi` *(CVE-2021-44228)* | T1190 | 🟢 / 🟡 |
+| **BRUTE** | `brute-force-auth` *(agrégation par IP)* | T1110 | 🟠 dry-run |
+
+➡️ **Catalogue complet, moteur, rails & couverture MITRE → [10-DETECTIONS.md](10-DETECTIONS.md).**
+
+### Mécanisme — du log de l'attaque au ban
+
+```mermaid
+flowchart TD
+    A["Attaque externe<br/>(scanner · bot · exploit)"] --> B["nginx access.log"]
+    B -->|toutes les 15 min| C{"Moteur Sigma<br/>(soc-sigma-runner)"}
+    C -->|pas de match| Z["rien — trafic ignoré"]
+    C -->|match d'une règle| D["Maillon Kill Chain<br/>RECON · SCAN · EXPLOIT · BRUTE"]
+    D --> E{"6 rails de sûreté<br/>RFC1918 · fenêtre récente · whitelist<br/>plafond/cycle · double gate · kill-switch"}
+    E --> F{"Maturité de la règle"}
+    F -->|alert-only| G["journalise — observe"]
+    F -->|dry-run| H["ban SIMULÉ<br/>(accumule la preuve)"]
+    F -->|enforce| I["cscli ban 4h<br/>(réel · réversible)"]
+    I --> J["Kill Chain :<br/>IP taguée <b>SIGMA</b> → NEUTRALISÉ"]
+    J --> K["Couverture MITRE 12/14"]
+```
+
+> Le filtre RFC1918 + la whitelist (rails) garantissent **structurellement** qu'une IP interne ou de confiance
+> **ne peut pas** être bannie. La promotion `alert-only → dry-run → enforce` n'avance que sur **0 faux positif prouvé**.
+
+- **Boucle Kill Chain ↔ MITRE** : les détections Sigma alimentent les maillons ; les IP **neutralisées par Sigma**
+  sont tracées **`SIGMA`** dans la Kill Chain (origine du ban distinguée de l'auto-ban).
+- **Couverture MITRE multi-moteurs : 12/14 tactiques** (Sigma 5 + Suricata 4 + détection host 3 ; angles morts assumés : Resource Development, Collection).
+- **Échange communautaire** : réception de règles SigmaHQ (import) + contribution (bans → blocklist CrowdSec).
+
+---
+
 <h2 align="center">Nomenclature des bans JARVIS</h2>
 
 | Raison ban | Déclencheur |
