@@ -130,7 +130,7 @@ Ce document décrit la structure complète de l'archive de configuration SOC : l
 | `rules/` | `/etc/suricata/rules/` (22 fichiers) | ✅ |
 | `threshold.config` | `/etc/suricata/threshold.config` | ⚠️ absent sur le serveur |
 
-> Les ~106k règles Emerging Threats ne sont PAS dans l'archive.  
+> Les ~90 000 règles Emerging Threats ne sont PAS dans l'archive.  
 > Elles sont retéléchargées via `suricata-update` lors de la restauration.
 
 <h3 align="center">rsyslog/ ✅</h3>
@@ -253,7 +253,7 @@ Ce document décrit la structure complète de l'archive de configuration SOC : l
 
 | Élément | Raison |
 |---------|--------|
-| Règles Suricata ET Pro (~106k) | Trop volumineuses — retéléchargées via `suricata-update` |
+| Règles Suricata ET Pro (~90 000) | Trop volumineuses — retéléchargées via `suricata-update` |
 | `monitoring.json` | Données live — recalculées par monitoring_gen.py |
 | Logs `/var/log/` | Données opérationnelles, pas de config |
 | JARVIS | Tourne sur Windows (<LAN-IP>), hors périmètre srv-nginx |

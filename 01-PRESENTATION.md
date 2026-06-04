@@ -144,9 +144,9 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 
 <h3 align="center">Couche détection / blocage</h3>
 
-- **CrowdSec** — LAPI collaborative + 8 collections + AppSec WAF (207 vpatch)
+- **CrowdSec** — LAPI collaborative + 8 collections + AppSec WAF (~180 vpatch)
 - **Fail2ban** — Détecteur logs → alimente CrowdSec (3 jails)
-- **Suricata** — IDS réseau (106 789 règles ET Pro + Emerging Threats)
+- **Suricata** — IDS réseau (~90 000 règles ET Pro + Emerging Threats)
 
 <h3 align="center">Couche collecte / corrélation</h3>
 

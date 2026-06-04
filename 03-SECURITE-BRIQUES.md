@@ -49,9 +49,9 @@
 Ce document décrit chaque brique de sécurité : son rôle, sa position dans la chaîne, les vecteurs qu'elle couvre. La philosophie est la défense en profondeur — chaque couche opère indépendamment.
 
 - 🛡️ UFW + nftables — pare-feu stateful kernel-space
-- 🤖 CrowdSec WAF + bouncer — blocage comportemental + AppSec 150+ règles
+- 🤖 CrowdSec WAF + bouncer — blocage comportemental + AppSec ~180 règles
 - 🔒 Fail2ban — jails par pattern (SSH, nginx-CVE, botsearch)
-- 🕵️ Suricata IDS 7 — détection réseau passive, 49k règles Emerging Threats
+- 🕵️ Suricata IDS 7 — détection réseau passive, ~90 000 règles Emerging Threats
 - 🔐 AppArmor + AIDE HIDS — confinement processus + intégrité fichiers
 - 🛰️ Détection host auditd (Niveau 3) — sémantique *qui/quoi* (`auid` + `exe`) : altération de l'audit (Defense Evasion), persistence, mouvement latéral
 
@@ -68,9 +68,9 @@ INTERNET
    │
    ▼  [2] CrowdSec LAPI + Fail2ban ←── Décisions ban 24h, sync F2B→CS
    │
-   ▼  [3] AppSec WAF CrowdSec ←── 207 vpatch CVE + OWASP CRS inline nginx
+   ▼  [3] AppSec WAF CrowdSec ←── ~180 vpatch CVE + OWASP CRS inline nginx
    │
-   ▼  [4] Suricata IDS ←── 106 789 règles ET Pro + Emerging Threats
+   ▼  [4] Suricata IDS ←── ~90 000 règles ET Pro + Emerging Threats
    │
    ▼  [5] AppArmor ←── nginx + suricata confinés (deny /dev/mem, /proc/*/mem...)
    │
@@ -115,7 +115,7 @@ Trois sets nftables gérés automatiquement :
 | `crowdsecurity/sshd` | Brute force SSH |
 | `crowdsecurity/suricata` | Alertes Suricata → décisions CrowdSec |
 | `crowdsecurity/whitelist-good-actors` | Bots légitimes (Googlebot...) |
-| AppSec WAF | 207 vpatch CVE + OWASP CRS (module inline) |
+| AppSec WAF | ~180 vpatch CVE + OWASP CRS (module inline) |
 
 <h3 align="center">Fail2ban — 3 jails (rôle : détecteur → alimente CrowdSec)</h3>
 
@@ -132,7 +132,7 @@ Il parse les logs et transmet à CrowdSec via `crowdsec-sync`.
 
 <h2 align="center">[3] AppSec WAF CrowdSec</h2>
 
-- **207 vpatch CVE** actifs (correctifs virtuels pour vulnérabilités connues)
+- **~180 vpatch CVE** actifs (correctifs virtuels pour vulnérabilités connues)
 - **OWASP Core Rule Set** — protection SQLi, XSS, LFI, RFI, traversal
 - Intégré inline dans nginx (module CrowdSec AppSec)
 - Bloque avant que la requête atteigne le backend
@@ -142,7 +142,7 @@ Il parse les logs et transmet à CrowdSec via `crowdsec-sync`.
 <h2 align="center">[4] Suricata IDS</h2>
 
 - **Mode** : IDS (détection + log, pas de blocage inline)
-- **Règles** : 106 789 (Emerging Threats Pro + ET Open)
+- **Règles** : ~90 000 (Emerging Threats Pro + ET Open)
 - **Interface** : AF_PACKET eth0 (capture tout le trafic)
 - **Ring buffer** : 100k paquets (0 truncations)
 - **Workers** : 6 threads W#01→W#06
@@ -210,7 +210,7 @@ Boucle 60s permanente (voir doc 08) :
 |---------|----------------|
 | Brute force SSH | Fail2ban (sshd) → CrowdSec → UFW |
 | Scanner réseau | Fail2ban (nginx-botsearch) + CrowdSec nginx + Suricata scan |
-| Exploitation CVE HTTP | AppSec WAF (207 vpatch) + F2B nginx-cve + CrowdSec http-cve + Suricata |
+| Exploitation CVE HTTP | AppSec WAF (~180 vpatch) + F2B nginx-cve + CrowdSec http-cve + Suricata |
 | DoS / DDoS | CrowdSec http-dos + Suricata + UFW rate-limit |
 | C2 outbound | Suricata ET + nftables + rsyslog correlation (JARVIS) |
 | SQL Injection | AppSec OWASP CRS + nginx CSP |

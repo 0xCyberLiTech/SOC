@@ -160,7 +160,7 @@ Le script restaure dans l'ordre :
 1/13 nginx        → vhosts, SSL, snippets, GeoIP databases
 2/13 CrowdSec     → config, parsers, scenarios, collections
 3/13 Fail2ban     → jail.local, filters, actions
-4/13 Suricata     → config + téléchargement règles ET (~106k)
+4/13 Suricata     → config + téléchargement règles ET (~90 000)
 5/13 rsyslog      → config centrale logs
 6/13 AppArmor     → profils nginx + suricata
 7/13 UFW          → règles firewall

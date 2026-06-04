@@ -103,7 +103,7 @@ Cette checklist valide l'archive avant de la conserver comme référence DR. Ell
 <h3 align="center">Suricata — BLOC 4</h3>
 
 - [ ] `/etc/suricata/suricata.yaml` — interface af-packet configurée
-- [ ] `/etc/suricata/rules/` — règles custom (pas les 106k ET qui seront re-téléchargées)
+- [ ] `/etc/suricata/rules/` — règles custom (pas les ~90 000 ET qui seront re-téléchargées)
 - [ ] `/etc/suricata/update.yaml` — sources rules (si présent)
 
 <h3 align="center">rsyslog — BLOC 5</h3>
@@ -296,7 +296,7 @@ suricata-update                   # téléchargement règles ET
 systemctl reload suricata
 tail -5 /var/log/suricata/suricata.log  # pas d'erreur AF_PACKET
 ```
-- [ ] Règles ET téléchargées (~106k)
+- [ ] Règles ET téléchargées (~90 000)
 - [ ] Suricata rechargé sans erreur
 - [ ] Log ne contient pas "rp_filter" warning
 

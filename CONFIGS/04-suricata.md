@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Configuration Suricata IDS 7 — AF_PACKET · 49k règles ET · eve.json · sysctl.</h2>
+  <h2>Configuration Suricata IDS 7 — AF_PACKET · ~90 000 règles ET · eve.json · sysctl.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -60,7 +60,7 @@ Ce document couvre la configuration Suricata 7 en mode IDS passif : AF_PACKET su
 
 Suricata est l'IDS réseau du SOC — il analyse le trafic en **mode AF_PACKET** (copie noyau, zéro perte de paquets) et génère des alertes dans `eve.json` consommées par `monitoring_gen.py`.
 
-- **~106 000 règles** : Emerging Threats Pro + ET Open
+- **~90 000 règles** : Emerging Threats Pro + ET Open
 - **Mise à jour automatique** : `suricata-update` via cron 03h30
 - **Ring buffer 100k packets** : absorbe les pics de trafic
 

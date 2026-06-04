@@ -133,7 +133,7 @@ Exécuter après le script `deploy-soc.sh` pour valider que tout est opérationn
 
 - [ ] **Suricata actif** : `systemctl is-active suricata` → active
 - [ ] **Mode AF_PACKET** : `ps aux | grep suricata` → `--af-packet` présent
-- [ ] **Règles chargées** : `grep "rules loaded" /var/log/suricata/suricata.log` → ~106k règles
+- [ ] **Règles chargées** : `grep "rules loaded" /var/log/suricata/suricata.log` → ~90 000 règles
 - [ ] **eve.json** : `ls -la /var/log/suricata/eve.json` → fichier récent (< 5 min)
 - [ ] **Ring buffer** : `grep "ring" /var/log/suricata/suricata.log` → 100k packets
 - [ ] **Alertes live** : `tail -f /var/log/suricata/eve.json | grep event_type` → events en direct

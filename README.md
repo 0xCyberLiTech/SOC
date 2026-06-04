@@ -169,11 +169,11 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 | # | Phase | Ce qui a été construit | Pourquoi ce choix |
 |---|-------|----------------------|-------------------|
 | 1 | **Reverse proxy + SSL** | nginx · TLS Let's Encrypt · vhosts · headers sécurité · access_log JSON structuré | Point d'entrée unique — logs structurés dès le départ pour tout le pipeline |
-| 2 | **CrowdSec WAF + bouncer nftables** | AppSec 150+ règles · bouncer kernel-space · scénarios custom · whitelist LAN | Blocage comportemental avant que nginx traite la requête — kernel-space = zéro bypass applicatif |
+| 2 | **CrowdSec WAF + bouncer nftables** | AppSec ~180 règles · bouncer kernel-space · scénarios custom · whitelist LAN | Blocage comportemental avant que nginx traite la requête — kernel-space = zéro bypass applicatif |
 | 3 | **fail2ban + UFW + GeoIP block** | 3 jails nginx/ssh · nftables · blocage géographique MaxMind GeoLite2 | Compléter CrowdSec : patterns ciblés, firewall stateful, filtrage géo en entrée |
 | 4 | **Dashboard monitoring** | monitoring_gen.py · monitoring.json · SPA Vanilla JS · premières tuiles système | Sans visibilité temps réel, la défense est aveugle — dashboard avant tout ajout |
 | 5 | **Kill Chain + GeoIP cartographie** | Classification 5 stages · score 0–100 · canvas monde · heatmap 24h · top IPs | Transformer les logs bruts en renseignement tactique — qui fait quoi, d'où, quand |
-| 6 | **Suricata IDS 7 + rsyslog centralisé** | 49k règles Emerging Threats · AF_PACKET · eve.json · 5 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
+| 6 | **Suricata IDS 7 + rsyslog centralisé** | ~90 000 règles Emerging Threats · AF_PACKET · eve.json · 5 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
 | 7 | **JARVIS IA défensive** | Ollama phi4:14b · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
 | 8 | **AppArmor + AIDE HIDS** | Confinement processus · base intégrité 49k fichiers · exclusions CrowdSec hub | Dernier rempart : un attaquant qui passe tout le reste ne peut ni s'étendre ni persister |
 | 9 | **DR exercice réel + qualité auditée** | Exercice Phase A/B/C (2026-04-28) · 8 écarts corrigés · suite de tests · dette de code à zéro | Valider que le système se reconstruit réellement, pas juste sur le papier |
@@ -207,7 +207,7 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 ```
 OS          Debian 13 (Trixie)
 Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
-Sécurité    CrowdSec (WAF AppSec ~207 vpatch CVE) · Suricata IDS (96k règles)
+Sécurité    CrowdSec (WAF AppSec ~180 vpatch CVE) · Suricata IDS (96k règles)
             Fail2ban · AppArmor · UFW + nftables · AIDE HIDS
 Logs        rsyslog centralisé (5 hôtes) · GoAccess
 Dashboard   SPA vanilla JS — 28 modules · 35 tuiles · zéro dépendance NPM
