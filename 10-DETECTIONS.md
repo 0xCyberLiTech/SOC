@@ -88,13 +88,34 @@ Couverture : 12 / 14 tactiques MITRE
 
 ## Multi-source — la même langue (MITRE) pour toutes les sources
 
-Au-delà du web, les détections **host (auditd)** et **IDS (Suricata)** sont aussi exprimées en **Sigma natif**
-(`detections/sigma/multi-source/`) — *detection-as-code* unifiée :
+Au-delà du web, les détections **host (auditd)**, **IDS (Suricata)** et **intégrité (AIDE)** sont exprimées
+en **Sigma natif** (`detections/sigma/multi-source/`) — *detection-as-code* unifiée : une seule langue
+(Sigma → MITRE) pour toutes les sources. Les **trois tactiques host basées sur auditd** — Persistence,
+Privilege Escalation, Defense Evasion — ont chacune leur règle.
 
-| Règle | Source | MITRE |
-|---|---|---|
-| `host-auditd-defense-evasion` | auditd (écriture `/etc/audit`, exec auditctl par session interactive) | T1562.001 |
-| `ids-suricata-privesc` | Suricata (classtypes `attempted-admin/user`) | T1068 |
+| Règle | Source | Tactique | MITRE |
+|---|---|---|---|
+| `host-auditd-defense-evasion` | auditd — altération/désactivation de l'audit par session interactive | Defense Evasion | T1562.001 |
+| `host-auditd-account-persistence` | auditd — création de compte, cron, unit systemd | Persistence | T1136.001 · T1053.003 · T1543.002 |
+| `host-auditd-privesc` | auditd — `sudo` / binaire setuid par session interactive | Privilege Escalation | T1548.003 |
+| `integrity-aide-persistence` | AIDE — modification d'un fichier de persistance (comptes, cron, clé SSH) | Persistence | T1098.004 · T1136 |
+| `ids-suricata-privesc` | Suricata — classtypes `attempted-admin/user` | Privilege Escalation | T1068 |
+
+**Discriminant anti-faux-positif (host)** — le déclencheur n'est **pas** le nom du processus (falsifiable
+par renommage), mais l'**`auid`** : le *login UID* posé par PAM à la connexion, **non-spoofable** sans
+privilège d'audit. Une **session interactive** qui touche une cible sensible = signal à vérifier ; un
+**processus système** (`auid` non posé — `apt`, boot, daemon) = bénin → **zéro FP** sur la maintenance.
+AIDE **double** la Persistence en asynchrone (intégrité de fichier), fermant les angles morts (`usermod`,
+édition directe de `/etc/passwd`) que le temps-réel ne voit pas.
+
+> 🧭 **Capacité vs décompte disjoint** : plusieurs moteurs peuvent couvrir une même tactique (ex.
+> *Privilege Escalation* : host **et** Suricata). Le décompte **12/14** plus haut attribue chaque tactique
+> à **un seul** moteur (priorité disjointe) pour ne **jamais double-compter** — d'où une couverture
+> honnête, pas gonflée.
+
+> ⚠ Ces règles ne sont **pas jouées** par le moteur web (nginx-only) : ce sont des **artefacts
+> detection-as-code** — documentation MITRE versionnée + cible d'un futur moteur multi-source (pySigma).
+> Le mapping clé → tactique reste **source unique** (`soc_infra.yaml`), jamais redéfini dans la règle.
 
 ---
 
@@ -128,7 +149,9 @@ Le moteur matche la **ligne entière** du log → les payloads livrés via **Use
 Chaque détection est validée par un **corpus d'attaque synthétique** passé dans le moteur (IP de test
 externes) : on vérifie que **chaque règle attrape son attaque**, que le **seuil d'agrégation BRUTE** ne flagge
 que l'IP qui le dépasse, que le **filtre interne** exclut bien le RFC1918, et que le trafic **bénin** ne matche
-rien. *Test-driven detection* — une détection non testée n'est pas une détection.
+rien. Les règles **multi-source** (host/Suricata/AIDE) ont en plus un **lint structurel** (champs Sigma requis,
+tag MITRE technique **et** tactique, identifiant unique, présence au catalogue) — auto-adaptatif sur le dossier,
+il casse si une règle ajoutée est incomplète. *Test-driven detection* — une détection non testée n'est pas une détection.
 
 ---
 
