@@ -287,6 +287,7 @@ INTERNET
 | 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 5 hôtes · filtres · rétention |
 | 08 | [JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md) | Défense proactive IA : boucle 60s · 12 déclencheurs |
 | 09 | [ROADMAP.md](09-ROADMAP.md) | Axes d'évolution · décisions d'architecture |
+| 10 | [DETECTIONS.md](10-DETECTIONS.md) | **Detection-as-code** : catalogue Sigma · maturité par maillon · MITRE 12/14 · test-driven |
 
 ---
 
