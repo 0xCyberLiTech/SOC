@@ -54,6 +54,7 @@ Ce document décrit chaque brique de sécurité : son rôle, sa position dans la
 - 🕵️ Suricata IDS 7 — détection réseau passive, ~90 000 règles Emerging Threats
 - 🔐 AppArmor + AIDE HIDS — confinement processus + intégrité fichiers
 - 🛰️ Détection host auditd (Niveau 3) — sémantique *qui/quoi* (`auid` + `exe`) : altération de l'audit (Defense Evasion), persistence, mouvement latéral
+- 🧱 Posture du périmètre — surveillance des remparts du routeur (pare-feu, anti-DoS, IPS / réputation web, forçage DNS, DNS chiffré + authentifié) avec **alerte si un contrôle tombe** (détection de régression)
 
 ---
 
@@ -221,6 +222,21 @@ Boucle 60s permanente (voir doc 08) :
 | Persistence host (compte, cron, clé SSH, service) | **Détection host auditd** + AIDE intégrité |
 | Mouvement latéral interne (SSH inattendu) | **Détection host** (rsyslog central + baseline admin) |
 | IP malveillante connue | CrowdSec CAPI (communauté mondiale) + nftables |
+| Régression silencieuse d'un contrôle (rempart désarmé) | **Posture du périmètre** — état des remparts routeur surveillé en continu, alerte si l'un tombe |
+
+---
+
+<h2 align="center">Périmètre — posture & détection de régression de contrôle</h2>
+
+En amont des couches serveur, le **routeur de périmètre** porte ses propres remparts : pare-feu, anti-DoS, IPS / réputation web, forçage DNS, et **DNS chiffré + authentifié**. Un SOC mature ne se contente pas de les *activer* — il **vérifie en continu qu'ils restent actifs**.
+
+Le routeur **pousse** sa posture vers le SOC (même canal de journalisation centralisée que le reste de l'infra — *le SOC ne sonde jamais le routeur*). Le dashboard affiche l'état de chaque rempart **et lève une alerte si l'un d'eux tombe**.
+
+> 🧱 **Détection de régression de contrôle** — un rempart qui passe silencieusement de *actif* à *inactif* (DNS chiffré désarmé, IPS coupé, pare-feu désactivé…) est un **angle mort classique** : la protection disparaît sans que personne ne le remarque. Ici, la **chute d'un rempart devient un signal** (vert → rouge + alerte), au même titre qu'une attaque détectée.
+
+S'y ajoutent la **santé matérielle** du périmètre (charge, mémoire, températures) et l'**état du moteur de réputation** (fraîcheur des signatures de détection) — pour distinguer une **panne** d'une **attaque**.
+
+> 🔒 Détail mécanique (seuils, identifiants internes, clés de configuration) volontairement gardé dans le **dépôt opérationnel privé** : cette vitrine décrit l'**approche**, pas la recette.
 
 ---
 
