@@ -45,6 +45,26 @@
 
 ---
 
+<div align="center">
+
+## 🛡️ Détection-as-code — le cœur de ce SOC
+
+<a href="10-DETECTIONS.md"><img src="https://img.shields.io/badge/CATALOGUE%20DES%20D%C3%89TECTIONS-Sigma%20%C2%B7%20MITRE%2012%2F14-00B4D8?style=for-the-badge&logo=target&logoColor=white" alt="Catalogue des détections Sigma" /></a>
+
+Le SOC détecte en **règles Sigma versionnées** (*detection-as-code*), avec un **cycle de vie maîtrisé** :
+
+**`🟡 alert-only`** → **`🟠 dry-run`** *(ban simulé)* → **`🟢 enforce`** *(ban réel)* — chaque règle promue **seulement après 0 faux positif prouvé**.
+
+Couverture **MITRE ATT&CK 12/14** (multi-moteurs) · **0 IP interne bannie** *(rail RFC1918, par construction)* · **test-driven** *(chaque règle validée par un corpus d'attaque)*.
+
+<sub>Injection SQL · Log4Shell (CVE-2021-44228) · scan de secrets exposés · énumération · webshell · brute-force — détectés, mappés MITRE, et bloqués au reverse proxy en **un seul point**.</sub>
+
+### ▶ **[Voir le catalogue complet des détections](10-DETECTIONS.md)** &nbsp; · &nbsp; [Mécanisme *attaque → Sigma → ban*](05-CHAINE-DEFENSE.md)
+
+</div>
+
+---
+
 <h2 align="center">Philosophie du projet</h2>
 
 <div align="center"><sub>Ce n'est « qu'un » homelab personnel — mais exposé à internet, en production 24h/24, et traité avec la rigueur d'un vrai SOC. Décrit ici tel qu'il est, sans survente.</sub></div>
@@ -287,7 +307,7 @@ INTERNET
 | 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 5 hôtes · filtres · rétention |
 | 08 | [JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md) | Défense proactive IA : boucle 60s · 12 déclencheurs |
 | 09 | [ROADMAP.md](09-ROADMAP.md) | Axes d'évolution · décisions d'architecture |
-| 10 | [DETECTIONS.md](10-DETECTIONS.md) | **Detection-as-code** : catalogue Sigma · maturité par maillon · MITRE 12/14 · test-driven |
+| 10 ⭐ | [**DÉTECTIONS — Sigma**](10-DETECTIONS.md) | **Detection-as-code** ⭐ : catalogue Sigma · maturité par maillon · MITRE 12/14 · test-driven *(à voir en priorité)* |
 
 ---
 
