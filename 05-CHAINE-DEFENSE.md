@@ -211,16 +211,16 @@ On n'arme qu'après **review : 0 faux positif prouvé**.
 
 ```mermaid
 flowchart TD
-    A["Attaque externe<br/>(scanner · bot · exploit)"] --> B["nginx access.log"]
-    B -->|toutes les 15 min| C{"Moteur Sigma<br/>(soc-sigma-runner)"}
+    A["Attaque externe<br>scanner · bot · exploit"] --> B["nginx access.log"]
+    B -->|toutes les 15 min| C{"Moteur Sigma<br>soc-sigma-runner"}
     C -->|pas de match| Z["rien — trafic ignoré"]
-    C -->|match d'une règle| D["Maillon Kill Chain<br/>RECON · SCAN · EXPLOIT · BRUTE"]
-    D --> E{"6 rails de sûreté<br/>RFC1918 · fenêtre récente · whitelist<br/>plafond/cycle · double gate · kill-switch"}
+    C -->|match| D["Maillon Kill Chain<br>RECON · SCAN · EXPLOIT · BRUTE"]
+    D --> E{"6 rails de sûreté<br>RFC1918 · fenêtre récente · whitelist<br>plafond/cycle · double gate · kill-switch"}
     E --> F{"Maturité de la règle"}
     F -->|alert-only| G["journalise — observe"]
-    F -->|dry-run| H["ban SIMULÉ<br/>(accumule la preuve)"]
-    F -->|enforce| I["cscli ban 4h<br/>(réel · réversible)"]
-    I --> J["Kill Chain :<br/>IP taguée <b>SIGMA</b> → NEUTRALISÉ"]
+    F -->|dry-run| H["ban SIMULÉ<br>accumule la preuve"]
+    F -->|enforce| I["cscli ban 4h<br>réel · réversible"]
+    I --> J["Kill Chain : IP taguée SIGMA → NEUTRALISÉ"]
     J --> K["Couverture MITRE 12/14"]
 ```
 
