@@ -35,6 +35,16 @@ Chaque détection suit un **cycle de maturité contrôlé** — on n'arme jamais
 On observe d'abord (alert-only), on simule (dry-run, « il bannirait X »), puis on arme **seulement après
 review : 0 faux positif prouvé**. Réversible à tout instant (ban court, kill-switch).
 
+<div align="center">
+
+### 🖥️ Le moteur en temps réel
+
+<img src="assets/sigma-moteur.png" alt="Tuile état du moteur Sigma — verdict, maturité par règle, couverture MITRE par maillon" width="840" />
+
+<sub><strong>Le moteur Sigma vu du dashboard SOC</strong> : <strong>verdict</strong> (moteur armé · bans réels · 0 IP interne bannie) · <strong>maturité</strong> de chaque règle (alert-only → dry-run → enforce) · <strong>couverture MITRE 12/14</strong> par maillon Kill Chain.</sub>
+
+</div>
+
 ---
 
 ## Catalogue des détections (porte d'entrée web)
