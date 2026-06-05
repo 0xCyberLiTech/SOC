@@ -45,6 +45,7 @@ review : 0 faux positif prouvé**. Réversible à tout instant (ban court, kill-
 | `scan-admin-panels` | SCAN | T1595.003 | 🟢 enforce | énumération de panels (`/wp-admin`, `/phpmyadmin`, `/actuator`, `/manager/html`…) |
 | `exploit-attempts` | EXPLOIT | T1190 | 🟢 enforce | traversée (`/etc/passwd`), endpoints RCE (`/cgi-bin/`, `/boaform/`), vol de config |
 | `exploit-log4shell-jndi` | EXPLOIT | T1190 | 🟡 alert-only | **Log4Shell** (CVE-2021-44228) : `${jndi:…}` + variantes obfusquées + URL-encodé |
+| `exploit-sqli` *(SigmaHQ)* | EXPLOIT | T1190 | 🟡 alert-only | **injection SQL** : union-based · error-based · énumération de schéma · time-based · bypass d'authentification — signatures haut-signal, quasi 0 faux positif (liste complète privée) |
 | `brute-force-auth` | BRUTE | T1110 | 🟠 dry-run | acharnement sur les endpoints d'auth — **agrégation par IP au-dessus d'un seuil** (la répétition, pas l'accès) |
 | `discovery-enumeration` *(SigmaHQ)* | — | T1083 | 🟡 alert-only | énumération de fichiers/répertoires |
 | `execution-webshell` *(SigmaHQ)* | — | T1059 | 🟡 alert-only | exécution via webshell (`cmd=`, `shell_exec`, signatures connues) |
