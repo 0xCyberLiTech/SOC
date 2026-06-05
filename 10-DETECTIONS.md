@@ -85,6 +85,16 @@ Il **n'agit jamais** sauf en mode enforce, derrière **2 verrous + 6 garde-fous*
 
 Garantie structurelle : une IP **interne ou de confiance ne peut PAS être bannie** — pas « 0 observé », mais **0 possible** par construction.
 
+<div align="center">
+
+### ⚔️ Enforce en action — bans réels
+
+<img src="assets/sigma-enforce.png" alt="Décisions enforce Sigma — bans cscli réels sur IP attaquantes externes, scénario MITRE, durée réversible" width="840" />
+
+<sub><strong>Les bans <code>enforce</code> réels</strong> : chaque <strong>IP attaquante externe</strong> bloquée au reverse proxy (CrowdSec/cscli), avec le <strong>scénario MITRE</strong> déclencheur et un <strong>TTL court réversible</strong>. Les IP internes/de confiance ne peuvent <strong>pas</strong> y figurer (rail RFC1918) — « 0 possible », pas « 0 observé ».</sub>
+
+</div>
+
 ---
 
 ## Couverture MITRE — multi-moteurs (honnête)
