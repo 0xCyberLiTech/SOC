@@ -47,11 +47,18 @@ review : 0 faux positif prouvé**. Réversible à tout instant (ban court, kill-
 | `exploit-log4shell-jndi` | EXPLOIT | T1190 | 🟡 alert-only | **Log4Shell** (CVE-2021-44228) : `${jndi:…}` + variantes obfusquées + URL-encodé |
 | `exploit-sqli` *(SigmaHQ)* | EXPLOIT | T1190 | 🟡 alert-only | **injection SQL** : union-based · error-based · énumération de schéma · time-based · bypass d'authentification — signatures haut-signal, quasi 0 faux positif (liste complète privée) |
 | `brute-force-auth` | BRUTE | T1110 | 🟠 dry-run | acharnement sur les endpoints d'auth — **agrégation par IP au-dessus d'un seuil** (la répétition, pas l'accès) |
-| `discovery-enumeration` *(SigmaHQ)* | — | T1083 | 🟡 alert-only | énumération de fichiers/répertoires |
-| `execution-webshell` *(SigmaHQ)* | — | T1059 | 🟡 alert-only | exécution via webshell (`cmd=`, `shell_exec`, signatures connues) |
+| `discovery-enumeration` *(SigmaHQ)* | RECON | T1083 | 🟡 alert-only | énumération de fichiers/dépôts/utilisateurs exposés (`.git`, `.env`, `server-status`, users WP) |
+| `execution-webshell` *(SigmaHQ)* | EXPLOIT | T1059 | 🟡 alert-only | exécution via webshell (`cmd=`, `shell_exec`, signatures connues) |
 
 > 🟢 **enforce** = ban réel · 🟠 **dry-run** = simulé (accumule la preuve) · 🟡 **alert-only** = observation.
 > BRUTE reste en dry-run tant qu'aucune attaque réelle n'a fourni de donnée à juger (data-gated).
+
+> 🛡️ **Défense en profondeur par maillon** : un même maillon Kill Chain est couvert par **plusieurs
+> détections**. Ex. **EXPLOIT** = honeypot `exploit-attempts` (enforce) + `Log4Shell` + `SQLi` +
+> `webshell` (alert-only) ; **RECON** = `recon-sensitive-files` (enforce) + `discovery`. Le moteur les
+> regroupe par maillon (le honeypot reste le représentant, les autres en complément) — visible dans le
+> dashboard. Chaque détection garde sa propre maturité (un maillon peut être proactif **et** enrichi
+> de détections en observation).
 
 > 🔗 **Comment ces détections alimentent la Kill Chain temps réel** (schéma du mécanisme *attaque → Sigma → ban*) → **[05-CHAINE-DEFENSE.md](05-CHAINE-DEFENSE.md)**.
 
