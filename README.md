@@ -217,7 +217,7 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 | 🗺️ | **GeoIP** | Cartographie Leaflet + MaxMind · arcs d'attaque animés · top pays |
 | 🔄 | **Plug-and-play** | Archive privée 13 blocs · procédure DR éprouvée en conditions réelles · non reproductible depuis ce dépôt seul |
 | 🔥 | **DR validé en conditions réelles** | Exercice Phase A/B/C exécuté le 2026-04-28 · basculement réseau · 8 écarts corrigés · [rapport](DEPLOY/DR-EXERCISE-2026-04-28.md) |
-| 🧪 | **Qualité &amp; tests** | Suite pytest (1000+ tests) · ruff/eslint · dette de code à zéro · dette structurelle **assumée et documentée** |
+| 🧪 | **Qualité &amp; tests** | Suite pytest (1487 tests) · ruff/eslint · dette de code à zéro · dette structurelle **assumée et documentée** |
 | 🧯 | **Résilience auto** | Auto-ban CrowdSec · auto-restart services · cooldowns anti-spam · journal forensique horodaté |
 
 ---
@@ -368,7 +368,7 @@ SPA Vanilla JS — zéro dépendance NPM · 28 modules · 35 tuiles.
 | **GeoIP** | Leaflet.js + MaxMind GeoLite2 — cartographie mondiale · arcs d'attaque animés |
 | **Polling** | Cycle 60s — toutes les tuiles se rafraîchissent automatiquement · zéro rechargement de page |
 | **Thème** | Glassmorphism — tokens CSS `--fs-*` · responsive · zéro framework CSS |
-| **Qualité** | Dette de code à zéro (NDT) · suite pytest 1000+ · dette structurelle assumée · scores honnêtes |
+| **Qualité** | Dette de code à zéro (NDT) · suite pytest 1487 · dette structurelle assumée · scores honnêtes |
 
 ---
 

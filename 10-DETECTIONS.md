@@ -41,7 +41,7 @@ review : 0 faux positif prouvé**. Réversible à tout instant (ban court, kill-
 
 <img src="assets/sigma-moteur-3.png" alt="Tuile état du moteur Sigma — verdict, maturité par règle, couverture MITRE par maillon" width="840" />
 
-<sub><strong>Le moteur Sigma vu du dashboard SOC</strong> : <strong>verdict</strong> (moteur armé · bans réels · 0 IP interne bannie) · <strong>maturité</strong> de chaque règle (alert-only → dry-run → enforce) · <strong>couverture MITRE 12/14</strong> par maillon Kill Chain.</sub>
+<sub><strong>Le moteur Sigma vu du dashboard SOC</strong> : <strong>verdict</strong> (moteur armé · bans réels · 0 IP interne bannie) · <strong>maturité</strong> — <strong>8/8 règles enforce</strong> (cycle de vie complété) · <strong>couverture MITRE 12/14</strong> par maillon Kill Chain.</sub>
 
 </div>
 
@@ -54,14 +54,14 @@ review : 0 faux positif prouvé**. Réversible à tout instant (ban court, kill-
 | `recon-sensitive-files` | RECON | T1595.003 | 🟢 enforce | scan de `/.env`, `/.git`, `/.aws/credentials`, `/.ssh/id_rsa`… (vol de secrets exposés) |
 | `scan-admin-panels` | SCAN | T1595.003 | 🟢 enforce | énumération de panels (`/wp-admin`, `/phpmyadmin`, `/actuator`, `/manager/html`…) |
 | `exploit-attempts` | EXPLOIT | T1190 | 🟢 enforce | traversée (`/etc/passwd`), endpoints RCE (`/cgi-bin/`, `/boaform/`), vol de config |
-| `exploit-log4shell-jndi` | EXPLOIT | T1190 | 🟡 alert-only | **Log4Shell** (CVE-2021-44228) : `${jndi:…}` + variantes obfusquées + URL-encodé |
-| `exploit-sqli` *(SigmaHQ)* | EXPLOIT | T1190 | 🟡 alert-only | **injection SQL** : union-based · error-based · énumération de schéma · time-based · bypass d'authentification — signatures haut-signal, quasi 0 faux positif (liste complète privée) |
-| `brute-force-auth` | BRUTE | T1110 | 🟠 dry-run | acharnement sur les endpoints d'auth — **agrégation par IP au-dessus d'un seuil** (la répétition, pas l'accès) |
-| `discovery-enumeration` *(SigmaHQ)* | RECON | T1083 | 🟡 alert-only | énumération de fichiers/dépôts/utilisateurs exposés (`.git`, `.env`, `server-status`, users WP) |
-| `execution-webshell` *(SigmaHQ)* | EXPLOIT | T1059 | 🟡 alert-only | exécution via webshell (`cmd=`, `shell_exec`, signatures connues) |
+| `exploit-log4shell-jndi` | EXPLOIT | T1190 | 🟢 enforce | **Log4Shell** (CVE-2021-44228) : `${jndi:…}` + variantes obfusquées + URL-encodé |
+| `exploit-sqli` *(SigmaHQ)* | EXPLOIT | T1190 | 🟢 enforce | **injection SQL** : union-based · error-based · énumération de schéma · time-based · bypass d'authentification — signatures haut-signal, quasi 0 faux positif (liste complète privée) |
+| `brute-force-auth` | BRUTE | T1110 | 🟢 enforce | acharnement sur les endpoints d'auth — **agrégation par IP au-dessus d'un seuil** (la répétition, pas l'accès) |
+| `discovery-enumeration` *(SigmaHQ)* | RECON | T1083 | 🟢 enforce | énumération de fichiers/dépôts/utilisateurs exposés (`.git`, `.env`, `server-status`, users WP) |
+| `execution-webshell` *(SigmaHQ)* | EXPLOIT | T1059 | 🟢 enforce | exécution via webshell (`cmd=`, `shell_exec`, signatures connues) |
 
 > 🟢 **enforce** = ban réel · 🟠 **dry-run** = simulé (accumule la preuve) · 🟡 **alert-only** = observation.
-> BRUTE reste en dry-run tant qu'aucune attaque réelle n'a fourni de donnée à juger (data-gated).
+> **8/8 règles en enforce** — toutes les détections ont achevé leur cycle de maturité (0 faux positif prouvé avant chaque promotion). Le moteur est à pleine maturité.
 
 > 🛡️ **Défense en profondeur par maillon** : un même maillon Kill Chain est couvert par **plusieurs
 > détections**. Ex. **EXPLOIT** = honeypot `exploit-attempts` (enforce) + `Log4Shell` + `SQLi` +
