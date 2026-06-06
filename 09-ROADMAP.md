@@ -59,7 +59,7 @@ Ce document trace les orientations futures du projet SOC : fonctionnalités envi
 
 | Composant | Version | Statut |
 |-----------|---------|--------|
-| Dashboard SOC | v3.108.24 | ✅ Production |
+| Dashboard SOC | v3.108.28 | ✅ Production |
 | monitoring_gen.py | stable | ✅ Production |
 | JARVIS | v3.2 | ✅ Production |
 | deploy-soc.sh | v1.0 | ✅ Livré |

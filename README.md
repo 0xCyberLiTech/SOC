@@ -227,7 +227,7 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 ```
 OS          Debian 13 (Trixie)
 Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
-Sécurité    CrowdSec (WAF AppSec ~180 vpatch CVE) · Suricata IDS (96k règles)
+Sécurité    CrowdSec (WAF AppSec ~180 vpatch CVE) · Suricata IDS (~90 000 règles)
             Fail2ban · AppArmor · UFW + nftables · AIDE HIDS
 Logs        rsyslog centralisé (5 hôtes) · GoAccess
 Dashboard   SPA vanilla JS — 28 modules · 35 tuiles · zéro dépendance NPM
