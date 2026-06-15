@@ -221,7 +221,7 @@ flowchart TD
     F -->|dry-run| H["ban SIMULÉ<br>accumule la preuve"]
     F -->|enforce| I["cscli ban 4h<br>réel · réversible"]
     I --> J["Kill Chain : IP taguée SIGMA → NEUTRALISÉ"]
-    J --> K["Couverture MITRE 12/14"]
+    J --> K["Couverture MITRE 13/14"]
 ```
 
 > Le filtre RFC1918 + la whitelist (rails) garantissent **structurellement** qu'une IP interne ou de confiance
@@ -229,7 +229,7 @@ flowchart TD
 
 - **Boucle Kill Chain ↔ MITRE** : les détections Sigma alimentent les maillons ; les IP **neutralisées par Sigma**
   sont tracées **`SIGMA`** dans la Kill Chain (origine du ban distinguée de l'auto-ban).
-- **Couverture MITRE multi-moteurs : 12/14 tactiques** (Sigma 5 + Suricata 4 + détection host 3 ; angles morts assumés : Resource Development, Collection).
+- **Couverture MITRE multi-moteurs : 13/14 tactiques** (Sigma 5 + Suricata 4 + détection host 4 ; angle mort assumé : Resource Development).
 - **Échange communautaire** : réception de règles SigmaHQ (import) + contribution (bans → blocklist CrowdSec).
 
 ---

@@ -39,9 +39,9 @@ review : 0 faux positif prouvé**. Réversible à tout instant (ban court, kill-
 
 ### 🖥️ Le moteur en temps réel
 
-<img src="assets/sigma-moteur-3.png" alt="Tuile état du moteur Sigma — verdict, maturité par règle, couverture MITRE par maillon" width="840" />
+<img src="assets/soc-sigma.png" alt="Tuile état du moteur Sigma — verdict, maturité par règle, couverture MITRE par maillon" width="840" />
 
-<sub><strong>Le moteur Sigma vu du dashboard SOC</strong> : <strong>verdict</strong> (moteur armé · bans réels · 0 IP interne bannie) · <strong>maturité</strong> — <strong>8/8 règles enforce</strong> (cycle de vie complété) · <strong>couverture MITRE 12/14</strong> par maillon Kill Chain.</sub>
+<sub><strong>Le moteur Sigma vu du dashboard SOC</strong> : <strong>verdict</strong> (moteur armé · bans réels · 0 IP interne bannie) · <strong>maturité</strong> — <strong>8/8 règles enforce</strong> (cycle de vie complété) · <strong>couverture MITRE 13/14</strong> par maillon Kill Chain.</sub>
 
 </div>
 
@@ -89,7 +89,7 @@ Garantie structurelle : une IP **interne ou de confiance ne peut PAS être banni
 
 ### ⚔️ Enforce en action — bans réels
 
-<img src="assets/sigma-enforce.png" alt="Décisions enforce Sigma — bans cscli réels sur IP attaquantes externes, scénario MITRE, durée réversible" width="840" />
+<img src="assets/soc-neutralisation.png" alt="Décisions enforce Sigma — bans cscli réels sur IP attaquantes externes, scénario MITRE, durée réversible" width="840" />
 
 <sub><strong>Les bans <code>enforce</code> réels</strong> : chaque <strong>IP attaquante externe</strong> bloquée au reverse proxy (CrowdSec/cscli), avec le <strong>scénario MITRE</strong> déclencheur et un <strong>TTL court réversible</strong>. Les IP internes/de confiance ne peuvent <strong>pas</strong> y figurer (rail RFC1918) — « 0 possible », pas « 0 observé ».</sub>
 
@@ -137,7 +137,7 @@ AIDE **double** la Persistence en asynchrone (intégrité de fichier), fermant l
 édition directe de `/etc/passwd`) que le temps-réel ne voit pas.
 
 > 🧭 **Capacité vs décompte disjoint** : plusieurs moteurs peuvent couvrir une même tactique (ex.
-> *Privilege Escalation* : host **et** Suricata). Le décompte **12/14** plus haut attribue chaque tactique
+> *Privilege Escalation* : host **et** Suricata). Le décompte **13/14** plus haut attribue chaque tactique
 > à **un seul** moteur (priorité disjointe) pour ne **jamais double-compter** — d'où une couverture
 > honnête, pas gonflée.
 

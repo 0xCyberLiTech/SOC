@@ -55,7 +55,7 @@ Le SOC détecte en **règles Sigma versionnées** (*detection-as-code*), avec un
 
 **`🟡 alert-only`** → **`🟠 dry-run`** *(ban simulé)* → **`🟢 enforce`** *(ban réel)* — chaque règle promue **seulement après 0 faux positif prouvé**.
 
-Couverture **MITRE ATT&CK 12/14** (multi-moteurs) · **0 IP interne bannie** *(rail RFC1918, par construction)* · **test-driven** *(chaque règle validée par un corpus d'attaque)*.
+Couverture **MITRE ATT&CK 13/14** (multi-moteurs) · **0 IP interne bannie** *(rail RFC1918, par construction)* · **test-driven** *(chaque règle validée par un corpus d'attaque)*.
 
 <sub>Injection SQL · Log4Shell (CVE-2021-44228) · scan de secrets exposés · énumération · webshell · brute-force — détectés, mappés MITRE, et bloqués au reverse proxy en **un seul point**.</sub>
 
@@ -125,6 +125,24 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 *RECON → SCAN → EXPLOIT → BRUTE → **NEUTRALISÉ** · fenêtre 15 min · technique MITRE par maillon · score menace par IP*
 
+<br/>
+
+![Kill Chain — IPs attaquantes par maillon](assets/soc-killchain-ips.png)
+
+*Chaque IP attaquante (publique) suivie maillon par maillon — et le moteur qui l'a traitée : **SIGMA · fail2ban · CrowdSec** · 21 neutralisées sur la fenêtre*
+
+</div>
+
+---
+
+<h2 align="center">🎯 Neutralisation — réponse proactive multi-moteurs</h2>
+
+<div align="center">
+
+![Neutralisation — réponse proactive](assets/soc-neutralisation.png)
+
+*22 IP neutralisées · **4 moteurs** (CrowdSec · Sigma · JARVIS auto-engine · fail2ban) · matrice maillon × moteur · scénario + technique MITRE par IP attaquante*
+
 </div>
 
 ---
@@ -133,10 +151,9 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-| Moteur Sigma — temps réel | Enforce — bans réels |
-|:---:|:---:|
-| ![Moteur Sigma](assets/sigma-moteur-3.png) | ![Sigma enforce](assets/sigma-enforce.png) |
-| *Règles Sigma versionnées · maturité `alert → dry-run → enforce` · MITRE 12/14* | *Bans `cscli` réels appliqués — la détection-as-code en action* |
+![Moteur Sigma](assets/soc-sigma.png)
+
+*Règles Sigma versionnées · cycle de vie `alert → dry-run → enforce` · **8 règles enforce** · couverture **MITRE 13/14** mappée par maillon Kill Chain · bans réels · 0 IP interne bannie*
 
 </div>
 
@@ -146,7 +163,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![Niveau de menace global](assets/soc-threatscore.png)
+<img src="assets/soc-threatscore.png" alt="Niveau de menace global" width="430" />
 
 *ThreatScore 0–100 · niveau FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE · détail CrowdSec · Suricata · XDR · historique 30j*
 
@@ -162,6 +179,19 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 |:---:|:---:|
 | ![Protections actives](assets/soc-protections.png) | ![Suricata IDS](assets/soc-suricata.png) |
 | *CrowdSec IPS/IDS · décisions · bans/h · GeoIP · WAF — fail2ban multi-hôtes* | *Protocoles · EVE · top alertes 24h · ~90 000 règles Emerging Threats* |
+
+</div>
+
+---
+
+<h2 align="center">🩺 Intégrité & surveillance des hôtes</h2>
+
+<div align="center">
+
+| AIDE HIDS — intégrité fichiers multi-VM | SSH — surveillance infrastructure |
+|:---:|:---:|
+| ![AIDE HIDS](assets/soc-aide.png) | ![Surveillance SSH](assets/soc-ssh.png) |
+| *Base d'intégrité par hôte · 0 diff · le dernier rempart post-compromission* | *Hôtes en ligne · connexions & sessions SSH par hôte · 24h* |
 
 </div>
 
@@ -314,7 +344,7 @@ INTERNET
 | 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 5 hôtes · filtres · rétention |
 | 08 | [JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md) | Défense proactive IA : boucle 60s · 12 déclencheurs |
 | 09 | [ROADMAP.md](09-ROADMAP.md) | Axes d'évolution · décisions d'architecture |
-| 10 ⭐ | [**DÉTECTIONS — Sigma**](10-DETECTIONS.md) | **Detection-as-code** ⭐ : catalogue Sigma · maturité par maillon · MITRE 12/14 · test-driven *(à voir en priorité)* |
+| 10 ⭐ | [**DÉTECTIONS — Sigma**](10-DETECTIONS.md) | **Detection-as-code** ⭐ : catalogue Sigma · maturité par maillon · MITRE 13/14 · test-driven *(à voir en priorité)* |
 
 ---
 
