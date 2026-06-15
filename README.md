@@ -99,74 +99,81 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ---
 
-<h2 align="center">Cartographie des menaces — Live</h2>
+<h2 align="center">🛡️ La ligne de défense — en images</h2>
+
+<div align="center"><sub>Captures réelles du dashboard SOC en production · données sensibles masquées (IP internes redactées, hostnames anonymisés)</sub></div>
+
+<br/>
 
 <div align="center">
 
-![Carte mondiale des menaces](assets/soc-map-world.jpg)
+**La chaîne de défense complète — INTERNET → trafic légitime admis**
 
-*GeoIP — Cartographie mondiale des menaces 24h · arcs d'attaque animés · top pays · 169 IPs actives · 25 pays sources*
+![Chaîne de défense complète](assets/soc-defense-chain.png)
+
+*11 couches actives : pare-feu routeur · GeoIP · CrowdSec WAF · CrowdSec IDS/IPS · Sigma · Suricata · fail2ban · nginx · XDR — puis isolation par hôte (AppArmor · ModSecurity · AIDE)*
 
 </div>
 
 ---
 
-<h2 align="center">Kill Chain — Progression des attaques</h2>
+<h2 align="center">🎯 Kill Chain — progression des attaques en temps réel</h2>
 
 <div align="center">
 
-![Kill Chain](assets/soc-killchain.jpg)
+![Kill Chain](assets/soc-killchain-v2.png)
 
-*Tracking en temps réel : RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ · fenêtre 15 min · score menace par IP*
+*RECON → SCAN → EXPLOIT → BRUTE → **NEUTRALISÉ** · fenêtre 15 min · technique MITRE par maillon · score menace par IP*
 
 </div>
 
 ---
 
-<h2 align="center">Vue tactique Europe</h2>
+<h2 align="center">⚙️ Détection-as-code — le moteur Sigma</h2>
 
 <div align="center">
 
-![SOC Map Europe](assets/soc-map-europe.jpg)
-
-*Carte tactique Europe — score menace en direct · hostiles actifs · % neutralisation · arcs kill chain animés*
+| Moteur Sigma — temps réel | Enforce — bans réels |
+|:---:|:---:|
+| ![Moteur Sigma](assets/sigma-moteur-3.png) | ![Sigma enforce](assets/sigma-enforce.png) |
+| *Règles Sigma versionnées · maturité `alert → dry-run → enforce` · MITRE 12/14* | *Bans `cscli` réels appliqués — la détection-as-code en action* |
 
 </div>
 
 ---
 
-<h2 align="center">GeoIP — Statistiques & Corrélations</h2>
+<h2 align="center">📊 Niveau de menace & corrélation</h2>
 
 <div align="center">
 
-![Niveau de menace global](assets/soc-threat-level.jpg)
+![Niveau de menace global](assets/soc-threatscore.png)
 
-*Kill Chain 15 min · Top pays attaquants · Scénarios CrowdSec · Heatmap activité · Top 60 IPs 24h*
+*ThreatScore 0–100 · niveau FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE · détail CrowdSec · Suricata · XDR · historique 30j*
 
 </div>
 
 ---
 
-<h2 align="center">Moteur de corrélation & Chaîne de défense</h2>
+<h2 align="center">🛡️ Protections actives & Suricata IDS</h2>
 
 <div align="center">
 
-| XDR — Corrélation cross-source | Chaîne de défense — Pipeline sécurité |
-|:------------------------------:|:-------------------------------------:|
-| ![XDR Engine](assets/soc-xdr.jpg) | ![Chaîne de défense](assets/soc-defense.jpg) |
-| *COLLECT · NORMALIZE · CORRELATE · RESPOND · Score 200* | *UFW → GeoIP → WAF → CrowdSec → Suricata → Fail2ban → nginx · 8 couches* |
+| Protections actives — CrowdSec & fail2ban | Suricata IDS — alertes réseau 24h |
+|:---:|:---:|
+| ![Protections actives](assets/soc-protections.png) | ![Suricata IDS](assets/soc-suricata.png) |
+| *CrowdSec IPS/IDS · décisions · bans/h · GeoIP · WAF — fail2ban multi-hôtes* | *Protocoles · EVE · top alertes 24h · ~90 000 règles Emerging Threats* |
 
 </div>
 
 ---
 
-<h2 align="center">Heatmap des attaques — 24h</h2>
+<h2 align="center">🗺️ Cartographie mondiale des menaces</h2>
 
 <div align="center">
 
-![Heatmap Attaques 24h](assets/soc-attacks-24h.jpg)
+![Cartographie des menaces](assets/soc-map-v2.png)
 
-*Activité d'attaque sur 24h · requêtes / bloquées · pics horaires détectés · ventilation par protocole*
+*GeoIP — origines des attaques sur 24h · arcs animés · top pays sources · IPs actives*
 
 </div>
 
@@ -176,7 +183,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise optionnelle** : réponse proactive automatique · ban contextuel · alertes vocales TTS sur niveau ÉLEVÉ/CRITIQUE · analyse LLM des événements. Le SOC se défend seul 24h/24 — JARVIS amplifie quand la machine est active.
+JARVIS (Ollama **qwen3:8b**) s'intègre au SOC comme **couche d'expertise optionnelle** : réponse proactive automatique · ban contextuel · alertes vocales TTS sur niveau ÉLEVÉ/CRITIQUE · analyse LLM des événements. Le SOC se défend seul 24h/24 — JARVIS amplifie quand la machine est active.
 
 ➡️ Projet complet : [**JARVIS — Assistant IA local**](https://github.com/0xCyberLiTech/JARVIS) · doc [08-JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md)
 
@@ -194,7 +201,7 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 | 4 | **Dashboard monitoring** | monitoring_gen.py · monitoring.json · SPA Vanilla JS · premières tuiles système | Sans visibilité temps réel, la défense est aveugle — dashboard avant tout ajout |
 | 5 | **Kill Chain + GeoIP cartographie** | Classification 5 stages · score 0–100 · canvas monde · heatmap 24h · top IPs | Transformer les logs bruts en renseignement tactique — qui fait quoi, d'où, quand |
 | 6 | **Suricata IDS 7 + rsyslog centralisé** | ~90 000 règles Emerging Threats · AF_PACKET · eve.json · 5 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
-| 7 | **JARVIS IA défensive** | Ollama phi4:14b · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
+| 7 | **JARVIS IA défensive** | Ollama qwen3:8b · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
 | 8 | **AppArmor + AIDE HIDS** | Confinement processus · base intégrité 49k fichiers · exclusions CrowdSec hub | Dernier rempart : un attaquant qui passe tout le reste ne peut ni s'étendre ni persister |
 | 9 | **DR exercice réel + qualité auditée** | Exercice Phase A/B/C (2026-04-28) · 8 écarts corrigés · suite de tests · dette de code à zéro | Valider que le système se reconstruit réellement, pas juste sur le papier |
 
@@ -205,7 +212,7 @@ JARVIS (Ollama **phi4:14b**) s'intègre au SOC comme **couche d'expertise option
 | | Capacité | Détail |
 |--|----------|--------|
 | 🛡️ | **8 couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
-| 🧠 | **IA défensive** | JARVIS (Ollama phi4:14b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
+| 🧠 | **IA défensive** | JARVIS (Ollama qwen3:8b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
 | 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
 | 📊 | **Score menace** | 24 briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
@@ -232,7 +239,7 @@ Sécurité    CrowdSec (WAF AppSec ~180 vpatch CVE) · Suricata IDS (~90 000 rè
 Logs        rsyslog centralisé (5 hôtes) · GoAccess
 Dashboard   SPA vanilla JS — 28 modules · 35 tuiles · zéro dépendance NPM
 Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
-IA          JARVIS — Ollama phi4:14b · Flask · edge-tts
+IA          JARVIS — Ollama qwen3:8b · Flask · edge-tts
 GeoIP       MaxMind GeoLite2 · Leaflet.js
 Infra       Proxmox VE — 3 VMs (srv-nginx · site-01 · site-02)
 ```

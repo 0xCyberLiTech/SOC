@@ -102,7 +102,7 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 - Bannit les IPs critiques via CrowdSec
 - Redémarre les services tombés
 - Alerte vocalement en cas de niveau CRITIQUE
-- Analyse les gaps défensifs avec un LLM local (phi4:14b)
+- Analyse les gaps défensifs avec un LLM local (qwen3:8b)
 
 <h3 align="center">Audit qualité 10/10</h3>
 
@@ -162,7 +162,7 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 
 <h3 align="center">Couche IA / réponse</h3>
 
-- **JARVIS** — Flask + Ollama (phi4:14b) — boucle autonome
+- **JARVIS** — Flask + Ollama (qwen3:8b) — boucle autonome
 - **edge-tts / Piper** — Synthèse vocale alertes
 - **faster-whisper** — Reconnaissance vocale commandes
 
