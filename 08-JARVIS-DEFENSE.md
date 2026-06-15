@@ -71,7 +71,7 @@ JARVIS (Windows localhost:5000)
       │       ├── POST /ban-ip      → cscli decisions add
       │       ├── POST /unban-ip    → cscli decisions delete
       │       └── POST /restart-svc → systemctl restart
-      └── TTS alertes vocales (edge-tts Antoine / Piper fallback)
+      └── TTS alertes vocales (edge-tts Antoine / Kokoro fallback)
 ```
 
 ---
@@ -81,10 +81,10 @@ JARVIS (Windows localhost:5000)
 | Composant | Détail |
 |-----------|--------|
 | Serveur | Flask 3.x (Python 3.11) |
-| LLM principal | qwen3:8b:plus (Ollama local) |
-| LLMs alternatifs | deepseek-r1:14b, qwen3:8b, qwen2.5:14b, mistral-small3.1:24b |
-| TTS | edge-tts fr-CA-AntoineNeural → Piper (fallback local) |
-| STT | faster-whisper "small" FR |
+| LLM principal | qwen3:8b (Ollama local — SOC · général · raisonnement) |
+| LLMs spécialisés | qwen3:14b (raisonnement profond) · qwen2.5-coder:14b (code) · gemma4 (vision) |
+| TTS | edge-tts fr-CA-AntoineNeural → Kokoro (neural local, CUDA) |
+| STT | faster-whisper large-v3-turbo FR |
 | GPU | RTX 5080 16GB GDDR7 (inférence Ollama) |
 
 ---
