@@ -62,37 +62,37 @@ INTERNET
     │
     │ HTTP/HTTPS (80/443)
     ▼
-┌─────────────────────────────────────────────────────┐
-│  srv-nginx — <SRV-NGINX-IP>  (VM Proxmox 108)         │
-│                                                     │
-│  ┌──────────┐  ┌──────────────┐  ┌───────────────┐  │
-│  │  UFW     │  │  nftables    │  │  CrowdSec     │  │
-│  │ (pare-feu│  │  (bouncer    │  │  LAPI + AppSec│  │
-│  │  Linux)  │  │  CrowdSec)   │  │  WAF          │  │
-│  └──────────┘  └──────────────┘  └───────────────┘  │
-│                                                     │
-│  ┌──────────────────────────────────────────────┐   │
-│  │  nginx 1.26                                  │   │
-│  │  • Reverse proxy → site-01 (<CLT-IP>:80)     │   │
-│  │  • Reverse proxy → site-02 (<PA85-IP>:80)    │   │
-│  │  • Dashboard SOC :8080 (LAN only)            │   │
-│  │  • GeoIP2 · Log format enrichi               │   │
-│  │  • Headers sécurité (HSTS, CSP, X-Frame...)  │   │
-│  └──────────────────────────────────────────────┘   │
-│                                                     │
-│  ┌──────────┐  ┌──────────┐  ┌───────────────────┐  │
-│  │ Suricata │  │ Fail2ban │  │ rsyslog récepteur │  │
-│  │ IDS      │  │ 3 jails  │  │ TCP+UDP :514      │  │
-│  │ ~90 000 règ.│  │          │  │ 5 hôtes           │  │
-│  └──────────┘  └──────────┘  └───────────────────┘  │
-│                                                     │
-│  ┌──────────────────────────────────────────────┐   │
-│  │  Python 3.11                                 │   │
-│  │  • monitoring_gen.py → monitoring.json       │   │
-│  │  • soc.py (API ban/unban/restart)            │   │
-│  │  • soc-daily-report.py (mail 8h00)           │   │
-│  └──────────────────────────────────────────────┘   │
-└─────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────┐
+│  srv-nginx — <SRV-NGINX-IP>  (VM Proxmox 108)           │
+│                                                         │
+│  ┌──────────┐  ┌──────────────┐  ┌───────────────────┐  │
+│  │  UFW     │  │  nftables    │  │  CrowdSec         │  │
+│  │ (pare-feu│  │  (bouncer    │  │  LAPI + AppSec    │  │
+│  │  Linux)  │  │  CrowdSec)   │  │  WAF              │  │
+│  └──────────┘  └──────────────┘  └───────────────────┘  │
+│                                                         │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  nginx 1.26                                       │  │
+│  │  • Reverse proxy → site-01 (<CLT-IP>:80)          │  │
+│  │  • Reverse proxy → site-02 (<PA85-IP>:80)         │  │
+│  │  • Dashboard SOC :8080 (LAN only)                 │  │
+│  │  • GeoIP2 · Log format enrichi                    │  │
+│  │  • Headers sécurité (HSTS, CSP, X-Frame...)       │  │
+│  └───────────────────────────────────────────────────┘  │
+│                                                         │
+│  ┌──────────────┐  ┌──────────┐  ┌───────────────────┐  │
+│  │ Suricata     │  │ Fail2ban │  │ rsyslog récepteur │  │
+│  │ IDS          │  │ 3 jails  │  │ TCP+UDP :514      │  │
+│  │ ~90 000 règ. │  │          │  │ 5 hôtes           │  │
+│  └──────────────┘  └──────────┘  └───────────────────┘  │
+│                                                         │
+│  ┌───────────────────────────────────────────────────┐  │
+│  │  Python 3.11                                      │  │
+│  │  • monitoring_gen.py → monitoring.json            │  │
+│  │  • soc.py (API ban/unban/restart)                 │  │
+│  │  • soc-daily-report.py (mail 8h00)                │  │
+│  └───────────────────────────────────────────────────┘  │
+└─────────────────────────────────────────────────────────┘
          │                          │
          │ :80                      │ rsyslog :514
          ▼                          ▼
@@ -111,7 +111,7 @@ INTERNET
                     ┌──────────────────────────┐
                     │ JARVIS <LAN-IP>          │
                     │ Windows · localhost:5000 │
-                    │ Ollama qwen3:8b    │
+                    │ Ollama qwen3:8b          │
                     └──────────────────────────┘
 
                     ┌──────────────────────┐
