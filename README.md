@@ -141,6 +141,18 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ---
 
+<h2 align="center">🔗 XDR — moteur de corrélation multi-sources</h2>
+
+<div align="center">
+
+<img src="assets/soc-xdr.png" alt="XDR — moteur de corrélation multi-sources" width="860" />
+
+*Logigramme **nodal** : 8 sources de détection (fail2ban · UFW · AppArmor · ModSecurity · Suricata · nginx · AIDE · auto-ban) → **moteur de corrélation** → moteurs de réponse (CrowdSec · fail2ban · TTS/alerte · JARVIS). En dessous, **chaque IP attaquante corrélée au moteur qui l'a traitée** — la timeline temps réel de la défense.*
+
+</div>
+
+---
+
 <h2 align="center">⚙️ Détection-as-code — le moteur Sigma</h2>
 
 <div align="center">
