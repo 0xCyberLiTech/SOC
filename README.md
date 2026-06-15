@@ -17,17 +17,17 @@
     <a href="https://github.com/0xCyberLiTech">
       <img src="https://img.shields.io/badge/Profil-GitHub-181717?logo=github&style=flat-square" alt="🔗 Profil GitHub" />
     </a>
-    <a href="https://github.com/0xCyberLiTech/Astuces/releases/latest">
-      <img src="https://img.shields.io/github/v/release/0xCyberLiTech/Astuces?label=version&style=flat-square&color=blue" alt="📦 Dernière version" />
+    <a href="https://github.com/0xCyberLiTech/SOC/tags">
+      <img src="https://img.shields.io/github/v/tag/0xCyberLiTech/SOC?sort=semver&label=version&style=flat-square&color=blue" alt="📦 Dernière version" />
     </a>
-    <a href="https://github.com/0xCyberLiTech/Astuces/blob/main/CHANGELOG.md">
-      <img src="https://img.shields.io/badge/📄%20Changelog-Astuces-blue?style=flat-square" alt="📄 CHANGELOG Astuces" />
+    <a href="https://github.com/0xCyberLiTech/SOC/blob/main/CHANGELOG.md">
+      <img src="https://img.shields.io/badge/📄%20Changelog-SOC-blue?style=flat-square" alt="📄 CHANGELOG SOC" />
     </a>
     <a href="https://github.com/0xCyberLiTech?tab=repositories">
       <img src="https://img.shields.io/badge/Dépôts-publics-blue?style=flat-square" alt="📂 Dépôts publics" />
     </a>
-    <a href="https://github.com/0xCyberLiTech/Astuces/graphs/contributors">
-      <img src="https://img.shields.io/badge/👥%20Contributeurs-cliquez%20ici-007ec6?style=flat-square" alt="👥 Contributeurs Astuces" />
+    <a href="https://github.com/0xCyberLiTech/SOC/graphs/contributors">
+      <img src="https://img.shields.io/badge/👥%20Contributeurs-cliquez%20ici-007ec6?style=flat-square" alt="👥 Contributeurs SOC" />
     </a>
   </p>
 
@@ -49,7 +49,7 @@
 
 ## 🛡️ Détection-as-code — le cœur de ce SOC
 
-<a href="10-DETECTIONS.md"><img src="https://img.shields.io/badge/CATALOGUE%20DES%20D%C3%89TECTIONS-Sigma%20%C2%B7%20MITRE%2012%2F14-00B4D8?style=for-the-badge&logo=target&logoColor=white" alt="Catalogue des détections Sigma" /></a>
+<a href="10-DETECTIONS.md"><img src="https://img.shields.io/badge/CATALOGUE%20DES%20D%C3%89TECTIONS-Sigma%20%C2%B7%20MITRE%2013%2F14-00B4D8?style=for-the-badge&logo=target&logoColor=white" alt="Catalogue des détections Sigma" /></a>
 
 Le SOC détecte en **règles Sigma versionnées** (*detection-as-code*), avec un **cycle de vie maîtrisé** :
 
