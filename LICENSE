@@ -1,21 +1,21 @@
-MIT License
+SOC Homelab — Vitrine / Portfolio
+Copyright (c) 2026 0xCyberLiTech. Tous droits réservés.
 
-Copyright (c) 2023 0xCyberLiTech
+Ce dépôt est publié à des fins de PRÉSENTATION (vitrine / portfolio) et de
+documentation de l'approche défensive.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+TOUS DROITS RÉSERVÉS. Le contenu (documentation, configurations anonymisées,
+captures d'écran, schémas) peut être CONSULTÉ à titre de référence, mais aucune
+licence de réutilisation n'est accordée : il est interdit de reproduire,
+redistribuer, publier, modifier ou exploiter tout ou partie de ce dépôt, sous
+quelque forme et par quelque moyen que ce soit, sans l'autorisation écrite
+préalable de l'auteur.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+Les sources du dashboard, les scripts opérationnels et l'archive de
+restauration restent PRIVÉS — la reconstruction n'est volontairement pas
+reproductible depuis ce dépôt public seul (savoir protégé).
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+Les marques, logos et technologies tierces cités (CrowdSec, Suricata, nginx,
+Ollama, etc.) appartiennent à leurs propriétaires respectifs.
+
+Contact : https://github.com/0xCyberLiTech

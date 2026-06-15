@@ -195,7 +195,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![Cartographie des menaces](assets/soc-map-v2.png)
+![Cartographie des menaces](assets/soc-map.png)
 
 *GeoIP — origines des attaques sur 24h · arcs animés · top pays sources · IPs actives*
 
