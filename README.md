@@ -145,7 +145,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![Moteur Sigma](assets/soc-sigma.png)
+<img src="assets/soc-sigma.png" alt="Moteur Sigma" width="620" />
 
 *Règles Sigma versionnées · cycle de vie `alert → dry-run → enforce` · **8 règles enforce** · couverture **MITRE 13/14** mappée par maillon Kill Chain · bans réels · 0 IP interne bannie*
 
@@ -206,6 +206,10 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 <h2 align="center">JARVIS — IA défensive intégrée</h2>
 
 <div align="center">
+
+![JARVIS — intelligence proactive](assets/soc-jarvis.png)
+
+*Moteur proactif `qwen3:8b · RTX 5080` · **bans auto contextuels** · analyses LLM · prochain cycle · exemple de neutralisation réelle (corrélation Suricata + WAF)*
 
 JARVIS (Ollama **qwen3:8b**) s'intègre au SOC comme **couche d'expertise optionnelle** : réponse proactive automatique · ban contextuel · alertes vocales TTS sur niveau ÉLEVÉ/CRITIQUE · analyse LLM des événements. Le SOC se défend seul 24h/24 — JARVIS amplifie quand la machine est active.
 
