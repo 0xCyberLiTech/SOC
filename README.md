@@ -121,7 +121,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![Kill Chain complète](assets/soc-killchain.png)
+![Kill Chain complète](assets/soc-killchain-live.png)
 
 *RECON → SCAN → EXPLOIT → BRUTE → **NEUTRALISÉ** · fenêtre 15 min · technique MITRE par maillon — et **chaque IP attaquante (publique) suivie maillon par maillon**, avec le moteur qui l'a traitée : **SIGMA · fail2ban · CrowdSec · auto***
 
