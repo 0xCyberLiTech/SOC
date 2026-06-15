@@ -117,19 +117,13 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ---
 
-<h2 align="center">🎯 Kill Chain — progression des attaques en temps réel</h2>
+<h2 align="center">🎯 Kill Chain — l'outil complet en temps réel</h2>
 
 <div align="center">
 
-![Kill Chain](assets/soc-killchain-v2.png)
+![Kill Chain complète](assets/soc-killchain.png)
 
-*RECON → SCAN → EXPLOIT → BRUTE → **NEUTRALISÉ** · fenêtre 15 min · technique MITRE par maillon · score menace par IP*
-
-<br/>
-
-![Kill Chain — IPs attaquantes par maillon](assets/soc-killchain-ips.png)
-
-*Chaque IP attaquante (publique) suivie maillon par maillon — et le moteur qui l'a traitée : **SIGMA · fail2ban · CrowdSec** · 21 neutralisées sur la fenêtre*
+*RECON → SCAN → EXPLOIT → BRUTE → **NEUTRALISÉ** · fenêtre 15 min · technique MITRE par maillon — et **chaque IP attaquante (publique) suivie maillon par maillon**, avec le moteur qui l'a traitée : **SIGMA · fail2ban · CrowdSec · auto***
 
 </div>
 
