@@ -102,23 +102,23 @@ INTERNET
 │ fail2ban local   │    │ fail2ban local     │
 └──────────────────┘    └────────────────────┘
 
-                    ┌─────────────────────────┐
-                    │ Proxmox VE <PROXMOX-IP> │
-                    │ Hyperviseur VMs 106/107 │
-                    │ /108                    │
-                    └─────────────────────────┘
+                        ┌─────────────────────────┐
+                        │ Proxmox VE <PROXMOX-IP> │
+                        │ Hyperviseur VMs 106/107 │
+                        │ /108                    │
+                        └─────────────────────────┘
 
-                    ┌──────────────────────────┐
-                    │ JARVIS <LAN-IP>          │
-                    │ Windows · localhost:5000 │
-                    │ Ollama qwen3:8b          │
-                    └──────────────────────────┘
+                        ┌──────────────────────────┐
+                        │ JARVIS <LAN-IP>          │
+                        │ Windows · localhost:5000 │
+                        │ Ollama qwen3:8b          │
+                        └──────────────────────────┘
 
-                    ┌──────────────────────┐
-                    │ Routeur <ROUTER>     │
-                    │ <ROUTER-IP>          │
-                    │ Source logs WAN/DHCP │
-                    └──────────────────────┘
+                        ┌──────────────────────┐
+                        │ Routeur <ROUTER>     │
+                        │ <ROUTER-IP>          │
+                        │ Source logs WAN/DHCP │
+                        └──────────────────────┘
 ```
 
 ---
