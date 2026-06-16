@@ -44,8 +44,8 @@
 </div>
 
 > [!IMPORTANT]
-> **Vitrine — et non une procédure de déploiement.**
-> Ce dépôt **présente** mon SOC homelab : son architecture, ses détections et ses capacités. Ce **n'est pas** un guide de déploiement reproductible. Les **configurations opérationnelles** (règles complètes, adresses, clés, durcissement) et certains **détails d'implémentation** restent **volontairement non publiés** — **sécurité** et propriété intellectuelle. Les schémas et descriptions sont **conceptuels** : ils expliquent le *quoi* et le *pourquoi*, pas le *comment* exact.
+> **Vitrine : la méthode est partagée, la reconstruction complète ne l'est pas.**
+> Ce dépôt présente mon SOC homelab et **partage le framework de déploiement** (`deploy-soc.sh`, runbook, checklist) — la méthode est réutilisable. En revanche, **reconstruire CE SOC à l'identique n'est pas reproductible** depuis ce seul dépôt : configurations opérationnelles, règles complètes et sources du dashboard restent **privées** (sécurité, savoir protégé).
 
 ---
 
