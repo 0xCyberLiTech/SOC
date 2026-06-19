@@ -211,9 +211,13 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![Cartographie des menaces](assets/soc-map.png)
+![Globe 3D — cartographie des menaces](assets/soc-globe.png)
 
-*GeoIP — origines des attaques sur 24h · arcs animés · top pays sources · IPs actives*
+*Cockpit **globe 3D plein écran** — origines des attaques sur 24h convergeant vers le SOC · arcs animés désynchronisés (couleur = sévérité du stade Kill Chain) · ondulations par stade · HUD de métriques temps réel · options relief / jour-nuit / atmosphère / grille*
+
+![Cartographie des menaces — vue carte](assets/soc-map.png)
+
+*Vue carte (Leaflet) — GeoIP · top pays sources · IPs actives · fenêtre 24h*
 
 </div>
 

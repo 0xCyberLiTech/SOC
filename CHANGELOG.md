@@ -4,6 +4,14 @@
 
 Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [1.1.0] — 2026-06-19
+
+### Vitrine
+- **Globe 3D** — la cartographie des menaces gagne un cockpit **globe 3D plein écran** : arcs d'attaque animés convergeant vers le SOC, ondulations par stade Kill Chain, HUD de métriques temps réel, relief / jour-nuit / atmosphère. Capture sanitisée ajoutée à la galerie.
+- **Cohérence vitrine ↔ prod** — métriques alignées (MITRE 13/14, modèle `qwen3:8b`, Sigma 8/8 enforce).
+
+[1.1.0]: https://github.com/0xCyberLiTech/SOC/releases/tag/v1.1.0
+
 ## [1.0.0] — 2026-06-15
 
 ### Vitrine
