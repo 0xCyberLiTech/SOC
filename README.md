@@ -211,7 +211,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <div align="center">
 
-![Globe 3D — cartographie des menaces](assets/soc-globe.png)
+![Globe 3D — cartographie des menaces](assets/soc-globe.jpg)
 
 *Cockpit **globe 3D plein écran** — origines des attaques sur 24h convergeant vers le SOC · arcs animés désynchronisés (couleur = sévérité du stade Kill Chain) · ondulations par stade · HUD de métriques temps réel · options relief / jour-nuit / atmosphère / grille*
 
