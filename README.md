@@ -115,7 +115,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ![Chaîne de défense complète](assets/soc-defense-chain.png)
 
-*11 couches actives : pare-feu routeur · GeoIP · CrowdSec WAF · CrowdSec IDS/IPS · Sigma · Suricata · fail2ban · nginx · XDR — puis isolation par hôte (AppArmor · ModSecurity · AIDE)*
+*18 couches actives (barres segmentées · trafic entrant → trafic légitime admis, 24h) : pare-feu routeur · AiProtect · UFW · GeoIP · CrowdSec IDS/IPS · Suricata · Sigma · fail2ban (nginx/pve/pa85) — puis isolation par hôte : AppArmor · ModSecurity · AIDE*
 
 </div>
 
@@ -188,7 +188,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 | Protections actives — CrowdSec & fail2ban | Suricata IDS — alertes réseau 24h |
 |:---:|:---:|
 | ![Protections actives](assets/soc-protections.png) | ![Suricata IDS](assets/soc-suricata.png) |
-| *CrowdSec IPS/IDS · décisions · bans/h · GeoIP · WAF — fail2ban multi-hôtes* | *Protocoles · EVE · top alertes 24h · ~90 000 règles Emerging Threats* |
+| *CrowdSec IPS/IDS · décisions · bans/h · GeoIP · WAF — fail2ban multi-hôtes* | *Menace-first : intrusions critiques sév.1 · nature des attaques · balayage/recon · capteur & couverture des ~90 000 règles Emerging Threats* |
 
 </div>
 
