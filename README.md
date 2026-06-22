@@ -217,7 +217,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ![Cartographie des menaces — vue carte](assets/soc-map.png)
 
-*Vue carte (Leaflet) — GeoIP · top pays sources · IPs actives · fenêtre 24h*
+*Cartographie 2D temps réel — GeoIP · arcs d'attaque convergents · top pays sources · scénarios CrowdSec/Sigma · fenêtre 24h*
 
 </div>
 
