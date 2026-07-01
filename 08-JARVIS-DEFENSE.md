@@ -66,7 +66,7 @@ Il opère en **boucle autonome** toutes les 60 secondes : lit `monitoring.json`,
 JARVIS (Windows localhost:5000)
       │
       ├── fetch monitoring.json (srv-nginx :8080)
-      ├── Analyse LLM (qwen3:8b via Ollama)
+      ├── Analyse LLM (qwen3.5:9b via Ollama)
       ├── Décisions → routes soc.py (srv-nginx)
       │       ├── POST /ban-ip      → cscli decisions add
       │       ├── POST /unban-ip    → cscli decisions delete
@@ -81,8 +81,8 @@ JARVIS (Windows localhost:5000)
 | Composant | Détail |
 |-----------|--------|
 | Serveur | Flask 3.x (Python 3.11) |
-| LLM principal | qwen3:8b (Ollama local — SOC · général · raisonnement) |
-| LLMs spécialisés | qwen3:14b (raisonnement profond) · qwen2.5-coder:14b (code) · gemma4 (vision) |
+| LLM principal | qwen3.5:9b (Ollama local — SOC · général · code · raisonnement, modèle unique) |
+| LLM spécialisé | gemma4 (vision) |
 | TTS | edge-tts fr-CA-AntoineNeural → Kokoro (neural local, CUDA) |
 | STT | faster-whisper large-v3-turbo FR |
 | GPU | RTX 5080 16GB GDDR7 (inférence Ollama) |

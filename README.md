@@ -229,9 +229,9 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ![JARVIS — intelligence proactive](assets/soc-jarvis.png)
 
-*Moteur proactif `qwen3:8b · RTX 5080` · **bans auto contextuels** · analyses LLM · prochain cycle · exemple de neutralisation réelle (corrélation Suricata + WAF)*
+*Moteur proactif `qwen3.5:9b · RTX 5080` · **bans auto contextuels** · analyses LLM · prochain cycle · exemple de neutralisation réelle (corrélation Suricata + WAF)*
 
-JARVIS (Ollama **qwen3:8b**) s'intègre au SOC comme **couche d'expertise optionnelle** : réponse proactive automatique · ban contextuel · alertes vocales TTS sur niveau ÉLEVÉ/CRITIQUE · analyse LLM des événements. Le SOC se défend seul 24h/24 — JARVIS amplifie quand la machine est active.
+JARVIS (Ollama **qwen3.5:9b**) s'intègre au SOC comme **couche d'expertise optionnelle** : réponse proactive automatique · ban contextuel · alertes vocales TTS sur niveau ÉLEVÉ/CRITIQUE · analyse LLM des événements. Le SOC se défend seul 24h/24 — JARVIS amplifie quand la machine est active.
 
 ➡️ Projet complet : [**JARVIS — Assistant IA local**](https://github.com/0xCyberLiTech/JARVIS) · doc [08-JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md)
 
@@ -249,7 +249,7 @@ JARVIS (Ollama **qwen3:8b**) s'intègre au SOC comme **couche d'expertise option
 | 4 | **Dashboard monitoring** | monitoring_gen.py · monitoring.json · SPA Vanilla JS · premières tuiles système | Sans visibilité temps réel, la défense est aveugle — dashboard avant tout ajout |
 | 5 | **Kill Chain + GeoIP cartographie** | Classification 5 stages · score 0–100 · canvas monde · heatmap 24h · top IPs | Transformer les logs bruts en renseignement tactique — qui fait quoi, d'où, quand |
 | 6 | **Suricata IDS 7 + rsyslog centralisé** | ~90 000 règles Emerging Threats · AF_PACKET · eve.json · 5 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
-| 7 | **JARVIS IA défensive** | Ollama qwen3:8b · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
+| 7 | **JARVIS IA défensive** | Ollama qwen3.5:9b · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
 | 8 | **AppArmor + AIDE HIDS** | Confinement processus · base intégrité 49k fichiers · exclusions CrowdSec hub | Dernier rempart : un attaquant qui passe tout le reste ne peut ni s'étendre ni persister |
 | 9 | **DR exercice réel + qualité auditée** | Exercice Phase A/B/C (2026-04-28) · 8 écarts corrigés · suite de tests · dette de code à zéro | Valider que le système se reconstruit réellement, pas juste sur le papier |
 
@@ -260,7 +260,7 @@ JARVIS (Ollama **qwen3:8b**) s'intègre au SOC comme **couche d'expertise option
 | | Capacité | Détail |
 |--|----------|--------|
 | 🛡️ | **8 couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
-| 🧠 | **IA défensive** | JARVIS (Ollama qwen3:8b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
+| 🧠 | **IA défensive** | JARVIS (Ollama qwen3.5:9b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
 | 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
 | 📊 | **Score menace** | 24 briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
@@ -287,7 +287,7 @@ Sécurité    CrowdSec (WAF AppSec ~180 vpatch CVE) · Suricata IDS (~90 000 rè
 Logs        rsyslog centralisé (5 hôtes) · GoAccess
 Dashboard   SPA vanilla JS — 28 modules · 35 tuiles · zéro dépendance NPM
 Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
-IA          JARVIS — Ollama qwen3:8b · Flask · edge-tts
+IA          JARVIS — Ollama qwen3.5:9b · Flask · edge-tts
 GeoIP       MaxMind GeoLite2 · Leaflet.js
 Infra       Proxmox VE — 3 VMs (srv-nginx · site-01 · site-02)
 ```
