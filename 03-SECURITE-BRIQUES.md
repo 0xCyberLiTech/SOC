@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>8 couches de défense — matrice de couverture par vecteur d'attaque.</h2>
+  <h2>couches de défense — matrice de couverture par vecteur d'attaque.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -77,7 +77,7 @@ INTERNET
    │
    ▼  [6] nginx ←── CSP stricte, HSTS 2ans, X-Frame DENY, headers-more
    │
-   ▼  [7] SOC Dashboard ←── ThreatScore 24 briques, Kill Chain, IP Deep, XDR
+   ▼  [7] SOC Dashboard ←── ThreatScore briques, Kill Chain, IP Deep, XDR
    │
    ▼  [8] JARVIS IA ←── Ban auto, restart services, analyse LLM, TTS
 ```
@@ -187,7 +187,7 @@ Tous présents sur HTTPS (vérifiés) :
 
 <h2 align="center">[7] SOC Dashboard</h2>
 
-- **ThreatScore** : calcul temps réel 0-100 (24 briques, voir doc 06)
+- **ThreatScore** : calcul temps réel 0-100 (briques, voir doc 06)
 - **Kill Chain MITRE ATT&CK** : RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ
 - **IP Deep** : GeoIP + WHOIS + CrowdSec + Fail2ban + rsyslog (fenêtre 7j)
 - **XDR** : corrélation cross-sources (fail2ban, ufw, CrowdSec, Suricata, rsyslog)

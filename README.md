@@ -59,7 +59,7 @@ Le SOC détecte en **règles Sigma versionnées** (*detection-as-code*), avec un
 
 **`🟡 alert-only`** → **`🟠 dry-run`** *(ban simulé)* → **`🟢 enforce`** *(ban réel)* — chaque règle promue **seulement après 0 faux positif prouvé**.
 
-Couverture **MITRE ATT&CK 13/14** (multi-moteurs) · **0 IP interne bannie** *(rail RFC1918, par construction)* · **test-driven** *(chaque règle validée par un corpus d'attaque)*.
+Couverture **MITRE ATT&CK** (multi-moteurs · couverture live sur /14) · **0 IP interne bannie** *(rail RFC1918, par construction)* · **test-driven** *(chaque règle validée par un corpus d'attaque)*.
 
 <sub>Injection SQL · Log4Shell (CVE-2021-44228) · scan de secrets exposés · énumération · webshell · brute-force — détectés, mappés MITRE, et bloqués au reverse proxy en **un seul point**.</sub>
 
@@ -87,7 +87,7 @@ Apprendre la cyberdéfense sur une infrastructure exposée à internet — pas u
 
 **🔒 Savoir construit, pas redistribué**
 
-Le framework de déploiement et la documentation sont publics — la méthode est partageable. Les sources du dashboard (28 modules JS) et les scripts opérationnels restent privés : connaissance acquise, pas distribuée.
+Le framework de déploiement et la documentation sont publics — la méthode est partageable. Les sources du dashboard (modules JS) et les scripts opérationnels restent privés : connaissance acquise, pas distribuée.
 
 </td>
 <td align="center" width="33%">
@@ -115,7 +115,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ![Chaîne de défense complète](assets/soc-defense-chain.png)
 
-*18 couches actives (barres segmentées · trafic entrant → trafic légitime admis, 24h) : pare-feu routeur · AiProtect · UFW · GeoIP · CrowdSec IDS/IPS · Suricata · Sigma · fail2ban (nginx/pve/pa85) — puis isolation par hôte : AppArmor · ModSecurity · AIDE*
+*couches actives (barres segmentées · trafic entrant → trafic légitime admis, 24h) : pare-feu routeur · AiProtect · UFW · GeoIP · CrowdSec IDS/IPS · Suricata · Sigma · fail2ban (nginx/pve/pa85) — puis isolation par hôte : AppArmor · ModSecurity · AIDE*
 
 </div>
 
@@ -139,7 +139,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ![Neutralisation — réponse proactive](assets/soc-neutralisation.png)
 
-*22 IP neutralisées · **4 moteurs** (CrowdSec · Sigma · JARVIS auto-engine · fail2ban) · matrice maillon × moteur · scénario + technique MITRE par IP attaquante*
+*22 IP neutralisées · **moteurs** (CrowdSec · Sigma · JARVIS auto-engine · fail2ban) · matrice maillon × moteur · scénario + technique MITRE par IP attaquante*
 
 </div>
 
@@ -163,7 +163,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 <img src="assets/soc-sigma.png" alt="Moteur Sigma" width="620" />
 
-*Règles Sigma versionnées · cycle de vie `alert → dry-run → enforce` · **8 règles enforce** · couverture **MITRE 13/14** mappée par maillon Kill Chain · bans réels · 0 IP interne bannie*
+*Règles Sigma versionnées · cycle de vie `alert → dry-run → enforce` · **règles en enforce** (compte live) · couverture **MITRE** mappée par maillon Kill Chain (couverture live · /14) · bans réels · 0 IP interne bannie*
 
 </div>
 
@@ -259,11 +259,11 @@ JARVIS (Ollama **qwen3.5:9b**) s'intègre au SOC comme **couche d'expertise opti
 
 | | Capacité | Détail |
 |--|----------|--------|
-| 🛡️ | **8 couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
+| 🛡️ | **couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
 | 🧠 | **IA défensive** | JARVIS (Ollama qwen3.5:9b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
 | 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
-| 📊 | **Score menace** | 24 briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
+| 📊 | **Score menace** | briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
 | 📈 | **Historique 30 jours** | Score menace tracé sur 30j · sparkline + modal · tendances et pics |
 | 🕸️ | **Corrélation temporelle** | Détection de campagnes lentes `/24` sur 14 jours — les attaques discrètes ne passent pas sous le radar |
 | 🩺 | **IoC post-compromission** | 6 signaux : intégrité AIDE · C2 Suricata · anomalies SSH · webshells PHP · AppArmor · sudo |
@@ -285,7 +285,7 @@ Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
 Sécurité    CrowdSec (WAF AppSec ~180 vpatch CVE) · Suricata IDS (~90 000 règles)
             Fail2ban · AppArmor · UFW + nftables · AIDE HIDS
 Logs        rsyslog centralisé (5 hôtes) · GoAccess
-Dashboard   SPA vanilla JS — 28 modules · 35 tuiles · zéro dépendance NPM
+Dashboard   SPA vanilla JS — modules · tuiles · zéro dépendance NPM
 Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
 IA          JARVIS — Ollama qwen3.5:9b · Flask · edge-tts
 GeoIP       MaxMind GeoLite2 · Leaflet.js
@@ -309,7 +309,7 @@ INTERNET
 │                                                     │
 │  ┌──────────────────────────────────────────────┐   │
 │  │         Dashboard SOC (port 8080)            │   │
-│  │  28 modules JS · polling 60s · Kill Chain    │   │
+│  │  modules JS · polling 60s · Kill Chain    │   │
 │  └──────────────────────────────────────────────┘   │
 │                                                     │
 │  rsyslog ◄── site-01 · site-02 · pve · <ROUTER>     │
@@ -335,7 +335,7 @@ INTERNET
 > **Ce dépôt met à disposition :**
 > Architecture complète · 9 documents techniques · framework de déploiement · configs anonymisées · rapport DR exercice réel (2026-04-28)
 >
-> 🔒 Les sources du dashboard (28 modules JS) et les scripts opérationnels restent privés — connaissance construite, pas redistribuée.
+> 🔒 Les sources du dashboard (modules JS) et les scripts opérationnels restent privés — connaissance construite, pas redistribuée.
 
 > **Infrastructure de référence** : ce SOC tourne sur **Proxmox VE** (machine physique) hébergeant 3 VMs Debian 13.
 > La reconstruction sur un autre hyperviseur (KVM, VMware, bare-metal) est possible en adaptant les 4 IPs du bloc CONFIG de `deploy-soc.sh` :
@@ -355,14 +355,14 @@ INTERNET
 |---|----------|-------------|
 | 01 | [PRESENTATION.md](01-PRESENTATION.md) | Présentation, objectifs, points forts |
 | 02 | [ARCHITECTURE.md](02-ARCHITECTURE.md) | Infrastructure, stack, schéma réseau |
-| 03 | [SECURITE-BRIQUES.md](03-SECURITE-BRIQUES.md) | 8 couches défense · matrice couverture par vecteur |
+| 03 | [SECURITE-BRIQUES.md](03-SECURITE-BRIQUES.md) | couches défense · matrice couverture par vecteur |
 | 04 | [DASHBOARD-SOC.md](04-DASHBOARD-SOC.md) | Dashboard : modules JS · tuiles · polling · CSS |
 | 05 | [CHAINE-DEFENSE.md](05-CHAINE-DEFENSE.md) | Flux attaque → détection → ban · intégrations |
-| 06 | [THREATSCORE.md](06-THREATSCORE.md) | Score menace : 24 briques · formule · anti-doublons |
+| 06 | [THREATSCORE.md](06-THREATSCORE.md) | Score menace : briques · formule · anti-doublons |
 | 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 5 hôtes · filtres · rétention |
 | 08 | [JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md) | Défense proactive IA : boucle 60s · 12 déclencheurs |
 | 09 | [ROADMAP.md](09-ROADMAP.md) | Axes d'évolution · décisions d'architecture |
-| 10 ⭐ | [**DÉTECTIONS — Sigma**](10-DETECTIONS.md) | **Detection-as-code** ⭐ : catalogue Sigma · maturité par maillon · MITRE 13/14 · test-driven *(à voir en priorité)* |
+| 10 ⭐ | [**DÉTECTIONS — Sigma**](10-DETECTIONS.md) | **Detection-as-code** ⭐ : catalogue Sigma · maturité par maillon · MITRE (live · /14) · test-driven *(à voir en priorité)* |
 
 ---
 
@@ -409,14 +409,14 @@ INTERNET
 
 <h2 align="center">Dashboard SOC</h2>
 
-SPA Vanilla JS — zéro dépendance NPM · 28 modules · 35 tuiles.
+SPA Vanilla JS — zéro dépendance NPM · modules · tuiles.
 
 > Les sources JS ne sont pas publiées dans ce dépôt. La page HTML et le CSS sont disponibles à titre de référence.
 
 | Caractéristique | Détail |
 |---|---|
-| **Architecture** | 28 modules JS à responsabilité unique — rendu, canvas, fetch, modals, XDR, investigation IP… |
-| **35 tuiles** | Kill Chain · GeoIP · XDR · Fail2ban · CrowdSec · Suricata · AIDE HIDS · rsyslog · nginx · Freebox · JARVIS |
+| **Architecture** | modules JS à responsabilité unique — rendu, canvas, fetch, modals, XDR, investigation IP… |
+| **tuiles** | Kill Chain · GeoIP · XDR · Fail2ban · CrowdSec · Suricata · AIDE HIDS · rsyslog · nginx · Freebox · JARVIS |
 | **Kill Chain** | Canvas 2D — tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ · score menace par IP |
 | **Investigation IP** | Modal forensique — CrowdSec · Fail2ban · GeoIP · WHOIS · verdict · historique 30j |
 | **XDR Engine** | Corrélation cross-source 6 flux · score 0-200 · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |

@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Score de menace — 24 briques · formule de calcul · anti-doublons · seuils.</h2>
+  <h2>Score de menace — briques · formule de calcul · anti-doublons · seuils.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -46,9 +46,9 @@
 ## À propos & Objectifs.
 </div>
 
-Ce document explique le moteur de calcul du ThreatScore global (0–100) : les 24 briques contributrices, leurs poids respectifs, le système anti-doublons et les seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE.
+Ce document explique le moteur de calcul du ThreatScore global (0–100) : les briques contributrices, leurs poids respectifs, le système anti-doublons et les seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE.
 
-- 📊 24 briques indépendantes — chacune contribue avec un poids fixe
+- 📊 briques indépendantes — chacune contribue avec un poids fixe
 - 🔢 Formule de normalisation — score global 0 à 100
 - 🚫 Système anti-doublons — évite l'inflation artificielle des signaux corrélés
 - 🚨 Seuils : FAIBLE (<30) · MOYEN (30–49) · ÉLEVÉ (50–69) · CRITIQUE (≥70)
@@ -60,7 +60,7 @@ Ce document explique le moteur de calcul du ThreatScore global (0–100) : les 2
 
 Le ThreatScore est un entier **0 à 100** calculé toutes les 60 secondes par `monitoring_gen.py`.
 
-Il agrège **24 briques indépendantes**. Chaque brique contribue avec un poids fixe.  
+Il agrège **briques indépendantes**. Chaque brique contribue avec un poids fixe.  
 Un système d'**anti-doublons explicites** évite que deux signaux corrélés gonflent artificiellement le score.
 
 ---
@@ -76,7 +76,7 @@ Un système d'**anti-doublons explicites** évite que deux signaux corrélés go
 
 ---
 
-<h2 align="center">Les 24 briques</h2>
+<h2 align="center">Les briques</h2>
 
 <h3 align="center">Briques réseau / volumétrie (max ~30 pts)</h3>
 
@@ -153,7 +153,7 @@ def compute_threat_score(data):
         score += 10
     if data['error_rate'] > 0.15:
         score += 8
-    # ... (24 briques)
+    # ... (briques)
     
     # Anti-doublons
     cs_contrib = max(brique5, brique6)

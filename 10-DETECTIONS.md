@@ -41,7 +41,7 @@ review : 0 faux positif prouvé**. Réversible à tout instant (ban court, kill-
 
 <img src="assets/soc-sigma.png" alt="Tuile état du moteur Sigma — verdict, maturité par règle, couverture MITRE par maillon" width="840" />
 
-<sub><strong>Le moteur Sigma vu du dashboard SOC</strong> : <strong>verdict</strong> (moteur armé · bans réels · 0 IP interne bannie) · <strong>maturité</strong> — <strong>8/8 règles enforce</strong> (cycle de vie complété) · <strong>couverture MITRE 13/14</strong> par maillon Kill Chain.</sub>
+<sub><strong>Le moteur Sigma vu du dashboard SOC</strong> : <strong>verdict</strong> (moteur armé · bans réels · 0 IP interne bannie) · <strong>maturité</strong> — <strong>règles en enforce</strong> (cycle de vie complété) · <strong>couverture MITRE</strong> par maillon Kill Chain (couverture live · /14).</sub>
 
 </div>
 
@@ -99,7 +99,7 @@ Garantie structurelle : une IP **interne ou de confiance ne peut PAS être banni
 
 ## Couverture MITRE — multi-moteurs (honnête)
 
-La couverture ne se limite pas à Sigma : elle agrège **4 moteurs** avec une **priorité disjointe**
+La couverture ne se limite pas à Sigma : elle agrège **moteurs** avec une **priorité disjointe**
 (Sigma > Suricata > CrowdSec > Host), 1 tactique = 1 moteur, le reste = **angle mort assumé**.
 
 ```

@@ -209,7 +209,7 @@ monitoring_gen.py (cron */5 min)
 
 Dashboard JS (polling 60s)
       │
-      └──→ fetch monitoring.json → render 35 tuiles
+      └──→ fetch monitoring.json → render tuiles
 
 JARVIS soc.py (boucle 60s)
       │
@@ -241,7 +241,7 @@ Toutes les connexions SSH : **port <SSH-PORT> · IdentitiesOnly=yes · BatchMode
 ├── index.html              ← Dashboard SPA
 ├── monitoring.json         ← Données sécurité (généré par monitoring_gen.py)
 ├── *.json                  ← Autres données (router, proto-live, windows-disk)
-├── js/                     ← 28 modules JS (01-utils → 22-ip-deep)
+├── js/                     ← modules JS (01-utils → 22-ip-deep)
 ├── css/
 │   └── monitoring.css      ← Styles (1 400 lignes, tokens CSS --fs-*)
 └── libs/                   ← Librairies tierces (Leaflet...)
