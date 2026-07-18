@@ -272,7 +272,7 @@ JARVIS (Ollama **qwen3.5:9b**) s'intègre au SOC comme **couche d'expertise opti
 | 🗺️ | **GeoIP** | Cartographie Leaflet + MaxMind · arcs d'attaque animés · top pays |
 | 🔄 | **Plug-and-play** | Archive privée 13 blocs · procédure DR éprouvée en conditions réelles · non reproductible depuis ce dépôt seul |
 | 🔥 | **DR validé en conditions réelles** | Exercice Phase A/B/C exécuté le 2026-04-28 · basculement réseau · 8 écarts corrigés · [rapport](DEPLOY/DR-EXERCISE-2026-04-28.md) |
-| 🧪 | **Qualité &amp; tests** | Suite pytest (1487 tests) · ruff/eslint · dette de code à zéro · dette structurelle **assumée et documentée** |
+| 🧪 | **Qualité &amp; tests** | Suite pytest complète · ruff/eslint · dette de code à zéro · dette structurelle **assumée et documentée** |
 | 🧯 | **Résilience auto** | Auto-ban CrowdSec · auto-restart services · cooldowns anti-spam · journal forensique horodaté |
 
 ---
