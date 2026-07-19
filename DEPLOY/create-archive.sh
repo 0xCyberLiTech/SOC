@@ -129,6 +129,20 @@ backup_file() {
     ok "$(basename "$src") → ${dest_subdir}/"
 }
 
+# Comme backup_file, mais pour un fichier OPTIONNEL (absent = NORMAL sur ce systeme) :
+# log INFO au lieu de WARN. Le WARN reste RESERVE aux vrais manques (a11y S5 : un WARN
+# doit vouloir dire quelque chose ; crier pour un fichier legitimement absent = bruit qui
+# noie les vraies alertes). Capture le fichier s'il EXISTE -> rien perdu, juste zero bruit.
+backup_file_optional() {
+    local src="$1"
+    local dest_subdir="$2"
+    if [[ ! -e "$src" ]]; then
+        log "optionnel absent (normal, pas un probleme) : ${src}"
+        return 0
+    fi
+    backup_file "$src" "$dest_subdir"
+}
+
 backup_dir() {
     local src="$1"
     local dest_subdir="$2"
@@ -171,7 +185,7 @@ backup_file "/etc/ssh/sshd_config"                     "network/ssh"
 backup_dir  "/etc/ssh/sshd_config.d"                   "network/ssh/sshd_config.d"
 
 # Sysctl — hardening + IPv6 désactivé + rp_filter Suricata
-backup_file "/etc/sysctl.conf"                         "network/sysctl"
+backup_file_optional "/etc/sysctl.conf"                "network/sysctl"   # optionnel : la config vit dans sysctl.d/
 backup_dir  "/etc/sysctl.d"                            "network/sysctl/sysctl.d"
 
 # nftables base
@@ -288,7 +302,7 @@ step "4/13 Suricata"
 
 backup_file "/etc/suricata/suricata.yaml"              "suricata"
 backup_dir  "/etc/suricata/rules"                      "suricata/rules"
-backup_dir  "/etc/suricata/threshold.config"           "suricata" 2>/dev/null || true
+backup_file_optional "/etc/suricata/threshold.config"  "suricata"   # optionnel + FICHIER (pas dossier : backup_dir testait -d -> WARN meme si present)
 
 # Suricata update sources
 if [[ -f "/etc/suricata/update.yaml" ]]; then
@@ -440,7 +454,7 @@ if $PUBLIC_MODE; then
     fi
 else
     backup_file "/etc/GeoIP.conf"                      "geoip"
-    backup_file "/etc/default/geoipupdate"             "geoip"
+    backup_file_optional "/etc/default/geoipupdate"    "geoip"   # optionnel : remplace par GeoIP.conf
 fi
 
 # Clés API nginx (NVD)
