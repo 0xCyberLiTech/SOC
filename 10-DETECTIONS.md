@@ -99,7 +99,7 @@ Garantie structurelle : une IP **interne ou de confiance ne peut PAS être banni
 
 ## Couverture MITRE — multi-moteurs (honnête)
 
-La couverture ne se limite pas à Sigma : elle agrège **moteurs** avec une **priorité disjointe**
+La couverture ne se limite pas à Sigma : elle agrège **plusieurs moteurs** avec une **priorité disjointe**
 (Sigma > Suricata > CrowdSec > Host), 1 tactique = 1 moteur, le reste = **angle mort assumé**.
 
 ```

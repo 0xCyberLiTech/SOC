@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Dashboard SOC — SPA vanilla JS · tuiles · modules · Kill Chain temps réel.</h2>
+  <h2>Dashboard SOC — SPA vanilla JS · tuiles thématiques · modules à responsabilité unique · Kill Chain temps réel.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -48,8 +48,8 @@
 
 Ce document couvre l'architecture du dashboard SOC : Single Page Application vanilla JS sans dépendance NPM, pipeline JSON, système de modules, anti-freeze et Kill Chain canvas.
 
-- 📊 tuiles organisées par domaine (menaces, trafic, infrastructure, IA)
-- 🧩 modules JS à responsabilité unique — rendu, canvas, XDR, investigation IP
+- 📊 Des tuiles organisées par domaine (menaces, trafic, infrastructure, IA)
+- 🧩 Des modules JS à responsabilité unique — rendu, canvas, XDR, investigation IP
 - 🔄 Pipeline JSON 60s avec If-Modified-Since + requestIdleCallback anti-freeze
 - 🎯 Kill Chain canvas — classification RECON → DELIVERY, score 0–100 par IP
 - ✅ Audit 10/10 · 90 passes · 144 NDT corrigés · zéro dette technique
@@ -63,7 +63,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 - **Fichier** : `/var/www/monitoring/index.html`
 - **Version** : v3.108.x (ligne 1 du HTML)
 - **Polling** : toutes les 60 secondes vers `monitoring.json`
-- **Résolution** : modules JS, tuiles, 1 400 lignes CSS
+- **Résolution** : découpage en modules JS et en tuiles, 1 400 lignes CSS
 
 ---
 
@@ -77,12 +77,12 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 ├── 04-metrics.js        ← Métriques nginx (req/h, error rate, bande passante)
 ├── 05-crowdsec.js       ← Tuile CrowdSec (décisions, scénarios, CAPI)
 ├── 06-suricata.js       ← Tuile Suricata (alertes sév.1/2/3, top rules)
-├── 07-render.js         ← Moteur de rendu principal (tuiles)
+├── 07-render.js         ← Moteur de rendu principal (toutes les tuiles)
 ├── 08-fail2ban.js       ← Tuile Fail2ban (jails, bans actifs)
 ├── 09-modals-core.js    ← Système modal centralisé (open/close/overlay)
 ├── 10-ip-info.js        ← Modal informations IP (quick lookup)
 ├── 11-bind.js           ← Event bindings globaux (data-action dispatcher)
-├── 12-threatscore.js    ← Calcul ThreatScore 0-100 (briques)
+├── 12-threatscore.js    ← Calcul ThreatScore 0-100 (toutes les briques)
 ├── 13-aide.js           ← Tuile AIDE (intégrité système)
 ├── 14-ufw.js            ← Tuile UFW (règles pare-feu)
 ├── 15-apparmor.js       ← Tuile AppArmor (profils enforce)
@@ -105,7 +105,7 @@ Single Page Application (SPA) vanilla JS — zéro dépendance NPM.
 
 | # | Tuile | Source données |
 |---|-------|----------------|
-| 1 | ThreatScore (0-100 + jauge) | briques monitoring.json |
+| 1 | ThreatScore (0-100 + jauge) | briques issues de monitoring.json |
 | 2 | Kill Chain MITRE ATT&CK | active_decisions + logs |
 | 3 | Carte GeoIP mondiale | top_ips + GeoIP2 |
 | 4 | Métriques nginx (req/h, erreurs) | nginx access.log |
@@ -171,7 +171,7 @@ monitoring_gen.py (cron */5 min)
       ├── AIDE              → dernière vérification, statut
       ├── apt (SSH site-01/site-02)→ paquets à mettre à jour
       ├── rsyslog central   → logs 5 hôtes, corrélations
-      ├── ThreatScore       → calcul briques → score 0-100
+      ├── ThreatScore       → calcul des briques → score 0-100
       └── Kill Chain        → classification IPs actives
       │
       └──→ /var/www/monitoring/monitoring.json

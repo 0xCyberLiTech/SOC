@@ -209,7 +209,7 @@ monitoring_gen.py (cron */5 min)
 
 Dashboard JS (polling 60s)
       │
-      └──→ fetch monitoring.json → render tuiles
+      └──→ fetch monitoring.json → render des tuiles
 
 JARVIS soc.py (boucle 60s)
       │

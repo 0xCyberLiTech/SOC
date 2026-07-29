@@ -77,7 +77,7 @@ Le projet démontre qu'il est possible de construire un SOC professionnel avec d
 
 <h2 align="center">Points forts</h2>
 
-<h3 align="center">Défense en profondeur — couches indépendantes</h3>
+<h3 align="center">Défense en profondeur — des couches indépendantes</h3>
 
 De l'UFW/nftables jusqu'à l'IA locale, chaque couche opère indépendamment. La compromission d'une couche ne désactive pas les autres.
 
@@ -88,9 +88,9 @@ De l'UFW/nftables jusqu'à l'IA locale, chaque couche opère indépendamment. La
 - GeoIP en local (MaxMind MMDB)
 - IA locale (Ollama, pas d'API OpenAI)
 
-<h3 align="center">Score menace temps réel — briques</h3>
+<h3 align="center">Score menace temps réel — agrégé depuis des briques indépendantes</h3>
 
-Un algorithme original calcule un score 0-100 toutes les 60 secondes en agrégeant 24 sources de données. Anti-doublons explicites évitent la surpondération.
+Un algorithme original calcule un score 0-100 toutes les 60 secondes en agrégeant de multiples sources de données. Anti-doublons explicites évitent la surpondération.
 
 <h3 align="center">Kill Chain MITRE ATT&CK</h3>
 
@@ -118,7 +118,7 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 | Cloud requis | **Non** | Optionnel | Optionnel | Non |
 | IA autonome | **Oui (local)** | Non | Non | Non |
 | Kill Chain | **Oui (MITRE)** | Partiel | Non | Non |
-| Score menace | **Oui (briques)** | Partiel | Non | Non |
+| Score menace | **Oui (score agrégé multi-briques)** | Partiel | Non | Non |
 | Dashboard custom | **Oui (SPA)** | Limité | Oui | Limité |
 | WAF intégré | **Oui (AppSec)** | Non | Non | Oui |
 
@@ -156,7 +156,7 @@ Une boucle IA tourne en permanence (60s), analyse les données SOC et :
 
 <h3 align="center">Couche visualisation</h3>
 
-- **Dashboard SPA vanilla JS** — modules, 0 dépendance NPM
+- **Dashboard SPA vanilla JS** — architecture modulaire, 0 dépendance NPM
 - **Python 3.11** — monitoring_gen.py (générateur JSON), soc.py (API JARVIS)
 - **monitoring.json** — Agrégation toutes sources, polling 60s
 

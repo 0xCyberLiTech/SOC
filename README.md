@@ -115,7 +115,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ![Chaîne de défense complète](assets/soc-defense-chain.png)
 
-*couches actives (barres segmentées · trafic entrant → trafic légitime admis, 24h) : pare-feu routeur · AiProtect · UFW · GeoIP · CrowdSec IDS/IPS · Suricata · Sigma · fail2ban (nginx/pve/pa85) — puis isolation par hôte : AppArmor · ModSecurity · AIDE*
+*Les couches actives (barres segmentées · trafic entrant → trafic légitime admis, 24h) : pare-feu routeur · AiProtect · UFW · GeoIP · CrowdSec IDS/IPS · Suricata · Sigma · fail2ban (nginx/pve/pa85) — puis isolation par hôte : AppArmor · ModSecurity · AIDE*
 
 </div>
 
@@ -139,7 +139,7 @@ Si le serveur est compromis, l'attaquant ne récupère pas la configuration comp
 
 ![Neutralisation — réponse proactive](assets/soc-neutralisation.png)
 
-*22 IP neutralisées · **moteurs** (CrowdSec · Sigma · JARVIS auto-engine · fail2ban) · matrice maillon × moteur · scénario + technique MITRE par IP attaquante*
+*22 IP neutralisées · **plusieurs moteurs de réponse** (CrowdSec · Sigma · JARVIS auto-engine · fail2ban) · matrice maillon × moteur · scénario + technique MITRE par IP attaquante*
 
 </div>
 
@@ -259,11 +259,11 @@ JARVIS (Ollama **qwen3.5:9b**) s'intègre au SOC comme **couche d'expertise opti
 
 | | Capacité | Détail |
 |--|----------|--------|
-| 🛡️ | **couches défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
+| 🛡️ | **Couches de défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
 | 🧠 | **IA défensive** | JARVIS (Ollama qwen3.5:9b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
 | 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
 | 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
-| 📊 | **Score menace** | briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
+| 📊 | **Score menace** | Agrégation de briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
 | 📈 | **Historique 30 jours** | Score menace tracé sur 30j · sparkline + modal · tendances et pics |
 | 🕸️ | **Corrélation temporelle** | Détection de campagnes lentes `/24` sur 14 jours — les attaques discrètes ne passent pas sous le radar |
 | 🩺 | **IoC post-compromission** | 6 signaux : intégrité AIDE · C2 Suricata · anomalies SSH · webshells PHP · AppArmor · sudo |
@@ -285,7 +285,7 @@ Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
 Sécurité    CrowdSec (WAF AppSec ~180 vpatch CVE) · Suricata IDS (~90 000 règles)
             Fail2ban · AppArmor · UFW + nftables · AIDE HIDS
 Logs        rsyslog centralisé (5 hôtes) · GoAccess
-Dashboard   SPA vanilla JS — modules · tuiles · zéro dépendance NPM
+Dashboard   SPA vanilla JS — architecture modulaire · tuiles · zéro dépendance NPM
 Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
 IA          JARVIS — Ollama qwen3.5:9b · Flask · edge-tts
 GeoIP       MaxMind GeoLite2 · Leaflet.js
@@ -309,7 +309,7 @@ INTERNET
 │                                                     │
 │  ┌──────────────────────────────────────────────┐   │
 │  │         Dashboard SOC (port 8080)            │   │
-│  │  modules JS · polling 60s · Kill Chain    │   │
+│  │    modules JS · polling 60s · Kill Chain     │   │
 │  └──────────────────────────────────────────────┘   │
 │                                                     │
 │  rsyslog ◄── site-01 · site-02 · pve · <ROUTER>     │
@@ -355,10 +355,10 @@ INTERNET
 |---|----------|-------------|
 | 01 | [PRESENTATION.md](01-PRESENTATION.md) | Présentation, objectifs, points forts |
 | 02 | [ARCHITECTURE.md](02-ARCHITECTURE.md) | Infrastructure, stack, schéma réseau |
-| 03 | [SECURITE-BRIQUES.md](03-SECURITE-BRIQUES.md) | couches défense · matrice couverture par vecteur |
+| 03 | [SECURITE-BRIQUES.md](03-SECURITE-BRIQUES.md) | Couches de défense · matrice couverture par vecteur |
 | 04 | [DASHBOARD-SOC.md](04-DASHBOARD-SOC.md) | Dashboard : modules JS · tuiles · polling · CSS |
 | 05 | [CHAINE-DEFENSE.md](05-CHAINE-DEFENSE.md) | Flux attaque → détection → ban · intégrations |
-| 06 | [THREATSCORE.md](06-THREATSCORE.md) | Score menace : briques · formule · anti-doublons |
+| 06 | [THREATSCORE.md](06-THREATSCORE.md) | Score menace : briques contributrices · formule · anti-doublons |
 | 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 5 hôtes · filtres · rétention |
 | 08 | [JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md) | Défense proactive IA : boucle 60s · 12 déclencheurs |
 | 09 | [ROADMAP.md](09-ROADMAP.md) | Axes d'évolution · décisions d'architecture |
@@ -409,21 +409,21 @@ INTERNET
 
 <h2 align="center">Dashboard SOC</h2>
 
-SPA Vanilla JS — zéro dépendance NPM · modules · tuiles.
+SPA Vanilla JS — zéro dépendance NPM · architecture modulaire · tuiles thématiques.
 
 > Les sources JS ne sont pas publiées dans ce dépôt. La page HTML et le CSS sont disponibles à titre de référence.
 
 | Caractéristique | Détail |
 |---|---|
-| **Architecture** | modules JS à responsabilité unique — rendu, canvas, fetch, modals, XDR, investigation IP… |
-| **tuiles** | Kill Chain · GeoIP · XDR · Fail2ban · CrowdSec · Suricata · AIDE HIDS · rsyslog · nginx · Freebox · JARVIS |
+| **Architecture** | Des modules JS à responsabilité unique — rendu, canvas, fetch, modals, XDR, investigation IP… |
+| **Tuiles** | Kill Chain · GeoIP · XDR · Fail2ban · CrowdSec · Suricata · AIDE HIDS · rsyslog · nginx · Freebox · JARVIS |
 | **Kill Chain** | Canvas 2D — tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ · score menace par IP |
 | **Investigation IP** | Modal forensique — CrowdSec · Fail2ban · GeoIP · WHOIS · verdict · historique 30j |
 | **XDR Engine** | Corrélation cross-source 6 flux · score 0-200 · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
 | **GeoIP** | Leaflet.js + MaxMind GeoLite2 — cartographie mondiale · arcs d'attaque animés |
 | **Polling** | Cycle 60s — toutes les tuiles se rafraîchissent automatiquement · zéro rechargement de page |
 | **Thème** | Glassmorphism — tokens CSS `--fs-*` · responsive · zéro framework CSS |
-| **Qualité** | Dette de code à zéro (NDT) · suite pytest 1487 · dette structurelle assumée · scores honnêtes |
+| **Qualité** | Dette de code à zéro (NDT) · suite pytest complète · dette structurelle assumée · scores honnêtes |
 
 ---
 

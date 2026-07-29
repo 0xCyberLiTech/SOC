@@ -8,7 +8,7 @@
 
   <br></br>
 
-  <h2>Score de menace — briques · formule de calcul · anti-doublons · seuils.</h2>
+  <h2>Score de menace — briques contributrices · formule de calcul · anti-doublons · seuils.</h2>
 
   <p align="center">
     <a href="https://0xcyberlitech.github.io/">
@@ -48,7 +48,7 @@
 
 Ce document explique le moteur de calcul du ThreatScore global (0–100) : les briques contributrices, leurs poids respectifs, le système anti-doublons et les seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE.
 
-- 📊 briques indépendantes — chacune contribue avec un poids fixe
+- 📊 Des briques indépendantes — chacune contribue avec un poids fixe
 - 🔢 Formule de normalisation — score global 0 à 100
 - 🚫 Système anti-doublons — évite l'inflation artificielle des signaux corrélés
 - 🚨 Seuils : FAIBLE (<30) · MOYEN (30–49) · ÉLEVÉ (50–69) · CRITIQUE (≥70)
@@ -60,7 +60,7 @@ Ce document explique le moteur de calcul du ThreatScore global (0–100) : les b
 
 Le ThreatScore est un entier **0 à 100** calculé toutes les 60 secondes par `monitoring_gen.py`.
 
-Il agrège **briques indépendantes**. Chaque brique contribue avec un poids fixe.  
+Il agrège **plusieurs briques indépendantes**. Chaque brique contribue avec un poids fixe.  
 Un système d'**anti-doublons explicites** évite que deux signaux corrélés gonflent artificiellement le score.
 
 ---
@@ -153,7 +153,7 @@ def compute_threat_score(data):
         score += 10
     if data['error_rate'] > 0.15:
         score += 8
-    # ... (briques)
+    # ... (autres briques)
     
     # Anti-doublons
     cs_contrib = max(brique5, brique6)
