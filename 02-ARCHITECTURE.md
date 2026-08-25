@@ -111,7 +111,7 @@ INTERNET
                         ┌──────────────────────────┐
                         │ JARVIS <LAN-IP>          │
                         │ Windows · localhost:5000 │
-                        │ Ollama qwen3.5:9b        │
+                        │ Ollama mistral-nemo:12b        │
                         └──────────────────────────┘
 
                         ┌──────────────────────┐
