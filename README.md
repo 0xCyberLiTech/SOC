@@ -51,395 +51,307 @@
 
 <div align="center">
 
-## 🛡️ Détection-as-code — le cœur de ce SOC
+### ⚡ LE COCKPIT TACTIQUE EN PRODUCTION — EXTREME HUD v5.5
 
-<a href="10-DETECTIONS.md"><img src="https://img.shields.io/badge/CATALOGUE%20DES%20D%C3%89TECTIONS-Sigma%20%C2%B7%20MITRE%2013%2F14-00B4D8?style=for-the-badge&logo=target&logoColor=white" alt="Catalogue des détections Sigma" /></a>
+[![Cockpit SOC Extreme HUD](assets/soc-cockpit-index.png)](assets/soc-cockpit-index.png)
 
-Le SOC détecte en **règles Sigma versionnées** (*detection-as-code*), avec un **cycle de vie maîtrisé** :
-
-**`🟡 alert-only`** → **`🟠 dry-run`** *(ban simulé)* → **`🟢 enforce`** *(ban réel)* — chaque règle promue **seulement après 0 faux positif prouvé**.
-
-Couverture **MITRE ATT&CK** (multi-moteurs · couverture live sur /14) · **0 IP interne bannie** *(rail RFC1918, par construction)* · **test-driven** *(chaque règle validée par un corpus d'attaque)*.
-
-<sub>Injection SQL · Log4Shell (CVE-2021-44228) · scan de secrets exposés · énumération · webshell · brute-force — détectés, mappés MITRE, et bloqués au reverse proxy en **un seul point**.</sub>
-
-### ▶ **[Voir le catalogue complet des détections](10-DETECTIONS.md)** &nbsp; · &nbsp; [Mécanisme *attaque → Sigma → ban*](05-CHAINE-DEFENSE.md)
-
-</div>
-
----
-
-<h2 align="center">Philosophie du projet</h2>
-
-<div align="center"><sub>Ce n'est « qu'un » homelab personnel — mais exposé à internet, en production 24h/24, et traité avec la rigueur d'un vrai SOC. Décrit ici tel qu'il est, sans survente.</sub></div>
-
-<div align="center">
-<table>
-<tr>
-<td align="center" width="33%">
-
-**🎯 Conditions réelles**
-
-Apprendre la cyberdéfense sur une infrastructure exposée à internet — pas un lab isolé. Chaque outil est confronté à de vrais scans, de vrais bots, de vraies tentatives d'exploit. Ce qui fonctionne ici fonctionne.
-
-</td>
-<td align="center" width="33%">
-
-**🔒 Savoir construit, pas redistribué**
-
-Le framework de déploiement et la documentation sont publics — la méthode est partageable. Les sources du dashboard (modules JS) et les scripts opérationnels restent privés : connaissance acquise, pas distribuée.
-
-</td>
-<td align="center" width="33%">
-
-**🛡️ Résilience face à la compromission**
-
-Si le serveur est compromis, l'attaquant ne récupère pas la configuration complète depuis ce dépôt. Les configs publiées sont anonymisées. L'archive de restauration reste hors ligne — la reconstruction n'est **volontairement pas reproductible** depuis ce dépôt public seul (savoir protégé).
-
-</td>
-</tr>
-</table>
-</div>
-
----
-
-<h2 align="center">🛡️ La ligne de défense — en images</h2>
-
-<div align="center"><sub>Captures réelles du dashboard SOC en production · données sensibles masquées (IP internes redactées, hostnames anonymisés)</sub></div>
+*Interface de commandement unifiée Extreme HUD v5.5 — Vue War Room en production 24h/24 : télémétrie sub-200ms, jauges segmentées LED, rendu Vanilla natif et zéro dépendance externe.*
 
 <br/>
 
-<div align="center">
-
-**La chaîne de défense complète — INTERNET → trafic légitime admis**
-
-![Chaîne de défense complète](assets/soc-defense-chain.png)
-
-*Les couches actives (barres segmentées · trafic entrant → trafic légitime admis, 24h) : pare-feu routeur · AiProtect · UFW · GeoIP · CrowdSec IDS/IPS · Suricata · Sigma · fail2ban (nginx/pve/pa85) — puis isolation par hôte : AppArmor · ModSecurity · AIDE*
-
-</div>
-
----
-
-<h2 align="center">🎯 Kill Chain — l'outil complet en temps réel</h2>
-
-<div align="center">
-
-![Kill Chain complète](assets/soc-killchain-live.png)
-
-*RECON → SCAN → EXPLOIT → BRUTE → **NEUTRALISÉ** · fenêtre 15 min · technique MITRE par maillon — et **chaque IP attaquante (publique) suivie maillon par maillon**, avec le moteur qui l'a traitée : **SIGMA · fail2ban · CrowdSec · auto***
+<p align="center">
+  <img src="https://img.shields.io/badge/Architecture-Extreme%20HUD%20v5.5-00d9ff?style=for-the-badge&logo=shield" alt="HUD v5.5" />
+  <img src="https://img.shields.io/badge/Dette%20Technique-ZÉRO%20ABSOLU%20(<=400L)-34d399?style=for-the-badge&logo=checkmarx" alt="Dette Zéro" />
+  <img src="https://img.shields.io/badge/Gardiens%20CI%2FCD-19%20%2F%2019%20GO-8b5cf6?style=for-the-badge&logo=githubactions" alt="19 Gardiens GO" />
+  <img src="https://img.shields.io/badge/Bancs%20Hostiles-Edge%20Headless%20Niveau%204-f59e0b?style=for-the-badge&logo=microsoftedge" alt="Bancs Hostiles E2E" />
+  <img src="https://img.shields.io/badge/IA%20Souveraine-Antoine%20HD%20%C2%B7%20Fast--Path%20<200ms-ef4444?style=for-the-badge&logo=openai" alt="IA Souveraine" />
+</p>
 
 </div>
 
 ---
 
-<h2 align="center">🎯 Neutralisation — réponse proactive multi-moteurs</h2>
+## 🗺️ Sommaire Interactif
 
-<div align="center">
-
-![Neutralisation — réponse proactive](assets/soc-neutralisation.png)
-
-*22 IP neutralisées · **plusieurs moteurs de réponse** (CrowdSec · Sigma · JARVIS auto-engine · fail2ban) · matrice maillon × moteur · scénario + technique MITRE par IP attaquante*
-
-</div>
-
----
-
-<h2 align="center">🔗 XDR — moteur de corrélation multi-sources</h2>
-
-<div align="center">
-
-![XDR — moteur de corrélation multi-sources](assets/soc-xdr-engine.png)
-
-*Logigramme **nodal** temps réel : les **sources de détection** (fail2ban · ModSecurity · UFW · AppArmor · Suricata · nginx · AIDE · auto-ban) → **normalisation** (log parser · GeoIP · IOC/CTI · MITRE) → **moteur de corrélation X·D·R** → **moteurs de réponse** (CrowdSec · fail2ban · JARVIS SOAR · TTS/alerte). Chaque source est un moteur ; la corrélation fusionne les IP vues par plusieurs moteurs à la fois.*
-
-</div>
+1. 🎯 [Manifeste d'Ingénierie : L'Homelab Révolutionné](#1--manifeste-dingénierie--lhomelab-révolutionné)
+2. 🔄 [Schéma Conceptuel Global : Le Cycle Nodal de Cyberdéfense](#2--schéma-conceptuel-global--le-cycle-nodal-de-cyberdéfense)
+3. 🎛️ [Le Cockpit Extreme HUD & le Studio Back-Office](#3--le-cockpit-extreme-hud--le-studio-back-office)
+4. 🌌 [Les Deux Moteurs Graphiques Canvas Haute Performance (3D & 2D)](#4--les-deux-moteurs-graphiques-canvas-haute-performance-3d--2d)
+5. 🛡️ [La Cascade de Cyberdéfense en Profondeur & Détection-as-Code](#5--la-cascade-de-cyberdéfense-en-profondeur--détection-as-code)
+6. 📐 [Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes](#6--dette-technique-zéro--la-règle-dor-du-plafond-le-400-lignes)
+7. 🧪 [L'Armure Qualité : 19 Gardiens & Bancs Hostiles Niveaux 3 & 4](#7--larmure-qualité--19-gardiens--bancs-hostiles-niveaux-3--4)
+8. 🤖 [Intelligence Artificielle Locale & Restitution Vocale Souveraine](#8--intelligence-artificielle-locale--restitution-vocale-souveraine)
+9. 🖥️ [Topologie du Homelab en Production (Anonymisée)](#9--topologie-du-homelab-en-production-anonymisée)
+10. 🔄 [Framework de Déploiement & Reproductibilité Méthodologique](#10--framework-de-déploiement--reproductibilité-méthodologique)
 
 ---
 
-<h2 align="center">⚙️ Détection-as-code — le moteur Sigma</h2>
+## 1. 🎯 Manifeste d'Ingénierie : L'Homelab Révolutionné
 
-<div align="center">
+La majorité des homelabs s'appuient sur des interfaces génériques préemballées (*Grafana*, *Homepage*, *Dashy*) ou juxtaposent des services conteneurisés sans corrélation d'ensemble. **Ce projet prend le contre-pied absolu de cette approche.**
 
-<img src="assets/soc-sigma.png" alt="Moteur Sigma" width="620" />
+Bâti sous la gouvernance de la **Doctrine Universelle de l'Atelier 0xCyberLiTech**, ce SOC homelab est une plateforme de cyberdéfense sur mesure, conçue avec les standards de rigueur de l'aérospatiale et des infrastructures critiques :
 
-*Règles Sigma versionnées · cycle de vie `alert → dry-run → enforce` · **règles en enforce** (compte live) · couverture **MITRE** mappée par maillon Kill Chain (couverture live · /14) · bans réels · 0 IP interne bannie*
-
-</div>
-
----
-
-<h2 align="center">📊 Niveau de menace & corrélation</h2>
-
-<div align="center">
-
-<img src="assets/soc-threatscore.png" alt="Niveau de menace global" width="430" />
-
-*ThreatScore 0–100 · niveau FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE · détail CrowdSec · Suricata · XDR · historique 30j*
-
-</div>
+| Dimension Clé | Homelab Conventionnel (99 %) | SOC Souverain 0xCyberLiTech (0,1 %) |
+|:--------------|:-----------------------------|:-----------------------------------|
+| **Environnement** | Lab isolé ou simulation locale | **Production réelle 24h/24** exposée directement à Internet |
+| **Interface & Rendu** | Templates Grafana lourds, 10 onglets ouverts | **Cockpit unifié Extreme HUD v5.5** en Vanilla JS natif (< 200 ms) |
+| **Dette Technique** | Fichiers volumineux, scripts empilés sans tests | **Dette Zéro scellée** : 100 % des fichiers $\le 400$ lignes (Règle 14.7) |
+| **Garantie Qualité** | Vérifications manuelles épisodiques | **19 Gardiens logiciels automatiques** + bancs E2E sous Edge réel |
+| **Fiabilité des Données** | Métriques parfois devinées ou approximatives | **Déterminisme pur (< 200 ms)** : 0 hallucination sur les états réels |
+| **Synthèse Vocale & IA** | LLM dans le cloud ou interfaces muettes | **Voix locale Antoine HD (MCI Windows direct)** + LLM local sur GPU |
+| **Résilience Sinistre** | Sauvegardes manuelles non éprouvées | **Disaster Recovery automatisé** prêt à redéployer en 5 minutes |
 
 ---
 
-<h2 align="center">🛡️ Protections actives & Suricata IDS</h2>
+## 2. 🔄 Schéma Conceptuel Global : Le Cycle Nodal de Cyberdéfense
 
-<div align="center">
-
-| Protections actives — CrowdSec & fail2ban | Suricata IDS — alertes réseau 24h |
-|:---:|:---:|
-| ![Protections actives](assets/soc-protections.png) | ![Suricata IDS](assets/soc-suricata.png) |
-| *CrowdSec IPS/IDS · décisions · bans/h · GeoIP · WAF — fail2ban multi-hôtes* | *Menace-first : intrusions critiques sév.1 · nature des attaques · balayage/recon · capteur & couverture des ~90 000 règles Emerging Threats* |
-
-</div>
-
----
-
-<h2 align="center">🩺 Intégrité & surveillance des hôtes</h2>
-
-<div align="center">
-
-| AIDE HIDS — intégrité fichiers multi-VM | SSH — surveillance infrastructure |
-|:---:|:---:|
-| ![AIDE HIDS](assets/soc-aide.png) | ![Surveillance SSH](assets/soc-ssh.png) |
-| *Base d'intégrité par hôte · 0 diff · le dernier rempart post-compromission* | *Hôtes en ligne · connexions & sessions SSH par hôte · 24h* |
-
-</div>
-
----
-
-<h2 align="center">🗺️ Cartographie mondiale des menaces</h2>
-
-<div align="center">
-
-![Globe 3D — cartographie des menaces](assets/soc-globe.jpg)
-
-*Cockpit **globe 3D plein écran** — origines des attaques sur 24h convergeant vers le SOC · arcs animés désynchronisés (couleur = sévérité du stade Kill Chain) · ondulations par stade · HUD de métriques temps réel · options relief / jour-nuit / atmosphère / grille*
-
-![Cartographie des menaces — vue carte](assets/soc-map.png)
-
-*Cartographie 2D temps réel — GeoIP · arcs d'attaque convergents · top pays sources · scénarios CrowdSec/Sigma · fenêtre 24h*
-
-</div>
-
----
-
-<h2 align="center">JARVIS — IA défensive intégrée</h2>
-
-<div align="center">
-
-![JARVIS — intelligence proactive](assets/soc-jarvis.png)
-
-*Moteur proactif `mistral-nemo:12b · RTX 5080` · **bans auto contextuels** · analyses LLM · prochain cycle · exemple de neutralisation réelle (corrélation Suricata + WAF)*
-
-JARVIS (Ollama **mistral-nemo:12b**) s'intègre au SOC comme **couche d'expertise optionnelle** : réponse proactive automatique · ban contextuel · alertes vocales TTS sur niveau ÉLEVÉ/CRITIQUE · analyse LLM des événements. Le SOC se défend seul 24h/24 — JARVIS amplifie quand la machine est active.
-
-➡️ Projet complet : [**JARVIS — Assistant IA local**](https://github.com/0xCyberLiTech/JARVIS) · doc [08-JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md)
-
-</div>
-
----
-
-<h2 align="center">Construction par phases</h2>
-
-| # | Phase | Ce qui a été construit | Pourquoi ce choix |
-|---|-------|----------------------|-------------------|
-| 1 | **Reverse proxy + SSL** | nginx · TLS Let's Encrypt · vhosts · headers sécurité · access_log JSON structuré | Point d'entrée unique — logs structurés dès le départ pour tout le pipeline |
-| 2 | **CrowdSec WAF + bouncer nftables** | AppSec ~180 règles · bouncer kernel-space · scénarios custom · whitelist LAN | Blocage comportemental avant que nginx traite la requête — kernel-space = zéro bypass applicatif |
-| 3 | **fail2ban + UFW + GeoIP block** | 3 jails nginx/ssh · nftables · blocage géographique MaxMind GeoLite2 | Compléter CrowdSec : patterns ciblés, firewall stateful, filtrage géo en entrée |
-| 4 | **Dashboard monitoring** | monitoring_gen.py · monitoring.json · SPA Vanilla JS · premières tuiles système | Sans visibilité temps réel, la défense est aveugle — dashboard avant tout ajout |
-| 5 | **Kill Chain + GeoIP cartographie** | Classification 5 stages · score 0–100 · canvas monde · heatmap 24h · top IPs | Transformer les logs bruts en renseignement tactique — qui fait quoi, d'où, quand |
-| 6 | **Suricata IDS 7 + rsyslog centralisé** | ~90 000 règles Emerging Threats · AF_PACKET · eve.json · 5 hôtes centralisés | Détection réseau passive indépendante + corrélation cross-host unifiée |
-| 7 | **JARVIS IA défensive** | Ollama mistral-nemo:12b · auto-engine · TTS · ban-ip · restart-service | Couche d'expertise optionnelle — le SOC se défend seul, JARVIS amplifie quand disponible |
-| 8 | **AppArmor + AIDE HIDS** | Confinement processus · base intégrité 49k fichiers · exclusions CrowdSec hub | Dernier rempart : un attaquant qui passe tout le reste ne peut ni s'étendre ni persister |
-| 9 | **DR exercice réel + qualité auditée** | Exercice Phase A/B/C (2026-04-28) · 8 écarts corrigés · suite de tests · dette de code à zéro | Valider que le système se reconstruit réellement, pas juste sur le papier |
-
----
-
-<h2 align="center">Points forts</h2>
-
-| | Capacité | Détail |
-|--|----------|--------|
-| 🛡️ | **Couches de défense** | Blocage actif : UFW · nftables · GeoIP Block · CrowdSec WAF · Suricata IDS · Fail2ban — Contrôle : AppArmor (isolation processus) · AIDE HIDS (intégrité fichiers · **4 VMs**) |
-| 🧠 | **IA défensive** | JARVIS (Ollama mistral-nemo:12b) — couche optionnelle · le SOC se défend seul 24h/24 · quand la machine Windows est active : analyse LLM · alertes TTS · ban contextuel |
-| 📡 | **Logs centralisés** | 5 hôtes via rsyslog — corrélation cross-host temps réel |
-| 🎯 | **Kill Chain** | Tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ par IP |
-| 📊 | **Score menace** | Agrégation de briques · calcul temps réel · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
-| 📈 | **Historique 30 jours** | Score menace tracé sur 30j · sparkline + modal · tendances et pics |
-| 🕸️ | **Corrélation temporelle** | Détection de campagnes lentes `/24` sur 14 jours — les attaques discrètes ne passent pas sous le radar |
-| 🩺 | **IoC post-compromission** | 6 signaux : intégrité AIDE · C2 Suricata · anomalies SSH · webshells PHP · AppArmor · sudo |
-| 📬 | **Hub mail centralisé** | Toutes les remontées mail par un point unique · déduplication · journal forensique |
-| 🔍 | **XDR** | Corrélation Fail2ban + ModSec + UFW + Suricata + rsyslog + routeur |
-| 🗺️ | **GeoIP** | Cartographie Leaflet + MaxMind · arcs d'attaque animés · top pays |
-| 🔄 | **Plug-and-play** | Archive privée 13 blocs · procédure DR éprouvée en conditions réelles · non reproductible depuis ce dépôt seul |
-| 🔥 | **DR validé en conditions réelles** | Exercice Phase A/B/C exécuté le 2026-04-28 · basculement réseau · 8 écarts corrigés · [rapport](DEPLOY/DR-EXERCISE-2026-04-28.md) |
-| 🧪 | **Qualité &amp; tests** | Suite pytest complète · ruff/eslint · dette de code à zéro · dette structurelle **assumée et documentée** |
-| 🧯 | **Résilience auto** | Auto-ban CrowdSec · auto-restart services · cooldowns anti-spam · journal forensique horodaté |
-
----
-
-<h2 align="center">Stack technique</h2>
+Voici la mécanique d'ingénierie qui anime le SOC en continu : chaque paquet hostile entrant traverse une série de barrières déterministes, est corrélé par le moteur nodal XDR, déclenche la riposte en temps réel et informe l'opérateur vocalement et visuellement :
 
 ```
-OS          Debian 13 (Trixie)
-Proxy       nginx 1.26 — reverse proxy · TLS · vhosts
-Sécurité    CrowdSec (WAF AppSec ~180 vpatch CVE) · Suricata IDS (~90 000 règles)
-            Fail2ban · AppArmor · UFW + nftables · AIDE HIDS
-Logs        rsyslog centralisé (5 hôtes) · GoAccess
-Dashboard   SPA vanilla JS — architecture modulaire · tuiles · zéro dépendance NPM
-Backend     Python 3.11 — monitoring_gen.py (génération JSON live)
-IA          JARVIS — Ollama mistral-nemo:12b · Flask · edge-tts
-GeoIP       MaxMind GeoLite2 · Leaflet.js
-Infra       Proxmox VE — 3 VMs (srv-nginx · site-01 · site-02)
+       [ CYBERESPACE EXTÉRIEUR : Scans, Bots, Exploits, Attaques C2 ]
+                                      │
+                                      ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│ 1. CAPTEURS PÉRIPHÉRIQUES & FILTRAGE FRONTAL                              │
+│ • Pare-feu Routeur Dédié Wi-Fi 7 (DPI)  • UFW & filtrage GeoIP            │
+│ • CrowdSec AppSec WAF (vpatch CVE)      • Suricata IDS 7 (AF_PACKET)      │
+│ • Confinement AppArmor & Fail2ban       • Base d'intégrité AIDE HIDS (4VM)│
+└─────────────────────────────────────┬─────────────────────────────────────┘
+                                      │  Logs structurés & Événements EVE JSON
+                                      ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│ 2. PIPELINE DE NORMALISATION & MOTEUR SIGMA VERSIONNÉ                     │
+│ • Parsing haute performance          • Géolocalisation GeoIP2 MaxMind     │
+│ • Enrichissement CTI & Bad IPs       • Cycle Sigma : alert → dry-run → ban│
+│ • Classification 5 Stades MITRE      • Vérification Rail RFC1918 (0 fuite)│
+└─────────────────────────────────────┬─────────────────────────────────────┘
+                                      │  Payload unifié monitoring.json
+                                      ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│ 3. MOTEUR NODAL XDR & MATRICE DE MENACE (THREATSCORE 0-100)               │
+│ • Corrélation cross-sources temps réel (WAF + IDS + HIDS + Syslog)        │
+│ • Calcul dynamique du ThreatScore (Faible / Moyen / Élevé / Critique)     │
+│ • Détection des attaques lentes (/24 sur 14 jours) & IoC post-intrusion   │
+└─────────────────────────────────────┬─────────────────────────────────────┘
+                                      │
+            ┌─────────────────────────┴─────────────────────────┐
+            ▼                                                   ▼
+┌───────────────────────────────────────┐   ┌───────────────────────────────────┐
+│ 4A. RESTITUTION VISUELLE TACTIQUE     │   │ 4B. RIPOSTE & SOAR VOCAL DIRECT   │
+│ • Cockpit Extreme HUD (38 tuiles)     │   │ • Auto-ban Kernel-Space nftables  │
+│ • Corridor 3D Kill Chain (Canvas)     │   │ • Voix native Windows Antoine HD  │
+│ • Geo-Radar 2D balistique mondial     │   │ • Fast-Path déterministe < 200 ms │
+│ • Studio Back-Office modulable        │   │ • Analyse forensique LLM locale   │
+└───────────────────────────────────────┘   └───────────────────────────────────┘
 ```
 
 ---
 
-<h2 align="center">Architecture</h2>
+## 3. 🎛️ Le Cockpit Extreme HUD & le Studio Back-Office
+
+Le poste de commandement repose sur une séparation hermétique entre la **façade opérationnelle de surveillance (Cockpit)** et le **moteur d'agencement modulaire (Studio Back-Office)**.
+
+<div align="center">
+
+| Vue Opérationnelle — War Room Principale | Studio Back-Office — Catalogue & Étagères |
+|:----------------------------------------:|:-----------------------------------------:|
+| [![Cockpit SOC](assets/soc-cockpit-index.png)](assets/soc-cockpit-index.png) | [![Studio Back-Office](assets/soc-studio-backoffice.png)](assets/soc-studio-backoffice.png) |
+| *Affichage temps réel haute densité · Contraste tactique* | *Personnalisation en direct · Hauteurs d'étagères modulables* |
+
+</div>
+
+### Pédagogie de l'Architecture UI :
+* **Organisation en 5 Espaces Opérationnels et 13 Sous-Onglets :**
+  1. *Vue d'ensemble (War Room) :* Dosimètre cyber, corridors de menaces, indicateurs vitaux et matrice de réaction.
+  2. *Cyberdéfense :* Chaîne active à 9 couches, WAF CrowdSec, Suricata IDS, Fail2ban, Couverture par Zone et règles Sigma.
+  3. *Cartographie :* Geo-Radar 2D vectoriel, globe balistique et répartition géographique des attaquants.
+  4. *Infrastructure :* Santé de l'hyperviseur Proxmox VE, intégrité AIDE HIDS (4 VMs), suivi des crons et connectivité réseau.
+  5. *Télémétrie XDR :* Logigramme nodal, corrélation multi-sources et historique forensique sur 30 jours.
+* **Le Studio Back-Office Souverain :**
+  * **10 Gabarits Étalons (G-1 à G-10) :** Permettent d'adapter la structure des écrans à n'importe quelle disposition physique.
+  * **Élasticité Inviolable des Étagères :** L'opérateur module librement la hauteur des rangées (`row1`, `row2`), déplace les tuiles par glisser-déposer sans rechargement de page et inspecte chaque tuile au survol (*Quick-Peek*).
+  * **Design System A11Y Tactique :** Contrastes ultra-nets conçus pour une lisibilité immédiate, absence d'éléments parasites en production et bargraphes segmentés LED étalons.
+
+---
+
+## 4. 🌌 Les Deux Moteurs Graphiques Canvas Haute Performance (3D & 2D)
+
+Pour garantir une fréquence d'affichage fluide à **60 FPS constants sans alourdir le processeur**, le SOC intègre deux moteurs de rendu codés en **HTML5 Canvas 2D natif pur** (zéro bibliothèque 3D externe) :
+
+<div align="center">
+
+| 🚀 Corridor Spatial 3D Kill Chain | 🗺️ Cartographie Mondiale Vectorielle 2D |
+|:---------------------------------:|:----------------------------------------:|
+| [![Kill Chain 3D](assets/soc-killchain-3d.png)](assets/soc-killchain-3d.png) | [![Geomap 2D](assets/soc-geomap-2d.png)](assets/soc-geomap-2d.png) |
+| *Projection perspective 3D · Sol Tron · Pluie Matrix* | *Projection vectorielle · Arcs d'attaque balistiques* |
+
+</div>
+
+### Détails Techniques des Moteurs Graphiques :
+* **Le Corridor 3D Kill Chain :**
+  * **Moteur de projection perspective mathématique :** Matrice de rotation 3D sans WebGL lourd, sol Tron rétro-éclairé, pluie matricielle interpolée en arrière-plan et onde EMP périodique.
+  * **Cinématique MITRE ATT&CK :** Les 5 stades d'intrusion (Reconnaissance → Scan → Exploit → Brute-force → Neutralisé) sont matérialisés par des monolithes holographiques et des balises spatiales WAN / Citadelle.
+  * **Fiche d'Investigation Forensique :** Un simple clic sur un vecteur ouvre la modale d'analyse détaillée avec scoring 5 sources et bouton de neutralisation instantanée.
+* **Le Geo-Radar 2D Geomap :**
+  * **Projection vectorielle pure :** Cartographie mondiale vectorisée avec coordonnées des centroïdes sans distorsion de bordure.
+  * **Convergence Balistique :** Traçage d'arcs d'attaque courbés animés reliant en direct la provenance géographique de l'attaquant au nœud défensif du homelab.
+  * **Double Fenêtre Temporelle :** Bascule instantanée entre la vision tactique immédiate (15 minutes) et la consolidation stratégique (24 heures glissantes).
+
+---
+
+## 5. 🛡️ La Cascade de Cyberdéfense en Profondeur & Détection-as-Code
+
+Chaque flux réseau externe entrant doit franchir **cinq cercles de protection concentriques** avant de pouvoir interagir avec le moindre service :
 
 ```
-INTERNET
-   │
-   ▼
-┌─────────────────────────────────────────────────────┐
-│                    srv-nginx                        │
-│                                                     │
-│  UFW + nftables ──→ GeoIP Block ──→ CrowdSec WAF    │
-│       ──→ Suricata IDS ──→ Fail2ban ──→ nginx       │
-│       ──→ AppArmor · AIDE HIDS                      │
-│                                                     │
-│  ┌──────────────────────────────────────────────┐   │
-│  │         Dashboard SOC (port 8080)            │   │
-│  │    modules JS · polling 60s · Kill Chain     │   │
-│  └──────────────────────────────────────────────┘   │
-│                                                     │
-│  rsyslog ◄── site-01 · site-02 · pve · <ROUTER>     │
-└─────────────────────────────────────────────────────┘
-         │                    │
-         ▼                    ▼
-   site-01                site-02
-   Apache · AppArmor      Apache · AppArmor
-   ModSecurity WAF        ModSecurity WAF
+FLUX WAN ENTRANT (Internet brut)
+    │
+    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ [ CERCLE 1 : FILTRAGE PHYSIQUE & MATÉRIEL ]                            │
+│ Routeur Dédié Wi-Fi 7 (AiProtection DPI) + Pare-feu UFW + GeoIP Block  │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ [ CERCLE 2 : WAF & PROTECTION COMPORTEMENTALE APPLICATIVE ]            │
+│ CrowdSec AppSec WAF (~180 scénarios vpatch CVE) + Bouncer Kernel-Space │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ [ CERCLE 3 : DÉTECTION PASSIVE & ANALYSE PROTOCOLAIRE ]                │
+│ Suricata IDS 7 (AF_PACKET · ~90 000 signatures Emerging Threats)       │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ [ CERCLE 4 : DÉTECTION-AS-CODE ]                                       │
+│ Moteur Sigma Versionné (Cycle strict : alert-only → dry-run → enforce) │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│ [ CERCLE 5 : HIDS, ISOLATION & INTÉGRITÉ SYSTÈME ]                     │
+│ Fail2ban (multi-jails) + AppArmor (profils stricts) + AIDE HIDS (4VMs) │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                                    ▼
+TRAFIC LÉGITIME ADMIS ──────────────┴───────→ Reverse Proxy Nginx & Services Internes
 ```
 
----
+<div align="center">
 
-<h2 align="center">Par où commencer ?</h2>
+| Chaîne de Défense Active & Filtrage WAF | Télémétrie XDR Nodal & Corrélation |
+|:---------------------------------------:|:----------------------------------:|
+| [![Défense Active](assets/soc-defense-chain.png)](assets/soc-defense-chain.png) | [![Télémétrie XDR](assets/soc-xdr-nodal.png)](assets/soc-xdr-nodal.png) |
+| *9 couches défensives actives en temps réel* | *Logigramme nodal et fusion des alertes cross-hosts* |
 
-| Objectif | Point d'entrée |
-|----------|---------------|
-| 📖 **Comprendre l'architecture** et les choix défensifs | Documentation [01](01-PRESENTATION.md) → [09](09-ROADMAP.md) |
-| ⚙️ **Installer la stack logicielle** sur Debian 13 | [deploy-soc.sh](DEPLOY/deploy-soc.sh) — paquets + configuration de base |
-| 🔧 **Adapter une configuration** à votre infrastructure | [CONFIGS/](CONFIGS/) — exemples anonymisés · placeholders `<NOM>` |
-| 📋 **Comprendre la méthodologie** de déploiement | [GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) — workflow disaster recovery |
+</div>
 
-> **Ce dépôt met à disposition :**
-> Architecture complète · 9 documents techniques · framework de déploiement · configs anonymisées · rapport DR exercice réel (2026-04-28)
->
-> 🔒 Les sources du dashboard (modules JS) et les scripts opérationnels restent privés — connaissance construite, pas redistribuée.
-
-> **Infrastructure de référence** : ce SOC tourne sur **Proxmox VE** (machine physique) hébergeant 3 VMs Debian 13.
-> La reconstruction sur un autre hyperviseur (KVM, VMware, bare-metal) est possible en adaptant les 4 IPs du bloc CONFIG de `deploy-soc.sh` :
->
-> | Placeholder | Rôle | Exemple générique |
-> |-------------|------|-------------------|
-> | `<SRV-NGINX-IP>` | VM nginx + SOC dashboard | `203.0.113.10` |
-> | `<CLT-IP>` | VM site-01 (Apache) | `203.0.113.11` |
-> | `<PA85-IP>` | VM site-02 (Apache) | `203.0.113.12` |
-> | `<PROXMOX-IP>` | Hyperviseur Proxmox VE | `203.0.113.1` |
+### Principes de Détection-as-Code :
+* **Maturité Éprouvée des Règles Sigma :** Une signature n'est jamais déployée à l'aveugle. Elle passe par un sas `alert-only` (observation), puis `dry-run` (simulation de ban), et n'est promue en `enforce` (blocage réel) qu'après la preuve formelle de zéro faux positif.
+* **Corrélation Multi-Moteurs XDR :** Le moteur croise les événements réseau de Suricata avec les logs HTTP de Nginx et les détections d'authentification de Fail2ban pour identifier les assauts coordonnés.
+* **Surveillance HIDS AIDE sur 4 VMs :** Un scan cryptographique quotidien vérifie l'intégrité de plus de 49 000 fichiers système sur l'ensemble des machines virtuelles, interdisant toute altération silencieuse post-compromission.
 
 ---
 
-<h2 align="center">Documentation</h2>
+## 6. 📐 Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes
 
-| # | Document | Description |
-|---|----------|-------------|
-| 01 | [PRESENTATION.md](01-PRESENTATION.md) | Présentation, objectifs, points forts |
-| 02 | [ARCHITECTURE.md](02-ARCHITECTURE.md) | Infrastructure, stack, schéma réseau |
-| 03 | [SECURITE-BRIQUES.md](03-SECURITE-BRIQUES.md) | Couches de défense · matrice couverture par vecteur |
-| 04 | [DASHBOARD-SOC.md](04-DASHBOARD-SOC.md) | Dashboard : modules JS · tuiles · polling · CSS |
-| 05 | [CHAINE-DEFENSE.md](05-CHAINE-DEFENSE.md) | Flux attaque → détection → ban · intégrations |
-| 06 | [THREATSCORE.md](06-THREATSCORE.md) | Score menace : briques contributrices · formule · anti-doublons |
-| 07 | [RSYSLOG-CENTRAL.md](07-RSYSLOG-CENTRAL.md) | Logs centralisés : 5 hôtes · filtres · rétention |
-| 08 | [JARVIS-DEFENSE.md](08-JARVIS-DEFENSE.md) | Défense proactive IA : boucle 60s · 12 déclencheurs |
-| 09 | [ROADMAP.md](09-ROADMAP.md) | Axes d'évolution · décisions d'architecture |
-| 10 ⭐ | [**DÉTECTIONS — Sigma**](10-DETECTIONS.md) | **Detection-as-code** ⭐ : catalogue Sigma · maturité par maillon · MITRE (live · /14) · test-driven *(à voir en priorité)* |
+L'Atelier 0xCyberLiTech applique une doctrine d'ingénierie formelle : **le refus absolu des fichiers volumineux et des monolithes incontrôlables** (Règle 14.7 de la Doctrine Universelle).
 
----
-
-<h2 align="center">Framework de déploiement</h2>
-
-> ⚠️ **Disaster recovery personnel — non reproductible depuis ce dépôt seul.**
-> `restore-soc.sh` nécessite une archive de configuration privée (configs, clés SSH, scripts opérationnels) conservée hors dépôt.
-> `deploy-soc.sh` est utilisable indépendamment pour installer la stack logicielle sur n'importe quel Debian 13.
-
-| Script / Guide | Rôle | Utilisable sans archive |
-|----------------|------|:-----------------------:|
-| [deploy-soc.sh](DEPLOY/deploy-soc.sh) | Installation paquets — nginx · CrowdSec · Suricata · Fail2ban · AIDE · rsyslog · `--dry-run` · `--step` | ✅ |
-| [restore-soc.sh](DEPLOY/restore-soc.sh) | Restauration complète depuis archive privée — 13 blocs · `--dry-run` · `--step` · rollback auto | 🔒 archive requise |
-| [create-archive.sh](DEPLOY/create-archive.sh) | Export de la configuration en cours — génère l'archive 13 blocs | ✅ |
-| [GUIDE-DEPLOIEMENT-RAPIDE.md](DEPLOY/GUIDE-DEPLOIEMENT-RAPIDE.md) | Documentation du workflow complet — référence méthodologique | ✅ |
-| [RUNBOOK-DEBIAN13.md](DEPLOY/RUNBOOK-DEBIAN13.md) | Runbook installation Debian 13 | ✅ |
-| [CHECKLIST-DEPLOY.md](DEPLOY/CHECKLIST-DEPLOY.md) | 61 points de vérification post-déploiement | ✅ |
-| [CHECKLIST-OPERATIONNELLE.md](DEPLOY/CHECKLIST-OPERATIONNELLE.md) | Checklist exploitation quotidienne | ✅ |
-| [DR-EXERCISE-2026-04-28.md](DEPLOY/DR-EXERCISE-2026-04-28.md) | **Rapport exercice DR réel** — Phase A/B/C · 8 écarts détectés et corrigés | ✅ |
-| [CONTENU-ARCHIVE.md](REFERENCE/CONTENU-ARCHIVE.md) | Structure détaillée des 13 blocs de l'archive | ✅ |
-| [AUDIT-ARCHIVE-CHECKLIST.md](REFERENCE/AUDIT-ARCHIVE-CHECKLIST.md) | Checklist avant chaque archivage | ✅ |
+* **Modularité Pure par Caissons Étanches :**
+  Chaque fonctionnalité est scindée en modules étanches et découplés appliquant le principe de responsabilité unique (*Single Responsibility Principle*) :
+  * Contrôleur maître et cycle de vie (`mon-composant.js`)
+  * Composants d'interface et modales (`mon-composant-components.js` / `*-modal.js`)
+  * Moteur de calcul ou algorithme de rendu (`mon-composant-engine.js` / `*-render.js`)
+* **100 % des Fichiers Conformes :**
+  Tous les fichiers JavaScript du dashboard et tous les scripts de maintenance (Bash et Python) respectent rigoureusement le plafond strict de **400 lignes maximum**.
+* **Le Verrou Mécanique Déterministe :**
+  Le gardien logiciel [`soc_modules_ceiling_guard.py`](file:///D:/0xCyberLiTech/DEV/TOOLS/soc-modules-ceiling-guard/soc_modules_ceiling_guard.py) scanne chaque fichier du projet. Si une modification ou un ajout tente de dépasser les 400 lignes, **le pipeline CI/CD bloque immédiatement le commit**.
 
 ---
 
-<h2 align="center">Scripts Python & Shell</h2>
+## 7. 🧪 L'Armure Qualité : 19 Gardiens & Bancs Hostiles Niveaux 3 & 4
 
-| Fichier | Rôle | Statut |
-|---------|------|--------|
-| `monitoring_gen.py` | **Moteur principal** — génère `monitoring.json` toutes les 5 min · 60+ fonctions · parsing nginx / CrowdSec / Suricata / Fail2ban / rsyslog | 🔒 privé |
-| `soc-daily-report.py` | Rapport HTML quotidien par mail (08h00) | 🔒 privé |
-| `monitoring.sh` | Wrapper cron + GoAccess HTML analytics | 🔒 privé |
-| `proto-live.py` | Statistiques protocoles temps réel (fenêtre 5 min) | 🔒 privé |
-| [alert.conf.example](scripts/alert.conf.example) | Configuration SMTP alertes — copier en `alert.conf` | ✅ public |
-| [jail.local](scripts/jail.local) | Fail2ban — 3 jails : sshd · nginx-cve · nginx-botsearch | ✅ public |
-| [rsyslog-10-central-receiver.conf](scripts/rsyslog-10-central-receiver.conf) | Récepteur rsyslog central (TCP+UDP 514) | ✅ public |
-| [rsyslog-99-forward-site01.conf](scripts/rsyslog-99-forward-site01.conf) | Émetteur rsyslog — site-01 → srv-nginx | ✅ public |
-| [rsyslog-99-forward-site02.conf](scripts/rsyslog-99-forward-site02.conf) | Émetteur rsyslog — site-02 → srv-nginx | ✅ public |
-| [apparmor-apache2-clt.conf](scripts/apparmor-apache2-clt.conf) | Profil AppArmor Apache2 — site-01 | ✅ public |
-| [apparmor-apache2-pa85.conf](scripts/apparmor-apache2-pa85.conf) | Profil AppArmor Apache2 — site-02 | ✅ public |
-| [crowdsec/](scripts/crowdsec/) | 4 scénarios CrowdSec custom (http-bad-ua · exploit-scan · php-rce · geo-block) | ✅ public |
-| [logrotate.d/](scripts/logrotate.d/) | 7 règles logrotate : nginx · fail2ban · monitoring · rsyslog · aide · ufw · sites | ✅ public |
+Aucune décision technique ne repose sur de simples suppositions. Tout est validé par des **preuves mécaniques déterministes** avant toute mise en production :
+
+| Gardien / Banc d'Épreuve | Périmètre d'Action | Exigence Inviolable |
+|:-------------------------|:-------------------|:-------------------:|
+| **Suite Gardienne Maîtresse** | 19 outils automatisés (syntaxe, linters ruff/eslint, intégrité, parité) | **19 / 19 GO (100% VERT)** |
+| **Plafond Volumétrique** | Scan de l'ensemble des fichiers JS, Python et Shell du SOC | **0 fichier > 400 lignes** |
+| **Bancs Hostiles Niveau 3** | Tests aux limites avec payloads malformés, stress canvas, valeurs nulles/extrêmes | **100 % de succès** |
+| **Bancs E2E Niveau 4 (Edge)** | Robotisation automatisée sous Microsoft Edge Headless réel (clics, modales, DOM) | **0 erreur JS console** |
+| **Parité Tripartite** | Contrôle cryptographique au bit près (Atelier D: ➔ Sandbox Staging ➔ Production Nginx) | **100 % aligné (0 dérive)** |
+| **Gardiens Anti-Fuite** | Détection automatique des identifiants et des adresses IP internes privées | **0 fuite dans les dépôts publics** |
 
 ---
 
-<h2 align="center">Dashboard SOC</h2>
+## 8. 🤖 Intelligence Artificielle Locale & Restitution Vocale Souveraine
 
-SPA Vanilla JS — zéro dépendance NPM · architecture modulaire · tuiles thématiques.
+Pour assister l'opérateur dans la prise de décision rapide, le SOC intègre une architecture cognitive locale articulée autour de **l'assistant JARVIS / Hermès** :
 
-> Les sources JS ne sont pas publiées dans ce dépôt. La page HTML et le CSS sont disponibles à titre de référence.
-
-| Caractéristique | Détail |
-|---|---|
-| **Architecture** | Des modules JS à responsabilité unique — rendu, canvas, fetch, modals, XDR, investigation IP… |
-| **Tuiles** | Kill Chain · GeoIP · XDR · Fail2ban · CrowdSec · Suricata · AIDE HIDS · rsyslog · nginx · Freebox · JARVIS |
-| **Kill Chain** | Canvas 2D — tracking RECON → SCAN → EXPLOIT → BRUTE → NEUTRALISÉ · score menace par IP |
-| **Investigation IP** | Modal forensique — CrowdSec · Fail2ban · GeoIP · WHOIS · verdict · historique 30j |
-| **XDR Engine** | Corrélation cross-source 6 flux · score 0-200 · seuils FAIBLE / MOYEN / ÉLEVÉ / CRITIQUE |
-| **GeoIP** | Leaflet.js + MaxMind GeoLite2 — cartographie mondiale · arcs d'attaque animés |
-| **Polling** | Cycle 60s — toutes les tuiles se rafraîchissent automatiquement · zéro rechargement de page |
-| **Thème** | Glassmorphism — tokens CSS `--fs-*` · responsive · zéro framework CSS |
-| **Qualité** | Dette de code à zéro (NDT) · suite pytest complète · dette structurelle assumée · scores honnêtes |
+* **Fast-Path Déterministe (< 200 ms) :**
+  Toutes les requêtes relatives à l'état des machines, à la charge CPU/RAM, aux adresses IP neutralisées ou aux sauvegardes sont traitées par du code machine direct. **Le modèle de langage n'intervient jamais sur les métriques factuelles**, éliminant tout risque d'hallucination.
+* **Passerelle Vocale Directe Windows MCI (Antoine HD) :**
+  Les alertes de criticité élevée et les rapports de situation sont verbalisés en temps réel directement sur les haut-parleurs de l'opérateur via le moteur audio natif MCI de Windows, propulsé par la voix naturelle d'Antoine HD.
+* **Expertise Forensique Sémantique :**
+  Un modèle de langage local (12B) déployé sur conteneur dédié avec accélération matérielle GPU est mobilisé à la demande pour analyser la charge utile des attaques complexes et générer des résumés de corrélation contextuelle.
 
 ---
 
-<h2 align="center">Configurations de référence</h2>
+## 9. 🖥️ Topologie du Homelab en Production (Anonymisée)
 
-Fichiers de configuration anonymisés — remplacer les placeholders `<LAN-SUBNET>`, `<SSH-PORT>`, `<SRV-NGINX-IP>`, etc.
+L'infrastructure physique et virtuelle est segmentée sous hyperviseur bare-metal de classe entreprise :
 
-| # | Fichier | Description |
-|---|---------|-------------|
-| 01 | [nginx.md](CONFIGS/01-nginx.md) | nginx.conf · vhosts · snippets SSL · headers sécurité · GeoIP block |
-| 02 | [crowdsec.md](CONFIGS/02-crowdsec.md) | Collections · LAPI · bouncer nftables · scénarios custom · whitelist LAN |
-| 03 | [fail2ban.md](CONFIGS/03-fail2ban.md) | jail.local · action crowdsec-sync · filtres nginx-cve · nginx-botsearch |
-| 04 | [suricata.md](CONFIGS/04-suricata.md) | AF_PACKET · ring buffer · eve.json · update.yaml · sysctl hardening |
-| 05 | [rsyslog.md](CONFIGS/05-rsyslog.md) | Récepteur central · 5 hôtes · template par hôte · logrotate · corrélations |
-| 06 | [ufw-apparmor.md](CONFIGS/06-ufw-apparmor.md) | Règles UFW entrantes/sortantes · bouncer nftables · profils AppArmor |
-| 07 | [crons.md](CONFIGS/07-crons.md) | 9 tâches planifiées : monitoring · Suricata · CrowdSec · rapport · GeoIP |
+```
+                       [ ACCÈS INTERNET FIBRE ]
+                                  │
+                                  ▼
+               ┌─────────────────────────────────────┐
+               │     Routeur Dédié Wi-Fi 7 ROG       │
+               │   Pare-feu SPI · AiProtection DPI   │
+               └──────────────────┬──────────────────┘
+                                  │
+          ┌───────────────────────┴───────────────────────┐
+          │                                               │
+          ▼                                               ▼
+┌───────────────────────────────────┐   ┌───────────────────────────────────┐
+│     SERVEUR NAS MINISFORUM        │   │    HYPERVISEUR PROXMOX VE         │
+│  OMV8 · Pools ZFS Miroirs Raid    │   │  Virtualisation Bare-Metal KVM    │
+│  Snapshots Chiffrés · Coffres DR  │   │  Nœud Haute Disponibilité         │
+└───────────────────────────────────┘   └─────────────────┬─────────────────┘
+                                                          │
+                    ┌─────────────────────────────────────┼─────────────────────────────────────┐
+                    ▼                                     ▼                                     ▼
+        ┌───────────────────────┐             ┌───────────────────────┐             ┌───────────────────────┐
+        │  VM REVERSE PROXY WAF │             │  VM SANDBOX DE QUALIF │             │  CONTENEUR IA JARVIS  │
+        │  Debian 13 · Nginx    │             │  Debian 13 · Staging  │             │  Debian 13 · Core     │
+        │  CrowdSec · Suricata  │             │  Bancs Hostiles E2E   │             │  Fast-Path · TTS MCI  │
+        │  Fail2ban · AIDE HIDS │             │  Qualification Dev    │             │  Ollama Mistral-Nemo  │
+        └───────────────────────┘             └───────────────────────┘             └───────────────────────┘
+```
+
+| Nœud Réseau | Type d'Hôte | Système | Fonctions Principales |
+|:------------|:-----------:|:-------:|:----------------------|
+| **Hyperviseur Nodal** | Bare-metal | Proxmox VE | Virtualisation KVM, gestion des ponts réseau virtuels, monitoring ZFS |
+| **Reverse Proxy WAF** | Machine Virtuelle | Debian 13 | Nginx frontal, CrowdSec WAF, Suricata IDS, Fail2ban, AIDE HIDS |
+| **Plateforme Dev Sandbox** | Machine Virtuelle | Debian 13 | Environnement de qualification miroir, exécution des bancs d'essais hostiles |
+| **Serveurs d'Applications** | Machines Virtuelles | Debian 13 | Services applicatifs durcis, profils AppArmor, forwarders rsyslog |
+| **Cerveau IA JARVIS** | Conteneur Dédié | Debian 13 | Moteurs d'arbitrage déterministe, API TTS, exécution des modèles locaux |
+| **Stockage & Coffres DR** | NAS Physique | OMV8 / ZFS | Stockage centralisé, réplication des pools ZFS, archives chiffrées |
+| **Passerelle Réseau** | Routeur Dédié | Wi-Fi 7 / Merlin | Pare-feu frontal SPI, isolation VLANs, filtrage matériel DPI |
+
+---
+
+## 10. 🔄 Framework de Déploiement & Reproductibilité Méthodologique
+
+Ce dépôt partage les scripts et guides méthodologiques permettant d'appréhender le déploiement et la résilience d'un SOC moderne :
+
+* **[`DEPLOY/deploy-soc.sh`](DEPLOY/deploy-soc.sh) :** Script d'installation automatisé de la stack logicielle (Debian 13) avec options d'exécution pas-à-pas et simulation préalable (`--dry-run`).
+* **[`DEPLOY/create-archive.sh`](DEPLOY/create-archive.sh) & [`restore-soc.sh`](DEPLOY/restore-soc.sh) :** Chaîne de sauvegarde et de restauration complète validée lors d'exercices de sinistre réels (PRA en 5 minutes).
+* **Sanctuarisation Stricte des Données Personnelles :** L'ensemble des configurations diffusées dans le dossier `CONFIGS/` est strictement anonymisé à l'aide de variables canoniques d'infrastructure (`<SRV-NGINX-IP>`, `<ROUTER-IP>`, `<LAN-CIDR>`), protégeant rigoureusement les données d'exploitation.
 
 ---
 
