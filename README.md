@@ -55,11 +55,11 @@
 
 <br/>
 
-[![Cockpit SOC Extreme HUD](assets/soc-cockpit-index.png)](assets/soc-cockpit-index.png)
+[![War Room Kill Chain](assets/soc-warroom-killchain.png)](assets/soc-warroom-killchain.png)
 
 <br/>
 
-*Poste de commandement unifié Extreme HUD v5.5 — Vue War Room en production 24h/24 : télémétrie sub-200ms, jauges segmentées LED normalisées, rendu Vanilla pur et zéro dépendance NPM.*
+*Poste de commandement War Room Extreme HUD v5.5 en production réelle 24h/24 : dosimètre Sentinel instantané, cinématique MITRE ATT&CK, télémétrie sub-200ms et zéro dépendance NPM.*
 
 <br/>
 
@@ -77,41 +77,41 @@
 
 ## 🗺️ Sommaire Pédagogique
 
-- 🎯 [1. Manifeste d'Ingénierie : Pourquoi ce SOC surpasse le homelab ordinaire](#1--manifeste-dingénierie--pourquoi-ce-soc-surpasse-le-homelab-ordinaire)
+- 🎯 [1. Manifeste d'Ingénierie : L'Exigence Souveraine face aux Homelabs Ordinaires](#1--manifeste-dingénierie--lexigence-souveraine-face-aux-homelabs-ordinaires)
 - 🔄 [2. Schéma Conceptuel Global : Le Cycle Nodal de Cyberdéfense](#2--schéma-conceptuel-global--le-cycle-nodal-de-cyberdéfense)
-- 🎛️ [3. Le Cockpit Extreme HUD & l'Ossature Modulaire](#3--le-cockpit-extreme-hud--lossature-modulaire)
-- 🧩 [4. Le Studio Back-Office & la Structure en Caissons Aimantés](#4--le-studio-back-office--la-structure-en-caissons-aimantés)
-- 🌌 [5. Les Moteurs Graphiques Canvas Dédiés (3D & 2D)](#5--les-moteurs-graphiques-canvas-dédiés-3d--2d)
-- 🛡️ [6. La Cascade de Cyberdéfense en Profondeur & Détection-as-Code](#6--la-cascade-de-cyberdéfense-en-profondeur--détection-as-code)
-- 📐 [7. Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes](#7--dette-technique-zéro--la-règle-dor-du-plafond-le-400-lignes)
-- 🧪 [8. L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4](#8--larmure-qualité--19-gardiens-déterministes--bancs-hostiles-niveau-4)
-- 🤖 [9. IA Défensive, Fast-Path (< 200 ms) & Synthèse Vocale Antoine HD](#9--ia-défensive-fast-path--200-ms--synthèse-vocale-antoine-hd)
-- 🖥️ [10. Topologie & Matrice de l'Infrastructure Réelle (Anonymisée)](#10--topologie--matrice-de-linfrastructure-réelle-anonymisée)
+- 🎛️ [3. Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches](#3--le-cockpit-extreme-hud--lossature-en-caissons-étanches)
+- 🧩 [4. Le Studio Back-Office & la Grille Aimantée Modulaire](#4--le-studio-back-office--la-grille-aimantée-modulaire)
+- 🌐 [5. Le Géo-Radar Vectoriel 2D & Traçage Balistique](#5--le-géo-radar-vectoriel-2d--traçage-balistique)
+- ⚙️ [6. La Détection SIGMA Versionnée & Riposte SOAR Proactive](#6--la-détection-sigma-versionnée--riposte-soar-proactive)
+- 🤖 [7. Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine](#7--le-réacteur-dinférence-ia-matrice-neurale--voix-souveraine)
+- 📐 [8. Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes](#8--dette-technique-zéro--la-règle-dor-du-plafond-le-400-lignes)
+- 🧪 [9. L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4](#9--larmure-qualité--19-gardiens-déterministes--bancs-hostiles-niveau-4)
+- 🖥️ [10. Topologie Synoptique du Homelab (Anonymisée)](#10--topologie-synoptique-du-homelab-anonymisée)
 - 🔄 [11. Framework de Déploiement & Disaster Recovery en 5 Minutes](#11--framework-de-déploiement--disaster-recovery-en-5-minutes)
 
 ---
 
-## 1. 🎯 Manifeste d'Ingénierie : Pourquoi ce SOC surpasse le homelab ordinaire
+## 1. 🎯 Manifeste d'Ingénierie : L'Exigence Souveraine face aux Homelabs Ordinaires
 
-Dans l'univers des homelabs, la quasi-totalité des projets repose sur des tableaux de bord génériques préemballés (*Grafana*, *Homepage*, *Dashy*) ou l'empilement de conteneurs disparates nécessitant 10 onglets ouverts. **Ce projet constitue une rupture méthodologique complète.**
+Dans la grande majorité des homelabs, les passionnés se contentent d'empiler des tableaux de bord préconfigurés (*Grafana*, *Homepage*, *Dashy*) ou de juxtaposer des conteneurs isolés qui s'effondrent à la première mise à jour. **Ce projet prend le contre-pied absolu de cette approche amateur.**
 
-Forgé selon les règles de la **Doctrine Universelle de l'Atelier 0xCyberLiTech**, ce SOC est un instrument de cyberdéfense sur mesure, développé avec les exigences de rigueur de l'aérospatiale et des systèmes d'armes critiques :
+Bâti sous la gouvernance martiale de la **Doctrine Universelle de l'Atelier 0xCyberLiTech**, ce SOC homelab a été pensé, conçu et codé sur mesure avec les normes d'exigence des environnements critiques :
 
 | Axe d'Évaluation | Homelab Traditionnel (99 %) | SOC Souverain 0xCyberLiTech (0,1 %) |
 |:-----------------|:----------------------------|:-----------------------------------|
-| **Environnement Réel** | Lab hors-sol, réseau simulé en chambre étanche | **Production réelle exposée 24h/24** aux assauts du cyberespace |
-| **Moteur Graphique** | Tableaux de bord tiers lourds, latence élevée | **Cockpit Extreme HUD v5.5 natif Vanilla JS/CSS** (< 200 ms) |
-| **Architecture du Code** | Monolithes historiques, scripts empilés sans tests | **Dette Zéro absolue : 100 % des fichiers $\le 400$ lignes** |
-| **Assurance Qualité** | Contrôles visuels manuels épisodiques | **19 Gardiens CI/CD** + bancs d'épreuves sous **Microsoft Edge réel** |
-| **Fiabilité Télémétrique** | Approximations ou suppositions du modèle IA | **Déterminisme pur** : 0 hallucination sur les métriques et machines |
+| **Environnement Réel** | Lab virtuel isolé en chambre étanche | **Production réelle exposée 24h/24** aux attaques réelles d'Internet |
+| **Interface & Rendu** | Templates lourds, 10 onglets ouverts, latences | **Cockpit Extreme HUD v5.5 natif Vanilla JS/CSS** (< 200 ms) |
+| **Dette Technique** | Fichiers monstres, scripts bricolés sans tests | **Dette Zéro scellée : 100 % des fichiers $\le 400$ lignes** (Règle 14.7) |
+| **Garantie Qualité** | Vérifications manuelles épisodiques et trompeuses | **19 Gardiens CI/CD** + bancs E2E sous **Microsoft Edge réel** |
+| **Fiabilité Télémétrique** | Approximations ou dérives des modèles LLM | **Déterminisme pur** : 0 hallucination sur les métriques et machines |
 | **Alerte & Accessibilité** | Notifications mail passives ou interfaces muettes | **Passerelle vocale directe Windows MCI** (voix naturelle Antoine HD) |
-| **Résilience Sinistre** | Procédures de restauration théoriques | **Disaster Recovery automatisé** prêt à redéployer en 5 minutes |
+| **Résilience Sinistre** | Sauvegardes manuelles non éprouvées | **Disaster Recovery automatisé** prêt à redéployer en 5 minutes |
 
 ---
 
 ## 2. 🔄 Schéma Conceptuel Global : Le Cycle Nodal de Cyberdéfense
 
-Le système fonctionne comme un organisme cybernétique unifié. Chaque menace externe est captée, normalisée, corrélée et neutralisée de manière déterministe, pendant que l'opérateur en reçoit la restitution visuelle et vocale instantanée :
+Le système fonctionne comme un organisme de surveillance unifié. Chaque menace externe est captée, normalisée, corrélée et neutralisée de manière déterministe, pendant que l'opérateur en reçoit la restitution visuelle et vocale instantanée :
 
 ```
                   [ CYBERESPACE : Scans, Bots, Exploits, Attaques C2 ]
@@ -153,25 +153,26 @@ Le système fonctionne comme un organisme cybernétique unifié. Chaque menace e
 
 ---
 
-## 3. 🎛️ Le Cockpit Extreme HUD & l'Ossature Modulaire
+## 3. 🎛️ Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches
 
-L'interface opérateur est conçue selon les principes ergonomiques d'un poste de pilotage militaire (**Extreme HUD**) :
+L'interface opérateur est conçue selon les principes d'ergonomie et de lisibilité d'un cockpit de défense (**Extreme HUD**) :
 
-* **Catalogue de Tuiles Métier Réparties sur 5 Espaces Opérationnels et 13 Sous-Onglets :**
-  1. *Vue d'ensemble (War Room) :* Dosimètre cyber central, corridors tactiques et synthèse immédiate des défenses.
+* **Organisation en 5 Espaces Opérationnels et 13 Sous-Onglets :**
+  1. *Vue d'ensemble (War Room) :* Dosimètre cyber central, corridors de menaces et matrice de riposte.
   2. *Cyberdéfense :* Cascade active multi-couches, WAF CrowdSec, Suricata IDS, Fail2ban, Couverture par Zone et règles Sigma.
-  3. *Cartographie :* Geo-Radar vectoriel 2D, globe balistique et répartition géographique des flux d'attaque.
+  3. *Cartographie :* Geo-Radar vectoriel 2D, globe balistique et analyse géographique des origines.
   4. *Infrastructure :* Hyperviseur Proxmox VE, intégrité AIDE HIDS (4 VMs), surveillance des crons et connectivité réseau.
   5. *Télémétrie XDR :* Logigramme nodal interactif, analyse forensique et historique 30 jours.
-* **A11Y & Ergonomie Haute Visibilité :**
-  * Conçu spécifiquement pour garantir une lisibilité optimale (contrastes francs, typographies taillées pour le monitoring tactique, suppression de tout élément parasite ou décoratif inutile).
-  * **Standard Unique des Bargraphes Segmentés LED :** Chaque jauge (CPU, mémoire, saturation réseau, niveau de sévérité) respecte le conteneur étalon `.cyber-gauge-track` avec remplissage dynamique par classes CSS normalisées.
+* **Le Concept Révolutionnaire des Caissons Étanches :**
+  Chaque tuile est un sous-module JavaScript autonome et étanche. Elle ne dépend d'aucune tuile voisine et tire son état uniquement du flux de données normalisé. Modifier ou enrichir une tuile se fait sans aucun risque de régression sur le reste du Cockpit.
+* **Normalisation des Bargraphes LED :**
+  Tous les affichages volumétriques et jauges respectent le conteneur étalon `.cyber-gauge-track` avec remplissage dynamique `.cyber-gauge-fill` (cyan, vert, ambre, violet, rouge), assurant une harmonie visuelle sans faille.
 
 ---
 
-## 4. 🧩 Le Studio Back-Office & la Structure en Caissons Aimantés
+## 4. 🧩 Le Studio Back-Office & la Grille Aimantée Modulaire
 
-Au cœur de l'Atelier réside une innovation d'agencement majeure : la **dissociation totale entre la logique des tuiles et leur conteneur physique**.
+Pour offrir un contrôle absolu sur l'affichage sans jamais modifier le code source en production, le système intègre un **Studio Back-Office complet** :
 
 <br/>
 
@@ -179,77 +180,71 @@ Au cœur de l'Atelier réside une innovation d'agencement majeure : la **dissoci
 
 <br/>
 
-*Le Studio Back-Office en action : pilotage direct des 10 gabarits étalons, élasticité des hauteurs d'étagères, catalogue dynamique et réagencement en-place zéro flash.*
+*Le Studio Back-Office souverain : sélection des 10 gabarits étalons, élasticité millimétrique des étagères et catalogue dynamique avec aperçu instantané Quick-Peek.*
 
-### Les Principes Architecturaux de l'Ossature :
-1. **Le Concept des Caissons Étanches :**
-   Chaque tuile est encapsulée dans son propre composant indépendant. Une tuile ignore totalement l'existence des tuiles voisines et ne communique qu'avec l'état global normalisé (`monitoring.json`). Modifier, enrichir ou réécrire une tuile s'effectue sans aucun risque d'effet de bord sur le reste du Cockpit.
-2. **La Grille Aimantée & les 10 Gabarits Étalons (G-1 à G-10) :**
-   Le Studio propose 10 patrons de mise en page pré-calibrés pour s'adapter à toutes les résolutions d'écran tactiques (écrans ultra-larges, configurations multi-moniteurs ou affichages déportés).
-3. **Élasticité Souveraine des Étagères :**
-   L'opérateur contrôle au pixel près la hauteur des rangées d'étagères (`row1`, `row2`). Les compteurs de hauteur s'adaptent dynamiquement, permettant un redimensionnement fluide en direct.
-4. **Catalogue Dynamique & Quick-Peek :**
-   Les tuiles non assignées sont stockées dans une réserve vivante. Le survol d'une tuile dans le catalogue déclenche un aperçu instantané haute fidélité (*Quick-Peek*), permettant de valider son rendu avant toute insertion.
+### Les Capacités Maîtresses du Studio :
+* **10 Gabarits Étalons (G-1 à G-10) :** Patrons de disposition permettant d'adapter instantanément l'agencement aux écrans tactiques, ultra-larges ou moniteurs secondaires.
+* **Élasticité Inviolable des Étagères :** L'opérateur pilote directement la hauteur des rangées (`row1`, `row2`) sans aucune valeur hardcodée dans le code.
+* **Catalogue de Réserve & Quick-Peek :** Les tuiles non déployées restent disponibles dans une réserve dynamique. Le simple survol d'une tuile affiche son rendu réel (*Quick-Peek*), permettant de prévisualiser son comportement avant activation.
 
 ---
 
-## 5. 🌌 Les Deux Moteurs Graphiques Canvas Dédiés (3D & 2D)
+## 5. 🌐 Le Géo-Radar Vectoriel 2D & Traçage Balistique
 
-Pour obtenir une performance d'affichage absolue à **60 FPS constants sans mobiliser de bibliothèques 3D externes gourmandes**, le SOC s'appuie sur deux moteurs graphiques natifs développés en **HTML5 Canvas 2D pur** :
-
-<br/>
-
-### 🚀 A. Le Corridor 3D Kill Chain
-
-[![Kill Chain 3D](assets/soc-killchain-3d.png)](assets/soc-killchain-3d.png)
-
-*Moteur de perspective 3D temps réel : sol Tron rétro-éclairé, pluie Matrix, balises WAN/Citadelle, onde EMP, réticules Aegis et traçage cinématique des 5 stades MITRE ATT&CK.*
-
-* **Projection Perspective Mathématique :** Modélisation d'un corridor spatial infini avec ligne d'horizon dynamique, calcul de profondeur par matrice matricielle pure sans dépendance WebGL.
-* **Cinématique MITRE ATT&CK :** Les 5 maillons d'intrusion (*Reconnaissance → Scan → Exploit → Brute-force → Neutralisé*) sont matérialisés par des monolithes holographiques 3D extrudés, entourés d'anneaux orbitaux et de particules photoniques.
-* **Investigation Forensique au Clic :** Un clic sur un vecteur ouvre instantanément une fiche d'analyse complète : réputation IP, historique 30 jours, décision multi-moteurs et déclenchement d'un bannissement immédiat.
+Pour géolocaliser instantanément les origines d'attaque sans dépendre de services cartographiques externes lents ou indiscrets, le SOC embarque un **Geo-Radar 2D codé en HTML5 Canvas pur** :
 
 <br/>
 
-### 🗺️ B. Le Geo-Radar 2D Vectoriel
+[![Geo-Radar 2D](assets/soc-geomap-radar.png)](assets/soc-geomap-radar.png)
 
-[![Geomap 2D](assets/soc-geomap-2d.png)](assets/soc-geomap-2d.png)
+*Le Geo-Radar 2D vectoriel : projection mondiale haute précision, centroïdes calibrés, arcs balistiques convergents et bascule temporelle 15 min / 24h.*
 
-*Cartographie mondiale vectorielle pure : centroïdes calculés au pixel près, arcs balistiques convergents, pulsation d'alerte et double fenêtre temporelle 15 min / 24h.*
-
-* **Projection Vectorielle Pure :** Tracé géographique sans distorsion, éliminant tout artefact de tuilage ou résidu de bordure.
-* **Arcs d'Attaque Balistiques :** Représentation des flux d'attaque sous forme de trajectoires courbes animées reliant en temps réel le pays source au homelab, avec coloration dynamique selon le niveau de criticité.
-* **Double Fenêtre Temporelle :** Bascule instantanée entre la vision tactique sub-seconde (15 minutes en direct) et l'analyse stratégique consolidée (24 heures glissantes).
+* **Projection Vectorielle Pure :** Élimine tout chargement de tuiles cartographiques externes. Les contours des continents et les centroïdes sont calculés au pixel près.
+* **Arcs Balistiques Convergents :** Chaque tentative d'intrusion génère un arc balistique courbé reliant en temps réel le pays d'origine au homelab, pulsant d'une couleur proportionnelle à la sévérité de l'attaque.
+* **Double Fenêtre Temporelle :** Analyse tactique sub-seconde sur les 15 dernières minutes ou consolidation stratégique sur 24 heures glissantes.
 
 ---
 
-## 6. 🛡️ La Cascade de Cyberdéfense en Profondeur & Détection-as-Code
+## 6. ⚙️ La Détection SIGMA Versionnée & Riposte SOAR Proactive
 
-L'infrastructure oppose à tout assaillant **cinq barrières défensives concentriques** coordonnées :
+La détection d'intrusion ne repose pas sur de simples expressions régulières fragiles, mais sur un moteur **Detection-as-Code** appliquant les standards industriels **Sigma** et **MITRE ATT&CK** :
 
 <br/>
 
-[![Défense Active](assets/soc-defense-chain.png)](assets/soc-defense-chain.png)
+[![Détection Sigma](assets/soc-defense-sigma.png)](assets/soc-defense-sigma.png)
 
-*Chaîne de cyberdéfense active : cascade de filtrage en temps réel, de la détection réseau Suricata IDS jusqu'au confinement AppArmor et à l'intégrité AIDE HIDS.*
+*Moteur Sigma versionné & Riposte SOAR : cycle de vie alert-only → dry-run → enforce, cartographie des techniques MITRE et sanctions immédiates.*
 
-### Les Couches de l'Armure Défensive :
-1. **Couche 1 — Matériel & Frontal Réseau :**
-   Routeur Wi-Fi 7 dédié assurant le filtrage SPI matériel, l'inspection DPI AiProtection, le pare-feu UFW et le blocage géographique par bases MaxMind GeoLite2.
-2. **Couche 2 — WAF Comportemental & Filtrage Applicatif :**
-   CrowdSec AppSec WAF analysant le trafic HTTP en amont avec près de 180 scénarios de vpatching CVE et bouncer directement connecté en kernel-space via nftables.
-3. **Couche 3 — Détection Réseau Passive en Profondeur :**
-   Suricata IDS 7 inspectant les flux bruts via socket AF_PACKET à haute performance, confrontant chaque trame à plus de 90 000 signatures Emerging Threats constamment actualisées.
-4. **Couche 4 — Détection-as-Code & Moteur Sigma :**
-   Catalogue de règles Sigma versionnées suivant un cycle de vie rigoureux : sas d'observation `alert-only`, simulation de ban `dry-run`, puis promotion en blocage réel `enforce` uniquement après la preuve de zéro faux positif.
-5. **Couche 5 — Confinement Système & Intégrité HIDS :**
-   Fail2ban protégeant les points d'entrée SSH et d'administration, profils stricts AppArmor isolant les processus sensibles, et base d'intégrité **AIDE HIDS scannant quotidiennement 4 machines virtuelles** pour interdire toute modification non autorisée de fichiers système.
+### Le Cycle de Vie des Règles Déterministes :
+1. **`alert-only` (Observation) :** La nouvelle règle analyse les flux réels sans bloquer, pour mesurer sa pertinence et éliminer les faux positifs.
+2. **`dry-run` (Simulation de ban) :** La sanction est simulée dans les journaux d'audit pour vérifier l'absence d'impact sur le trafic légitime.
+3. **`enforce` (Blocage actif) :** La règle est promue en production active ; toute correspondance déclenche un bannissement instantané en kernel-space via nftables et CrowdSec.
 
 ---
 
-## 7. 📐 Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes
+## 7. 🤖 Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine
 
-L'Atelier 0xCyberLiTech applique une règle d'or d'ingénierie formelle : **l'interdiction formelle des fichiers obèses et des monolithes incontrôlables** (Règle 14.7 de la Doctrine Universelle).
+Le SOC fusionne le renseignement cyber et l'intelligence artificielle locale (**JARVIS / Hermès**) déployée sur conteneur dédié avec accélération GPU matérielle :
+
+<br/>
+
+[![Réacteur IA GPU](assets/soc-warroom-ia-matrix.png)](assets/soc-warroom-ia-matrix.png)
+
+*Le Réacteur d'Inférence IA : monitoring panoramique GPU RTX 5080, matrice alvéolaire CUDA & Tensor, inférence LLM locale et bus vocal Antoine HD.*
+
+### Les 3 Piliers de l'IA Souveraine :
+* **Fast-Path Déterministe (< 200 ms) :**
+  Tous les états factuels (santé des serveurs, adresses IP neutralisées, statut des sauvegardes) sont traités par du code machine direct. **Le modèle de langage n'intervient jamais sur les chiffres**, éliminant tout risque d'hallucination.
+* **Passerelle Vocale Directe Windows MCI (Antoine HD) :**
+  En cas d'incident critique, la voix naturelle d'Antoine HD annonce vocalement la nature de la menace et l'action de riposte directement sur les haut-parleurs de l'opérateur via le moteur natif MCI de Windows, sans dépendre du cloud.
+* **Analyse Contextuelle Forensique LLM :**
+  Un modèle local 12B accéléré sur GPU est mobilisé à la demande pour disséquer les requêtes web complexes, les injections obfusquées et les charges utiles malveillantes.
+
+---
+
+## 8. 📐 Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes
+
+L'Atelier 0xCyberLiTech applique une règle d'or formelle : **l'interdiction des fichiers monstres et des monolithes inmaintenables** (Règle 14.7 de la Doctrine Universelle).
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -263,18 +258,15 @@ L'Atelier 0xCyberLiTech applique une règle d'or d'ingénierie formelle : **l'in
 └───────────────────────────────────┴────────────────────────────────────┘
 ```
 
-* **100 % des Fichiers Conformes :**
-  L'intégralité des modules JavaScript du dashboard et tous les scripts de maintenance (Bash et Python) respectent impérativement le plafond de **400 lignes maximum**.
-* **Découpage Préventif Continu :**
-  Dès qu'une tuile ou un composant atteint 350 lignes, il est immédiatement éclaté en sous-modules étanches spécialisés (`*-components.js`, `*-engine.js`, `*-render.js`), évitant toute accumulation de dette technique.
-* **Le Verrou Mécanique Déterministe :**
-  Le gardien logiciel [`soc_modules_ceiling_guard.py`](file:///D:/0xCyberLiTech/DEV/TOOLS/soc-modules-ceiling-guard/soc_modules_ceiling_guard.py) contrôle l'intégralité du dépôt à chaque étape. Tout dépassement bloque automatiquement le commit.
+* **100 % des Fichiers Conformes :** L'intégralité des modules JavaScript du dashboard et tous les scripts de maintenance (Bash et Python) respectent impérativement le plafond de **400 lignes maximum**.
+* **Découpage Préventif Continu :** Dès qu'un composant approche des 350 lignes, il est immédiatement scindé en sous-modules étanches spécialisés (`*-components.js`, `*-engine.js`, `*-render.js`), interdisant tout entassement de code.
+* **Le Verrou Mécanique Déterministe :** Le gardien logiciel [`soc_modules_ceiling_guard.py`](file:///D:/0xCyberLiTech/DEV/TOOLS/soc-modules-ceiling-guard/soc_modules_ceiling_guard.py) analyse l'intégralité du code source à chaque commit. Tout dépassement bloque automatiquement la validation.
 
 ---
 
-## 8. 🧪 L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4
+## 9. 🧪 L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4
 
-La fiabilité du SOC ne repose sur aucune promesse verbale, mais sur des **validations mécaniques déterministes** exécutées en continu :
+La fiabilité de la plateforme ne repose sur aucune promesse verbale, mais sur des **preuves mécaniques déterministes** exécutées en continu :
 
 | Gardien / Banc d'Épreuve | Mission & Périmètre | Exigence Inviolable |
 |:-------------------------|:--------------------|:-------------------:|
@@ -287,20 +279,7 @@ La fiabilité du SOC ne repose sur aucune promesse verbale, mais sur des **valid
 
 ---
 
-## 9. 🤖 IA Défensive, Fast-Path (< 200 ms) & Synthèse Vocale Antoine HD
-
-Loin des gadgets conversationnels lents et imprécis, le module d'intelligence artificielle locale (**JARVIS / Hermès**) s'intègre comme une couche d'amplification tactique :
-
-* **Fast-Path Déterministe (< 200 ms) :**
-  Toutes les requêtes relatives à l'état des machines, à la charge CPU/RAM, aux adresses IP neutralisées ou aux sauvegardes sont traitées par du code machine direct. **Le modèle de langage n'intervient jamais sur les métriques factuelles**, éliminant tout risque d'hallucination.
-* **Passerelle Vocale Directe Windows MCI (Antoine HD) :**
-  Les alertes de criticité élevée et les rapports de situation sont verbalisés en temps réel directement sur les haut-parleurs de l'opérateur via le moteur audio natif MCI de Windows, propulsé par la voix naturelle d'Antoine HD.
-* **Analyse Contextuelle Forensique :**
-  Un modèle de langage local (12B) déployé sur conteneur dédié avec accélération matérielle GPU est mobilisé à la demande pour analyser la charge utile des attaques complexes et générer des résumés de corrélation contextuelle.
-
----
-
-## 10. 🖥️ Topologie & Matrice de l'Infrastructure Réelle (Anonymisée)
+## 10. 🖥️ Topologie Synoptique du Homelab (Anonymisée)
 
 ```
                        [ ACCÈS INTERNET FIBRE ]
