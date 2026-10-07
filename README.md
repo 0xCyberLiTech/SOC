@@ -73,16 +73,17 @@
 ## 🗺️ Sommaire Pédagogique
 
 - 🎯 [1. Manifeste d'Ingénierie : L'Exigence Souveraine face aux Homelabs Ordinaires](#1--manifeste-dingénierie--lexigence-souveraine-face-aux-homelabs-ordinaires)
-- 🔄 [2. Schéma Conceptuel Global : Le Cycle Nodal de Cyberdéfense](#2--schéma-conceptuel-global--le-cycle-nodal-de-cyberdéfense)
-- 🎛️ [3. Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches](#3--le-cockpit-extreme-hud--lossature-en-caissons-étanches)
-- 🧩 [4. Le Studio Back-Office & la Grille Aimantée Modulaire](#4--le-studio-back-office--la-grille-aimantée-modulaire)
-- 🌐 [5. Le Géo-Radar Vectoriel 2D & Traçage Balistique](#5--le-géo-radar-vectoriel-2d--traçage-balistique)
-- ⚙️ [6. Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA](#6--le-synoptique-dynamique-dattaque--tableau-de-bord-du-moteur-sigma)
-- 🤖 [7. Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine](#7--le-réacteur-dinférence-ia-matrice-neurale--voix-souveraine)
-- 📐 [8. Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes](#8--dette-technique-zéro--la-règle-dor-du-plafond-le-400-lignes)
-- 🧪 [9. L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4](#9--larmure-qualité--19-gardiens-déterministes--bancs-hostiles-niveau-4)
-- 🖥️ [10. Topologie Synoptique du Homelab (Anonymisée)](#10--topologie-synoptique-du-homelab-anonymisée)
-- 🔄 [11. Résilience & Disaster Recovery en 5 Minutes](#11--résilience--disaster-recovery-en-5-minutes)
+- 🔄 [2. Schéma Conceptuel Global : Dorsale de Collecte, Bus de Télémétrie & Cycle Nodal](#2--schéma-conceptuel-global--dorsale-de-collecte-bus-de-télémétrie--cycle-nodal)
+- ⚔️ [3. Le Corridor Tactique Kill Chain & ses Sous-Interfaces Intégrées](#3-️-le-corridor-tactique-kill-chain--ses-sous-interfaces-intégrées)
+- 🎛️ [4. Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches](#4-️-le-cockpit-extreme-hud--lossature-en-caissons-étanches)
+- 🧩 [5. Le Studio Back-Office, Catalogue de Tuiles & Grille Aimantée Modulaire](#5--le-studio-back-office-catalogue-de-tuiles--grille-aimantée-modulaire)
+- 🌐 [6. Le Géo-Radar Vectoriel 2D & Traçage Balistique](#6--le-géo-radar-vectoriel-2d--traçage-balistique)
+- ⚙️ [7. Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA](#7--le-synoptique-dynamique-dattaque--tableau-de-bord-du-moteur-sigma)
+- 🤖 [8. Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine](#8--le-réacteur-dinférence-ia-matrice-neurale--voix-souveraine)
+- 📐 [9. Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes](#9--dette-technique-zéro--la-règle-dor-du-plafond-le-400-lignes)
+- 🧪 [10. L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4](#10--larmure-qualité--19-gardiens-déterministes--bancs-hostiles-niveau-4)
+- 🖥️ [11. Topologie Synoptique du Homelab (Anonymisée)](#11--topologie-synoptique-du-homelab-anonymisée)
+- 🔄 [12. Résilience & Disaster Recovery en 5 Minutes](#12--résilience--disaster-recovery-en-5-minutes)
 
 ---
 
@@ -104,51 +105,63 @@ Bâti sous la gouvernance martiale de la **Doctrine Universelle de l'Atelier 0xC
 
 ---
 
-## 2. 🔄 Schéma Conceptuel Global : Le Cycle Nodal de Cyberdéfense
+## 2. 🔄 Schéma Conceptuel Global : Dorsale de Collecte, Bus de Télémétrie & Cycle Nodal
 
-Le système fonctionne comme un organisme de surveillance unifié. Chaque menace externe est captée, normalisée, corrélée et neutralisée de manière déterministe, pendant que l'opérateur en reçoit la restitution visuelle et vocale instantanée :
+L'architecture du SOC repose sur une séparation stricte entre la collecte d'infrastructure, l'acheminement des métriques et la restitution opérateur :
 
 ```
                   [ CYBERESPACE : Scans, Bots, Exploits, Attaques C2 ]
                                             │
                                             ▼
 ┌─────────────────────────────────────────────────────────────────────────────────────────┐
-│ 1. CAPTEURS PÉRIPHÉRIQUES & FILTRAGE FRONTAL                                            │
-│ • Pare-feu Routeur Dédié Wi-Fi 7 (DPI)          • Filtrage UFW & blocage GeoIP MaxMind  │
+│ 1. DORSALE DE COLLECTE (BACKBONE SOUVERAIN)                                             │
+│ • Pare-feu Routeur Wi-Fi 7 (DPI)                • Filtrage UFW & blocage GeoIP MaxMind  │
 │ • CrowdSec AppSec WAF (~180 règles vpatch CVE)  • Suricata IDS 7 (AF_PACKET kernel)     │
 │ • Confinement d'accès AppArmor                  • Contrôle d'intégrité AIDE HIDS (4VMs) │
+│ • Récepteur central rsyslog TCP/UDP 514         • Sondes thermiques & hardware Proxmox  │
 └───────────────────────────────────────────┬─────────────────────────────────────────────┘
-                                            │ Flux d'événements et logs EVE JSON
+                                            │ Auscultation continue & flux EVE JSON
                                             ▼
 ┌─────────────────────────────────────────────────────────────────────────────────────────┐
-│ 2. PIPELINE DE NORMALISATION & MOTEUR SIGMA VERSIONNÉ                                   │
+│ 2. PIPELINE DE NORMALISATION & BUS D'ÉVÉNEMENTS                                         │
 │ • Parsing haute performance multi-sources       • Enrichissement CTI & listes d'assaut  │
 │ • Cycle Sigma : alert-only → dry-run → enforce  • Rail d'immunité RFC1918 (zéro fuite)  │
-│ • Classification cinématique 5 stades MITRE     • Empreinte temporelle des attaques     │
+│ • Corrélation croisée XDR (WAF + IDS + HIDS)    • Calcul du ThreatScore (0 à 100)       │
 └───────────────────────────────────────────┬─────────────────────────────────────────────┘
-                                            │ Payload unifié monitoring.json
+                                            │ Bus de Télémétrie structuré (< 200 ms)
                                             ▼
 ┌─────────────────────────────────────────────────────────────────────────────────────────┐
-│ 3. MOTEUR NODAL XDR & MATRICE DE MENACE (THREATSCORE 0-100)                             │
-│ • Corrélation croisée temps réel (WAF + IDS + HIDS + Authentification multi-hôtes)      │
-│ • Calcul instantané du ThreatScore (Faible / Moyen / Élevé / Critique)                  │
-│ • Détection des campagnes lentes (/24 sur 14 jours) et IoC post-compromission           │
-└───────────────────────────────────────────┬─────────────────────────────────────────────┘
-                                            │
-                    ┌───────────────────────┴───────────────────────┐
-                    ▼                                               ▼
-┌───────────────────────────────────────────────┐   ┌─────────────────────────────────────┐
-│ 4A. RESTITUTION VISUELLE TACTIQUE             │   │ 4B. RIPOSTE AUTOMATIQUE & IA SOAR   │
-│ • Cockpit Extreme HUD (catalogue de tuiles)   │   │ • Bannissement kernel-space nftables│
-│ • Corridor 3D Kill Chain (HTML5 Canvas pur)   │   │ • Passerelle vocale Windows MCI     │
-│ • Geo-Radar 2D balistique mondial             │   │ • Restitution vocale Antoine HD     │
-│ • Studio Back-Office à étagères modulables    │   │ • Fast-Path déterministe < 200 ms   │
-└───────────────────────────────────────────────┘   └─────────────────────────────────────┘
+│ 3. BUS DE REDISTRIBUTION DU COCKPIT & RIPOSTE                                           │
+│ • Distribution unifiée vers les 38 tuiles autonomes du Cockpit Extreme HUD              │
+│ • Routage instantané vers la passerelle vocale native Windows MCI (Antoine HD)          │
+│ • Déclenchement déterministe des ripostes kernel-space nftables (bannissements SOAR)    │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
 ```
+
+### Le Principe de la Dorsale & du Bus de Redistribution :
+* **La Dorsale d'Ingestion (Backbone) :** Les composants de production (VMs, hyperviseur, conteneurs, routeur frontal) ne sont jamais sollicités directement par l'interface. Une dorsale dédiée va moissonner en permanence les journaux, les sondes matérielles et les flux réseau, garantissant une charge d'auscultation ultra-légère et non intrusive sur la production.
+* **Le Bus de Télémétrie & Corrélation :** Ce bus normalise les événements hétérogènes en un modèle de données unifié (`monitoring.json`). Il calcule en direct la corrélation temporelle des assauts, la classification MITRE ATT&CK et le score d'exposition global (*ThreatScore*).
+* **Redistribution Découplée :** Le bus redistribue ce flux normalisé en temps réel vers le Cockpit Extreme HUD, le moteur vocal souverain Antoine HD et les modules de contre-mesure. Une panne éventuelle sur un capteur isolé ne perturbe jamais l'acheminement des métriques du reste du homelab.
 
 ---
 
-## 3. 🎛️ Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches
+## 3. ⚔️ Le Corridor Tactique Kill Chain & ses Sous-Interfaces Intégrées
+
+Le sommet du Cockpit War Room est occupé par le **Corridor Tactique 3D (#01)**, modélisant en temps réel les phases d'assaut adverse et offrant un ensemble de sous-interfaces de pilotage directement embarquées :
+
+### Les 4 Sous-Interfaces Maîtresses de la Kill Chain :
+* **1. Le Corridor Tactique 3D & Dosimètre Sentinel :**
+  Visualisation en HTML5 Canvas des 7 phases de la Kill Chain (Reconnaissance, Scan, Exploitation, Intrusion Brute-force, Déplacement latéral, C2, Neutralisation). Chaque cellule d'attaque s'élève dynamiquement au survol avec affichage des compteurs cumulés 24h et des pods d'attaquants en direct.
+* **2. Le Synoptique Dynamique d'Attaque (`⚡ SYNOPTIQUE`) :**
+  Sous-interface filaire (Wireframe) accessible en un clic, basculant la Kill Chain en cartographie causale directe : tracé balistique entre le cyberespace et les cibles, pods cyber détaillés (IPs, ASN, pays, sévérité), bus lumineux pulsants et mise en correspondance instantanée des techniques MITRE ATT&CK et contre-mesures D3FEND.
+* **3. La Console Vectorielle SIGMA X-RAY (`⚡ SIGMA X-RAY`) :**
+  Sous-interface interactive d'auscultation du moteur de règles. Elle affiche en direct les signatures en cours de traitement, le stade d'activation (`alert-only`, `dry-run`, `enforce`), les critères de détection déclenchés et les preuves forensiques associées.
+* **4. Les Modales Forensiques au Clic (Drill-Down Nodal) :**
+  Cliquer sur n'importe quel maillon ou pod de la Kill Chain déclenche une modale d'investigation immédiate sans rechargement de page, révélant les requêtes brutes, le reverse DNS, les correspondances honeypots et l'historique 30 jours de la menace.
+
+---
+
+## 4. 🎛️ Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches
 
 L'interface opérateur est conçue selon les principes d'ergonomie et de lisibilité d'un cockpit de défense (**Extreme HUD**) :
 
@@ -159,13 +172,13 @@ L'interface opérateur est conçue selon les principes d'ergonomie et de lisibil
   4. *Infrastructure :* Hyperviseur Proxmox VE, intégrité AIDE HIDS (4 VMs), surveillance des crons et connectivité réseau.
   5. *Télémétrie XDR :* Logigramme nodal interactif, analyse forensique et historique 30 jours.
 * **Le Concept Révolutionnaire des Caissons Étanches :**
-  Chaque tuile est un sous-module JavaScript autonome et étanche. Elle ne dépend d'aucune tuile voisine et tire son état uniquement du flux de données normalisé. Modifier ou enrichir une tuile se fait sans aucun risque de régression sur le reste du Cockpit.
+  Chaque tuile est un sous-module JavaScript autonome et étanche. Elle ne dépend d'aucune tuile voisine et tire son état uniquement du flux du bus de télémétrie. Modifier ou enrichir une tuile se fait sans aucun risque de régression sur le reste du Cockpit.
 * **Normalisation des Bargraphes LED :**
   Tous les affichages volumétriques et jauges respectent le conteneur étalon `.cyber-gauge-track` avec remplissage dynamique `.cyber-gauge-fill` (cyan, vert, ambre, violet, rouge), assurant une harmonie visuelle sans faille.
 
 ---
 
-## 4. 🧩 Le Studio Back-Office, Catalogue de Tuiles & Grille Aimantée Modulaire
+## 5. 🧩 Le Studio Back-Office, Catalogue de Tuiles & Grille Aimantée Modulaire
 
 Pour offrir une gouvernance souveraine et un contrôle absolu sur l'affichage sans jamais altérer le code source en production, le SOC intègre un **Studio Back-Office complet** adossé à son catalogue unifié :
 
@@ -182,7 +195,7 @@ Pour offrir une gouvernance souveraine et un contrôle absolu sur l'affichage sa
 
 ---
 
-## 5. 🌐 Le Géo-Radar Vectoriel 2D & Traçage Balistique
+## 6. 🌐 Le Géo-Radar Vectoriel 2D & Traçage Balistique
 
 Pour géolocaliser instantanément les origines d'attaque sans dépendre de services cartographiques externes lents ou indiscrets, le SOC embarque un **Geo-Radar 2D codé en HTML5 Canvas pur** :
 
@@ -196,7 +209,7 @@ Pour géolocaliser instantanément les origines d'attaque sans dépendre de serv
 
 ---
 
-## 6. ⚙️ Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA
+## 7. ⚙️ Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA
 
 La détection d'intrusion ne repose pas sur de simples expressions régulières fragiles, mais sur un moteur **Detection-as-Code** appliquant les standards industriels **Sigma** et **MITRE ATT&CK**, directement matérialisé par le **Synoptique Dynamique d'Attaque** :
 
@@ -215,7 +228,7 @@ La détection d'intrusion ne repose pas sur de simples expressions régulières 
 
 ---
 
-## 7. 🤖 Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine
+## 8. 🤖 Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine
 
 Le SOC fusionne le renseignement cyber et l'intelligence artificielle locale (**JARVIS / Hermès**) déployée sur conteneur dédié avec accélération GPU matérielle :
 
@@ -235,7 +248,7 @@ Le SOC fusionne le renseignement cyber et l'intelligence artificielle locale (**
 
 ---
 
-## 8. 📐 Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes
+## 9. 📐 Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes
 
 L'Atelier 0xCyberLiTech applique une règle d'or formelle : **l'interdiction des fichiers monstres et des monolithes inmaintenables** (Règle 14.7 de la Doctrine Universelle).
 
@@ -257,7 +270,7 @@ L'Atelier 0xCyberLiTech applique une règle d'or formelle : **l'interdiction des
 
 ---
 
-## 9. 🧪 L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4
+## 10. 🧪 L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4
 
 La fiabilité de la plateforme ne repose sur aucune promesse verbale, mais sur des **preuves mécaniques déterministes** exécutées en continu :
 
@@ -272,7 +285,7 @@ La fiabilité de la plateforme ne repose sur aucune promesse verbale, mais sur d
 
 ---
 
-## 10. 🖥️ Topologie Synoptique du Homelab (Anonymisée)
+## 11. 🖥️ Topologie Synoptique du Homelab (Anonymisée)
 
 ```
                        [ ACCÈS INTERNET FIBRE ]
@@ -314,7 +327,7 @@ La fiabilité de la plateforme ne repose sur aucune promesse verbale, mais sur d
 
 ---
 
-## 11. 🔄 Résilience & Disaster Recovery en 5 Minutes
+## 12. 🔄 Résilience & Disaster Recovery en 5 Minutes
 
 Le SOC intègre une doctrine de résilience absolue validée par des exercices réguliers de sinistre :
 
