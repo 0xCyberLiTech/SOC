@@ -134,15 +134,9 @@ certbot renew --dry-run
 
 ---
 
-<h2 align="center">Archive configuration — à planifier</h2>
+<h2 align="center">Sauvegarde & PRA de Configuration</h2>
 
-Le script `create-archive.sh` produit une archive complète du SOC (configs, scripts, clés publiques). À planifier en cron hebdomadaire :
-
-```bash
-# À ajouter dans /etc/cron.d/soc-monitoring sur srv-nginx
-# Archive automatique dimanche 02h00
-0 2 * * 0   root  /opt/soc/scripts/create-archive.sh --auto >> /var/log/soc-archive.log 2>&1
-```
+Les tâches de sauvegarde et de PRA sont orchestrées de manière souveraine au sein de l'infrastructure privée.
 
 ---
 

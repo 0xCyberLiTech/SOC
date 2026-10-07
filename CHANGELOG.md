@@ -4,13 +4,20 @@
 
 Le format s'inspire de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) · versionnage [SemVer](https://semver.org/lang/fr/).
 
+## [5.5.0] — 2026-10-07
+
+### ⚡ Refonte Majeure — Architecture Extreme HUD v5.5 & Studio Back-Office
+- **Cockpit Extreme HUD v5.5** : Réingénierie intégrale du dashboard sans dépendance NPM (< 200 ms), dosimètre Sentinel sub-seconde, caissons étanches en CSS Grid/Flexbox et bargraphes segmentés LED normalisés.
+- **Studio Back-Office & Catalogue de Tuiles** : Création d'un Studio complet pilotant 38 tuiles réparties sur 5 pôles et 13 sous-onglets, 10 gabarits étalons (G-1 à G-10), élasticité dynamique millimétrique des étagères (`row1`, `row2`), gestion complète du cycle de vie des tuiles (activation, mise en réserve sans régression, suppression sécurisée) et aperçu temps réel **Quick-Peek**.
+- **Synoptique Dynamique d'Attaque (Canvas & Causalité)** : Tableau de bord visuel temps réel de la résultante du moteur Sigma et des honeytraps. Lignes d'attaques dynamiques, tags MITRE ATT&CK et émoticônes adaptatives selon le vecteur hostile, pods cyber interactifs et bus lumineux de corrélation.
+- **Géo-Radar Vectoriel 2D** : Planisphère mondial en HTML5 Canvas pur, éliminant tout appel cartographique externe, centroïdes calibrés et arcs balistiques convergents sub-seconde (15 min / 24h).
+- **Réacteur d'Inférence IA GPU (JARVIS / Hermès)** : Monitoring panoramique NVIDIA RTX 5080, matrice alvéolaire CUDA & Tensor, inférence LLM locale et synthèse vocale souveraine MCI Antoine HD.
+- **Dette Technique Zéro ($\le 400$L)** : 100 % des fichiers JavaScript, Python et Shell scellés sous le plafond strict de 400 lignes (Règle 14.7).
+- **Armure Qualité CI/CD** : 19 gardiens déterministes automatisés, bancs d'épreuves hostiles sous Microsoft Edge réel, parité tripartite et barrière anti-fuite hermétique au push.
+
+[5.5.0]: https://github.com/0xCyberLiTech/SOC/releases/tag/v5.5.0
+
 ## [1.1.0] — 2026-06-19
-
-### Vitrine
-- **Globe 3D** — la cartographie des menaces gagne un cockpit **globe 3D plein écran** : arcs d'attaque animés convergeant vers le SOC, ondulations par stade Kill Chain, HUD de métriques temps réel, relief / jour-nuit / atmosphère. Capture sanitisée ajoutée à la galerie.
-- **Cohérence vitrine ↔ prod** — métriques alignées (MITRE 13/14, modèle `qwen3:8b`, Sigma 8/8 enforce).
-
-[1.1.0]: https://github.com/0xCyberLiTech/SOC/releases/tag/v1.1.0
 
 ## [1.0.0] — 2026-06-15
 

@@ -59,12 +59,11 @@ Ce document trace les orientations futures du projet SOC : fonctionnalités envi
 
 | Composant | Version | Statut |
 |-----------|---------|--------|
-| Dashboard SOC | v3.108.28 | ✅ Production |
-| monitoring_gen.py | stable | ✅ Production |
-| JARVIS | v3.2 | ✅ Production |
-| deploy-soc.sh | v1.0 | ✅ Livré |
-| Documentation PROJET-SOC | v1.0 | ✅ Complet |
-| Archive config (create-archive.sh) | v1.0 | ✅ Livré |
+| Dashboard Extreme HUD | v5.5 | ✅ Production |
+| Moteur Sigma & Détection | v5.5 | ✅ Production |
+| Cerveau IA Souverain | v5.5 | ✅ Production |
+| Documentation Showcase | v5.5 | ✅ Complet |
+| PRA & Résilience Déterministe | Atelier Privé | 🔒 Sanctuarisé |
 
 ---
 
@@ -98,14 +97,9 @@ Actuellement : logs <ROUTER> analysés pour C2 sortant.
 
 <h2 align="center">Axes d'évolution moyen terme</h2>
 
-<h3 align="center">6. Backup automatique configuration</h3>
+<h3 align="center">6. Sauvegarde & RPO Déterministe</h3>
 
-Script `create-archive.sh` livré — à planifier en cron hebdomadaire.
-
-```bash
-# Cron srv-nginx — à ajouter
-0 2 * * 0  /opt/soc/scripts/create-archive.sh --auto
-```
+Processus PRA et snapshots souverains intégrés aux coffres de secours.
 
 <h3 align="center">7. Dashboard mobile (responsive)</h3>
 

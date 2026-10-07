@@ -17,11 +17,11 @@
     <a href="https://github.com/0xCyberLiTech">
       <img src="https://img.shields.io/badge/Profil-GitHub-181717?logo=github&style=flat-square" alt="🔗 Profil GitHub" />
     </a>
-    <a href="https://github.com/0xCyberLiTech/SOC/tags">
-      <img src="https://img.shields.io/github/v/tag/0xCyberLiTech/SOC?sort=semver&label=version&style=flat-square&color=blue" alt="📦 Dernière version" />
+    <a href="https://github.com/0xCyberLiTech/SOC/releases/tag/v5.5.0">
+      <img src="https://img.shields.io/badge/Release-v5.5.0%20(Octobre%202026)-00d9ff?style=flat-square&logo=git" alt="Release v5.5.0" />
     </a>
     <a href="https://github.com/0xCyberLiTech/SOC/blob/main/CHANGELOG.md">
-      <img src="https://img.shields.io/badge/📄%20Changelog-SOC-blue?style=flat-square" alt="📄 CHANGELOG SOC" />
+      <img src="https://img.shields.io/badge/📄%20Changelog-v5.5.0-blue?style=flat-square" alt="📄 CHANGELOG SOC" />
     </a>
     <a href="https://github.com/0xCyberLiTech?tab=repositories">
       <img src="https://img.shields.io/badge/Dépôts-publics-blue?style=flat-square" alt="📂 Dépôts publics" />
@@ -44,8 +44,9 @@
 </div>
 
 > [!IMPORTANT]
-> **Vitrine : la méthode est partagée, la reconstruction complète ne l'est pas.**
-> Ce dépôt présente mon SOC homelab et **partage le framework de déploiement** (`deploy-soc.sh`, runbook, checklist) — la méthode est réutilisable. En revanche, **reconstruire CE SOC à l'identique n'est pas reproductible** depuis ce seul dépôt : configurations opérationnelles, règles complètes et sources du dashboard restent **privées** (sécurité, savoir protégé).
+> **Vitrine Technologique : Architecture & Démonstration d'Ingénierie**
+> Ce dépôt présente le SOC homelab de Marc (0xCyberLiTech) et documente l'approche méthodologique, les règles de détection et les invariants architecturaux.
+> 🔒 **Propriété Intellectuelle & Sécurité Opérationnelle** : Les scripts de déploiement et de restauration d'infrastructure, les règles complètes de production et les sources applicatives restent **strictement privés** au sein de l'Atelier souverain 0xCyberLiTech (sécurité de l'infrastructure, savoir-faire protégé).
 
 ---
 
@@ -53,15 +54,9 @@
 
 ### ⚡ LE COCKPIT TACTIQUE EN PRODUCTION — EXTREME HUD v5.5
 
-<br/>
-
-[![War Room Kill Chain](assets/soc-warroom-killchain.png)](assets/soc-warroom-killchain.png)
-
-<br/>
+[![War Room Extreme HUD](assets/soc-warroom-killchain.png)](assets/soc-warroom-killchain.png)
 
 *Poste de commandement War Room Extreme HUD v5.5 en production réelle 24h/24 : dosimètre Sentinel instantané, cinématique MITRE ATT&CK, télémétrie sub-200ms et zéro dépendance NPM.*
-
-<br/>
 
 <p align="center">
   <img src="https://img.shields.io/badge/Architecture-Extreme%20HUD%20v5.5-00d9ff?style=for-the-badge&logo=shield" alt="HUD v5.5" />
@@ -82,12 +77,12 @@
 - 🎛️ [3. Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches](#3--le-cockpit-extreme-hud--lossature-en-caissons-étanches)
 - 🧩 [4. Le Studio Back-Office & la Grille Aimantée Modulaire](#4--le-studio-back-office--la-grille-aimantée-modulaire)
 - 🌐 [5. Le Géo-Radar Vectoriel 2D & Traçage Balistique](#5--le-géo-radar-vectoriel-2d--traçage-balistique)
-- ⚙️ [6. La Détection SIGMA Versionnée & Riposte SOAR Proactive](#6--la-détection-sigma-versionnée--riposte-soar-proactive)
+- ⚙️ [6. Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA](#6--le-synoptique-dynamique-dattaque--tableau-de-bord-du-moteur-sigma)
 - 🤖 [7. Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine](#7--le-réacteur-dinférence-ia-matrice-neurale--voix-souveraine)
 - 📐 [8. Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes](#8--dette-technique-zéro--la-règle-dor-du-plafond-le-400-lignes)
 - 🧪 [9. L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4](#9--larmure-qualité--19-gardiens-déterministes--bancs-hostiles-niveau-4)
 - 🖥️ [10. Topologie Synoptique du Homelab (Anonymisée)](#10--topologie-synoptique-du-homelab-anonymisée)
-- 🔄 [11. Framework de Déploiement & Disaster Recovery en 5 Minutes](#11--framework-de-déploiement--disaster-recovery-en-5-minutes)
+- 🔄 [11. Résilience & Disaster Recovery en 5 Minutes](#11--résilience--disaster-recovery-en-5-minutes)
 
 ---
 
@@ -170,30 +165,26 @@ L'interface opérateur est conçue selon les principes d'ergonomie et de lisibil
 
 ---
 
-## 4. 🧩 Le Studio Back-Office & la Grille Aimantée Modulaire
+## 4. 🧩 Le Studio Back-Office, Catalogue de Tuiles & Grille Aimantée Modulaire
 
-Pour offrir un contrôle absolu sur l'affichage sans jamais modifier le code source en production, le système intègre un **Studio Back-Office complet** :
+Pour offrir une gouvernance souveraine et un contrôle absolu sur l'affichage sans jamais altérer le code source en production, le SOC intègre un **Studio Back-Office complet** adossé à son catalogue unifié :
 
-<br/>
+[![Studio Back-Office & Catalogue](assets/soc-studio-catalogue-preview.png)](assets/soc-studio-catalogue-preview.png)
 
-[![Studio Back-Office](assets/soc-studio-backoffice.png)](assets/soc-studio-backoffice.png)
-
-<br/>
-
-*Le Studio Back-Office souverain : sélection des 10 gabarits étalons, élasticité millimétrique des étagères et catalogue dynamique avec aperçu instantané Quick-Peek.*
+*Le Studio Back-Office souverain : matrice catalogue des 38 tuiles modulaires, sélection des 10 gabarits étalons, élasticité millimétrique des étagères et aperçu interactif Quick-Peek.*
 
 ### Les Capacités Maîtresses du Studio :
-* **10 Gabarits Étalons (G-1 à G-10) :** Patrons de disposition permettant d'adapter instantanément l'agencement aux écrans tactiques, ultra-larges ou moniteurs secondaires.
-* **Élasticité Inviolable des Étagères :** L'opérateur pilote directement la hauteur des rangées (`row1`, `row2`) sans aucune valeur hardcodée dans le code.
-* **Catalogue de Réserve & Quick-Peek :** Les tuiles non déployées restent disponibles dans une réserve dynamique. Le simple survol d'une tuile affiche son rendu réel (*Quick-Peek*), permettant de prévisualiser son comportement avant activation.
+* **Catalogue Dynamique de 38 Tuiles Métier :** Inventaire unifié réparties sur 5 pôles fondamentaux (War Room, Cyberdéfense, Détection, Flux & Télémétrie, Infrastructure & Hôtes).
+* **Gouvernance et Cycle de Vie des Tuiles :** L'opérateur peut activer une tuile, retirer une tuile d'un onglet actif pour la reverser dans la réserve du catalogue sans risque de régression sur le dashboard, en instancier de nouvelles ou en supprimer de manière sécurisée et étanche.
+* **10 Gabarits Étalons (G-1 à G-10) :** Patrons de disposition géométriques permettant d'adapter instantanément l'agencement aux écrans tactiques 16:9, ultra-larges 21:9 ou moniteurs verticaux secondaires.
+* **Élasticité Inviolable des Étagères :** L'opérateur pilote directement et en temps réel la hauteur des rangées (`row1`, `row2`) sans aucune valeur hardcodée dans le code.
+* **Aperçu Temps Réel Quick-Peek :** Au survol ou par clic dans le catalogue, une modale de prévisualisation charge le composant réel en direct, permettant de tester son comportement interactif et ses jauges avant tout déploiement en production.
 
 ---
 
 ## 5. 🌐 Le Géo-Radar Vectoriel 2D & Traçage Balistique
 
 Pour géolocaliser instantanément les origines d'attaque sans dépendre de services cartographiques externes lents ou indiscrets, le SOC embarque un **Geo-Radar 2D codé en HTML5 Canvas pur** :
-
-<br/>
 
 [![Geo-Radar 2D](assets/soc-geomap-radar.png)](assets/soc-geomap-radar.png)
 
@@ -205,20 +196,22 @@ Pour géolocaliser instantanément les origines d'attaque sans dépendre de serv
 
 ---
 
-## 6. ⚙️ La Détection SIGMA Versionnée & Riposte SOAR Proactive
+## 6. ⚙️ Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA
 
-La détection d'intrusion ne repose pas sur de simples expressions régulières fragiles, mais sur un moteur **Detection-as-Code** appliquant les standards industriels **Sigma** et **MITRE ATT&CK** :
+La détection d'intrusion ne repose pas sur de simples expressions régulières fragiles, mais sur un moteur **Detection-as-Code** appliquant les standards industriels **Sigma** et **MITRE ATT&CK**, directement matérialisé par le **Synoptique Dynamique d'Attaque** :
 
-<br/>
+[![Synoptique Dynamique d'Attaque](assets/soc-synoptique-attack-path.png)](assets/soc-synoptique-attack-path.png)
 
-[![Détection Sigma](assets/soc-defense-sigma.png)](assets/soc-defense-sigma.png)
+*Le Synoptique Dynamique d'Attaque (Canvas & Causalité Wireframe) : tableau de bord temps réel de la résultante du moteur Sigma, pods cyber interactifs, bus lumineux et sanctions immédiates.*
 
-*Moteur Sigma versionné & Riposte SOAR : cycle de vie alert-only → dry-run → enforce, cartographie des techniques MITRE et sanctions immédiates.*
-
-### Le Cycle de Vie des Règles Déterministes :
-1. **`alert-only` (Observation) :** La nouvelle règle analyse les flux réels sans bloquer, pour mesurer sa pertinence et éliminer les faux positifs.
-2. **`dry-run` (Simulation de ban) :** La sanction est simulée dans les journaux d'audit pour vérifier l'absence d'impact sur le trafic légitime.
-3. **`enforce` (Blocage actif) :** La règle est promue en production active ; toute correspondance déclenche un bannissement instantané en kernel-space via nftables et CrowdSec.
+### Le Synoptique : Résultante Visuelle du Moteur SIGMA :
+* **Un Tableau de Bord Vivant & Réactif :** Loin d'une illustration statique, le Synoptique est l'émanation directe de l'état du moteur Sigma et des pièges honeypots. Il cartographie en direct la causalité entre le vecteur d'assaut hostile et l'infrastructure ciblée.
+* **Lignes d'Attaque & Émoticônes Dynamiques :** Chaque ligne d'auscultation est dynamique. Selon la signature et le comportement de la menace (`RECON`, `SCAN`, `EXPLOIT`, `BRUTE`, `WEBSHELL`, `DNS_TUNNEL`, `DDOS`), les émoticônes, étiquettes, tags MITRE ATT&CK (T1595, T1046, T1190, T1110, T1505, T1071, T1499) et contre-mesures D3FEND s'adaptent instantanément à la charge utile détectée.
+* **Pods Cyber & Traçage des Flux :** Chaque attaquant actif est représenté par un pod cyber affichant son adresse IP (anonymisée), son pays d'origine, son ASN, son score de sévérité et ses ports cibles. Des bus lumineux pulsants relient visuellement les flux adverses aux barrières de filtrage (WAF, IDS, kernel ban nftables).
+* **Le Cycle de Vie Sigma Versionné :**
+  1. **`alert-only` (Observation) :** La nouvelle règle analyse les flux réels sans bloquer, pour mesurer sa pertinence et éliminer les faux positifs.
+  2. **`dry-run` (Simulation de ban) :** La sanction est simulée dans les journaux d'audit pour vérifier l'absence d'impact sur le trafic légitime.
+  3. **`enforce` (Blocage actif sub-200ms) :** La règle est promue en production active ; toute correspondance déclenche un bannissement instantané en kernel-space via nftables et CrowdSec.
 
 ---
 
@@ -321,13 +314,13 @@ La fiabilité de la plateforme ne repose sur aucune promesse verbale, mais sur d
 
 ---
 
-## 11. 🔄 Framework de Déploiement & Disaster Recovery en 5 Minutes
+## 11. 🔄 Résilience & Disaster Recovery en 5 Minutes
 
-Ce dépôt partage les scripts et guides méthodologiques permettant d'appréhender le déploiement et la résilience d'un SOC moderne :
+Le SOC intègre une doctrine de résilience absolue validée par des exercices réguliers de sinistre :
 
-* **[`DEPLOY/deploy-soc.sh`](DEPLOY/deploy-soc.sh) :** Script d'installation automatisé de la stack logicielle (Debian 13) avec options d'exécution pas-à-pas et simulation préalable (`--dry-run`).
-* **[`DEPLOY/create-archive.sh`](DEPLOY/create-archive.sh) & [`restore-soc.sh`](DEPLOY/restore-soc.sh) :** Chaîne de sauvegarde et de restauration complète validée lors d'exercices de sinistre réels (PRA en 5 minutes).
-* **Sanctuarisation Stricte des Données Personnelles :** L'ensemble des configurations diffusées dans le dossier `CONFIGS/` est strictement anonymisé à l'aide de variables canoniques d'infrastructure (`<SRV-NGINX-IP>`, `<ROUTER-IP>`, `<LAN-CIDR>`), protégeant rigoureusement les données d'exploitation.
+* **Capacité RPO/RTO en 5 Minutes :** Processus de reconstruction complète et restauration à chaud de l'infrastructure validé lors d'exercices réels sous chronomètre.
+* **Intégrité Cryptographique & Isolement :** Coffres de sauvegarde chiffrés et étanches, réplication hors-ligne et vérification d'intégrité avant redémarrage.
+* **Sanctuarisation Stricte de l'Infrastructure :** Les automatisations de déploiement, de sauvegarde et de reprise d'activité (PRA) sont maintenues exclusivement dans l'Atelier privé. Seules les checklists d'audit et guides d'ingénierie sont partagés à titre méthodologique, garantissant l'inviolabilité absolue des systèmes de production.
 
 ---
 
