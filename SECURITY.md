@@ -1,13 +1,11 @@
-# Security Policy — SOC Dashboard
+# Security Policy — Vitrine SOC Extreme HUD
 
 ## Périmètre
 
-Ce dépôt contient la documentation, les scripts et le dashboard du SOC homelab **0xCyberLiTech**.
-Il s'agit d'un projet personnel de cybersécurité — aucune donnée de production ni information
-sensible n'est stockée dans ce dépôt.
-
-Toutes les IPs, clés SSH, domaines et tokens sont des `<PLACEHOLDER>` — voir le bloc `CONFIG`
-de chaque script avant déploiement.
+Ce dépôt présente la vitrine d'architecture, la doctrine de détection et les interfaces du SOC homelab **0xCyberLiTech**.
+Il s'agit d'une présentation publique de cybersécurité défensive — aucune donnée de production ni information
+sensible n'est stockée dans ce dépôt. Toutes les adresses IP affichées dans les illustrations sont anonymisées
+conformément aux standards de publication souverains.
 
 ---
 

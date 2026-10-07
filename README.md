@@ -132,7 +132,7 @@ L'architecture du SOC repose sur une séparation stricte entre la collecte d'inf
                                             ▼
 ┌─────────────────────────────────────────────────────────────────────────────────────────┐
 │ 3. BUS DE REDISTRIBUTION DU COCKPIT & RIPOSTE                                           │
-│ • Distribution unifiée vers les 38 tuiles autonomes du Cockpit Extreme HUD              │
+│ • Distribution unifiée vers l'ensemble des tuiles modulaires du Cockpit Extreme HUD     │
 │ • Routage instantané vers la passerelle vocale native Windows MCI (Antoine HD)          │
 │ • Déclenchement déterministe des ripostes kernel-space nftables (bannissements SOAR)    │
 └─────────────────────────────────────────────────────────────────────────────────────────┘
@@ -206,10 +206,10 @@ Pour offrir une gouvernance souveraine et un contrôle absolu sur l'affichage sa
 
 [![Studio Back-Office & Catalogue](assets/soc-studio-catalogue-preview.png)](assets/soc-studio-catalogue-preview.png)
 
-*Le Studio Back-Office souverain : matrice catalogue des 38 tuiles modulaires, sélection des 10 gabarits étalons, élasticité millimétrique des étagères et aperçu interactif Quick-Peek.*
+*Le Studio Back-Office souverain : matrice catalogue de l'ensemble des tuiles modulaires, sélection des 10 gabarits étalons, élasticité millimétrique des étagères et aperçu interactif Quick-Peek.*
 
 ### Les Capacités Maîtresses du Studio :
-* **Catalogue Dynamique de 38 Tuiles Métier :** Inventaire unifié réparties sur 5 pôles fondamentaux (War Room, Cyberdéfense, Détection, Flux & Télémétrie, Infrastructure & Hôtes).
+* **Catalogue Dynamique des Tuiles Métier :** Inventaire unifié réparties sur 5 pôles fondamentaux (War Room, Cyberdéfense, Détection, Flux & Télémétrie, Infrastructure & Hôtes).
 * **Gouvernance et Cycle de Vie des Tuiles :** L'opérateur peut activer une tuile, retirer une tuile d'un onglet actif pour la reverser dans la réserve du catalogue sans risque de régression sur le dashboard, en instancier de nouvelles ou en supprimer de manière sécurisée et étanche.
 * **10 Gabarits Étalons (G-1 à G-10) :** Patrons de disposition géométriques permettant d'adapter instantanément l'agencement aux écrans tactiques 16:9, ultra-larges 21:9 ou moniteurs verticaux secondaires.
 * **Élasticité Inviolable des Étagères :** L'opérateur pilote directement et en temps réel la hauteur des rangées (`row1`, `row2`) sans aucune valeur hardcodée dans le code.
@@ -288,7 +288,7 @@ L'Atelier 0xCyberLiTech applique une règle d'or formelle : **l'interdiction des
 
 * **100 % des Fichiers Conformes :** L'intégralité des modules JavaScript du dashboard et tous les scripts de maintenance (Bash et Python) respectent impérativement le plafond de **400 lignes maximum**.
 * **Découpage Préventif Continu :** Dès qu'un composant approche des 350 lignes, il est immédiatement scindé en sous-modules étanches spécialisés (`*-components.js`, `*-engine.js`, `*-render.js`), interdisant tout entassement de code.
-* **Le Verrou Mécanique Déterministe :** Le gardien logiciel [`soc_modules_ceiling_guard.py`](file:///D:/0xCyberLiTech/DEV/TOOLS/soc-modules-ceiling-guard/soc_modules_ceiling_guard.py) analyse l'intégralité du code source à chaque commit. Tout dépassement bloque automatiquement la validation.
+* **Le Verrou Mécanique Déterministe :** Le gardien logiciel `soc_modules_ceiling_guard.py` analyse l'intégralité du code source à chaque commit. Tout dépassement bloque automatiquement la validation.
 
 ---
 
