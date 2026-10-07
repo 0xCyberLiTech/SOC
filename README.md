@@ -20,8 +20,8 @@
     <a href="https://github.com/0xCyberLiTech/SOC/releases/tag/v5.5.0">
       <img src="https://img.shields.io/badge/Release-v5.5.0%20(Octobre%202026)-00d9ff?style=flat-square&logo=git" alt="Release v5.5.0" />
     </a>
-    <a href="https://github.com/0xCyberLiTech/SOC/blob/main/CHANGELOG.md">
-      <img src="https://img.shields.io/badge/📄%20Changelog-v5.5.0-blue?style=flat-square" alt="📄 CHANGELOG SOC" />
+    <a href="https://github.com/0xCyberLiTech/SOC">
+      <img src="https://img.shields.io/badge/Code%20Style-Vanilla%20%7C%20No%20NPM-00B4D8?style=flat-square" alt="Code Style" />
     </a>
     <a href="https://github.com/0xCyberLiTech?tab=repositories">
       <img src="https://img.shields.io/badge/Dépôts-publics-blue?style=flat-square" alt="📂 Dépôts publics" />
@@ -72,39 +72,43 @@
 
 ## 🗺️ Sommaire Pédagogique
 
-- 🎯 [1. Manifeste d'Ingénierie : L'Exigence Souveraine face aux Homelabs Ordinaires](#1--manifeste-dingénierie--lexigence-souveraine-face-aux-homelabs-ordinaires)
-- 🔄 [2. Schéma Conceptuel Global : Dorsale de Collecte, Bus de Télémétrie & Cycle Nodal](#2--schéma-conceptuel-global--dorsale-de-collecte-bus-de-télémétrie--cycle-nodal)
-- ⚔️ [3. Le Corridor Tactique Kill Chain & ses Sous-Interfaces Intégrées](#3-️-le-corridor-tactique-kill-chain--ses-sous-interfaces-intégrées)
-- 🎛️ [4. Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches](#4-️-le-cockpit-extreme-hud--lossature-en-caissons-étanches)
-- 🧩 [5. Le Studio Back-Office, Catalogue de Tuiles & Grille Aimantée Modulaire](#5--le-studio-back-office-catalogue-de-tuiles--grille-aimantée-modulaire)
-- 🌐 [6. Le Géo-Radar Vectoriel 2D & Traçage Balistique](#6--le-géo-radar-vectoriel-2d--traçage-balistique)
-- ⚙️ [7. Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA](#7--le-synoptique-dynamique-dattaque--tableau-de-bord-du-moteur-sigma)
-- 🤖 [8. Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine](#8--le-réacteur-dinférence-ia-matrice-neurale--voix-souveraine)
-- 📐 [9. Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes](#9--dette-technique-zéro--la-règle-dor-du-plafond-le-400-lignes)
-- 🧪 [10. L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4](#10--larmure-qualité--19-gardiens-déterministes--bancs-hostiles-niveau-4)
-- 🖥️ [11. Topologie Synoptique du Homelab (Anonymisée)](#11--topologie-synoptique-du-homelab-anonymisée)
-- 🔄 [12. Résilience & Disaster Recovery en 5 Minutes](#12--résilience--disaster-recovery-en-5-minutes)
+- 🎯 [1. Manifeste d'Ingénierie : L'Exigence Souveraine face aux Homelabs Ordinaires](#section-1)
+- 🔄 [2. Schéma Conceptuel Global : Dorsale de Collecte, Bus de Télémétrie & Cycle Nodal](#section-2)
+- ⚔️ [3. Le Corridor Tactique Kill Chain & ses Sous-Interfaces Intégrées](#section-3)
+- 🎛️ [4. Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches](#section-4)
+- 🧩 [5. Le Studio Back-Office, Catalogue de Tuiles & Grille Aimantée Modulaire](#section-5)
+- 🌐 [6. Le Géo-Radar Vectoriel 2D & Traçage Balistique](#section-6)
+- ⚙️ [7. Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA](#section-7)
+- 🤖 [8. Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine](#section-8)
+- 📐 [9. Dette Technique Zéro : La Règle d'Or du Plafond des 400 Lignes](#section-9)
+- 🧪 [10. L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4](#section-10)
+- 🖥️ [11. Topologie Synoptique du Homelab (Anonymisée)](#section-11)
+- 🔄 [12. Résilience & Disaster Recovery en 5 Minutes](#section-12)
 
 ---
 
+<a id="section-1"></a>
 ## 1. 🎯 Manifeste d'Ingénierie : L'Exigence Souveraine face aux Homelabs Ordinaires
 
-Dans la grande majorité des homelabs, les passionnés se contentent d'empiler des tableaux de bord préconfigurés (*Grafana*, *Homepage*, *Dashy*) ou de juxtaposer des conteneurs isolés qui s'effondrent à la première mise à jour. **Ce projet prend le contre-pied absolu de cette approche amateur.**
+Dans l'écosystème homelab, la grande majorité des réalisations s'articule autour de la supervision de conteneurs ou de tableaux de bord généralistes (*Grafana*, *Homepage*, *Dashy*). Ces approches sont adaptées à l'administration de services domestiques, mais ne répondent pas aux contraintes critiques d'un centre opérationnel de sécurité (SOC) confronté aux réalités du cyberespace.
 
-Bâti sous la gouvernance martiale de la **Doctrine Universelle de l'Atelier 0xCyberLiTech**, ce SOC homelab a été pensé, conçu et codé sur mesure avec les normes d'exigence des environnements critiques :
+**Ce projet propose une posture d'ingénierie différente : bâtir un véritable centre de cyberdéfense actif, souverain et sans compromis.**
 
-| Axe d'Évaluation | Homelab Traditionnel (99 %) | SOC Souverain 0xCyberLiTech (0,1 %) |
-|:-----------------|:----------------------------|:-----------------------------------|
-| **Environnement Réel** | Lab virtuel isolé en chambre étanche | **Production réelle exposée 24h/24** aux attaques réelles d'Internet |
-| **Interface & Rendu** | Templates lourds, 10 onglets ouverts, latences | **Cockpit Extreme HUD v5.5 natif Vanilla JS/CSS** (< 200 ms) |
-| **Dette Technique** | Fichiers monstres, scripts bricolés sans tests | **Dette Zéro scellée : 100 % des fichiers $\le 400$ lignes** (Règle 14.7) |
-| **Garantie Qualité** | Vérifications manuelles épisodiques et trompeuses | **19 Gardiens CI/CD** + bancs E2E sous **Microsoft Edge réel** |
-| **Fiabilité Télémétrique** | Approximations ou dérives des modèles LLM | **Déterminisme pur** : 0 hallucination sur les métriques et machines |
-| **Alerte & Accessibilité** | Notifications mail passives ou interfaces muettes | **Passerelle vocale directe Windows MCI** (voix naturelle Antoine HD) |
-| **Résilience Sinistre** | Sauvegardes manuelles non éprouvées | **Disaster Recovery automatisé** prêt à redéployer en 5 minutes |
+Bâti selon les principes d'excellence de l'Atelier 0xCyberLiTech, ce SOC homelab a été pensé, conçu et éprouvé sur le terrain face aux flux hostiles réels d'Internet : détection comportementale sans latence, corrélation locale, riposte déterministe en espace noyau et autonomie technologique absolue sans dépendance aux clouds tiers :
+
+| Axe d'Évaluation | Homelab Traditionnel | SOC Souverain 0xCyberLiTech |
+|:-----------------|:---------------------|:----------------------------|
+| **Posture Opérationnelle** | Supervision passive & monitoring applicatif interne | **Cyberdéfense active exposée 24h/24** aux attaques réelles d'Internet |
+| **Interface & Rendu** | Frameworks lourds, requêtes distantes, latences | **Cockpit Extreme HUD v5.5 natif Vanilla JS/CSS** (rendu direct < 200 ms) |
+| **Maîtrise du Code & Dette** | Empilement de dépendances NPM, scripts sans garde-fous | **Dette Zéro scellée : 100 % des fichiers $\le 400$ lignes**, zéro dépendance tierce |
+| **Garantie de Fiabilité** | Vérifications manuelles ou suppositions | **19 Gardiens CI/CD** + bancs E2E sous **Microsoft Edge réel** |
+| **Télémétrie & Décision** | Approximations ou dérives probabilistes LLM | **Déterminisme strict** : 0 hallucination sur les métriques et machines |
+| **Alerte & Accessibilité** | Notifications courriel passives ou interfaces silencieuses | **Passerelle vocale directe Windows MCI** (voix naturelle Antoine HD) |
+| **Résilience Sinistre** | Sauvegardes volumiques manuelles non chronométrées | **Disaster Recovery automatisé** prêt à redéployer en 5 minutes |
 
 ---
 
+<a id="section-2"></a>
 ## 2. 🔄 Schéma Conceptuel Global : Dorsale de Collecte, Bus de Télémétrie & Cycle Nodal
 
 L'architecture du SOC repose sur une séparation stricte entre la collecte d'infrastructure, l'acheminement des métriques et la restitution opérateur :
@@ -145,6 +149,7 @@ L'architecture du SOC repose sur une séparation stricte entre la collecte d'inf
 
 ---
 
+<a id="section-3"></a>
 ## 3. ⚔️ Le Corridor Tactique Kill Chain & ses Sous-Interfaces Intégrées
 
 Le sommet du Cockpit War Room est occupé par le **Corridor Tactique 3D (#01)**, modélisant en temps réel les phases d'assaut adverse et offrant un ensemble de sous-interfaces de pilotage directement embarquées :
@@ -183,6 +188,7 @@ Le sommet du Cockpit War Room est occupé par le **Corridor Tactique 3D (#01)**,
 
 ---
 
+<a id="section-4"></a>
 ## 4. 🎛️ Le Cockpit Extreme HUD & l'Ossature en Caissons Étanches
 
 L'interface opérateur est conçue selon les principes d'ergonomie et de lisibilité d'un cockpit de défense (**Extreme HUD**) :
@@ -200,6 +206,7 @@ L'interface opérateur est conçue selon les principes d'ergonomie et de lisibil
 
 ---
 
+<a id="section-5"></a>
 ## 5. 🧩 Le Studio Back-Office, Catalogue de Tuiles & Grille Aimantée Modulaire
 
 Pour offrir une gouvernance souveraine et un contrôle absolu sur l'affichage sans jamais altérer le code source en production, le SOC intègre un **Studio Back-Office complet** adossé à son catalogue unifié :
@@ -217,6 +224,7 @@ Pour offrir une gouvernance souveraine et un contrôle absolu sur l'affichage sa
 
 ---
 
+<a id="section-6"></a>
 ## 6. 🌐 Le Géo-Radar Vectoriel 2D & Traçage Balistique
 
 Pour géolocaliser instantanément les origines d'attaque sans dépendre de services cartographiques externes lents ou indiscrets, le SOC embarque un **Geo-Radar 2D codé en HTML5 Canvas pur** :
@@ -231,6 +239,7 @@ Pour géolocaliser instantanément les origines d'attaque sans dépendre de serv
 
 ---
 
+<a id="section-7"></a>
 ## 7. ⚙️ Le Synoptique Dynamique d'Attaque & Tableau de Bord du Moteur SIGMA
 
 La détection d'intrusion ne repose pas sur de simples expressions régulières fragiles, mais sur un moteur **Detection-as-Code** appliquant les standards industriels **Sigma** et **MITRE ATT&CK**, directement matérialisé par le **Synoptique Dynamique d'Attaque** :
@@ -250,6 +259,7 @@ La détection d'intrusion ne repose pas sur de simples expressions régulières 
 
 ---
 
+<a id="section-8"></a>
 ## 8. 🤖 Le Réacteur d'Inférence IA, Matrice Neurale & Voix Souveraine
 
 Le SOC fusionne le renseignement cyber et l'intelligence artificielle locale (**JARVIS / Hermès**) déployée sur conteneur dédié avec accélération GPU matérielle :
@@ -270,7 +280,8 @@ Le SOC fusionne le renseignement cyber et l'intelligence artificielle locale (**
 
 ---
 
-## 9. 📐 Dette Technique Zéro : La Règle d'Or du Plafond $\le 400$ Lignes
+<a id="section-9"></a>
+## 9. 📐 Dette Technique Zéro : La Règle d'Or du Plafond des 400 Lignes
 
 L'Atelier 0xCyberLiTech applique une règle d'or formelle : **l'interdiction des fichiers monstres et des monolithes inmaintenables** (Règle 14.7 de la Doctrine Universelle).
 
@@ -292,6 +303,7 @@ L'Atelier 0xCyberLiTech applique une règle d'or formelle : **l'interdiction des
 
 ---
 
+<a id="section-10"></a>
 ## 10. 🧪 L'Armure Qualité : 19 Gardiens Déterministes & Bancs Hostiles Niveau 4
 
 La fiabilité de la plateforme ne repose sur aucune promesse verbale, mais sur des **preuves mécaniques déterministes** exécutées en continu :
@@ -307,6 +319,7 @@ La fiabilité de la plateforme ne repose sur aucune promesse verbale, mais sur d
 
 ---
 
+<a id="section-11"></a>
 ## 11. 🖥️ Topologie Synoptique du Homelab (Anonymisée)
 
 ```
@@ -349,6 +362,7 @@ La fiabilité de la plateforme ne repose sur aucune promesse verbale, mais sur d
 
 ---
 
+<a id="section-12"></a>
 ## 12. 🔄 Résilience & Disaster Recovery en 5 Minutes
 
 Le SOC intègre une doctrine de résilience absolue validée par des exercices réguliers de sinistre :
@@ -395,6 +409,6 @@ Le SOC intègre une doctrine de résilience absolue validée par des exercices r
 
 <br/>
 
-<sub>🔒 Projets proposés par <a href="https://github.com/0xCyberLiTech">0xCyberLiTech</a> · Développés en collaboration avec <a href="https://claude.ai">Claude AI</a> (Anthropic) 🔒</sub>
+<sub>🔒 Conçu et maintenu par <a href="https://github.com/0xCyberLiTech">Marc (0xCyberLiTech)</a> · Ingénierie souveraine & Pair-Programming IA d'élite 🔒</sub>
 
 </div>
