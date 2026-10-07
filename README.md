@@ -149,15 +149,23 @@ L'architecture du SOC repose sur une séparation stricte entre la collecte d'inf
 
 Le sommet du Cockpit War Room est occupé par le **Corridor Tactique 3D (#01)**, modélisant en temps réel les phases d'assaut adverse et offrant un ensemble de sous-interfaces de pilotage directement embarquées :
 
-### Les 4 Sous-Interfaces Maîtresses de la Kill Chain :
 * **1. Le Corridor Tactique 3D & Dosimètre Sentinel :**
   Visualisation en HTML5 Canvas des 7 phases de la Kill Chain (Reconnaissance, Scan, Exploitation, Intrusion Brute-force, Déplacement latéral, C2, Neutralisation). Chaque cellule d'attaque s'élève dynamiquement au survol avec affichage des compteurs cumulés 24h et des pods d'attaquants en direct.
-* **2. Le Synoptique Dynamique d'Attaque (`⚡ SYNOPTIQUE`) :**
-  Sous-interface filaire (Wireframe) accessible en un clic, basculant la Kill Chain en cartographie causale directe : tracé balistique entre le cyberespace et les cibles, pods cyber détaillés (IPs, ASN, pays, sévérité), bus lumineux pulsants et mise en correspondance instantanée des techniques MITRE ATT&CK et contre-mesures D3FEND.
-* **3. La Console Vectorielle SIGMA X-RAY (`⚡ SIGMA X-RAY`) :**
-  Sous-interface interactive d'auscultation du moteur de règles. Elle affiche en direct les signatures en cours de traitement, le stade d'activation (`alert-only`, `dry-run`, `enforce`), les critères de détection déclenchés et les preuves forensiques associées.
-* **4. Les Modales Forensiques au Clic (Drill-Down Nodal) :**
-  Cliquer sur n'importe quel maillon ou pod de la Kill Chain déclenche une modale d'investigation immédiate sans rechargement de page, révélant les requêtes brutes, le reverse DNS, les correspondances honeypots et l'historique 30 jours de la menace.
+* **2. La Console Vectorielle SIGMA X-RAY (`⚡ SIGMA X-RAY`) :**
+  Sous-interface interactive d'auscultation du moteur de règles. Elle affiche en direct les 5 caissons de filtrage (pièges secrets `.env`, scanning d'admin, RCE/Webshells CRS, bourrage SSH et riposte SOAR), le stade d'activation (`alert-only`, `dry-run`, `enforce`), les critères de détection déclenchés et les preuves forensiques associées :
+
+[![Console SIGMA X-RAY](assets/soc-killchain-sigma-xray.png)](assets/soc-killchain-sigma-xray.png)
+
+*La Console SIGMA X-RAY embarquée dans la Kill Chain : auscultation des 5 caissons de détection, cartographie des pièges honeypots et bus de corrélation souverain.*
+
+* **3. Le Synoptique Dynamique d'Attaque (`⚡ SYNOPTIQUE`) :**
+  Sous-interface filaire (Wireframe) accessible en un clic, basculant la Kill Chain en cartographie causale directe : tracé balistique entre le cyberespace et les cibles, pods cyber détaillés (IPs, ASN, pays, sévérité), bus lumineux pulsants et mise en correspondance instantanée des techniques MITRE ATT&CK et contre-mesures D3FEND (détaillé au chapitre 7).
+* **4. Le Deck Forensique & Élévation 3D (Drill-Down Nodal) :**
+  Cliquer sur n'importe quel maillon ou pod de la Kill Chain élève la cellule tactique et déploie le deck d'investigation immédiat sans rechargement de page, révélant les requêtes brutes, le pays d'origine, le reverse DNS, les correspondances honeypots et les options de bannissement SOAR (1 an / permanent) :
+
+[![Deck Forensique Kill Chain](assets/soc-killchain-3d-elevation.png)](assets/soc-killchain-3d-elevation.png)
+
+*Élévation 3D de cellule & Deck d'investigation IP : drill-down immédiat au clic sur une menace active (Exploitation CVE, analyse ASN et bannissement direct nftables).*
 
 ---
 
