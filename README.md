@@ -48,7 +48,6 @@
 | **04 · Armure Qualité : 19 Gardiens & Edge E2E** | **19 Gardiens déterministes CI/CD** doublés de bancs hostiles sous **Microsoft Edge Headless réel** (audit géométrique DOM, parité Studio ↔ Cockpit, résilience sinistre `< 5 min`). | [<img src="https://raw.githubusercontent.com/0xCyberLiTech/0xcyberlitech/main/assets/btn-explore.svg" alt="Livre Blanc SOC" />](https://0xcyberlitech.com/soc-rd.html) |
 
 ```mermaid
-%%{init: {'theme': 'dark', 'themeVariables': { 'primaryColor': '#091326', 'primaryTextColor': '#f8fafc', 'primaryBorderColor': '#00d9ff', 'lineColor': '#00d9ff'}}}%%
 flowchart LR
     NET["[WAN] Trafic Internet Entrant"] --> SURI["[IDS] Suricata IDS<br/>90 000+ Signatures"]
     NET --> CROWD["[WAF] CrowdSec AppSec<br/>WAF & CTI"]
